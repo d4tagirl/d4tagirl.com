@@ -1,0 +1,325 @@
+---
+layout: post
+title:  Who voted for Trump? Analysis with Rpart
+date: "2017-01-13 17:06:09 UYT"
+published: TRUE
+tags: [R, Machine Learning, rpart, CART]
+---
+DEFINIR - DEFINIR - DEFINIR - DEFINIR - DEFINIR - DEFINIR - 
+DEFINIR - DEFINIR - DEFINIR - DEFINIR - DEFINIR - DEFINIR - 
+DEFINIR - DEFINIR - DEFINIR - DEFINIR - DEFINIR - DEFINIR -
+
+<!--more-->
+In a few days we will be witnessing the inauguration of President-Elect Donald Trump, whose victory over Hillary Clinton came as a shock for most people. I'm not much into politics (and it is not even my country!) but this result really caught my attention, so I wanted to dig a little about the reasons why he won. 
+
+I've been studying Machine Learning for a while now, and a couple of months ago I discovered the *awesome* `tidiverse` world (I can't believe the way I used to do things :$), so I thought this was a great topic to test my skills. In addition to that, English is not my mother tongue so in this first post I am facing major challenges! If you see something improvable, not clear o plainly wrong, please leave a comment ot [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616) :)
+
+What I do here is estimate a Classification Tree (CART) to find an association between the winner in the county and its socio-demographic characteristics.
+
+#The data
+I recently joined Kaggle, and [Joel Wilson](https://www.kaggle.com/joelwilson) gathered data about *2016 US Election Results* by county and *County Quick Facts* from the *US Census Bureau*. [This is the data](https://www.kaggle.com/joelwilson/2012-2016-presidential-elections) I use to run my analysis.
+
+I start by loading the data and merging it. No mistery here, except I merge it using `dplyr` (yay!).
+
+```{r  echo = FALSE, message = FALSE}
+# The data isn't in this repository, you can find everything I use here:
+# https://github.com/d4tagirl/who_voted_for_Trump
+
+library(dplyr)
+
+pop <- tbl_df(read.csv('/Users/Daniela/Documents/GIT_Repositories/who_voted_for_Trump/data/county_facts.csv'))
+results <- tbl_df(read.csv('/Users/Daniela/Documents/GIT_Repositories/who_voted_for_Trump/data/US_County_Level_Presidential_Results_12-16.csv'))
+
+votes <- results %>%  inner_join(pop, by = c("combined_fips" = "fips"))
+```
+
+```{r  eval = FALSE}
+library(dplyr)
+
+pop <- tbl_df(read.csv('county_facts.csv'))
+results <- tbl_df(read.csv('US_County_Level_Presidential_Results_12-16.csv'))
+
+votes2 <- pop %>%
+  left_join(results, by = c("fips" = "combined_fips"))
+```
+
+It is a clean dataset, but I need to do some modifications for the analysis:
+
+* There is no election data for the state of Alaska so I remove those counties. 
+* Replace the old ID (`X`) with a new one (`ID`). 
+* Delete non relevant variables.
+* Rename variables to make them interpretable.
+
+All of this taking advantage of the `dplyr` of course.
+
+```{r}
+votes <- votes %>% 
+  filter(state_abbr != "AK") %>%
+  mutate(ID = rank(X)) %>% 
+  select(-X, -POP010210, -PST040210, -NES010213, -WTN220207) %>%
+  rename(age18minus = AGE295214, age5minus =	AGE135214, age65plus = AGE775214,
+    american_indian = RHI325214, asian = RHI425214, asian_Firms = SBO215207,
+    black = RHI225214, black_firms = SBO315207, building_permits = BPS030214,
+    density = POP060210, edu_batchelors = EDU685213, edu_highschool	= EDU635213,
+    firms_num = SBO001207, foreign = POP645213, hisp_latin = RHI725214,
+    hispanic_firms = SBO415207, home_owners_rate = HSG445213, households = HSD410213,
+    housing_Units = HSG010214, housing_units_multistruct = HSG096213, income = INC910213,
+    land_area = LND110210, living_same_house_12m = POP715213, manuf_ship = MAN450207,
+    Med_house_income = INC110213, Med_val_own_occup	=	HSG495213, native_haw = RHI525214,
+    native_firms = SBO115207, nonenglish = POP815213, pacific_isl_firms = SBO515207,
+    pers_per_household = HSD310213, pop_change = PST120214, pop2014 = PST045214,
+    poverty = PVY020213, priv_nofarm_employ	= BZA110213, priv_nonfarm_employ_change	= BZA115213,
+    priv_nonfarm_estab = BZA010213, retail_sales = RTN130207, retail_sales_percap = RTN131207,
+    sales_accomod_food = AFN120207, sex_f =	SEX255214, travel_time_commute = LFE305213,
+    two_races_plus = RHI625214, veterans = VET605213, white = RHI125214, white_alone = RHI825214,
+    women_firms = SBO015207,
+    Trump = per_gop_2016, Clinton = per_dem_2016, Romney = per_gop_2012, Obama = per_dem_2012) 
+```
+
+Most of these variables are measured as a percentage of people in the county with that characteristic (e.g. `edu_batchelors` and `black`), or the total amount in the county (e.g. `land_area` and `firms_num`).
+
+Note that there is a `white` variable and a `white_alone` variable. This is because there are 2 separate facts gathered here. 
+
+* `white` refers to *race*: *people having origins in any of the original peoples of Europe, the Middle East, or North Africa*. If a person declares `white` among other races, is classified as `two_races_plus` and not as `white`.
+
+* `white_alone` refers to white *race* people who also reported *not Hispanic or Latino origin*.
+
+For further references on any other variable you can [go to the Census Bureau's site](https://www.census.gov/quickfacts/).
+
+#Building the Response Variable
+
+I create the variable I want to predict: `pref_cand_T`. It takes the value `1` if `Trump` has a greater percentage of votes than `Clinton` in the county, and `0` otherwise. Note that it is not necessary that one of them has more than 50% of the votes, it only has to have more votes than the other.
+
+
+```{r}
+votes <- votes %>% mutate(pref_cand_T = factor(ifelse(Trump > Clinton, 1, 0)))
+
+votes %>% summarize(Trump       = sum(pref_cand_T == 1),
+                    Clinton     = n() - Trump,
+                    Trump_per   = mean(pref_cand_T == 1),
+                    Clinton_per = 1 - Trump_per)
+```
+
+*Trump* got more votes than *Clinton* in 2624 counties opposing the 488 other counties were *Clinton* got more votes (remember we are talking about counties and not Electoral College votes). The proportion is 84% for *Trump* and 16% for *Clinton*.  
+
+#Some visualization about race and origin
+I explore briefely some counties' characteristics about race and origin by visualizing them. Besides my interest, I also want to put to use my brand new `ggplot` skills!
+
+I generate a plot for the mean of each characteristic across all counties, which is the mean of the proportion of people with each characteristic in all counties (simple mean, without considering the population of the county). 
+
+```{r message = FALSE, warning = FALSE}
+library(tidyr)
+library(ggplot2)
+
+total <- votes %>% 
+  summarize(
+    white       = mean(white),
+    white_alone = mean(white_alone),
+    black       = mean(black),
+    asian       = mean(asian),
+    hisp_latin  = mean(hisp_latin),
+    foreign     = mean(foreign)) %>%
+  gather(variable, value) %>% 
+  ggplot() +
+  geom_bar(aes(x = variable, y = value), 
+           stat = 'identity', width = .7, fill = "#C9C9C9") +
+  geom_vline(xintercept = c(4.5, 5.5), alpha = 0.2 ) +
+  scale_x_discrete(limits = c("white", "white_alone", "black", "asian", "hisp_latin", "foreign")) +
+  labs(title = "Proportion in counties",    
+       subtitle = "(simple mean of counties proportion, without considering county population)") +
+  theme_bw() +
+  theme(axis.title.x = element_blank(), axis.title.y = element_blank(),
+        axis.text.x = element_blank(), axis.line = element_line(colour = "grey"),
+        panel.grid.major = element_blank(), panel.border = element_blank())
+```
+
+Something beautiful about `tidyverse` is the way that you can build up the solution. The first part is simply `dplyr` plus `tidyr::gather`, necessary to manipulate the input for the `ggplot`. The rest is the `ggplot` layer by layer.
+
+It seems like a lot of code for a simple plot, but trust me: once you get the hang of `ggplot`, it is magic! The only fear is that you'll want to customize *everything*! (An that's why I have so much code...)
+
+Then I generate the same plot by winner.
+
+```{r message = FALSE, warning = FALSE}
+library(reshape2)
+
+by_candidate <- votes %>% 
+  group_by(pref_cand_T) %>% 
+  summarize(
+    white       = mean(white),
+    white_alone = mean(white_alone),
+    black       = mean(black),
+    asian       = mean(asian),
+    hisp_latin  = mean(hisp_latin),
+    foreign     = mean(foreign)) %>% 
+    melt(id.vars = 'pref_cand_T') %>% 
+  ggplot() + 
+    geom_bar(aes(x = variable, y = value, fill = pref_cand_T),
+             stat = 'identity', position = 'dodge') + 
+    geom_vline(xintercept = c(4.5, 5.5), alpha = 0.2 ) +
+    scale_fill_manual(values = alpha(c("blue", "red")), 
+                      breaks = c("0", "1"), labels = c("Clinton", "Trump")) +
+    labs(
+ #     title = "Proportion among candidates",
+ #     subtitle = "(Simple mean of counties proportion without considering county population)",
+      fill = "winner") +
+    theme_bw() +
+    theme(axis.title.x = element_blank(), axis.title.y = element_blank(),
+          axis.line = element_line(colour = "grey"), legend.position = "bottom", 
+          panel.grid.major = element_blank(), panel.border = element_blank())
+```
+
+I need by county's winner candidate. That is why I use `reshape2::melt` instead of `tidyr::gather`. 
+
+Now I plot both. I use the `gridExtra` package to display both plots toghether. (And yes, it was a lot of learning this past few months!).
+
+```{r message = FALSE, warning = FALSE, fig.height = 8}
+library(gridExtra)
+
+grid.arrange(total, by_candidate, nrow = 2)
+```
+
+Among races, the mean of white people is higher for the counties where Trump won than the rest, and for the counties where Clinton won, the mean of black and asian people is higher. Clinton also won in counties with higher mean of Hispanic or Latin origin people, and foreign-born population. In a future post I will be doing some more digging into this variables to find out more.
+
+#The Classification Tree
+
+First I split the data in `train` and `test` samples. I use 70% of the counties for training and the rest for testing. Since I am dealing with unbalanced data, I use the `createDataPartition` function in the `caret` package that conserves the same proportion in all classes.
+
+```{r message = FALSE, warning = FALSE}
+library(caret)
+
+perc_train <- 0.7
+set.seed(3333)
+
+trainIndex <- createDataPartition(y = votes$pref_cand_T, p = perc_train, 
+                                  list = FALSE, times = 1)
+
+train <- votes %>% subset(ID %in% trainIndex)
+test <-  votes %>% setdiff(train)
+```
+
+I estimate the tree using `rpart`, excluding variables non relevant for modelling, and those used to build the response variable.
+
+```{r}
+library(rpart)
+
+pref_cand_rpart <- rpart(pref_cand_T ~ ., 
+                         data = train[, -c(1:24, 70)], 
+                         control = rpart.control(xval = 10, cp = 0.0001))
+```
+
+This algorithm grows a tree from a root that has all the observations, splitting binarily to reduce the impurity of its nodes, until some stopping rule is met. I set this rules with the `rpart.control`:
+
+* `minsplit = 20`: use the default, the minimum in a node to attempt a split.
+* `minbucket = 7`: use the default, the minimum in any terminal node.
+* `cp = 0.0001`: the factor of decreasing lack of fit for a split to be attempted. 
+
+This is quite a big tree, probably because I used a very little `cp` (I'm not showing it for that reason, but [here](https://github.com/d4tagirl/who_voted_for_Trump) you can find everything I use to replicate this). Simpler trees are preferred, since they are les likely to overfit the data. 
+
+#poner arbol
+
+Now it's time to prune the tree. To do this, I will keep the split if it meets some criteria about the balance between the impurity reduction (*cost*) and the increase of size (*complexity*). This is the `cp`.
+
+I am pruning the tree according to the 1-SE rule.
+
+```{r}
+library(tibble)
+cp <- as_tibble(pref_cand_rpart$cptable) %>%
+  filter(xerror <= min(xerror) + xstd) %>% 
+  filter(xerror == max(xerror)) %>% 
+  select(CP) %>% 
+  unlist()
+
+winner_rpart <- prune(pref_cand_rpart, cp = cp) 
+```
+bk
+And here I have the tree! (If you know some other package to plot nicer trees, please comment!)
+
+```{r}
+library(rpart.plot)
+
+rpart.plot(winner_rpart, main = "Winner candidate in county", 
+           extra = 104, split.suffix = "?", branch = 1, 
+           fallen.leaves = FALSE, box.palette = "BuRd",
+           branch.lty = 3, split.cex = .9,
+           shadow.col = "gray", shadow.offset = 0.2)
+```
+
+Now I evaluate the fit. One way to do it is by calculating the missclassification error over the test sample.
+
+```{r}
+test <- test %>% 
+  mutate(pred = predict(winner_rpart, type = "class", test),
+         pred_prob_T = predict(winner_rpart, type = "prob", test)[,2],
+         error = ifelse(pred != pref_cand_T, 1, 0))
+
+test %>% summarize(missc_error = mean(error))  
+```
+
+Since I'm dealing with unbalanced classes, this measure is not the best option. Let's suppose I have a model that predict for all cases Trump as the winner. It would have a missclassification error of 15%, not so bad! But it is definitely not a great model: it would be 100% accurate for predicting counties where Trump won, but it would be wrong for *all* of the counties where Clinton won. This is known as the Accuracy Paradox, and that is why we need some alternatives to measure how good is this tree in predicting the county's winner.
+
+Let's take a look at the confusion matrix.
+
+```{r }
+library(caret)
+
+confusion_matrix <- test %>% 
+  select(pred, pref_cand_T) %>% 
+  table() %>% 
+  confusionMatrix() 
+```
+
+This plots the true positive rate against the false positive rate bla blab bla
+
+```{r}
+library(plotROC)
+
+roc <- test %>% 
+  select(pref_cand_T, pred_prob_T) %>% 
+  mutate(pref_cand_T = as.numeric(pref_cand_T) - 1,
+         pref_cand_T.str = c("Clinton", "Trump")[pref_cand_T + 1]) %>% 
+  ggplot(aes(d = pref_cand_T, m = pred_prob_T)) + 
+  geom_roc(labels = FALSE)
+
+roc +
+style_roc(theme = theme_bw) +
+theme(panel.grid.major = element_blank(), panel.border = element_blank(),
+      axis.line = element_line(colour = "grey")) +
+ggtitle("Themes and annotations") + 
+annotate("text", x = .75, y = .25, 
+         label = paste("AUC =", round(calc_auc(roc)$AUC, 2)))
+```
+
+CV error
+
+```{r}
+tc <- trainControl("cv", number = 30)
+rpart.grid <- expand.grid(cp = cp)
+train.rpart <- train(pref_cand_T ~ .,
+                     data = votes[,-c(1:24, 70)], method = "rpart",
+                     trControl = tc,  tuneGrid = rpart.grid)
+train.rpart$results
+```
+The reason why you have a large difference between kappa and overall accuracy is that one of the classes (class 1) accounts for the large majority of your map, and this class is well described. Overall accuracy is therefore an optimistic index of the classifier performance, even if it is the true "agreement" in your case. As a trivial example, if I give you a map that says "class 1" everywhere, it will be 99% correct. Similarly, if 99% of the pixels are randomly assigned to "class 1", the resulting map will still have a large agreement with your map. This is what kappa penalize with its "c" in the expression below (note that there are different kappa's, here is the most common).
+
+Variable importance
+
+```{r message = FALSE}
+winner_rpart$variable.importance %>%
+  data_frame(variable = names(.), importance = .) %>%
+  mutate(importance = importance / sum(importance)) %>%
+  top_n(20) %>%
+  ggplot(aes(x = importance,
+             y = reorder(variable, importance))) +
+  geom_point() +
+  labs(title = "Importance of county characteristics \n in determining the most voted candidate",
+       subtitle = "(20 most relevant, Rpart, scaled to sum 1)") +
+  theme_bw() +
+  theme(axis.title.y = element_blank(),
+        plot.title = element_text(hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5),
+        axis.line = element_line(colour = "grey"),
+        panel.grid.major = element_blank(), panel.border = element_blank()) +
+  geom_segment(aes(x = -Inf, y = reorder(variable, importance), 
+                   xend = importance, yend = reorder(variable, importance)),
+               size = 0.2)
+```
