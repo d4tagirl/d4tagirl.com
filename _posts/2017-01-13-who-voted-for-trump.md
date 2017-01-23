@@ -1,20 +1,21 @@
 ---
 layout: post
-title:  Who voted for Trump? Analysis with Rpart
+title:  Which demographics voted for Trump? Analysis with Rpart
 date: "2017-01-23"
 published: TRUE
-tags: [R, Machine Learning, rpart, CART, kappa, k-fold cross-validation]
+tags: [R, Machine Learning, rpart, CART, kappa, k-fold cross-validation error]
 ---
-I try fo figure out the characteristics of the population that made Donald Trump the 45th President of the United States. Through Machine Learning algorithm CART I analize the Election Results by county.
+I examine the characteristics of the population that made Donald Trump the 45th President of the United States. Through Machine Learning algorithm CART I analize the Election Results by county.
 
 <!--more-->
 It's been a few days since we witnessed the inauguration of Donald Trump as the 45th President of the United State, whose victory over Hillary Clinton came as a shock for most people. I'm not much into politics (and it is not even my country!) but this result really caught my attention, so I wanted to dig a little about the population's characteristics that made him the winner of the Election. 
 
-I've been studying Machine Learning for a while now, and a couple of months ago I discovered the *awesome* `tidiverse` world (I can't believe the way I used to do things :$), so I thought this was a great topic to test my skills. In addition to that, English is not my mother tongue so in this first post I am facing major challenges! If you see something improvable, not clear o plainly wrong, please leave a comment or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616) :)
+I've been studying Machine Learning for a while now, and a couple of months ago I discovered the *awesome* `tidiverse` world (I can't believe the way I used to do things :$), so I thought this was a great opportunity to test my skills. In addition to that, English is not my mother tongue so in this first post I am facing major challenges! If you see something improvable, not clear o plainly wrong, please leave a comment or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616) :)
 
 What I do here is estimate a Classification Tree (CART) to find an association between the winner in the county and its socio-demographic characteristics.
 
-#The data
+# The data
+
 I recently joined Kaggle, and [Joel Wilson](https://www.kaggle.com/joelwilson) gathered data about *2016 US Election Results* by county and *County Quick Facts* from the *US Census Bureau*. [This is the data](https://www.kaggle.com/joelwilson/2012-2016-presidential-elections) I use to run my analysis.
 
 I start by loading the data and merging it. No mystery here, except I merge it using `dplyr` (yay!).
@@ -47,20 +48,20 @@ votes <- votes %>%
   filter(state_abbr != "AK") %>%
   mutate(ID = rank(X)) %>% 
   select(-X, -POP010210, -PST040210, -NES010213, -WTN220207) %>%
-  rename(age18minus = AGE295214, age5minus =	AGE135214, age65plus = AGE775214,
+  rename(age18minus = AGE295214, age5minus = AGE135214, age65plus = AGE775214,
     american_indian = RHI325214, asian = RHI425214, asian_Firms = SBO215207,
     black = RHI225214, black_firms = SBO315207, building_permits = BPS030214,
-    density = POP060210, edu_batchelors = EDU685213, edu_highschool	= EDU635213,
+    density = POP060210, edu_batchelors = EDU685213, edu_highschool = EDU635213,
     firms_num = SBO001207, foreign = POP645213, hisp_latin = RHI725214,
     hispanic_firms = SBO415207, home_owners_rate = HSG445213, households = HSD410213,
     housing_Units = HSG010214, housing_units_multistruct = HSG096213, income = INC910213,
     land_area = LND110210, living_same_house_12m = POP715213, manuf_ship = MAN450207,
-    Med_house_income = INC110213, Med_val_own_occup	=	HSG495213, native_haw = RHI525214,
+    Med_house_income = INC110213, Med_val_own_occup = HSG495213, native_haw = RHI525214,
     native_firms = SBO115207, nonenglish = POP815213, pacific_isl_firms = SBO515207,
     pers_per_household = HSD310213, pop_change = PST120214, pop2014 = PST045214,
-    poverty = PVY020213, priv_nofarm_employ	= BZA110213, priv_nonfarm_employ_change	= BZA115213,
+    poverty = PVY020213, priv_nofarm_employ = BZA110213, priv_nonfarm_employ_change = BZA115213,
     priv_nonfarm_estab = BZA010213, retail_sales = RTN130207, retail_sales_percap = RTN131207,
-    sales_accomod_food = AFN120207, sex_f =	SEX255214, travel_time_commute = LFE305213,
+    sales_accomod_food = AFN120207, sex_f = SEX255214, travel_time_commute = LFE305213,
     two_races_plus = RHI625214, veterans = VET605213, white = RHI125214, white_alone = RHI825214,
     women_firms = SBO015207,
     Trump = per_gop_2016, Clinton = per_dem_2016, Romney = per_gop_2012, Obama = per_dem_2012) 
@@ -72,11 +73,11 @@ Note that there is a `white` variable and a `white_alone` variable. This is beca
 
 * `white` refers to *race*: *people having origins in any of the original peoples of Europe, the Middle East, or North Africa*. If a person declares `white` among other races, is classified as `two_races_plus` and not as `white`.
 
-* `white_alone` refers to white *race* people who also reported *not Hispanic or Latino origin*.
+* `white_alone` refers to `white` *race* people who also reported *not Hispanic or Latino origin*.
 
 For further references on any other variable you can [go to the Census Bureau's site](https://www.census.gov/quickfacts/).
 
-#Building the Response Variable
+# Building the Response Variable
 
 I create the variable I want to predict: `pref_cand_T`. It takes the value `1` if `Trump` has a greater percentage of votes than `Clinton` in the county, and `0` otherwise. Note that it is not necessary that one of them has more than 50% of the votes, it only has to have more votes than the other.
 
@@ -99,8 +100,9 @@ votes %>% summarize(Trump       = sum(pref_cand_T == 1),
 
 *Trump* got more votes than *Clinton* in 2624 counties opposing the 488 other counties were *Clinton* got more votes (remember we are talking about counties and not Electoral College votes). The proportion is 84% for *Trump* and 16% for *Clinton*.  
 
-#Some visualization about race and origin
-I explore briefly some counties' characteristics about race and origin by visualizing them. Besides my interest, I also want to put to use my brand new `ggplot` skills!
+# Some visualization about race and origin
+
+I explore briefly some counties' characteristics about *race* and *origin* by visualizing them. It is time to test my brand new `ggplot` skills!
 
 I generate a plot for the mean of each characteristic across all counties, which is the mean of the proportion of people with each characteristic in all counties (simple mean, without considering the population of the county). 
 
@@ -135,7 +137,7 @@ Something beautiful about `tidyverse` is the way that you can build up the solut
 
 It seems like a lot of code for a simple plot, but trust me: once you get the hang of `ggplot`, it is magic! The only fear is that you'll want to customize *everything*! (An that's why I have so much code...)
 
-Then I generate the same plot by winner.
+Then I generate the same plot by candidate.
 
 
 ```r
@@ -157,10 +159,7 @@ by_candidate <- votes %>%
     geom_vline(xintercept = c(4.5, 5.5), alpha = 0.2 ) +
     scale_fill_manual(values = alpha(c("blue", "red")), 
                       breaks = c("0", "1"), labels = c("Clinton", "Trump")) +
-    labs(
- #     title = "Proportion among candidates",
- #     subtitle = "(Simple mean of counties proportion without considering county population)",
-      fill = "winner") +
+    labs(fill = "winner") +
     theme_bw() +
     theme(axis.title.x = element_blank(), axis.title.y = element_blank(),
           axis.line = element_line(colour = "grey"), legend.position = "bottom", 
@@ -178,11 +177,13 @@ library(gridExtra)
 grid.arrange(total, by_candidate, nrow = 2)
 ```
 
-![plot of chunk unnamed-chunk-7](/figure/source/who-voted-for-trump/2017-01-13-who-voted-for-trump/unnamed-chunk-7-1.png)
+<img src="/figure/source/who-voted-for-trump/2017-01-13-who-voted-for-trump/unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
 
-Among races, the mean of white people is higher for the counties where Trump won than the rest, and for the counties where Clinton won, the mean of black and asian people is higher. Clinton also won in counties with higher mean of Hispanic or Latin origin people, and foreign-born population. In a future post I will be doing some more digging into this variables to find out more.
+Among races, the mean of *white* people is higher for the counties where Trump won than the rest, and for the counties where Clinton won, the mean of *black* and *asian* people is higher. Clinton also won in counties with higher mean of *Hispanic or Latin origin* people, and *foreign-born* population. 
 
-#The Classification Tree
+In a future post I will be doing some more digging into this variables to find out more.
+
+# The Classification Tree
 
 As a standard practice, I split the data into `train` and `test` samples. I use 70% of the counties for training and the rest for testing. Since I am dealing with unbalanced data, I use the `createDataPartition` function in the `caret` package that conserves the proportion of classes across all samples.
 
@@ -200,6 +201,8 @@ train <- votes %>% subset(ID %in% trainIndex)
 test <-  votes %>% setdiff(train)
 ```
 
+## Growing the tree
+
 I estimate the tree using `rpart`, excluding variables non relevant for modelling, and those used to build the response variable.
 
 
@@ -211,13 +214,15 @@ pref_cand_rpart <- rpart(pref_cand_T ~ .,
                          control = rpart.control(xval = 10, cp = 0.0001))
 ```
 
-This algorithm grows a tree from a root that has all the observations, splitting binarily to reduce the impurity of its nodes, until some stopping rule is met. I set this rules with the `rpart.control`:
+This algorithm grows a tree from a root that has all the observations, splitting binarily to reduce the impurity of its nodes, until some stopping rule is met. I set up this rules with the `rpart.control`:
 
-* `minsplit = 20`: use the default, the minimum in a node to attempt a split.
-* `minbucket = 7`: use the default, the minimum in any terminal node.
-* `cp = 0.0001`: the factor of decreasing lack of fit for a split to be attempted. 
+* `minsplit = 20`, this is the default, the minimum in a node to attempt a split.
+* `minbucket = 7`, this is also the default, the minimum in any terminal node.
+* `cp = 0.0001`, the minimum factor of decreasing lack of fit for a split to be attempted. 
 
-This is quite a big tree because I use a very little `cp` (I'm not showing it for that reason, but you can find it [here]()). Simpler trees are preferred, since they are less likely to overfit the data. 
+This is quite a big tree because I use a very small `cp` (I'm not showing it for that reason, but you can find it [here]()). Simpler trees are preferred, since they are less likely to overfit the data. 
+
+## Pruning the tree
 
 Now it's time to prune the tree. To do this, I will keep the split if it meets some criteria about the balance between the impurity reduction (*cost*) and the increase of size (*complexity*). This is the `cp`.
 
@@ -235,7 +240,7 @@ cp <- as_tibble(pref_cand_rpart$cptable) %>%
 winner_rpart <- prune(pref_cand_rpart, cp = cp) 
 ```
 
-`dplyr` manipulates dataframes, so I use the `tibble::as_tibble` function to convert the `pref_cand_rpart$cptable` table to a tibble, and then select the `cp`.
+`dplyr` manipulates `dataframes`, so I use the `tibble::as_tibble` function to convert the `pref_cand_rpart$cptable` table to a `tibble`, and then select the `cp`.
 
 And here I have the tree! (If you know some other way to plot nicer trees, please comment!)
 
@@ -246,21 +251,25 @@ library(rpart.plot)
 rpart.plot(winner_rpart, main = "Winner candidate in county", 
            extra = 104, split.suffix = "%?", branch = 1, 
            fallen.leaves = FALSE, box.palette = "BuRd",
-           branch.lty = 3, split.cex = .9,
+           branch.lty = 3, split.cex = 1.2,
            shadow.col = "gray", shadow.offset = 0.2)
 ```
 
-![plot of chunk unnamed-chunk-11](/figure/source/who-voted-for-trump/2017-01-13-who-voted-for-trump/unnamed-chunk-11-1.png)
+<img src="/figure/source/who-voted-for-trump/2017-01-13-who-voted-for-trump/unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" style="display: block; margin: auto;" />
 
-Starting from the top (the root), the tree splits the population in two subsets according to the question asked, and it does the same for every node. If the county meets the criteria it is classified to the left, and otherwise to the right. In this case the first splits indicates that if the county has less than 50% `white_alone` population, it is classified to the left node (only 12% of the counties), and the rest goes to the right (80% of the counties). The higher the percentage of counties that Trump won in the node is, the redder the node becomes. Otherwise the node becomes bluer.
+Starting from the top (the root), the tree splits the population in two subsets according to the question asked (the split in the variable), and it does the same for every node. If the county meets the criteria it is classified to the left, and otherwise to the right. In this case the first split indicates that if the county has less than 50% `white_alone` population, it is classified to the left node (only 12% of the counties), and the rest goes to the right (80% of the counties). The higher the percentage of counties that Trump won in the node, the redder the node. Nodes associated with Clinton are bluer.
 
-Apparently race is one of the most important characteristic determining the winner candidate. 3 over the 5 splits include race (we will know more about this when we check the Variable Importance later on).
+Apparently *race* is one of the most important characteristic determining the winner candidate. 3 over the 5 splits include race (we will know more about this when we check the Variable Importance later on). And there is also a variable referring the housing arrangements and other about education. According to this tree, for counties with less than 50% `white_alone` population, the winner was also determined by the amount of housing units in multi-unit structures and the percentage of 25 years old or older persons, holding a Bachelor's degree or higher. 
 
 # Performance Evaluation
 
+Now I evaluate how good is this model. Prior to this post I wouldn't pay any extra attention to the usage of different measures without taking into account how unbalanced the data was. There are a lot of measures to evaluate the fit, I explore some of them prioritizing the ones that explicitly deal with unbalanced classes.
+
+When I do this evaluations, I do them over the `test` sample, otherwise would be like cheating!
+
 ## Missclassification Error
 
-Now I evaluate the fit. One way to do it is by calculating the missclassification error over the test sample, simply by computing the percentage of times that the the classifier wrong.
+One classic way to evaluate the performance of a classifier is by calculating the *missclassification error*, simply by computing the percentage of times that the the classifier is wrong.
 
 
 ```r
@@ -279,9 +288,9 @@ test %>% summarize(missc_error = mean(error))
 ## 1  0.07824223
 ```
 
-Prior to this post I would use this measure without taking into account how unbalanced the data was. But I've doing some research and it became clear that in this case I could not treat this performance measure without further considerations.
+But since I've been doing my research, it became clear that in this case I could not treat this measure without further considerations.
 
-Let's suppose I have a model that predict for all cases Trump as the winner. It would have a missclassification error of 15%, not so bad! But it is definitely not a great model: it would be 100% accurate for predicting counties where Trump won, but it would be wrong for *all* of the counties where Clinton won. This is known as the *Accuracy Paradox*, and that is why we need some alternatives to measure how good is this tree in predicting the county's winner.
+Let's suppose I have a model that predicts for all cases Trump as the winner. It would have a missclassification error of 15%, *not so bad!* But it is definitely not a great model: it would be 100% accurate for predicting counties where Trump won, but it would be wrong for *all* of the counties where Clinton won. This is known as the *Accuracy Paradox*, and that is why we need some alternatives to measure how good is this tree in predicting the county's winner.
 
 ## Kappa statistic
 
@@ -324,15 +333,15 @@ test %>%
 ## 
 ```
 
-Just looking into this matrix we can have some clues on how well is the classifier for each class. Particularly I want to look closer at the `Kappa` measure, because it specifically consider the unbalance between classes.
+Just looking into this matrix we can have some clues on how well is the classifier for each class. Particularly I want to look closer at the `Kappa` statistic, because it specifically considers the unbalance between classes.
 
-`Kappa` measures the accuracy of the classifier corrected by the probability of agreement by chance. There is not much consensus on the magnitude of `Kappa` to consider it low or high, but it can be interpreted as how separate it is the obtained result from chance. In this case, the *expected accuracy* (the one that occurs by chance) is 77% and the perfect accuracy is always 100%. There is a gap of 23%, and this classifier closes this gap by 66% of it (15% of improvement!). The higher the `Kappa` is, the better. Some sustain that a value of `Kappa` larger than 60% means a good agreement, so we are OK!   
+`Kappa` measures the accuracy of the classifier *corrected by the probability of agreement by chance*. There is not much consensus on the magnitude of `Kappa` to consider it low or high, but it can be interpreted as how separate it is the obtained result from chance. In this case, the *expected accuracy* (the one that occurs by chance) is 77% and the perfect accuracy is always 100%. There is a gap of 23%, and this classifier closes this gap by 66% of it (15% of improvement!). The higher the `Kappa` is, the better. Some sustain that a value of `Kappa` larger than 60% means a good agreement, so we are OK!   
 
 ## ROC Curve and AUROC
 
-To complement the performance evaluation, I check the `ROC curve`. It plots the *True Positive Rate* against the *False Positive Rate* across many different thresholds of predicted probability. Since we are evaluating a tree, there is a limited amount of thresholds since I only have 6 final nodes.  
+To complement the performance evaluation, I check the `ROC curve`. It plots the *True Positive Rate* against the *False Positive Rate* across many different thresholds of predicted probability. Since we are evaluating a tree, there is a limited amount of thresholds since I only have 6 final nodes. (Trying to simplify this explanation, I came across [this video](http://www.dataschool.io/roc-curves-and-auc-explained/) that is very clear if you want to go deeper)
 
-This measure is great for classification analysis, and is particularly useful here because it is not affected by unbalanced classes. Luckily I came across this great `ggplot2` extension, `plotROC` so I have a pretty nice plot!
+This measure is great for classification analysis, and is particularly useful here because it is not affected by unbalanced classes. Luckily I came across this great `ggplot2` extension, `plotROC`, and now I can use my favourite tools to create a pretty nice plot!
 
 
 ```r
@@ -354,13 +363,13 @@ annotate("text", x = .75, y = .25,
          label = paste("AUROC =", round(calc_auc(roc)$AUC, 2)))
 ```
 
-![plot of chunk unnamed-chunk-14](/figure/source/who-voted-for-trump/2017-01-13-who-voted-for-trump/unnamed-chunk-14-1.png)
+<img src="/figure/source/who-voted-for-trump/2017-01-13-who-voted-for-trump/unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" style="display: block; margin: auto;" />
 
 The `AUROC` (*A*rea *U*nder the *ROC* curve) computes the probability that the classifier ranks higher a positive instance than a negative one. (If you want to get deeper into this, I highly recommend [this Tom Fawcett paper](http://tomfawcett.info/papers/ROC-PRL.pdf))
 
 # Warning about Classification Trees instability
 
-When you use this kind of Machine Learning algorithm you should be aware that small changes in the data can generate different trees. Next there is a second tree generated using the same parameters than before, but changing the seed.
+When you use this kind of Machine Learning algorithm you should be aware that small changes in the data can change the tree. Next there is a second tree I generated using the same parameters than before, but changing the seed to make the partition.
 
 
 ```r
@@ -379,27 +388,27 @@ winner_rpart_2 <- rpart(pref_cand_T ~ .,
 rpart.plot(winner_rpart_2, main = "Winner candidate in county", 
            extra = 104, split.suffix = "%?", branch = 1, 
            fallen.leaves = FALSE, box.palette = "BuRd",
-           branch.lty = 3, split.cex = .9,
+           branch.lty = 3, split.cex = 1.2,
            shadow.col = "gray", shadow.offset = 0.2)
 ```
 
-![plot of chunk unnamed-chunk-15](/figure/source/who-voted-for-trump/2017-01-13-who-voted-for-trump/unnamed-chunk-15-1.png)
+<img src="/figure/source/who-voted-for-trump/2017-01-13-who-voted-for-trump/unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" style="display: block; margin: auto;" />
 
-Although it is not completely different, it changes. 
+Although it is not completely different, it changes a bit. 
 
-You can fight this using some ensemble method such as *Bagging*, *Random Forest* or *Boosting*, but as I wanted to be able to interpret the results, this other methods are not as visual as this one.
+You can fight this using some ensemble method such as *Bagging*, *Random Forest* or *Boosting*, but as I want to be able to interpret the results, this other methods are not as visual as this one.
 
-Since this algorithm is very sensitive to the `train` and `test` splitting, I'm interested in having an estimation of the *accuracy* for this kind of specification of the tree. This is the Cross Validation error.
+Since this algorithm is very sensitive to the `train` and `test` splitting, I'm interested in having an estimation of the *accuracy* for *this kind of specification of the tree* and not only for the especific one I found. This can be achieved by the K-fold Cross-Validation.
 
-##k-fold Cross Validation for model accuracy estimation
+## K-fold Cross Validation for model accuracy estimation
 
-This was a non that straight forward thing for me to do. I wanted the `caret` package to calculate the K-fold Cross Validation accuracy estimation, but apparently most people use it to find the parameter `cp` at the same time. I just wanted to estimate the error associated with an already specified model. 
+This method divides randomly the data into `k` equal sized subsets (called *folds*). A tree is estimated in `k-1` of them and the performance is evaluated in the fold left behind. This is made `k` times, until each fold is used for validation exactly one time. 
 
-Finally I found the way, specifying `tuneGrid = expand.grid(cp = cp)`.
+This was a non that straight forward thing for me to do. I wanted the `caret` package to calculate the K-fold Cross Validation accuracy estimation, but apparently most people use `caret::train` to find the parameter `cp` at the same time. I just wanted to estimate the error associated with an already specified model (I've already estimated the `cp`). Finally I found the way, specifying `tuneGrid = expand.grid(cp = cp)`.
 
 
 ```r
-tc <- trainControl("cv", number = 30)
+tc <- trainControl("cv", number = 10)
 rpart.grid <- expand.grid(cp = cp)
 train.rpart <- train(pref_cand_T ~ .,
                      data = votes[,-c(1:24, 70)], method = "rpart",
@@ -408,11 +417,11 @@ train.rpart$results
 ```
 
 ```
-##          cp  Accuracy     Kappa AccuracySD   KappaSD
-## 1 0.0380117 0.9206584 0.6806005 0.02740935 0.1158789
+##          cp  Accuracy     Kappa AccuracySD    KappaSD
+## 1 0.0380117 0.9206231 0.6801917 0.01169142 0.05483706
 ```
 
-The `Kappa` statistic is now 0.68 (it was 0.66 for the `winner_rpart`), with a 0.12 standard deviation. Again: good results!
+The `Kappa` statistic is now 0.68 (it was 0.66 for the `winner_rpart`), with a 0.05 standard deviation. Again: good results!
 
 # Variable Importance
 
@@ -442,6 +451,9 @@ winner_rpart$variable.importance %>%
                size = 0.2)
 ```
 
-![plot of chunk unnamed-chunk-17](/figure/source/who-voted-for-trump/2017-01-13-who-voted-for-trump/unnamed-chunk-17-1.png)
+<img src="/figure/source/who-voted-for-trump/2017-01-13-who-voted-for-trump/unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" style="display: block; margin: auto;" />
 
-If you made it until here: **thank you!** I tried to keep it simple and intuitive, covering all relevant aspects when estimating this kind of models. If you see room for improvement, please leave a comment or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616) :)
+If you made it until here: **thank you!** I tried to keep it simple and intuitive, covering all relevant aspects when estimating this kind of models. 
+
+If you see room for improvement, please leave a comment or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616) :)
+
