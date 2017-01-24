@@ -1,3 +1,3 @@
 library(brocks)
-new_post("Who voted for Trump?")
+new_post("What demographics voted for Trump?")
 blog_serve()

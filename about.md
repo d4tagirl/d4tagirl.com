@@ -16,4 +16,4 @@ Everything was pretty good, but a felling that *something was missing* started g
 
 So this is me, and here I am: switching gears, exploring the many ways data science can help telling compelling stories, focusing on Machine Learning and R (for now), starting my blog where I plan to share whatever it is that I'm playing with at the moment. And *loving every minute!* If additionally I can contribute to inspire others like me to follow their gut, even better!
 
-I hope you enjoy my posts as much as I enjoy writing them, and please feel welcome to leave your comments and [tweet me](https://twitter.com/intent/tweet?user_id=114258616) :) 
+I hope you enjoy my posts as much as I enjoy writing them, and please feel welcome to leave your comments and [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616) :) 
