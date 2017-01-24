@@ -211,7 +211,7 @@ pref_cand_rpart <- rpart(pref_cand_T ~ .,
                          control = rpart.control(xval = 10, cp = 0.0001))
 ```
 
-```{r plot_large_tree, echo = FALSE, fig.show = 'hide',  dpi = 200}
+```{r plot_large_tree, echo = FALSE, fig.show = 'hide',  dpi = 300}
 library(rpart.plot)
 
 rpart.plot(pref_cand_rpart, main = "Winner candidate in county /n without prunning", 
