@@ -9,8 +9,8 @@ permalink:        pretty
 title:            'd4tagirl'
 tagline:          'Daniela Vazquez'
 description:      'Blog about Data Science, Machine Learning, R and other personal projects'
-meta_description: ""
-meta_tags:        ['blog', 'r', 'data science', 'daniela vazquez']
+meta_description: 'Blog about Data Science, Machine Learning, R and other personal projects' 
+meta_tags:        ['blog', 'r', 'data science', 'daniela vazquez', 'machine learning']
 url:              https://d4tagirl.com
 baseurl:          /
 

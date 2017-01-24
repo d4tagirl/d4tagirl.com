@@ -177,7 +177,7 @@ library(gridExtra)
 grid.arrange(total, by_candidate, nrow = 2)
 ```
 
-<img src="/figure/source/who-voted-for-trump/2017-01-13-who-voted-for-trump/unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
+<img src="/figure/source/who-voted-for-trump/2017-01-13-who-voted-for-trump/plot_race-1.png" title="plot of chunk plot_race" alt="plot of chunk plot_race" style="display: block; margin: auto;" />
 
 Among races, the mean of *white* people is higher for the counties where Trump won than the rest, and for the counties where Clinton won, the mean of *black* and *asian* people is higher. Clinton also won in counties with higher mean of *Hispanic or Latin origin* people, and *foreign-born* population. 
 
@@ -213,6 +213,8 @@ pref_cand_rpart <- rpart(pref_cand_T ~ .,
                          data = train[, -c(1:24, 70)], 
                          control = rpart.control(xval = 10, cp = 0.0001))
 ```
+
+
 
 This algorithm grows a tree from a root that has all the observations, splitting binarily to reduce the impurity of its nodes, until some stopping rule is met. I set up this rules with the `rpart.control`:
 
@@ -255,7 +257,7 @@ rpart.plot(winner_rpart, main = "Winner candidate in county",
            shadow.col = "gray", shadow.offset = 0.2)
 ```
 
-<img src="/figure/source/who-voted-for-trump/2017-01-13-who-voted-for-trump/unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" style="display: block; margin: auto;" />
+<img src="/figure/source/who-voted-for-trump/2017-01-13-who-voted-for-trump/plot_pruned_tree-1.png" title="plot of chunk plot_pruned_tree" alt="plot of chunk plot_pruned_tree" style="display: block; margin: auto;" />
 
 Starting from the top (the root), the tree splits the population in two subsets according to the question asked (the split in the variable), and it does the same for every node. If the county meets the criteria it is classified to the left, and otherwise to the right. In this case the first split indicates that if the county has less than 50% `white_alone` population, it is classified to the left node (only 12% of the counties), and the rest goes to the right (80% of the counties). The higher the percentage of counties that Trump won in the node, the redder the node. Nodes associated with Clinton are bluer.
 
@@ -363,7 +365,7 @@ annotate("text", x = .75, y = .25,
          label = paste("AUROC =", round(calc_auc(roc)$AUC, 2)))
 ```
 
-<img src="/figure/source/who-voted-for-trump/2017-01-13-who-voted-for-trump/unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" style="display: block; margin: auto;" />
+<img src="/figure/source/who-voted-for-trump/2017-01-13-who-voted-for-trump/roc_curve-1.png" title="plot of chunk roc_curve" alt="plot of chunk roc_curve" style="display: block; margin: auto;" />
 
 The `AUROC` (*A*rea *U*nder the *ROC* curve) computes the probability that the classifier ranks higher a positive instance than a negative one. (If you want to get deeper into this, I highly recommend [this Tom Fawcett paper](http://tomfawcett.info/papers/ROC-PRL.pdf))
 
@@ -392,7 +394,7 @@ rpart.plot(winner_rpart_2, main = "Winner candidate in county",
            shadow.col = "gray", shadow.offset = 0.2)
 ```
 
-<img src="/figure/source/who-voted-for-trump/2017-01-13-who-voted-for-trump/unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" style="display: block; margin: auto;" />
+<img src="/figure/source/who-voted-for-trump/2017-01-13-who-voted-for-trump/second_tree-1.png" title="plot of chunk second_tree" alt="plot of chunk second_tree" style="display: block; margin: auto;" />
 
 Although it is not completely different, it changes a bit. 
 
@@ -418,7 +420,7 @@ train.rpart$results
 
 ```
 ##          cp  Accuracy     Kappa AccuracySD    KappaSD
-## 1 0.0380117 0.9206231 0.6801917 0.01169142 0.05483706
+## 1 0.0380117 0.9167799 0.6602173 0.01468242 0.07362356
 ```
 
 The `Kappa` statistic is now 0.68 (it was 0.66 for the `winner_rpart`), with a 0.05 standard deviation. Again: good results!
@@ -451,7 +453,7 @@ winner_rpart$variable.importance %>%
                size = 0.2)
 ```
 
-<img src="/figure/source/who-voted-for-trump/2017-01-13-who-voted-for-trump/unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" style="display: block; margin: auto;" />
+<img src="/figure/source/who-voted-for-trump/2017-01-13-who-voted-for-trump/variable_importance-1.png" title="plot of chunk variable_importance" alt="plot of chunk variable_importance" style="display: block; margin: auto;" />
 
 If you made it until here: **thank you!** I tried to keep it simple and intuitive, covering all relevant aspects when estimating this kind of models. 
 

@@ -20,12 +20,12 @@ I recently joined Kaggle, and [Joel Wilson](https://www.kaggle.com/joelwilson) g
 
 I start by loading the data and merging it. No mystery here, except I merge it using `dplyr` (yay!).
 
-```{r  echo = FALSE, message = FALSE, warning = FALSE}
+```{r load_data, echo = FALSE, message = FALSE, warning = FALSE}
 # The data isn't in this repository, you can find everything I use here:
 # https://github.com/d4tagirl/TrumpVsClintonCountiesRpart
 
 library(knitr)
-knitr::opts_chunk$set(cache = TRUE, cache.lazy = FALSE, dpi = 120, fig.align = 'center')
+knitr::opts_chunk$set(dpi = 120, fig.align = 'center')
 options(width = 80, dplyr.width = 150)
 
 library(dplyr)
@@ -36,7 +36,7 @@ results <- tbl_df(read.csv('/Users/Daniela/rProjects/TrumpVsClintonCountiesRpart
 votes <- results %>%  inner_join(pop, by = c("combined_fips" = "fips"))
 ```
 
-```{r  eval = FALSE}
+```{r  false_load_data, eval = FALSE}
 library(dplyr)
 
 pop <- tbl_df(read.csv('county_facts.csv'))
@@ -55,7 +55,7 @@ It is a clean dataset, but I need to do some modifications for the analysis:
 
 All of this taking advantage of the `dplyr` of course.
 
-```{r}
+```{r tidying_data}
 votes <- votes %>% 
   filter(state_abbr != "AK") %>%
   mutate(ID = rank(X)) %>% 
@@ -93,7 +93,7 @@ For further references on any other variable you can [go to the Census Bureau's 
 
 I create the variable I want to predict: `pref_cand_T`. It takes the value `1` if `Trump` has a greater percentage of votes than `Clinton` in the county, and `0` otherwise. Note that it is not necessary that one of them has more than 50% of the votes, it only has to have more votes than the other.
 
-```{r}
+```{r response_variable}
 votes <- votes %>% mutate(pref_cand_T = factor(ifelse(Trump > Clinton, 1, 0)))
 
 votes %>% summarize(Trump       = sum(pref_cand_T == 1),
@@ -110,7 +110,7 @@ I explore briefly some counties' characteristics about *race* and *origin* by vi
 
 I generate a plot for the mean of each characteristic across all counties, which is the mean of the proportion of people with each characteristic in all counties (simple mean, without considering the population of the county). 
 
-```{r message = FALSE, warning = FALSE}
+```{r build_plot_race_total, message = FALSE, warning = FALSE}
 library(tidyr)
 library(ggplot2)
 
@@ -142,7 +142,7 @@ It seems like a lot of code for a simple plot, but trust me: once you get the ha
 
 Then I generate the same plot by candidate.
 
-```{r message = FALSE, warning = FALSE}
+```{r build_plot_race_by_candidate, message = FALSE, warning = FALSE}
 library(reshape2)
 
 by_candidate <- votes %>% 
@@ -172,7 +172,7 @@ Same as before, but I use `reshape2::melt` instead of `tidyr::gather` to generat
 
 Next I plot both. I use the `gridExtra` package to display both plots together. (And yes, it was a lot of learning this past few months!).
 
-```{r message = FALSE}
+```{r plot_race, message = FALSE}
 library(gridExtra)
 
 grid.arrange(total, by_candidate, nrow = 2)
@@ -186,7 +186,7 @@ In a future post I will be doing some more digging into this variables to find o
 
 As a standard practice, I split the data into `train` and `test` samples. I use 70% of the counties for training and the rest for testing. Since I am dealing with unbalanced data, I use the `createDataPartition` function in the `caret` package that conserves the proportion of classes across all samples.
 
-```{r message = FALSE, warning = FALSE}
+```{r sampling, message = FALSE, warning = FALSE}
 library(caret)
 
 perc_train <- 0.7
@@ -203,12 +203,22 @@ test <-  votes %>% setdiff(train)
 
 I estimate the tree using `rpart`, excluding variables non relevant for modelling, and those used to build the response variable.
 
-```{r}
+```{r unpruned_tree}
 library(rpart)
 
 pref_cand_rpart <- rpart(pref_cand_T ~ ., 
                          data = train[, -c(1:24, 70)], 
                          control = rpart.control(xval = 10, cp = 0.0001))
+```
+
+```{r plot_large_tree, echo = FALSE, fig.show = 'hide',  dpi = 200}
+library(rpart.plot)
+
+rpart.plot(pref_cand_rpart, main = "Winner candidate in county /n without prunning", 
+           extra = 104, split.suffix = "?", branch = 1, 
+           fallen.leaves = FALSE, box.palette = "BuRd",
+           branch.lty = 3, split.cex = 1.2,
+           shadow.col = "gray", shadow.offset = 0.2)
 ```
 
 This algorithm grows a tree from a root that has all the observations, splitting binarily to reduce the impurity of its nodes, until some stopping rule is met. I set up this rules with the `rpart.control`:
@@ -225,7 +235,7 @@ Now it's time to prune the tree. To do this, I will keep the split if it meets s
 
 I am pruning the tree following the 1-SE rule, according to which we choose the simplest model with accuracy similar to the best model. 
 
-```{r}
+```{r pruning_tree}
 library(tibble)
 cp <- as_tibble(pref_cand_rpart$cptable) %>%
   filter(xerror <= min(xerror) + xstd) %>% 
@@ -240,7 +250,7 @@ winner_rpart <- prune(pref_cand_rpart, cp = cp)
 
 And here I have the tree! (If you know some other way to plot nicer trees, please comment!)
 
-```{r dpi = 100}
+```{r plot_pruned_tree, dpi = 100}
 library(rpart.plot)
 
 rpart.plot(winner_rpart, main = "Winner candidate in county", 
@@ -264,7 +274,7 @@ When I do this evaluations, I do them over the `test` sample, otherwise would be
 
 One classic way to evaluate the performance of a classifier is by calculating the *missclassification error*, simply by computing the percentage of times that the the classifier is wrong.
 
-```{r}
+```{r misscl_error}
 test <- test %>% 
   mutate(pred = predict(winner_rpart, type = "class", test),
          pred_prob_T = predict(winner_rpart, type = "prob", test)[,2],
@@ -281,7 +291,7 @@ Let's suppose I have a model that predicts for all cases Trump as the winner. It
 
 One good thing to do in any case (balanced the data or not) is to take a look at the confusion matrix. This is the input for many performance measures as shown next.
 
-```{r }
+```{r confusion_matrix}
 test %>% 
   select(pred, pref_cand_T) %>% 
   table() %>% 
@@ -298,7 +308,7 @@ To complement the performance evaluation, I check the `ROC curve`. It plots the 
 
 This measure is great for classification analysis, and is particularly useful here because it is not affected by unbalanced classes. Luckily I came across this great `ggplot2` extension, `plotROC`, and now I can use my favourite tools to create a pretty nice plot!
 
-```{r}
+```{r roc_curve, fig.height = 7}
 library(plotROC)
 
 roc <- test %>% 
@@ -323,7 +333,7 @@ The `AUROC` (*A*rea *U*nder the *ROC* curve) computes the probability that the c
 
 When you use this kind of Machine Learning algorithm you should be aware that small changes in the data can change the tree. Next there is a second tree I generated using the same parameters than before, but changing the seed to make the partition.
 
-```{r dpi = 100}
+```{r second_tree, dpi = 100}
 set.seed(4444)
 
 trainIndex_2 <- createDataPartition(y = votes$pref_cand_T, p = perc_train, 
@@ -355,7 +365,7 @@ This method divides randomly the data into `k` equal sized subsets (called *fold
 
 This was a non that straight forward thing for me to do. I wanted the `caret` package to calculate the K-fold Cross Validation accuracy estimation, but apparently most people use `caret::train` to find the parameter `cp` at the same time. I just wanted to estimate the error associated with an already specified model (I've already estimated the `cp`). Finally I found the way, specifying `tuneGrid = expand.grid(cp = cp)`.
 
-```{r}
+```{r cross_val}
 tc <- trainControl("cv", number = 10)
 rpart.grid <- expand.grid(cp = cp)
 train.rpart <- train(pref_cand_T ~ .,
@@ -372,7 +382,7 @@ One last thing to check is the Variable Importance. CART is a *greedy* algorithm
 
 The *Variable Importance* in `rpart` is calculated not only taking into account the goodness of the split for variables that are actually in the tree, but also for the `surrogate` variables (the variables used in case the main variable is missing). We can see next that there are many more variables than in the tree.
 
-```{r message = FALSE}
+```{r variable_importance, message = FALSE}
 winner_rpart$variable.importance %>%
   data_frame(variable = names(.), importance = .) %>%
   mutate(importance = importance / sum(importance)) %>%

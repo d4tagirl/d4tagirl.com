@@ -1,6 +1,6 @@
-# g3rv4.com
+# d4tagirl.com
 
-This is the code of my blog, hosted at [g3rv4.com](https://g3rv4.com). Changes here get built by my server using Jekyll and exposed to the world
+This is the code of my blog, hosted at [d4tagirl.com](https://d4tagirl.com). Changes here get built by my server using Jekyll and exposed to the world
 
 ## This site uses
 * [Jekyll](https://jekyllrb.com/)
@@ -10,9 +10,9 @@ This is the code of my blog, hosted at [g3rv4.com](https://g3rv4.com). Changes h
 
 ## Author
 
-**Gervasio Marchand**
-- <https://twitter.com/g3rv4>
-- <https://github.com/g3rv4>
+**Daniela Vazquez**
+- <https://twitter.com/d4tagirl>
+- <https://github.com/d4tagirl>
 
 ## License
 
