@@ -3,11 +3,11 @@
 
   {% include head.html %}
 
-  <body class="layout theme-base-0c">
+  <body class="layout">
 
     {% include sidebar.html %}
 
-    <div class="content container">
+    <div class="content container sidebar-sticky">
       {{ content | extlinks:page }}
     </div>
     
