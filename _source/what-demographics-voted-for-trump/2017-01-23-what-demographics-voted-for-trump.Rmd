@@ -3,7 +3,7 @@ layout: post
 title:  What demographics voted for Trump?
 date: "2017-01-23 22:00:53 UYT"
 published: TRUE
-tags: [R, Machine Learning, rpart, CART, kappa, k-fold cross-validation error]
+tags: [rstats, R, Machine Learning, rpart, CART, kappa, k-fold cross-validation error]
 ---
 I examine the characteristics of the population that made Donald Trump the 45th President of the United States. Through Machine Learning algorithm CART I analize the Election Results by county.
 
@@ -16,7 +16,7 @@ What I do here is estimate a Classification Tree (CART) to find an association b
 
 # The data
 
-I recently joined Kaggle, and [Joel Wilson](https://www.kaggle.com/joelwilson) gathered data about *2016 US Election Results* by county and *County Quick Facts* from the *US Census Bureau*. [This is the data](https://www.kaggle.com/joelwilson/2012-2016-presidential-elections) I use to run my analysis.
+I recently joined Kaggle, and [Joel Wilson](https://www.kaggle.com/joelwilson) gathered data about *2016 US Election Results* by county and *County Quick Facts* from the *US Census Bureau*. [This is the data](https://www.kaggle.com/joelwilson/2012-2016-presidential-elections) I use to run this analysis.
 
 I start by loading the data and merging it. No mystery here, except I merge it using `dplyr` (yay!).
 
@@ -91,7 +91,7 @@ For further references on any other variable you can [go to the Census Bureau's 
 
 # Building the Response Variable
 
-I create the variable I want to predict: `pref_cand_T`. It takes the value `1` if `Trump` has a greater percentage of votes than `Clinton` in the county, and `0` otherwise. Note that it is not necessary that one of them has more than 50% of the votes, it only has to have more votes than the other.
+I create the variable I want to explain: `pref_cand_T`. It takes the value `1` if `Trump` has a greater percentage of votes than `Clinton` in the county, and `0` otherwise. Note that it is not necessary that one of them has more than 50% of the votes, it only is required to have more votes than the other.
 
 ```{r response_variable}
 votes <- votes %>% mutate(pref_cand_T = factor(ifelse(Trump > Clinton, 1, 0)))
@@ -262,7 +262,7 @@ rpart.plot(winner_rpart, main = "Winner candidate in county",
 
 Starting from the top (the root), the tree splits the population in two subsets according to the question asked (the split in the variable), and it does the same for every node. If the county meets the criteria it is classified to the left, and otherwise to the right. In this case the first split indicates that if the county has less than 50% `white_alone` population, it is classified to the left node (only 12% of the counties), and the rest goes to the right (80% of the counties). The higher the percentage of counties that Trump won in the node, the redder the node. Nodes associated with Clinton are bluer.
 
-Apparently *race* is one of the most important characteristic determining the winner candidate. 3 over the 5 splits include race (we will know more about this when we check the Variable Importance later on). And there is also a variable referring the housing arrangements and other about education. According to this tree, for counties with less than 50% `white_alone` population, the winner was also determined by the amount of housing units in multi-unit structures and the percentage of 25 years old or older persons, holding a Bachelor's degree or higher. 
+Apparently *race* is one of the most important characteristic determining the winner candidate. 3 over the 5 splits include race (we will know more about this when we check the Variable Importance later on). And there is also a variable referring the housing arrangements and other about education. According to this tree, for counties with less than 50% `white_alone` population, the winner was also determined by the amount of housing units in multi-unit structures (maybe a urbanization's proxy?)and the percentage of 25 years old or older persons, holding a Bachelor's degree or higher. 
 
 # Performance Evaluation
 
@@ -306,7 +306,7 @@ Just looking into this matrix we can have some clues on how well is the classifi
 
 To complement the performance evaluation, I check the `ROC curve`. It plots the *True Positive Rate* against the *False Positive Rate* across many different thresholds of predicted probability. Since we are evaluating a tree, there is a limited amount of thresholds since I only have 6 final nodes. (Trying to simplify this explanation, I came across [this video](http://www.dataschool.io/roc-curves-and-auc-explained/) that is very clear if you want to go deeper)
 
-This measure is great for classification analysis, and is particularly useful here because it is not affected by unbalanced classes. Luckily I came across this great `ggplot2` extension, `plotROC`, and now I can use my favourite tools to create a pretty nice plot!
+This measure is great for classification analysis, and is particularly useful here because it is not affected by unbalanced classes. Luckily I came across this great `ggplot2` extension, `plotROC`, and now I can use my favorite tools to create a pretty nice plot!
 
 ```{r roc_curve, fig.height = 4}
 library(plotROC)
@@ -357,7 +357,7 @@ Although it is not completely different, it changes a bit.
 
 You can fight this using some ensemble method such as *Bagging*, *Random Forest* or *Boosting*, but as I want to be able to interpret the results, this other methods are not as visual as this one.
 
-Since this algorithm is very sensitive to the `train` and `test` splitting, I'm interested in having an estimation of the *accuracy* for *this kind of specification of the tree* and not only for the especific one I found. This can be achieved by the K-fold Cross-Validation.
+Since this algorithm is very sensitive to the `train` and `test` splitting, I'm interested in having an estimation of the *accuracy* for *this kind of specification of the tree* and not only for the specific one I found. This can be achieved by the K-fold Cross-Validation.
 
 ## K-fold Cross Validation for model accuracy estimation
 
@@ -380,7 +380,7 @@ The `Kappa` statistic is now 0.68 (it was 0.66 for the `winner_rpart`), with a 0
 
 One last thing to check is the Variable Importance. CART is a *greedy* algorithm, meaning that it chooses the best split at each node without any consideration of the potential benefit on the overall tree performance of choosing another split. This way it is possible to end up with a tree with some apparently relevant variables missing.
 
-The *Variable Importance* in `rpart` is calculated not only taking into account the goodness of the split for variables that are actually in the tree, but also for the `surrogate` variables (the variables used in case the main variable is missing). We can see next that there are many more variables than in the tree.
+The *Variable Importance* in `rpart` is calculated not only taking into account the goodness of the split for variables that are actually in the tree, but also for the `surrogate` variables (the variables used in case the main variable is missing for the observation). We can see next that there are many more variables than in the tree.
 
 ```{r variable_importance, message = FALSE}
 winner_rpart$variable.importance %>%
@@ -403,7 +403,9 @@ winner_rpart$variable.importance %>%
                size = 0.2)
 ```
 
-If you made it until here: **thank you!** I tried to keep it simple and intuitive, covering all relevant aspects when estimating this kind of models. 
+The most relevant characteristic is `white_alone`, the percentage of *white* population with no *hispanic or latin origin*. In the top 7 almost every characteristic are about race or origin, so it is probably one of the key aspects to study if we want to understand this phenomenon (no surprises here).
 
-If you see room for improvement, please let me know :)
+That is it! If you made it until here: **thank you!** I tried to keep it simple and intuitive, covering all relevant aspects when estimating this kind of models. The R Markdown I used to generate this post is [available here](https://github.com/d4tagirl/d4tagirl.com/blob/master/_source/what-demographics-voted-for-trump/2017-01-23-what-demographics-voted-for-trump.Rmd).
+
+If you see room for improvement or simply want to share something, please let me know leaving your comments here or [mentioning me on Twitter](https://twitter.com/intent/tweet?user_id=114258616) :)
 
