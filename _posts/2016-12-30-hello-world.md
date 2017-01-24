@@ -3,7 +3,6 @@ layout: post
 title:  Hello World!
 date: "2016-12-30 19:13:22 UYT"
 published: true
-tags: ['something']
 ---
 My Hello World post, to warm up! 
 

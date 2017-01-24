@@ -12,18 +12,7 @@ title: Home
       </a>
     </h1>
 
-    <span class="post-date">{{ post.date | date_to_string }}
-    {% if post.tags.size > 0 %}
-      <span class="post-tags">
-        {% for tag in post.tags %}
-          <a href="{{tag | datapage_url: '/tags' | remove: '.html'}}">[{{tag}}]</a>
-          {% if forloop.index0 == 4 %}
-            {% break %}
-          {% endif %}
-        {% endfor %}
-      </span>
-    {% endif %}
-    </span>
+    <span class="post-date">{{ post.date | date_to_string }}</span>
 
     {{ post.excerpt }}
 
