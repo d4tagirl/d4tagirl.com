@@ -10,7 +10,7 @@ I examine the characteristics of the population that made Donald Trump the 45th 
 <!--more-->
 It's been a few days since we witnessed the inauguration of Donald Trump as the 45th President of the United States, whose victory over Hillary Clinton came as a shock for most people. I'm not much into politics (and it is not even my country!) but this result really caught my attention, so I wanted to dig a little about the population's characteristics that made him the winner of the Election. 
 
-I've been studying Machine Learning for a while now, and a couple of months ago I discovered the *awesome* `tidiverse` world (I can't believe the way I used to do things :$), so I thought this was a great opportunity to test my skills. In addition to that, English is not my mother tongue so in this first post I am facing major challenges! If you see something improvable, not clear o plainly wrong, please leave a comment or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616).
+I've been studying Machine Learning for a while now, and a couple of months ago I discovered the *awesome* `tidiverse` world (I can't believe the way I used to do things :$), so I thought this was a great opportunity to test my skills. In addition to that, I'm not a native English speaker so in this first post I am facing major challenges! If you see something improvable, not clear o plainly wrong, please leave a comment or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616).
 
 What I do here is estimate a Classification Tree (CART) to find an association between the winner in the county and its socio-demographic characteristics.
 
@@ -261,13 +261,17 @@ rpart.plot(winner_rpart, main = "Winner candidate in county",
 
 Starting from the top (the root), the tree splits the population in two subsets according to the question asked (the variable and the cut), and it does the same for every node. If the county meets the criteria it is classified to the left, and otherwise to the right. In this case the first split indicates that if the county has less than 50% `white_alone` population, it is classified to the left node (only 12% of the counties), and the rest goes to the right (80% of the counties). The higher the percentage of counties that Trump won in the node, the redder the node. Nodes associated with Clinton are bluer.
 
-Apparently *race* is one of the most important characteristic determining the winner candidate. 3 over the 5 splits include race (we will know more about this when we check the *Variable Importance* later on). And there is also a variable referring the housing structure and other about education. According to this tree, for counties with less than 50% `white_alone` population, the winner was also determined by the amount of housing units in multi-unit structures (maybe an urbanization's proxy?) and the percentage of 25 years old or older persons holding a Bachelor's degree or higher. 
+Apparently *race* is one of the most important characteristic determining the winner candidate. 3 over the 5 splits include race (we will know more about this when we check the *Variable Importance* later on). And there is also a variable referring the *housing structure* and other about *education*. 
+
+One key feature of CART is that it allows different characteristics to be relevant for each node resulted from a split. In this case, for counties with less than 50% `white_alone` population, the winner was also determined by the amount of housing units in multi-unit structures (maybe an urbanization's proxy?) and the percentage of 25 years old or older persons holding a Bachelor's degree or higher. But for the rest of the counties, it was determined by other racial characteristics. This is because the algorithm partitions the feature space in two using linear parallel to the axis decision boundaries, and for each generated region does the same, over and over.
+
+This can be revealing, uncovering underlying interactions of variables for different groups, harder to discover using other methods.
 
 # Performance Evaluation
 
-Now I evaluate how good is this model. Prior to this post I wouldn't pay any extra attention to the usage of different measures taking into account how unbalanced the data was. There are a lot of measures to evaluate the fit, I explore some of them prioritizing the ones that explicitly deal with unbalanced classes.
+Now I evaluate how good this model is. Prior to this post I wouldn't pay any extra attention to the usage of different measures taking into account how unbalanced the data was. There are a lot of measures to evaluate the fit, I will explore some of them prioritizing the ones that explicitly deal with unbalanced classes.
 
-When I do this evaluations, I do them over the `test` sample, otherwise would be like cheating!
+This evaluations should always be done over the `test` sample, otherwise it would be like cheating!
 
 ## Missclassification Error
 
@@ -290,7 +294,7 @@ test %>% summarize(missc_error = mean(error))
 ## 1  0.07824223
 ```
 
-But since I've been doing my research, it became clear that in this case I could not treat this measure without further considerations.
+But since I've been doing my research, it has become clear that in this case I could not treat this measure without further considerations.
 
 Let's suppose I have a model that predicts for all cases Trump as the winner. It would have a missclassification error of 15%, *not so bad!* But it is definitely not a great model: it would be 100% accurate for predicting counties where Trump won, but it would be wrong for *all* of the counties where Clinton won. This is known as the *Accuracy Paradox*, and that is why we need some alternatives to measure how good is this tree in predicting the county's winner.
 
@@ -335,15 +339,15 @@ test %>%
 ## 
 ```
 
-Just looking into this matrix we can have some clues on how well is the classifier for each class. Particularly I want to look closer at the `Kappa` statistic, because it specifically considers the unbalance between classes.
+Just looking into this matrix we can have some clues on how good is the classifier for each class. Particularly I want to look closer at the `Kappa` statistic, because it specifically considers the unbalance between classes.
 
-`Kappa` measures the accuracy of the classifier *corrected by the probability of agreement by chance*. There is not much consensus on the magnitude of `Kappa` to consider it low or high, but it can be interpreted as how separate it is the obtained result from chance. In this case the *expected accuracy* (the one that occurs by chance) is 77% and the perfect accuracy is of course 100%. There is a gap of 23%, and this classifier closes this gap by 66% of it (15% of improvement!). The higher the `Kappa` is, the better. Some sustain that a value of `Kappa` larger than 60% means a good agreement, so we are OK!   
+`Kappa` measures the accuracy of the classifier *corrected by the probability of agreement by chance*. There is not much consensus on the magnitude of `Kappa` to consider it low or high, but it can be interpreted as how separate it is the obtained result from chance. In this case the *expected accuracy* (the one that occurs by chance) is 77% and the perfect accuracy is of course 100%. There is a gap of 23%, and this classifier closes this gap by 66% of it (15% of improvement!). The higher the `Kappa`, the better. Some sustain that a value of `Kappa` larger than 60% means a good agreement, so we are OK!   
 
 ## ROC Curve and AUROC
 
 To complement the performance evaluation, I check the `ROC curve`. It plots the *True Positive Rate* against the *False Positive Rate* across many different thresholds of predicted probability. As we are evaluating a tree with only 6 final nodes, there is a limited amount of thresholds. (Trying to simplify this explanation, I came across [this video](http://www.dataschool.io/roc-curves-and-auc-explained/) that is very clear if you want to go deeper)
 
-This measure is great for classification analysis, and is particularly useful here because it is not affected by unbalanced classes. Luckily I came across this great `ggplot2` extension, `plotROC`, and now I can use my favorite tools to create a pretty nice plot!
+This measure is great for classification analysis, and it is particularly useful here because it is not affected by unbalanced classes. Luckily I came across this great `ggplot2` extension, `plotROC`, and now I can use my favorite tools to create a pretty nice plot!
 
 
 ```r
@@ -357,21 +361,21 @@ roc <- test %>%
   geom_roc(labels = FALSE)
 
 roc +
-style_roc(theme = theme_bw) +
+style_roc(theme = theme_bw, xlab = "False Positive Rate", ylab = "True Positive Rate") +
 theme(panel.grid.major = element_blank(), panel.border = element_blank(),
       axis.line = element_line(colour = "grey")) +
-ggtitle("ROC Curve for winner_rpart classifier") + 
+ggtitle("ROC Curve for winner_rpart classifier") +
 annotate("text", x = .75, y = .25, 
          label = paste("AUROC =", round(calc_auc(roc)$AUC, 2)))
 ```
 
 <img src="/figure/source/what-demographics-voted-for-trump/2017-01-23-what-demographics-voted-for-trump/roc_curve-1.png" title="plot of chunk roc_curve" alt="plot of chunk roc_curve" style="display: block; margin: auto;" />
 
-The `AUROC` (*A*rea *U*nder the *ROC* curve) computes the probability that the classifier ranks higher a positive instance than a negative one. (If you want to get deeper into this, I highly recommend [this Tom Fawcett paper](http://tomfawcett.info/papers/ROC-PRL.pdf))
+The `AUROC` (*A*rea *U*nder the *ROC* curve) computes the probability that the classifier ranks higher a positive instance than a negative one. (If you want to go deeper into this, I highly recommend [this Tom Fawcett paper](http://tomfawcett.info/papers/ROC-PRL.pdf))
 
 # Warning about Classification Trees instability
 
-When you use this kind of Machine Learning algorithm you should be aware that small changes in the data can change the tree. Next there is a second tree I generated using the same parameters than before, but changing the seed to do the sampling.
+When you use this kind of Machine Learning algorithm you should be aware that small changes in the data can change the tree. Find below a second tree generated by using the same parameters than before, but changing the seed to do the sampling.
 
 
 ```r
@@ -398,7 +402,7 @@ rpart.plot(winner_rpart_2, main = "Winner candidate in county",
 
 Although it is not completely different, it changes a bit. 
 
-You can fight this using some ensemble method such as *Bagging*, *Random Forest* or *Boosting*, but as I want to be able to interpret the results, this other methods are not as visual as this one.
+You can fight this using some ensemble method such as *Bagging*, *Random Forest* or *Boosting*, but as I'm particularly interested in easily visualizing the decision rules and potentially finding different patterns for different groups, I find this method a better fit for this particular problem. 
 
 Since this algorithm is very sensitive to the `train` and `test` partition, I'm interested in having an estimation of the *accuracy* for *this kind of specification of the tree* and not only for the specific one I found. This can be achieved by the K-fold Cross-Validation.
 
@@ -406,7 +410,7 @@ Since this algorithm is very sensitive to the `train` and `test` partition, I'm 
 
 This method divides randomly the data into `k` equally sized subsets called *folds*. A tree is estimated in `k-1` of them and the performance is evaluated in the fold left behind. This is made `k` times, until each fold is used for validation exactly one time. 
 
-This was a non that straight forward thing for me to do. I wanted the `caret` package to calculate the K-fold Cross Validation accuracy estimation, but apparently most people use `caret::train` to find the parameter `cp` at the same time. I just wanted to estimate the accuracy associated with an already specified model (I've already estimated the `cp`). Finally I found the way, specifying `tuneGrid = expand.grid(cp = cp)`.
+This was a non a straightforward thing for me to do. I wanted the `caret` package to calculate the K-fold Cross Validation accuracy estimation, but apparently most people use `caret::train` to find the parameter `cp` at the same time. I just wanted to estimate the accuracy associated with an already specified model (I've already estimated the `cp`). Finally I found the way, specifying `tuneGrid = expand.grid(cp = cp)`.
 
 
 ```r
@@ -463,5 +467,5 @@ This was my first approach to the subject, I am already doing some extra analysi
 
 If you made it until here: **thank you!** I tried to keep it simple and intuitive, covering all relevant aspects when estimating this kind of models. The R Markdown I used to generate this post is [available here](https://github.com/d4tagirl/d4tagirl.com/blob/master/_source/what-demographics-voted-for-trump/2017-01-23-what-demographics-voted-for-trump.Rmd).
 
-If you see room for improvement or simply want to share something, please let me know leaving your comments here or [mentioning me on Twitter](https://twitter.com/intent/tweet?user_id=114258616) :)
+If you see room for improvement or simply want to share something, please let me know by leaving your comments here or [mentioning me on Twitter](https://twitter.com/intent/tweet?user_id=114258616) :)
 

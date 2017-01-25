@@ -10,7 +10,7 @@ title:            'd4tagirl'
 tagline:          'Daniela Vazquez'
 description:      'My new Blog where I plan to share my Data Science projects'
 meta_description: 'I''m Daniela Vazquez and this is my new blog where I plan to share my Data Science projects. I''m particularly interested in Machine Learning and the R Programming Language' 
-meta_tags:        ['blog', 'r', 'rstats', 'data science', 'daniela vazquez', 'machine learning']
+meta_tags:        ['blog', 'r', 'rstats', 'data science', 'daniela vazquez', 'RLadies', 'NASA Datanaut', 'machine learning']
 url:              https://d4tagirl.com
 baseurl:          /
 
