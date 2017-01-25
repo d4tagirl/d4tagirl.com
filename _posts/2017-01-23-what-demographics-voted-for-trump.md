@@ -10,7 +10,7 @@ I examine the characteristics of the population that made Donald Trump the 45th 
 <!--more-->
 It's been a few days since we witnessed the inauguration of Donald Trump as the 45th President of the United States, whose victory over Hillary Clinton came as a shock for most people. I'm not much into politics (and it is not even my country!) but this result really caught my attention, so I wanted to dig a little about the population's characteristics that made him the winner of the Election. 
 
-I've been studying Machine Learning for a while now, and a couple of months ago I discovered the *awesome* `tidyverse` world (I can't believe the way I used to do things :$), so I thought this was a great opportunity to test my skills. In addition to that, I'm not a native English speaker so in this first post I am facing major challenges! If you see something improvable, not clear o plainly wrong, please leave a comment or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616).
+I've been studying Machine Learning for a while now, and a couple of months ago I discovered the *awesome* `tidyverse` world (I can't believe the way I used to do things :$), so I thought this was a great opportunity to test my skills. In addition to that, I'm not a native English speaker so in this first post I am facing major challenges! If you see something improvable, not clear or plainly wrong, please leave a comment or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616).
 
 What I do here is estimate a Classification Tree (CART) to find an association between the winner in the county and its socio-demographic characteristics.
 
@@ -18,16 +18,17 @@ What I do here is estimate a Classification Tree (CART) to find an association b
 
 I recently joined Kaggle, and [Joel Wilson](https://www.kaggle.com/joelwilson) gathered data about *2016 US Election Results* by county and *County Quick Facts* from the *US Census Bureau*. [This is the data](https://www.kaggle.com/joelwilson/2012-2016-presidential-elections) I use to run this analysis.
 
-I start by loading the data and merging it. No mystery here, except I merge it using `dplyr` (yay!).
+I start by loading the data and merging it. No mystery here, except I load it using `readr::read_csv` and merge it using `dplyr` (yay!).
 
 
 
 
 ```r
+library(readr)
 library(dplyr)
 
-pop <- tbl_df(read.csv('county_facts.csv'))
-results <- tbl_df(read.csv('US_County_Level_Presidential_Results_12-16.csv'))
+pop <- read_csv('county_facts.csv')
+results <- read_csv('US_County_Level_Presidential_Results_12-16.csv')
 
 votes2 <- pop %>%
   left_join(results, by = c("fips" = "combined_fips"))
@@ -36,7 +37,7 @@ votes2 <- pop %>%
 It is a clean dataset, but I need to do some modifications for the analysis:
 
 * There is no election data for the state of Alaska so I remove those counties. 
-* Replace the old ID (`X`) with a new one (`ID`). 
+* Replace the old ID (`X1`) with a new one (`ID`). 
 * Delete non relevant variables.
 * Rename variables to make them interpretable.
 
@@ -46,8 +47,8 @@ All of this taking advantage of the `dplyr` of course.
 ```r
 votes <- votes %>% 
   filter(state_abbr != "AK") %>%
-  mutate(ID = rank(X)) %>% 
-  select(-X, -POP010210, -PST040210, -NES010213, -WTN220207) %>%
+  mutate(ID = rank(X1)) %>% 
+  select(-X1, -POP010210, -PST040210, -NES010213, -WTN220207) %>%
   rename(age18minus = AGE295214, age5minus = AGE135214, age65plus = AGE775214,
     american_indian = RHI325214, asian = RHI425214, asian_Firms = SBO215207,
     black = RHI225214, black_firms = SBO315207, building_permits = BPS030214,
@@ -98,7 +99,7 @@ votes %>% summarize(Trump       = sum(pref_cand_T == 1),
 ## 1  2624     488 0.8431877   0.1568123
 ```
 
-Trump got more votes than Clinton in 2624 counties opposing the 488 other counties were Clinton got more votes (remember we are talking about counties and not Electoral College votes). The proportion is 84% for Trump and 16% for Clinton.  
+Trump got more votes than Clinton in 2624 counties opposing the 488 other counties where Clinton got more votes (remember we are talking about counties and not Electoral College votes). The proportion is 84% for Trump and 16% for Clinton.  
 
 # Some visualization about race and origin
 
