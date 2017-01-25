@@ -18,7 +18,7 @@ What I do here is estimate a Classification Tree (CART) to find an association b
 
 I recently joined Kaggle, and [Joel Wilson](https://www.kaggle.com/joelwilson) gathered data about *2016 US Election Results* by county and *County Quick Facts* from the *US Census Bureau*. [This is the data](https://www.kaggle.com/joelwilson/2012-2016-presidential-elections) I use to run this analysis.
 
-I start by loading the data and merging it. No mystery here, except I load it using `readr::read_csv` and merge it using `dplyr` (yay!).
+I start by loading the data and merging it. No mystery here, except I load it using `readr` and merge it using `dplyr` (yay!).
 
 ```{r load_data, echo = FALSE, message = FALSE, warning = FALSE}
 # The data isn't in this repository, you can find everything I use here:
