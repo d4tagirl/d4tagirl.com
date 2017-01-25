@@ -10,7 +10,7 @@ I examine the characteristics of the population that made Donald Trump the 45th 
 <!--more-->
 It's been a few days since we witnessed the inauguration of Donald Trump as the 45th President of the United States, whose victory over Hillary Clinton came as a shock for most people. I'm not much into politics (and it is not even my country!) but this result really caught my attention, so I wanted to dig a little about the population's characteristics that made him the winner of the Election. 
 
-I've been studying Machine Learning for a while now, and a couple of months ago I discovered the *awesome* `tidiverse` world (I can't believe the way I used to do things :$), so I thought this was a great opportunity to test my skills. In addition to that, I'm not a native English speaker so in this first post I am facing major challenges! If you see something improvable, not clear o plainly wrong, please leave a comment or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616).
+I've been studying Machine Learning for a while now, and a couple of months ago I discovered the *awesome* `tidyverse` world (I can't believe the way I used to do things :$), so I thought this was a great opportunity to test my skills. In addition to that, I'm not a native English speaker so in this first post I am facing major challenges! If you see something improvable, not clear o plainly wrong, please leave a comment or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616).
 
 What I do here is estimate a Classification Tree (CART) to find an association between the winner in the county and its socio-demographic characteristics.
 
