@@ -4,7 +4,7 @@ title: About
 permalink: /about.html
 ---
 
-My name is Daniela and I've been working in Data Science for the last 4 years. I am from Uruguay, a little country in South America where I also live. Originally I studied Economics, but only worked in that field briefly in the Academia. Right when I finished my studies I started working for the only credit bureau in Uruguay where I discovered (*and fell in love with!*) Data Science. 
+My name is Daniela and I've been working in Data Science for the last 4 years. I am from Uruguay, a little country in South America where I also live. Originally I studied Economics, but only worked in that field briefly in the Academia. Right when I finished my studies I started working at Equifax Uruguay where I discovered (*and fell in love with!*) Data Science. 
 
 I started in a junior position there as an *Analytics Consultant*. I remember the first interview when the guy who was later my boss told me about the role. I was so amazed that I told him: "I have no idea how to do that, but I know I can learn fast and I would definitely love the opportunity!". That is how I got the job, and was also when I knew what my vocation was.
 
