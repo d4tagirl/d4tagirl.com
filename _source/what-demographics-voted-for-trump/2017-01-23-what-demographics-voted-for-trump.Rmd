@@ -1,6 +1,7 @@
 ---
 layout: post
-title:  What demographics voted for Trump?
+permalink: rpart-who-voted-for-trump
+title:  Using Rpart to figure out who voted for Trump
 date: "2017-01-23 22:00:53 UYT"
 published: TRUE
 tags: [rstats, r, Machine Learning, rpart, CART, tidyverse, unbalanced classes]
