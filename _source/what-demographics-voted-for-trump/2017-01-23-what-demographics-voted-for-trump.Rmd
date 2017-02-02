@@ -3,7 +3,7 @@ layout: post
 title:  What demographics voted for Trump?
 date: "2017-01-23 22:00:53 UYT"
 published: TRUE
-tags: [rstats, R, Machine Learning, rpart, CART, tidyverse, unbalanced classes]
+tags: [rstats, r, Machine Learning, rpart, CART, tidyverse, unbalanced classes]
 ---
 I examine the characteristics of the population that made Donald Trump the 45th President of the United States. Through Machine Learning algorithm CART I analize the Election Results by county.
 

@@ -3,7 +3,7 @@ layout: post
 title:  What demographics voted for Trump?
 date: "2017-01-23 22:00:53 UYT"
 published: TRUE
-tags: [rstats, R, Machine Learning, rpart, CART, tidyverse, unbalanced classes]
+tags: [rstats, r, Machine Learning, rpart, CART, tidyverse, unbalanced classes]
 ---
 I examine the characteristics of the population that made Donald Trump the 45th President of the United States. Through Machine Learning algorithm CART I analize the Election Results by county.
 
@@ -93,7 +93,7 @@ votes %>% summarize(Trump       = sum(pref_cand_T == 1),
 ```
 
 ```
-## # A tibble: 1 <U+00D7> 4
+## # A tibble: 1 × 4
 ##   Trump Clinton Trump_per Clinton_per
 ##   <int>   <int>     <dbl>       <dbl>
 ## 1  2624     488 0.8431877   0.1568123
@@ -289,7 +289,7 @@ test %>% summarize(missc_error = mean(error))
 ```
 
 ```
-## # A tibble: 1 <U+00D7> 1
+## # A tibble: 1 × 1
 ##   missc_error
 ##         <dbl>
 ## 1  0.07824223
