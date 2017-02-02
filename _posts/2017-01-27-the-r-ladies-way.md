@@ -4,6 +4,7 @@ title:  The R-Ladies way!
 date: "2017-01-27 12:11:29 UYT"
 published: true
 tags: [r-ladies, community, gender, inclusion, user groups, r, rstats]
+description: My experience with the R-Ladies community, an amazing group of ladies who built a truly supportive environment for women in the R community.
 ---
 My experience with the R-Ladies community, an amazing group of ladies who built a truly supportive environment for women in the R community to reach their true potential across the world.
 
