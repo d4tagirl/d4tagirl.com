@@ -6,3 +6,4 @@
 _site/
 cache/
 Make-new-post.R
+_source/*/*.html
