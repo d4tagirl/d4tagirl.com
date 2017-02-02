@@ -9,7 +9,7 @@ permalink:        pretty
 title:            'd4tagirl'
 tagline:          'Daniela Vazquez'
 description:      'A Blog about a girl finding her place in the Data Science world'
-meta_description: 'I''m Daniela Vazquez and this is my blog where I plan to share my Data Science projects. I''m particularly interested in Machine Learning and the R Programming Language'
+meta_description: 'A Blog about a girl finding her place in the Data Science world. I''m particularly interested in Machine Learning, the R Programming Language and its community'
 meta_tags:        ['blog', 'r', 'rstats', 'data science', 'daniela vazquez', 'RLadies', 'NASA Datanaut', 'machine learning']
 url:              https://d4tagirl.com
 baseurl:          /
