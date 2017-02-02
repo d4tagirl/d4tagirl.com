@@ -1,6 +1,6 @@
 ---
 layout: post
-permalink: rpart-who-voted-for-trump
+permalink: 2017/01/rpart-who-voted-for-trump
 title:  Using Rpart to figure out who voted for Trump
 date: "2017-01-23 22:00:53 UYT"
 published: TRUE
