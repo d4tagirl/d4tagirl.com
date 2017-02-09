@@ -51,17 +51,17 @@ votes2 <- pop %>%
 
 It is a clean dataset, but I need to do some modifications for the analysis:
 
-* There is no election data for the state of Alaska so I remove those counties. 
-* Replace the old ID (`X1`) with a new one (`ID`). 
+* There is no election data for the state of Alaska so I remove those counties.
+* Replace the old ID (`X1`) with a new one (`ID`).
 * Delete non relevant variables.
 * Rename variables to make them interpretable.
 
 All of this taking advantage of the `dplyr` of course.
 
 ```{r tidying_data}
-votes <- votes %>% 
+votes <- votes %>%
   filter(state_abbr != "AK") %>%
-  mutate(ID = rank(X1)) %>% 
+  mutate(ID = rank(X1)) %>%
   select(-X1, -POP010210, -PST040210, -NES010213, -WTN220207) %>%
   rename(age18minus = AGE295214, age5minus = AGE135214, age65plus = AGE775214,
     american_indian = RHI325214, asian = RHI425214, asian_Firms = SBO215207,
@@ -79,12 +79,12 @@ votes <- votes %>%
     sales_accomod_food = AFN120207, sex_f = SEX255214, travel_time_commute = LFE305213,
     two_races_plus = RHI625214, veterans = VET605213, white = RHI125214, white_alone = RHI825214,
     women_firms = SBO015207,
-    Trump = per_gop_2016, Clinton = per_dem_2016, Romney = per_gop_2012, Obama = per_dem_2012) 
+    Trump = per_gop_2016, Clinton = per_dem_2016, Romney = per_gop_2012, Obama = per_dem_2012)
 ```
 
 Most of these variables are measured as a percentage of people in the county with that characteristic (e.g. `edu_batchelors` and `black`), or the total amount in the county (e.g. `land_area` and `firms_num`).
 
-Note that there is a `white` variable and a `white_alone` variable. This is because there are 2 separate facts gathered here. 
+Note that there is a `white` variable and a `white_alone` variable. This is because there are 2 separate facts gathered here.
 
 * `white` refers to *race*: *people having origins in any of the original peoples of Europe, the Middle East, or North Africa*. If a person declares *white* among other races, is classified as `two_races_plus` and not as `white`.
 
@@ -99,25 +99,28 @@ I create the variable I want to explain: `pref_cand_T`. It takes the value `1` i
 ```{r response_variable}
 votes <- votes %>% mutate(pref_cand_T = factor(ifelse(Trump > Clinton, 1, 0)))
 
-votes %>% summarize(Trump       = sum(pref_cand_T == 1),
-                    Clinton     = n() - Trump,
-                    Trump_per   = mean(pref_cand_T == 1),
-                    Clinton_per = 1 - Trump_per)
+summary <- votes %>% summarize(Trump       = sum(pref_cand_T == 1),
+                               Clinton     = n() - Trump,
+                               Trump_per   = mean(pref_cand_T == 1),
+                               Clinton_per = 1 - Trump_per)
+
+library(knitr)
+knitr::kable(summary, align = 'l')
 ```
 
-Trump got more votes than Clinton in 2624 counties opposing the 488 other counties where Clinton got more votes (remember we are talking about counties and not Electoral College votes). The proportion is 84% for Trump and 16% for Clinton.  
+Trump got more votes than Clinton in 2624 counties opposing the 488 other counties where Clinton got more votes (remember we are talking about counties and not Electoral College votes). The proportion is 84% for Trump and 16% for Clinton.
 
 # Some visualization about race and origin
 
 I explore briefly some counties' characteristics about *race* and *origin* by visualizing them. It is time to test my brand new `ggplot` skills!
 
-I generate a plot for the mean of each characteristic across all counties, which is the mean of the proportion of people with each characteristic in all counties (simple mean, without considering the population of the county). 
+I generate a plot for the mean of each characteristic across all counties, which is the mean of the proportion of people with each characteristic in all counties (simple mean, without considering the population of the county).
 
 ```{r build_plot_race_total, message = FALSE, warning = FALSE}
 library(tidyr)
 library(ggplot2)
 
-total <- votes %>% 
+total <- votes %>%
   summarize(
     white       = mean(white),
     white_alone = mean(white_alone),
@@ -125,13 +128,13 @@ total <- votes %>%
     asian       = mean(asian),
     hisp_latin  = mean(hisp_latin),
     foreign     = mean(foreign)) %>%
-  gather(variable, value) %>% 
+  gather(variable, value) %>%
   ggplot() +
-  geom_bar(aes(x = variable, y = value), 
+  geom_bar(aes(x = variable, y = value),
            stat = 'identity', width = .7, fill = "#C9C9C9") +
   geom_vline(xintercept = c(4.5, 5.5), alpha = 0.2 ) +
   scale_x_discrete(limits = c("white", "white_alone", "black", "asian", "hisp_latin", "foreign")) +
-  labs(title = "Proportion in counties",    
+  labs(title = "Proportion in counties",
        subtitle = "(simple mean of counties proportion, without considering county population)") +
   theme_bw() +
   theme(axis.title.x = element_blank(), axis.title.y = element_blank(),
@@ -148,26 +151,26 @@ Then I generate the same plot by candidate.
 ```{r build_plot_race_by_candidate, message = FALSE, warning = FALSE}
 library(reshape2)
 
-by_candidate <- votes %>% 
-  group_by(pref_cand_T) %>% 
+by_candidate <- votes %>%
+  group_by(pref_cand_T) %>%
   summarize(
     white       = mean(white),
     white_alone = mean(white_alone),
     black       = mean(black),
     asian       = mean(asian),
     hisp_latin  = mean(hisp_latin),
-    foreign     = mean(foreign)) %>% 
-    melt(id.vars = 'pref_cand_T') %>% 
-  ggplot() + 
+    foreign     = mean(foreign)) %>%
+    melt(id.vars = 'pref_cand_T') %>%
+  ggplot() +
     geom_bar(aes(x = variable, y = value, fill = pref_cand_T),
-             stat = 'identity', position = 'dodge') + 
+             stat = 'identity', position = 'dodge') +
     geom_vline(xintercept = c(4.5, 5.5), alpha = 0.2 ) +
-    scale_fill_manual(values = alpha(c("blue", "red")), 
+    scale_fill_manual(values = alpha(c("blue", "red")),
                       breaks = c("0", "1"), labels = c("Clinton", "Trump")) +
     labs(fill = "winner") +
     theme_bw() +
     theme(axis.title.x = element_blank(), axis.title.y = element_blank(),
-          axis.line = element_line(colour = "grey"), legend.position = "bottom", 
+          axis.line = element_line(colour = "grey"), legend.position = "bottom",
           panel.grid.major = element_blank(), panel.border = element_blank())
 ```
 
@@ -181,7 +184,7 @@ library(gridExtra)
 grid.arrange(total, by_candidate, nrow = 2)
 ```
 
-Among races, the mean of *white* people is higher for the counties where Trump won than the rest, and for the counties where Clinton won, the mean of *black* and *asian* people is higher. Clinton also won in counties with higher mean of *Hispanic or Latin origin* people, and *foreign-born* population. 
+Among races, the mean of *white* people is higher for the counties where Trump won than the rest, and for the counties where Clinton won, the mean of *black* and *asian* people is higher. Clinton also won in counties with higher mean of *Hispanic or Latin origin* people, and *foreign-born* population.
 
 In a future post I will be doing some more digging into this variables to find out more.
 
@@ -195,7 +198,7 @@ library(caret)
 perc_train <- 0.7
 set.seed(3333)
 
-trainIndex <- createDataPartition(y = votes$pref_cand_T, p = perc_train, 
+trainIndex <- createDataPartition(y = votes$pref_cand_T, p = perc_train,
                                   list = FALSE, times = 1)
 
 train <- votes %>% subset(ID %in% trainIndex)
@@ -209,16 +212,16 @@ I estimate the tree using `rpart`, excluding variables non relevant for modellin
 ```{r unpruned_tree}
 library(rpart)
 
-pref_cand_rpart <- rpart(pref_cand_T ~ ., 
-                         data = train[, -c(1:24, 70)], 
+pref_cand_rpart <- rpart(pref_cand_T ~ .,
+                         data = train[, -c(1:24, 70)],
                          control = rpart.control(xval = 10, cp = 0.0001))
 ```
 
 ```{r plot_large_tree, echo = FALSE, fig.show = 'hide',  dpi = 300}
 library(rpart.plot)
 
-rpart.plot(pref_cand_rpart, main = "Winner candidate in county without prunning", 
-           extra = 104, split.suffix = "?", branch = 1, 
+rpart.plot(pref_cand_rpart, main = "Winner candidate in county without prunning",
+           extra = 104, split.suffix = "?", branch = 1,
            fallen.leaves = FALSE, box.palette = "BuRd",
            branch.lty = 3, split.cex = 1.2,
            shadow.col = "gray", shadow.offset = 0.2)
@@ -228,25 +231,25 @@ This algorithm grows a tree from a root that has all the observations, splitting
 
 * `minsplit = 20` is the default, the minimum of observations in a node to attempt a split.
 * `minbucket = 7` is also the default, the minimum of observations in any terminal node.
-* `cp = 0.0001` is the minimum factor of decreasing lack of fit for a split to be attempted. 
+* `cp = 0.0001` is the minimum factor of decreasing lack of fit for a split to be attempted.
 
-This is quite a big tree because I use a very small `cp` (I'm not showing it for that reason, but you can [find it here](/figure/source/what-demographics-voted-for-trump/2017-01-23-what-demographics-voted-for-trump/plot_large_tree-1.png){:target="_blank"}). Simpler trees are preferred, since they are less likely to overfit the data. 
+This is quite a big tree because I use a very small `cp` (I'm not showing it for that reason, but you can [find it here](/figure/source/what-demographics-voted-for-trump/2017-01-23-what-demographics-voted-for-trump/plot_large_tree-1.png){:target="_blank"}). Simpler trees are preferred, since they are less likely to overfit the data.
 
 ## Pruning the tree
 
 Now it's time to prune the tree. To do this, I keep the split if it meets some criteria about the balance between the impurity reduction (*cost*) and the increase of size (*complexity*). This is the `cp`.
 
-I am pruning the tree following the 1-SE rule, according to which I choose the simplest model with accuracy similar to the best model. 
+I am pruning the tree following the 1-SE rule, according to which I choose the simplest model with accuracy similar to the best model.
 
 ```{r pruning_tree}
 library(tibble)
 cp <- as_tibble(pref_cand_rpart$cptable) %>%
-  filter(xerror <= min(xerror) + xstd) %>% 
-  filter(xerror == max(xerror)) %>% 
-  select(CP) %>% 
+  filter(xerror <= min(xerror) + xstd) %>%
+  filter(xerror == max(xerror)) %>%
+  select(CP) %>%
   unlist()
 
-winner_rpart <- prune(pref_cand_rpart, cp = cp) 
+winner_rpart <- prune(pref_cand_rpart, cp = cp)
 ```
 
 `dplyr` manipulates `dataframes`, so I use the `tibble::as_tibble` function to convert the `pref_cand_rpart$cptable` table to a `tibble`, and then select the `cp`.
@@ -256,8 +259,8 @@ And here I have the tree! (If you know some other way to plot nicer trees, pleas
 ```{r plot_pruned_tree, dpi = 100}
 library(rpart.plot)
 
-rpart.plot(winner_rpart, main = "Winner candidate in county", 
-           extra = 104, split.suffix = "%?", branch = 1, 
+rpart.plot(winner_rpart, main = "Winner candidate in county",
+           extra = 104, split.suffix = "%?", branch = 1,
            fallen.leaves = FALSE, box.palette = "BuRd",
            branch.lty = 3, split.cex = 1.2,
            shadow.col = "gray", shadow.offset = 0.2)
@@ -265,7 +268,7 @@ rpart.plot(winner_rpart, main = "Winner candidate in county",
 
 Starting from the top (the root), the tree splits the population in two subsets according to the question asked (the variable and the cut), and it does the same for every node. If the county meets the criteria it is classified to the left, and otherwise to the right. In this case the first split indicates that if the county has less than 50% `white_alone` population, it is classified to the left node (only 12% of the counties), and the rest goes to the right (80% of the counties). The higher the percentage of counties that Trump won in the node, the redder the node. Nodes associated with Clinton are bluer.
 
-Apparently *race* is one of the most important characteristic determining the winner candidate. 3 over the 5 splits include race (we will know more about this when we check the *Variable Importance* later on). And there is also a variable referring the *housing structure* and other about *education*. 
+Apparently *race* is one of the most important characteristic determining the winner candidate. 3 over the 5 splits include race (we will know more about this when we check the *Variable Importance* later on). And there is also a variable referring the *housing structure* and other about *education*.
 
 One key feature of CART is that it allows different characteristics to be relevant for each node resulted from a split. In this case, for counties with less than 50% `white_alone` population, the winner was also determined by the amount of housing units in multi-unit structures (maybe an urbanization's proxy?) and the percentage of 25 years old or older persons holding a Bachelor's degree or higher. But for the rest of the counties, it was determined by other racial characteristics. This is because the algorithm partitions the feature space in two using linear parallel to the axis decision boundaries, and for each generated region does the same, over and over.
 
@@ -282,12 +285,13 @@ This evaluations should always be done over the `test` sample, otherwise it woul
 One classic way to evaluate the performance of a classifier is by calculating the *missclassification error*, simply by computing the percentage of times that the the classifier is wrong.
 
 ```{r misscl_error}
-test <- test %>% 
+test <- test %>%
   mutate(pred = predict(winner_rpart, type = "class", test),
          pred_prob_T = predict(winner_rpart, type = "prob", test)[,2],
          error = ifelse(pred != pref_cand_T, 1, 0))
 
-test %>% summarize(missc_error = mean(error))  
+missc_error <- test %>% summarize(missc_error = mean(error))
+knitr::kable(missc_error, align = 'l')
 ```
 
 But since I've been doing my research, it has become clear that in this case I could not treat this measure without further considerations.
@@ -299,15 +303,15 @@ Let's suppose I have a model that predicts for all cases Trump as the winner. It
 One good thing to do in any case (balanced the data or not) is to take a look at the confusion matrix. This is the input for many performance measures as shown next.
 
 ```{r confusion_matrix}
-test %>% 
-  select(pred, pref_cand_T) %>% 
-  table() %>% 
-  confusionMatrix() 
+test %>%
+  select(pred, pref_cand_T) %>%
+  table() %>%
+  confusionMatrix()
 ```
 
 Just looking into this matrix we can have some clues on how good is the classifier for each class. Particularly I want to look closer at the `Kappa` statistic, because it specifically considers the unbalance between classes.
 
-`Kappa` measures the accuracy of the classifier *corrected by the probability of agreement by chance*. There is not much consensus on the magnitude of `Kappa` to consider it low or high, but it can be interpreted as how separate it is the obtained result from chance. In this case the *expected accuracy* (the one that occurs by chance) is 77% and the perfect accuracy is of course 100%. There is a gap of 23%, and this classifier closes this gap by 66% of it (15% of improvement!). The higher the `Kappa`, the better. Some sustain that a value of `Kappa` larger than 60% means a good agreement, so we are OK!   
+`Kappa` measures the accuracy of the classifier *corrected by the probability of agreement by chance*. There is not much consensus on the magnitude of `Kappa` to consider it low or high, but it can be interpreted as how separate it is the obtained result from chance. In this case the *expected accuracy* (the one that occurs by chance) is 77% and the perfect accuracy is of course 100%. There is a gap of 23%, and this classifier closes this gap by 66% of it (15% of improvement!). The higher the `Kappa`, the better. Some sustain that a value of `Kappa` larger than 60% means a good agreement, so we are OK!
 
 ## ROC Curve and AUROC
 
@@ -318,11 +322,11 @@ This measure is great for classification analysis, and it is particularly useful
 ```{r roc_curve, fig.height = 4}
 library(plotROC)
 
-roc <- test %>% 
-  select(pref_cand_T, pred_prob_T) %>% 
+roc <- test %>%
+  select(pref_cand_T, pred_prob_T) %>%
   mutate(pref_cand_T = as.numeric(pref_cand_T) - 1,
-         pref_cand_T.str = c("Clinton", "Trump")[pref_cand_T + 1]) %>% 
-  ggplot(aes(d = pref_cand_T, m = pred_prob_T)) + 
+         pref_cand_T.str = c("Clinton", "Trump")[pref_cand_T + 1]) %>%
+  ggplot(aes(d = pref_cand_T, m = pred_prob_T)) +
   geom_roc(labels = FALSE)
 
 roc +
@@ -330,7 +334,7 @@ style_roc(theme = theme_bw, xlab = "False Positive Rate", ylab = "True Positive 
 theme(panel.grid.major = element_blank(), panel.border = element_blank(),
       axis.line = element_line(colour = "grey")) +
 ggtitle("ROC Curve for winner_rpart classifier") +
-annotate("text", x = .75, y = .25, 
+annotate("text", x = .75, y = .25,
          label = paste("AUROC =", round(calc_auc(roc)$AUC, 2)))
 ```
 
@@ -343,32 +347,32 @@ When you use this kind of Machine Learning algorithm you should be aware that sm
 ```{r second_tree, dpi = 100}
 set.seed(4444)
 
-trainIndex_2 <- createDataPartition(y = votes$pref_cand_T, p = perc_train, 
+trainIndex_2 <- createDataPartition(y = votes$pref_cand_T, p = perc_train,
                                     list = FALSE, times = 1)
 
 train_2 <- votes %>% subset(ID %in% trainIndex_2)
 test_2 <-  votes %>% setdiff(train_2)
 
-winner_rpart_2 <- rpart(pref_cand_T ~ ., 
-                         data = train_2[, -c(1:24, 70)], 
+winner_rpart_2 <- rpart(pref_cand_T ~ .,
+                         data = train_2[, -c(1:24, 70)],
                          control = rpart.control(xval = 10, cp = cp))
 
-rpart.plot(winner_rpart_2, main = "Winner candidate in county", 
-           extra = 104, split.suffix = "%?", branch = 1, 
+rpart.plot(winner_rpart_2, main = "Winner candidate in county",
+           extra = 104, split.suffix = "%?", branch = 1,
            fallen.leaves = FALSE, box.palette = "BuRd",
            branch.lty = 3, split.cex = 1.2,
            shadow.col = "gray", shadow.offset = 0.2)
 ```
 
-Although it is not completely different, it changes a bit. 
+Although it is not completely different, it changes a bit.
 
-You can fight this using some ensemble method such as *Bagging*, *Random Forest* or *Boosting*, but as I'm particularly interested in easily visualizing the decision rules and potentially finding different patterns for different groups, I find this method a better fit for this particular problem. 
+You can fight this using some ensemble method such as *Bagging*, *Random Forest* or *Boosting*, but as I'm particularly interested in easily visualizing the decision rules and potentially finding different patterns for different groups, I find this method a better fit for this particular problem.
 
 Since this algorithm is very sensitive to the `train` and `test` partition, I'm interested in having an estimation of the *accuracy* for *this kind of specification of the tree* and not only for the specific one I found. This can be achieved by the K-fold Cross-Validation.
 
 ## K-fold Cross Validation for model accuracy estimation
 
-This method divides randomly the data into `k` equally sized subsets called *folds*. A tree is estimated in `k-1` of them and the performance is evaluated in the fold left behind. This is made `k` times, until each fold is used for validation exactly one time. 
+This method divides randomly the data into `k` equally sized subsets called *folds*. A tree is estimated in `k-1` of them and the performance is evaluated in the fold left behind. This is made `k` times, until each fold is used for validation exactly one time.
 
 This was a non a straightforward thing for me to do. I wanted the `caret` package to calculate the K-fold Cross Validation accuracy estimation, but apparently most people use `caret::train` to find the parameter `cp` at the same time. I just wanted to estimate the accuracy associated with an already specified model (I've already estimated the `cp`). Finally I found the way, specifying `tuneGrid = expand.grid(cp = cp)`.
 
@@ -378,7 +382,8 @@ rpart.grid <- expand.grid(cp = cp)
 train.rpart <- train(pref_cand_T ~ .,
                      data = votes[,-c(1:24, 70)], method = "rpart",
                      trControl = tc,  tuneGrid = rpart.grid)
-train.rpart$results
+
+knitr::kable(train.rpart$results, align = "l")
 ```
 
 The `Kappa` statistic is now 0.66 (it was also 0.66 for the `winner_rpart`), with a 0.07 standard deviation. Again: good results!
@@ -405,7 +410,7 @@ winner_rpart$variable.importance %>%
         plot.subtitle = element_text(hjust = 0.5),
         axis.line = element_line(colour = "grey"),
         panel.grid.major = element_blank(), panel.border = element_blank()) +
-  geom_segment(aes(x = -Inf, y = reorder(variable, importance), 
+  geom_segment(aes(x = -Inf, y = reorder(variable, importance),
                    xend = importance, yend = reorder(variable, importance)),
                size = 0.2)
 ```
@@ -419,4 +424,3 @@ This was my first approach to the subject, I am already doing some extra analysi
 If you made it until here: **thank you!** I tried to keep it simple and intuitive, covering all relevant aspects when estimating this kind of models. The R Markdown I used to generate this post is [available here](https://github.com/d4tagirl/d4tagirl.com/blob/master/_source/what-demographics-voted-for-trump/2017-01-23-what-demographics-voted-for-trump.Rmd).
 
 If you see room for improvement or simply want to share something, please let me know by leaving your comments here or [mentioning me on Twitter](https://twitter.com/intent/tweet?user_id=114258616) :)
-
