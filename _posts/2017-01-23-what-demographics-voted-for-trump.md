@@ -145,8 +145,6 @@ Then I generate the same plot by candidate.
 
 
 ```r
-library(reshape2)
-
 by_candidate <- votes %>%
   group_by(pref_cand_T) %>%
   summarize(
@@ -156,7 +154,7 @@ by_candidate <- votes %>%
     asian       = mean(asian),
     hisp_latin  = mean(hisp_latin),
     foreign     = mean(foreign)) %>%
-    melt(id.vars = 'pref_cand_T') %>%
+    gather(variable, value, -pref_cand_T) %>%
   ggplot() +
     geom_bar(aes(x = variable, y = value, fill = pref_cand_T),
              stat = 'identity', position = 'dodge') +

@@ -149,8 +149,6 @@ It seems like a lot of code for a simple plot, but trust me: once you get the ha
 Then I generate the same plot by candidate.
 
 ```{r build_plot_race_by_candidate, message = FALSE, warning = FALSE}
-library(reshape2)
-
 by_candidate <- votes %>%
   group_by(pref_cand_T) %>%
   summarize(
@@ -160,7 +158,7 @@ by_candidate <- votes %>%
     asian       = mean(asian),
     hisp_latin  = mean(hisp_latin),
     foreign     = mean(foreign)) %>%
-    melt(id.vars = 'pref_cand_T') %>%
+    gather(variable, value, -pref_cand_T) %>%
   ggplot() +
     geom_bar(aes(x = variable, y = value, fill = pref_cand_T),
              stat = 'identity', position = 'dodge') +
