@@ -115,7 +115,10 @@ I generate a plot for the mean of each characteristic across all counties, which
 library(tidyr)
 library(ggplot2)
 
-total <- votes %>%
+# Order in x-axis
+limits = c("white", "white_alone", "black", "asian", "hisp_latin", "foreign")
+
+total <- votes %>% 
   summarize(
     white       = mean(white),
     white_alone = mean(white_alone),
@@ -123,14 +126,14 @@ total <- votes %>%
     asian       = mean(asian),
     hisp_latin  = mean(hisp_latin),
     foreign     = mean(foreign)) %>%
-  gather(variable, value) %>%
+  gather(variable, value) %>% 
   ggplot() +
-  geom_bar(aes(x = variable, y = value),
+  geom_bar(aes(x = variable, y = value), 
            stat = 'identity', width = .7, fill = "#C9C9C9") +
   geom_vline(xintercept = c(4.5, 5.5), alpha = 0.2 ) +
-  scale_x_discrete(limits = c("white", "white_alone", "black", "asian", "hisp_latin", "foreign")) +
-  labs(title = "Proportion in counties",
-       subtitle = "(simple mean of counties proportion, without considering county population)") +
+  scale_x_discrete(limits = limits) +
+  labs(title = "Mean of % in counties",    
+       subtitle = "(Simple mean of % in counties without considering counties' population)") +
   theme_bw() +
   theme(axis.title.x = element_blank(), axis.title.y = element_blank(),
         axis.text.x = element_blank(), axis.line = element_line(colour = "grey"),
@@ -145,27 +148,28 @@ Then I generate the same plot by candidate.
 
 
 ```r
-by_candidate <- votes %>%
-  group_by(pref_cand_T) %>%
+by_candidate <- votes %>% 
+  group_by(pref_cand_T) %>% 
   summarize(
     white       = mean(white),
     white_alone = mean(white_alone),
     black       = mean(black),
     asian       = mean(asian),
     hisp_latin  = mean(hisp_latin),
-    foreign     = mean(foreign)) %>%
-    gather(variable, value, -pref_cand_T) %>%
-  ggplot() +
-    geom_bar(aes(x = variable, y = value, fill = pref_cand_T),
-             stat = 'identity', position = 'dodge') +
-    geom_vline(xintercept = c(4.5, 5.5), alpha = 0.2 ) +
-    scale_fill_manual(values = alpha(c("blue", "red")),
-                      breaks = c("0", "1"), labels = c("Clinton", "Trump")) +
-    labs(fill = "winner") +
-    theme_bw() +
-    theme(axis.title.x = element_blank(), axis.title.y = element_blank(),
-          axis.line = element_line(colour = "grey"), legend.position = "bottom",
-          panel.grid.major = element_blank(), panel.border = element_blank())
+    foreign     = mean(foreign)) %>% 
+  gather(variable, value, -pref_cand_T) %>% 
+  ggplot() + 
+  geom_bar(aes(x = variable, y = value, fill = pref_cand_T),
+           stat = 'identity', position = 'dodge') + 
+  geom_vline(xintercept = c(4.5, 5.5), alpha = 0.2 ) +
+  scale_fill_manual(values = alpha(c("blue", "red")), 
+                    breaks = c("0", "1"), labels = c("Clinton", "Trump")) +
+  scale_x_discrete(limits = limits) +
+  labs(fill = "winner") +
+  theme_bw() +
+  theme(axis.title.x = element_blank(), axis.title.y = element_blank(),
+        axis.line = element_line(colour = "grey"), legend.position = "bottom", 
+        panel.grid.major = element_blank(), panel.border = element_blank())
 ```
 
 Same as before, but excluding the grouping variable `pref_cand_T` from the gathering to generate the `ggplot` input.
