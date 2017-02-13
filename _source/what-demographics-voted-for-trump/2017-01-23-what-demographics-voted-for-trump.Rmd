@@ -172,7 +172,7 @@ by_candidate <- votes %>%
           panel.grid.major = element_blank(), panel.border = element_blank())
 ```
 
-Same as before, but this time I use `reshape2::melt` instead of `tidyr::gather` to generate the `ggplot` input, because I have 2 groups.
+Same as before, but excluding the grouping variable `pref_cand_T` from the gathering to generate the `ggplot` input.
 
 Next I plot both. I use the `gridExtra` package to display both plots together. (And yes, it was a lot of learning this past few months!).
 
