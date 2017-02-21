@@ -215,4 +215,7 @@ ggplot() +
 
 And that is it! This is my humble contribution to show how useful nested dataframes can be when you want to estimate different models for different groups!
 
+The R Markdown I used to generate this post is [available here](https://github.com/d4tagirl/d4tagirl.com/blob/master/_source/using-nested-dataframes-to-explain-trump-s-winning-by-race-across-income-quintiles/2017-02-13-using-nested-dataframes-to-explain-trump-s-winning-by-race-across-income-quintiles.Rmd).
+
+
 Thank you for making it until here! Please comment if you have suggestions or you find that I could do something  better ;) You can also [mention me on Twitter if you prefer!](https://twitter.com/intent/tweet?user_id=114258616)
