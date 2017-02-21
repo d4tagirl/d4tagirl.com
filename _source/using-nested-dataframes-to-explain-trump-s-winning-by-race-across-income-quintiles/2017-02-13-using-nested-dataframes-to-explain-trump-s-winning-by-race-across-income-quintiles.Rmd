@@ -2,7 +2,7 @@
 layout: post
 title:  Nested dataframes to explain Trump's winning by race, across regions
 date: "2017-02-13 11:20:16 UYT"
-published: true
+published: false
 tags: [rstats, r, nested dataframes, nest, tidyr, purrr, broom, map, logistic regression]
 description: Continuing my analysis on the Election Results by county, here I use nested dataframes to estimate different linear models explaining Trump's victory by race for each income quintile.
 ---
@@ -34,7 +34,7 @@ load("trump-rpart.Rdata")
 
 # Quantile Analysis
 
-To analyze how the results were different across some characteristics' quintiles, I define a function using `partial` from `purrr` package. Why? *Because I just leant it!* To calculate quintiles I use the same parameter one and again for the `ntile` function (`n = 5`) to find the quintiles. (This idea came from [this very popular Tweet](https://twitter.com/vsbuffalo/status/829756941501034496) that has been around this past few days).
+To analyze how the results were different across some characteristics' quintiles, I define a function using `partial` from `purrr` package. Why? *Because I just learnt it!* To calculate quintiles I use the same parameter one and again for the `ntile` function (`n = 5`) to find the quintiles. (This idea came from [this very popular Tweet](https://twitter.com/vsbuffalo/status/829756941501034496) that has been around this past few days).
 
 ```{r message = FALSE, warning = FALSE}
 library(dplyr)
@@ -51,9 +51,11 @@ votes <- votes %>%
          edu_batch_q      = nt(edu_batchelors),
          urban_q          = nt(housing_units_multistruct),
          income_q         = nt(income))
+
+knitr::kable(head(votes))
 ```
 
-Once I have that, I define a function `group_quintiles` which input is a dataframe that has already has a column name `q` (the column with the quintiles) and groups by it and calculates a the portion of counties that voted for Trump for each quintile. I use it for every characteristic I'm interested in.
+Once I have that, I define a function `group_quintiles` whose input is a dataframe that has already has a column name `q` (the column with the quintiles) and groups by it and calculates a the portion of counties that voted for Trump for each quintile. I use it for every characteristic I'm interested in.
 
 ```{r message = FALSE, warning = FALSE}
 group_quitiles <- function(x){
@@ -125,7 +127,7 @@ grid.arrange(plot_quintiles(white_alone_quintiles), plot_quintiles(white_quintil
                             gp = gpar(fontsize = 15)))
 ```
 
-Results imply that the lower the `white` and `white_alone` quintile, the lesser those counties voted for Trump (especially the lowest quintile!). The opposite happens with `black` and `hisp_latin`, and also with what I called `urban`, which is the amount of housing units in multi-unit structures (you can [check the meaning of this variables in my previous post]({% post_url 2017-01-23-what-demographics-voted-for-trump %}) {:target="_blank"}). With `edu_batch` and `income` we can se a inverted "U": the lowest and highest quintiles are the counties that had less proportion of votes for Trump. For the `income`, this is where you see this *middle class* support that Trump had.
+Results imply that the lower the `white` and `white_alone` quintile, the less those counties voted for Trump (especially the lowest quintile!). The opposite happens with `black` and `hisp_latin`, and also with what I called `urban`, which is the amount of housing units in multi-unit structures (you can [check the meaning of this variables in my previous post]({% post_url 2017-01-23-what-demographics-voted-for-trump %}) {:target="_blank"}). With `edu_batch` and `income` we can se a inverted "U": the lowest and highest quintiles are the counties that had less proportion of votes for Trump. For the `income`, this is where you see this *middle class* support that Trump had.
 
 # Nested dataframes
 
@@ -160,7 +162,7 @@ We can see some differences in characteristics across the regions, but lets chec
 
 ### `Trump ~ white_alone` model by region
 
-First I do it using `white_alone` as an explanatory variable. I use the `nest` function of the `tidyr` package, to make a dataframe that contains a list column made of dataframes! As I used `nest(-state_region)` it has one column with the `state_region` and the other is the list column with a dataframe for every `state_region`. Then I use the `purr::map` function to fit a model to each dataframe in the list column mentioned before. Finaly I use the `broom::tidy` function to retrieve the tidy results of my models and filtered only the slopes. As I prefer the Odds Ratio rather then the coefficients for interpretation, I calculate them also. 
+First I do it using `white_alone` as an explanatory variable. I use the `nest` function of the `tidyr` package, to make a dataframe that contains a list column m ade of dataframes! As I used `nest(-state_region)` it has one column with the `state_region` and the other is the list column with a dataframe for every `state_region`. Then I use the `purr::map` function to fit a model to each dataframe in the list column mentioned before. Finaly I use the `broom::tidy` function to retrieve the tidy results of my models and filtered only the slopes. As I prefer the Odds Ratio rather then the coefficients for interpretation, I calculate them also. 
 
 ```{r message = FALSE, warning = FALSE}
 library(tidyr)
