@@ -17,6 +17,7 @@ layout: null
 
  {% for post in site.posts %}
    {% if post.tags contains 'rstats' %}
+     {% unless post.tags contains 'es' %}
  <entry>
    <title>{{ post.title }}</title>
    <link href="{{ site.url }}{{ post.url }}"/>
@@ -24,6 +25,7 @@ layout: null
    <id>{{ site.url }}{{ post.id }}</id>
    <content type="html">{{ post.content | remove_first:post.excerpt | xml_escape }}</content>
  </entry>
+      {% endunless %}
     {% endif %}
  {% endfor %}
 
