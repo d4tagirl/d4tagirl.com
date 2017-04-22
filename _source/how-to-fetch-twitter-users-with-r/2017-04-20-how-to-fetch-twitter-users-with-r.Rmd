@@ -1,0 +1,155 @@
+---
+layout: post
+title:  How to fetch Twitter users with R
+date: "2017-04-20 12:11:29 UYT"
+published: true
+tags: [rstats, r, Twitter, rtweet, purrr, map, ggmap]
+description: How to fetch Twitter users and clean the data using R!
+---
+Here I show how to fetch Twitter users using the `rtweet` package, and clean the data using the `tidyverse` set of packages, for later usage in plotting animated maps.  
+
+<!--more-->
+
+Recently [I came across this post](http://spatial.ly/2017/03/mapping-5000-years-of-city-growth/), and I knew I had to make a similar map for the [R-Ladies' chapters](http://rladies.org/) (probably the purple color had plenty to do with that!). So my idea was to map all the R-Ladies' chapters according to their size, and that's when I thought of using their Twitter followers as a way to estimate it. 
+
+If I wanted to show everything I've done in a single post, it would be almost as long as my first one! And I didn't want that :P So I decided to make 2 _tutorial-like_ posts: one for the data preparation (this very one), and the second one about making the maps and animating them. And finally other post where I don't go into too much detail about everything.
+
+So here I go!
+
+# Getting Twitter users
+
+I had to learn how to retrieve data from the Twitter API, and I chose to use the `rtweet` package, which is super easy to use! 
+
+Every R-Ladies' chapter uses a standard handle, using the *RLadiesLocation* format (thankfully they are very compliant with this!). By setting the `q` parameter to `'RLadies'` I'm setting the query to be searched. `n = 1000` sets the amount of users to retrieve, being 1000 the maximum number of users returned from a single search. As I want a dataframe as a result, I set the `parse` parameter to `TRUE`.
+
+Since I only use public data I don't have to worry about getting my Twitter personal access token (for now at least).
+
+```{r load_data, echo = FALSE, message = FALSE, warning = FALSE}
+# The data isn't in this repository, you can find everything I use here:
+# https://github.com/d4tagirl/R-Ladies-growth-maps
+
+library(knitr)
+knitr::opts_chunk$set(dpi = 130, fig.align = 'center')
+options(width = 80, dplyr.width = 150)
+
+users <- readRDS('/Users/Daniela/rladies_growing/users.rds')
+```
+
+```{r  false_load_data, eval = FALSE}
+library(rtweet)
+
+users <- search_users(q = 'RLadies',
+                      n = 1000,
+                      parse = TRUE)
+```
+
+Let's see what it returns:
+
+```{r  head_users, message = FALSE, warning = FALSE, results='asis'}
+library(knitr)
+
+kable(head(users[, c(2:5)]), format = "html")
+```
+
+This is great! It retrieves the user if it matches the user's _description_ as well as _name_ and _screen name_ (handle), with 36 variables regarding the user. I'm only showing the ones I'm going to use, but there is a lot of extra information there.
+
+# Cleaning the data
+
+First I make sure I don't have any duplicates, and then I keep only the handles that comply with the stipulated format, using a regular expression. I filter out 3 additional handles: _'RLadies'_, whose _name_ is _'Royal Ladies'_, that I assume has something to do with royalty by the crown on their picture. _'RLadies\_LF'_ is a Japanese account that translated as follows on _Google Translator_: _'Rakuten Ichiba fashion delivery'_. And finally _'RLadiesGlobal'_ because it is not a chapter, so I don't want to map it. 
+
+I also select the variables I will use, and correct the missing values on _location_ that I'll need to geocode the chapters. 
+
+So it's time to clean up this data:
+
+```{r  head_rladies, message = FALSE, warning = FALSE}
+library(dplyr)
+library(lubridate)
+library(stringr)
+library(tidyr)
+
+rladies <- unique(users) %>%
+  filter(str_detect(screen_name, '^(RLadies).*') & 
+           !screen_name %in% c('RLadies', 'RLadies_LF', 'RLadiesGlobal')) %>% 
+  mutate(location = ifelse(screen_name == 'RLadiesLx', 'Lisbon',
+                         ifelse(screen_name == 'RLadiesMTL', 'Montreal', location))) %>%
+  select(screen_name, location, created_at, followers = followers_count)
+
+kable(head(rladies), format = "html")         
+```
+
+There are two additional chapters with no presence on Twitter: one in Taipei, Taiwan, and the other in Warsaw, Poland. I add them according to their creation date and using the number of members on their Meetup account as followers.
+
+```{r  message = FALSE, warning = FALSE}
+
+rladies <- rladies %>% 
+  add_row(      
+    screen_name = 'RLadiesTaipei',
+    location = 'Taipei',
+    created_at = as.Date('2014-11-15'),
+    followers = 347) %>% 
+  add_row(      
+    screen_name = 'RLadiesWarsaw',
+    location = 'Warsaw',
+    created_at = as.Date('2014-11-15'),
+    followers = 347)
+
+```
+
+As my ultimate goal is to map the chapters, I need to obtain the latitude and longitude for each one of them. The `ggmap` package really comes in handy for this kind of task. It interacts with _Google Maps_ to retrieve latitude and longitude, and I don't even have to worry about getting the location into a specific format, because it is so good at interpreting it! 
+
+Since the `ggmap::geocode` function returns 2 columns, the first thing I thought was to call it twice: once for the longitude and once for the latitude. But I didn't like it because it was awfully inefficient, and the geocoding takes some time. It was going to be something like this:
+
+```{r  false2, eval = FALSE}
+library(ggmap)
+
+rladies <- rladies %>% 
+  mutate(lon = geocode(location)[,1],
+         lat = geocode(location)[,2])
+```
+
+Doing some research I finally decided to use the `purrr::map` function for capturing both values in a single column of the dataframe, and then with `tidyr::unnest` I transform it into two separate columns. All of this with never having to leave the `tidyverse` world :)
+
+I'm doing it in two steps to see the intermediate result, with the two columns in a single variable of the dataframe.
+
+```{r  false3, eval = FALSE}
+
+library(ggmap)
+library(purrr)
+
+rladies <- rladies %>% 
+  mutate(longlat = purrr::map(.$location, geocode)) 
+
+kable(head(rladies), format = "html")   
+```
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+rladies <- readRDS('/Users/Daniela/rladies_growing/rladies_longlat.rds')
+
+kable(head(rladies), format = "html")   
+```
+
+
+```{r}
+rladies <- rladies %>% 
+  unnest() 
+
+kable(head(rladies), format = "html")         
+```
+
+A few more minor changes and my dataframe will be ready! 
+
+I format the date variable `created_at` as `%Y-%m-%d` (just because seeing the hours, minutes and seconds annoys me!) and generate the age in days (for reproducibility, I set a fixed date to compare it with).
+
+```{r}
+rladies <- rladies %>% 
+  mutate(created_at = format(as.Date(created_at), format = '%Y-%m-%d'),
+         age_days = difftime(as.Date('2017-4-25'), created_at, unit = 'days'))
+
+kable(head(rladies), format = "html") 
+```
+
+That's it!
+
+Now the dataframe is ready for me to use it for visualizing these Twitter users on the map (considering their sizes and dates of creation), and make some animations! If you are interested, [you can check how I do it here]() {:target="_blank"}
+
+Thank you for reading! Please leave your comments below or [Mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616) :)

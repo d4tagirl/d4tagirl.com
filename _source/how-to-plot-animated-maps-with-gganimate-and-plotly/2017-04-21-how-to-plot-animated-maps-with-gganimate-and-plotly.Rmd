@@ -1,0 +1,231 @@
+---
+layout: post
+title:  How to plot animated maps with gganimate and plotly
+date: "2017-04-20 12:11:29 UYT"
+published: true
+tags: [rstats, r, gganimate, plotly]
+description: How to plot animated maps in R, with gganimate and plotly.
+---
+Here I show how to plot the Twitter users' data retrieved in my previous post in different animated maps, using `gganimate` and `plotly`.
+
+<!--more-->
+
+As I mentioned in my previous post, recently [I came across this article](http://spatial.ly/2017/03/mapping-5000-years-of-city-growth/), and I knew I had to make a similar map for the [R-Ladies' chapters](http://rladies.org/). I insist that the purple color did its magic with me. So my idea was to plot all the R-Ladies' chapters according to their size, and that's when I thought of using their Twitter followers as a way to estimate it.
+
+The first part of this project was to get all the R-Ladies chapters' Twitter users, and that is [what I did in my previous post]({% post_url 2017-04-20-how-to-fetch-twitter-users-with-r %}){:target="_blank"}. Now I have to plot the maps and animate them. Fun!
+
+# Using Plotly
+
+I'm using the data from my last blog post. Let's take a look at it:
+
+```{r load_data, echo = FALSE, message = FALSE, warning = FALSE}
+# You can find everything I use here:
+# https://github.com/d4tagirl/R-Ladies-growth-maps
+
+library(knitr)
+knitr::opts_chunk$set(dpi = 130, fig.align = 'center')
+options(width = 80, dplyr.width = 150)
+
+rladies <- readRDS('/Users/Daniela/rladies_growing/rladies.rds')
+```
+
+```{r  head_users, message = FALSE, warning = FALSE, results='asis'}
+library(knitr)
+
+kable(head(rladies), format = "html")
+```
+
+So my idea is to produce a map where I can plot each chapter, with the size indicating the amount of Twitter followers. I'm chosing `plotly` now because I love its interactivity, and I can select what I want to see in the labels.
+
+I use the 
+
+
+```{r}
+library('maps')
+library('ggthemes')
+
+library('plotly')
+
+map <- ggplot(world.cities, package = 'maps') +
+  borders('world', colour = 'gray80', fill = 'gray80') +
+  theme_map() +
+  geom_point(aes(x = lon, y = lat, text = paste('city: ', location),
+                 size = followers,
+                 frame = created_at),
+             data = rladies, colour = 'purple', alpha = .5) +
+  scale_size_continuous(range = c(1, 10), breaks = c(250, 500, 750, 1000)) +
+  labs(size = 'Followers')
+
+ggplotly(map, tooltip = c('text', 'size', 'frame'))
+# 
+# #··············
+# # gganimate 
+# 
+# map <- ggplot(world.cities, package = 'maps') +
+#   borders('world', colour = 'gray80', fill = 'gray80') +
+#   theme_map() +
+#   geom_point(aes(x = lon, y = lat, text = paste('city: ', location),
+#                  size = followers,
+#                  frame = created_at,
+#                  cumulative = TRUE),
+#              data = rladies, colour = 'purple', alpha = .5) +
+#   scale_size_continuous(range = c(1, 10), breaks = c(250, 500, 750, 1000)) + 
+#   labs(size = 'Followers')
+# 
+# library(gganimate)
+# 
+# # animation::ani.options(ani.width = 1000, ani.height = 600)
+# # # gganimate(map, interval = .3)
+# # gganimate(map, interval = .3, filename = 'rladies.gif')
+# 
+# animation::ani.options(ani.width = 750, ani.height = 450)
+# gganimate(map, interval = .3, filename = 'rladies.gif')
+# 
+# #··············
+# # gganimate, adding one transparent geom_point frame at the beggining
+# 
+# # init point to show empty map in the beggining
+# ghost_point <- rladies %>%
+#   add_row(
+#     created_at = format(as.Date('2012-09-01'), format = '%Y-%m-%d'),
+#     followers = 0,
+#     lon = 0,
+#     lat = 0,
+#     .before = 1) %>% 
+#   slice(1)
+# 
+# map_ghost <- map + 
+#   geom_point(aes(x = lon, y = lat, text = paste('city: ', location), #print init point
+#                  size = followers,
+#                  frame = created_at,
+#                  cumulative = TRUE),
+#              data = ghost_point, colour = 'blue', alpha = 0) + 
+#   labs(size = 'Followers')
+# 
+# # animation::ani.options(ani.width = 1000, ani.height = 600)
+# # # gganimate(map_ghost, interval = .3)
+# # gganimate(map_ghost, interval = .3, filename = 'rladies_ghost.gif')
+# 
+# animation::ani.options(ani.width = 750, ani.height = 450)
+# gganimate(map_ghost, interval = .3, filename = 'rladies_ghost.gif')
+# 
+# #··············
+# # gganimate - with intermediate points!
+# 
+# library(tibble)
+# 
+# dates <- as_tibble(seq(as.Date(min(rladies$created_at)), 
+#                        as.Date('2017-04-25'), 
+#                        by = 'days')) %>% 
+#   filter(day(value) %in% c(1, 5, 10, 15, 20, 25))
+# 
+# rladies_frames <- rladies %>% 
+#   nest(-screen_name) %>% 
+#   expand(screen_name, date = dates$value) %>%
+#   right_join(rladies, by = 'screen_name') %>% 
+#   filter(date > created_at) %>% 
+#   mutate(date = format(date, format = '%Y-%m-%d'),
+#          age_total = as.numeric(age_days, units = 'days'),
+#          age_at_date = as.numeric(difftime(date, created_at, unit = 'days'), units = 'days'),
+#          est_followers = ((followers - 1) / age_total) * age_at_date)
+# 
+# # modify init point to show empty map in the beggining
+# 
+# ghost_point <-  ghost_point %>% 
+#   mutate(date = format(created_at, format = '%Y-%m-%d'),
+#          est_followers = 0)
+# 
+# map_frames <- ggplot(world.cities, package = 'maps') +
+#   borders('world', colour = 'gray80', fill = 'gray80') +
+#   theme_map() +
+#   geom_point(aes(x = lon, y = lat, text = paste('city: ', location),
+#                  size = est_followers,
+#                  frame = date),
+#              data = rladies_frames, colour = 'purple', alpha = .5) +
+#   geom_point(aes(x = lon, y = lat, text = paste('city: ', location), #print init point
+#                  size = est_followers,
+#                  frame = date),
+#              data = ghost_point, colour = 'blue', alpha = 0) +
+#   scale_size_continuous(range = c(1, 10), breaks = c(250, 500, 750, 1000)) + 
+#   labs(size = 'Followers')
+#              
+# # animation::ani.options(ani.width = 1000, ani.height = 600)
+# # # gganimate(map_frames, interval = .2)
+# # gganimate(map_frames, interval = .2, filename = 'rladies_frames.gif')
+# 
+# animation::ani.options(ani.width = 750, ani.height = 450)
+# gganimate(map_frames, interval = .2, filename = 'rladies_frames.gif')
+# 
+# #··············
+# # gganimate - with intermediate points - leaving some frames before London creation out
+# 
+# rladies_less_frames <- rladies_frames %>% 
+#   filter((day(date) == 1 & month(date) %% 6 == 0) |
+#            date >= rladies$created_at[rladies$screen_name == 'RLadiesLondon'])
+# 
+# map_less_frames <- ggplot(world.cities, package = 'maps') +
+#   borders('world', colour = 'gray80', fill = 'gray80') +
+#   theme_map() +
+#   geom_point(aes(x = lon, y = lat, text = paste('city: ', location),
+#                  size = est_followers,
+#                  frame = date),
+#              data = rladies_less_frames, colour = 'purple', alpha = .5) + 
+#   geom_point(aes(x = lon, y = lat, text = paste('city: ', location), #print init point
+#                  size = est_followers,
+#                  frame = date),
+#              data = ghost_point, colour = 'blue', alpha = 0) +
+#   scale_size_continuous(range = c(1, 10), breaks = c(250, 500, 750, 1000)) + 
+#   labs(size = 'Followers')
+# 
+# # animation::ani.options(ani.width = 1000, ani.height = 600)
+# # # gganimate(map_less_frames, interval = .2)
+# # gganimate(map_less_frames, interval = .2, filename = 'rladies_less_frames.gif')
+# 
+# animation::ani.options(ani.width = 750, ani.height = 450)
+# gganimate(map_less_frames, interval = .2, filename = 'rladies_less_frames.gif')
+# 
+# #··············
+# # gganimate -  leaving some frames before London creation out - faster!
+# 
+# dates <- as_tibble(seq(min(rladies$created_at), 
+#                        as.POSIXlt('2017-04-25'), 
+#                        by = 'days')) %>% 
+#   filter(day(value) %in% c(1, 10, 20))
+# 
+# rladies_frames <- rladies %>% 
+#   nest(-screen_name) %>% 
+#   expand(screen_name, date = dates$value) %>%
+#   right_join(rladies, by = 'screen_name') %>% 
+#   filter(date > created_at) %>% 
+#   mutate(date = format(date, format = '%Y-%m-%d'),
+#          age_total = as.numeric(age_days, units = 'days'),
+#          age_at_date = as.numeric(difftime(date, created_at, unit = 'days'), units = 'days'),
+#          est_followers = ((followers - 1) / age_total) * age_at_date)
+# 
+# rladies_faster <- rladies_frames %>% 
+#   filter((day(date) == 1 & month(date) %% 6 == 0) |
+#            date >= rladies$created_at[rladies$screen_name == 'RLadiesLondon'])
+# 
+# map_faster <- ggplot(world.cities, package = 'maps') +
+#   borders('world', colour = 'gray80', fill = 'gray80') +
+#   theme_map() +
+#   geom_point(aes(x = lon, y = lat, text = paste('city: ', location),
+#                  size = est_followers,
+#                  frame = date),
+#              data = rladies_faster, colour = 'purple', alpha = .5) +
+#   geom_point(aes(x = lon, y = lat, text = paste('city: ', location), #print init point
+#                  size = est_followers,
+#                  frame = date),
+#              data = ghost_point, colour = 'blue', alpha = 0) +
+#   scale_size_continuous(range = c(1, 10), breaks = c(250, 500, 750, 1000)) + 
+#   labs(size = 'Followers')
+# 
+# # animation::ani.options(ani.width = 1000, ani.height = 600)
+# # # gganimate(map_less_frames_fast, interval = .2)
+# # gganimate(map_less_frames_fast, interval = .2, filename = 'rladies_less_frames_fast.gif')
+# 
+# animation::ani.options(ani.width = 750, ani.height = 450)
+# gganimate(map_faster, interval = .2, filename = 'rladies_faster.gif')
+# 
+# save.image('RLadies_twitter_growth.RData')
+```
