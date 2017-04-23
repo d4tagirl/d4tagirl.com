@@ -4,19 +4,19 @@ title:  How to plot animated maps with gganimate and plotly
 date: "2017-04-20 12:11:29 UYT"
 published: true
 tags: [rstats, r, gganimate, plotly]
-description: How to plot animated maps in R, with gganimate and plotly.
+description: How to palot animated maps in R, with gganimate and plotly.
 ---
 Here I show how to plot the Twitter users' data retrieved in my previous post in different animated maps, using `gganimate` and `plotly`.
 
 <!--more-->
 
-As I mentioned in my previous post, recently [I came across this article](http://spatial.ly/2017/03/mapping-5000-years-of-city-growth/), and I knew I had to make a similar map for the [R-Ladies' chapters](http://rladies.org/). I insist that the purple color did its magic with me. So my idea was to plot all the R-Ladies' chapters according to their size, and that's when I thought of using their Twitter followers as a way to estimate it.
+As I mentioned in my previous post, I recently [came across this article](http://spatial.ly/2017/03/mapping-5000-years-of-city-growth/), and I knew I had to produce a similar map for the [R-Ladies' chapters](http://rladies.org/). I insist that the purple color did its magic with me. So my idea was to plot all the R-Ladies' chapters according to their size, and that's when I thought of using their Twitter followers as a way to estimate it.
 
 The first part of this project was to get all the R-Ladies chapters' Twitter users, and that is [what I did in my previous post]({% post_url 2017-04-20-how-to-fetch-twitter-users-with-r %}){:target="_blank"}. Now I have to plot the maps and animate them. Fun!
 
 # Using Plotly
 
-I'm using the data from my last blog post. Let's take a look at it:
+Let's take a look at the data from my last blog post:
 
 ```{r load_data, echo = FALSE, message = FALSE, warning = FALSE}
 # You can find everything I use here:
@@ -35,29 +35,69 @@ library(knitr)
 kable(head(rladies), format = "html")
 ```
 
-So my idea is to produce a map where I can plot each chapter, with the size indicating the amount of Twitter followers. I'm chosing `plotly` now because I love its interactivity, and I can select what I want to see in the labels.
+I want to produce a map where I can plot each chapter according to its location, with the point's size indicating the amount of Twitter followers. I'm chosing `plotly` now because I love its interactivity, and you can select what you want to see when you hover over the points.
 
-I use the 
+I use the `maps` package to get the world map, using `ggplot2` and `theme_map` for plotting it in nicely.
 
+
+```{r message = FALSE, warning = FALSE}
+library(ggplot2)
+library(maps)
+library(ggthemes)
+
+world <- ggplot() +
+  borders("world", colour = "gray85", fill = "gray80") +
+  theme_map() 
+```
+
+```{r echo = FALSE, fig.height = 4}
+world
+```
+
+Now I plot the chapters. I chose the purple color, obviously! 
 
 ```{r}
-library('maps')
-library('ggthemes')
+map <- world +
+  geom_point(aes(x = lon, y = lat,
+                 size = followers),
+             data = rladies, colour = 'purple', alpha = .5) +
+  scale_size_continuous(range = c(1, 10), breaks = c(250, 500, 750, 1000)) +
+  labs(size = 'Followers')
+```
 
-library('plotly')
+```{r echo = FALSE, fig.height = 4}
+map
+```
 
-map <- ggplot(world.cities, package = 'maps') +
-  borders('world', colour = 'gray80', fill = 'gray80') +
-  theme_map() +
-  geom_point(aes(x = lon, y = lat, text = paste('city: ', location),
+The only thing left is to animate it with `plotly`, and this is really easy! 
+
+```{r message = FALSE, warning = FALSE, screenshot.force = FALSE}
+library(plotly)
+
+ggplotly(map, tooltip = c('size'))
+```
+
+Now if you hover over the map you can see how many folowers each chapter have. I use the `tooltip` parameter to specify the aesthetics I want `ggplotly` to display in the label when hovering over each point in the map.
+
+But what if you want to see more information about every chapter? There is a very simple way to do this. You only need to add an additional aesthetic parameter to the `ggplot`, and it will pass it to `ggplotly`.
+
+```{r message = FALSE, warning = FALSE, screenshot.force = FALSE}
+map <- world +
+  geom_point(aes(x = lon, y = lat, 
+                 text = paste('city: ', location),
                  size = followers,
-                 frame = created_at),
+                 creation = created_at),
              data = rladies, colour = 'purple', alpha = .5) +
   scale_size_continuous(range = c(1, 10), breaks = c(250, 500, 750, 1000)) +
   labs(size = 'Followers')
 
-ggplotly(map, tooltip = c('text', 'size', 'frame'))
-# 
+ggplotly(map, tooltip = c('text', 'size', 'creation')) 
+```
+
+Here I add two new parameters to the aesthetics: the first one is `text`, that allowes me to customize output using `paste()`, and the second one that I invented is `creation`, and it is passed just like that to the tooltip. I couldn't find a way to do the same I did with `text`, with a different parameter... The creators even call it _"the unofficial "text" aesthetic"_, so I don't know if there actually you can do that woth a different parameter.
+
+```{r}
+
 # #··············
 # # gganimate 
 # 

@@ -45,12 +45,16 @@ users <- search_users(q = 'RLadies',
 
 Let's see what it returns:
 
-```{r  head_users, message = FALSE, warning = FALSE, results='asis'}
+```{r message = FALSE, warning = FALSE, screenshot.force = FALSE, fig.cap = ""}
 library(knitr)
 
 kable(head(users[, c(2:5)]), format = "html")
+
+library(DT)
+datatable(users[, c(2:5)])
 ```
 
+<br/>
 This is great! It retrieves the user if it matches the user's _description_ as well as _name_ and _screen name_ (handle), with 36 variables regarding the user. I'm only showing the ones I'm going to use, but there is a lot of extra information there.
 
 # Cleaning the data
@@ -95,7 +99,7 @@ rladies <- rladies %>%
 
 ```
 
-As my ultimate goal is to map the chapters, I need to obtain the latitude and longitude for each one of them. The `ggmap` package really comes in handy for this kind of task. It interacts with _Google Maps_ to retrieve latitude and longitude, and I don't even have to worry about getting the location into a specific format, because it is so good at interpreting it! 
+As my ultimate goal is to map the chapters, I need to obtain the latitude and longitude for each one of them. The `ggmap` package really comes in handy for this kind of task. It interacts with _Google Maps_ to retrieve latitude and longitude, and I don't even have to worry about getting the location into a specific format, because it is so good at interpreting it! (I actually tried extracting the cities first, because I thought it would be the best way, but many of the chapters didn't match or matched wrongly, so I tried it like that and worked perfectly!)
 
 Since the `ggmap::geocode` function returns 2 columns, the first thing I thought was to call it twice: once for the longitude and once for the latitude. But I didn't like it because it was awfully inefficient, and the geocoding takes some time. It was going to be something like this:
 
@@ -122,10 +126,13 @@ rladies <- rladies %>%
 kable(head(rladies), format = "html")   
 ```
 
-```{r echo = FALSE, message = FALSE, warning = FALSE}
+```{r echo = FALSE, message = FALSE, warning = FALSE, screenshot.force = FALSE}
 rladies <- readRDS('/Users/Daniela/rladies_growing/rladies_longlat.rds')
 
 kable(head(rladies), format = "html")   
+
+library(DT)
+datatable(head(rladies))
 ```
 
 
