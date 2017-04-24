@@ -23,13 +23,13 @@ Let's take a look at the data from my last blog post:
 # https://github.com/d4tagirl/R-Ladies-growth-maps
 
 library(knitr)
-knitr::opts_chunk$set(dpi = 130, fig.align = 'center')
+knitr::opts_chunk$set(dpi = 130, fig.align = 'center', screenshot.force = FALSE, fig.height = 4, fig.cap = "")
 options(width = 80, dplyr.width = 150)
 
 rladies <- readRDS('/Users/Daniela/rladies_growing/rladies.rds')
 ```
 
-```{r  head_users, message = FALSE, warning = FALSE, results='asis'}
+```{r  head_users, message = FALSE, warning = FALSE}
 library(knitr)
 
 kable(head(rladies), format = "html")
@@ -37,8 +37,7 @@ kable(head(rladies), format = "html")
 
 I want to produce a map where I can plot each chapter according to its location, with the point's size indicating the amount of Twitter followers. I'm chosing `plotly` now because I love its interactivity, and you can select what you want to see when you hover over the points.
 
-I use the `maps` package to get the world map, using `ggplot2` and `theme_map` for plotting it in nicely.
-
+I use the `maps` package to get the world map, using `ggplot2` and `theme_map` for plotting it nicely. 
 
 ```{r message = FALSE, warning = FALSE}
 library(ggplot2)
@@ -50,11 +49,11 @@ world <- ggplot() +
   theme_map() 
 ```
 
-```{r echo = FALSE, fig.height = 4}
+```{r echo = FALSE}
 world
 ```
 
-Now I plot the chapters. I chose the purple color, obviously! 
+Now I plot the chapters. I chose the purple color, obviously!
 
 ```{r}
 map <- world +
@@ -69,12 +68,13 @@ map <- world +
 map
 ```
 
-The only thing left is to animate it with `plotly`, and this is really easy! 
+The only thing left is to animate it with `plotly`, and this is really easy!!
 
-```{r message = FALSE, warning = FALSE, screenshot.force = FALSE}
+```{r message = FALSE, warning = FALSE}
 library(plotly)
 
-ggplotly(map, tooltip = c('size'))
+# ggplotly(map, tooltip = c('size'))
+
 ```
 
 Now if you hover over the map you can see how many folowers each chapter have. I use the `tooltip` parameter to specify the aesthetics I want `ggplotly` to display in the label when hovering over each point in the map.
@@ -84,17 +84,55 @@ But what if you want to see more information about every chapter? There is a ver
 ```{r message = FALSE, warning = FALSE, screenshot.force = FALSE}
 map <- world +
   geom_point(aes(x = lon, y = lat, 
-                 text = paste('city: ', location),
+                 text = paste('city: ', location, "<br />",
+                  'followers: ', followers),
                  size = followers,
                  creation = created_at),
              data = rladies, colour = 'purple', alpha = .5) +
   scale_size_continuous(range = c(1, 10), breaks = c(250, 500, 750, 1000)) +
   labs(size = 'Followers')
 
-ggplotly(map, tooltip = c('text', 'size', 'creation')) 
+# ggplotly(map, tooltip = c('text', 'size', 'creation')) 
 ```
 
 Here I add two new parameters to the aesthetics: the first one is `text`, that allowes me to customize output using `paste()`, and the second one that I invented is `creation`, and it is passed just like that to the tooltip. I couldn't find a way to do the same I did with `text`, with a different parameter... The creators even call it _"the unofficial "text" aesthetic"_, so I don't know if there actually you can do that woth a different parameter.
+
+```{r}
+library(ggplot2)
+library(plotly)
+
+g <- list(
+  showframe = FALSE,
+  coastlinecolor = toRGB("grey"),
+  showland = TRUE,
+  landcolor = toRGB("grey"),
+  showcountries = TRUE,
+  countrycolor = toRGB("white"),
+  countrywidth = 0.2,
+  projection = list(type = 'Mercator')
+)
+
+p <- plot_geo(rladies,
+              marker = list(color = "#B23AEE",
+                            opacity = 0.5,
+                            line = list(color = "#7A378B",
+                                        width = 1.5))) %>%
+  add_markers(
+    x = ~lon,
+    y = ~lat,
+    sizes = c(1, 400),
+    size = ~followers,
+    hoverinfo = "text",
+    text = ~paste('city: ', rladies$location, "<br />",
+                  'followers: ', rladies$followers)
+  ) %>%
+  layout(
+    geo = g
+  )
+
+p
+
+```
 
 ```{r}
 
