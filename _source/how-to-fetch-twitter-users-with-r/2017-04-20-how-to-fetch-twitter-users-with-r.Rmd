@@ -29,7 +29,7 @@ Since I only use public data I don't have to worry about getting my Twitter pers
 # https://github.com/d4tagirl/R-Ladies-growth-maps
 
 library(knitr)
-knitr::opts_chunk$set(dpi = 130, fig.align = 'center')
+knitr::opts_chunk$set(dpi = 130, fig.align = 'center', screenshot.force = FALSE, fig.cap = "")
 options(width = 80, dplyr.width = 150)
 
 users <- readRDS('/Users/Daniela/rladies_growing/users.rds')
@@ -45,23 +45,24 @@ users <- search_users(q = 'RLadies',
 
 Let's see what it returns:
 
-```{r message = FALSE, warning = FALSE, screenshot.force = FALSE, fig.cap = ""}
-library(knitr)
-
-kable(head(users[, c(2:5)]), format = "html")
-
+```{r message = FALSE, warning = FALSE}
 library(DT)
-datatable(users[, c(2:5)])
+datatable(users[, c(2:5)], rownames = FALSE,
+          options = list(pageLength = 5))
 ```
 
 <br/>
 This is great! It retrieves the user if it matches the user's _description_ as well as _name_ and _screen name_ (handle), with 36 variables regarding the user. I'm only showing the ones I'm going to use, but there is a lot of extra information there.
 
+I used `DT::datatable` just in case someone wants to go through whats on the whole table. It was not easy to set up the environment for my blog to show this table (it uses `HTML widgets`), but luckily my hubby was more than willing to help me with that part :). If you are using RStudio it is just as simple as installing the `DT` package, or you can always use `knitr::kable(head(users[, c(2:5)]), format = "html")` to see the first rows.
+
 # Cleaning the data
 
-First I make sure I don't have any duplicates, and then I keep only the handles that comply with the stipulated format, using a regular expression. I filter out 3 additional handles: _'RLadies'_, whose _name_ is _'Royal Ladies'_, that I assume has something to do with royalty by the crown on their picture. _'RLadies\_LF'_ is a Japanese account that translated as follows on _Google Translator_: _'Rakuten Ichiba fashion delivery'_. And finally _'RLadiesGlobal'_ because it is not a chapter, so I don't want to map it. 
+First I make sure I don't have any duplicates, and then I keep only the handles that comply with the stipulated format, using a regular expression. I filter out 3 additional handles: _'RLadies'_, whose _name_ is _'Royal Ladies'_, that I assume has something to do with royalty by the crown on their picture. _'RLadies\_LF'_ is a Japanese account that translated as follows on _Google Translator_: _'Rakuten Ichiba fashion delivery'_. And finally _'RLadiesGlobal'_ because it is not a chapter, so I don't want to plot it. 
 
-I also select the variables I will use, and correct the missing values on _location_ that I'll need to geocode the chapters. 
+I correct the missing values on `location` that I'll need to geocode the chapters, format the date class variable `created_at` as `%Y-%m-%d` (just because seeing the hours, minutes and seconds annoys me!) and generate the age in days `age_days` (for reproducibility, I set a fixed date to compare it with).
+
+Finally I select the variables I will use for my analysis.
 
 So it's time to clean up this data:
 
@@ -75,10 +76,10 @@ rladies <- unique(users) %>%
   filter(str_detect(screen_name, '^(RLadies).*') & 
            !screen_name %in% c('RLadies', 'RLadies_LF', 'RLadiesGlobal')) %>% 
   mutate(location = ifelse(screen_name == 'RLadiesLx', 'Lisbon',
-                         ifelse(screen_name == 'RLadiesMTL', 'Montreal', location))) %>%
-  select(screen_name, location, created_at, followers = followers_count)
-
-kable(head(rladies), format = "html")         
+                         ifelse(screen_name == 'RLadiesMTL', 'Montreal', location)),
+         created_at = format(as.Date(created_at), format = '%Y-%m-%d'),
+         age_days = difftime(as.Date('2017-4-25'), created_at, unit = 'days')) %>%
+  select(screen_name, location, created_at, followers = followers_count, age_days)
 ```
 
 There are two additional chapters with no presence on Twitter: one in Taipei, Taiwan, and the other in Warsaw, Poland. I add them according to their creation date and using the number of members on their Meetup account as followers.
@@ -94,12 +95,15 @@ rladies <- rladies %>%
   add_row(      
     screen_name = 'RLadiesWarsaw',
     location = 'Warsaw',
-    created_at = as.Date('2014-11-15'),
-    followers = 347)
+    created_at = as.Date('2016-11-15'),
+    followers = 80)
 
+datatable(rladies, rownames = FALSE,
+          options = list(pageLength = 5))
 ```
 
-As my ultimate goal is to map the chapters, I need to obtain the latitude and longitude for each one of them. The `ggmap` package really comes in handy for this kind of task. It interacts with _Google Maps_ to retrieve latitude and longitude, and I don't even have to worry about getting the location into a specific format, because it is so good at interpreting it! (I actually tried extracting the cities first, because I thought it would be the best way, but many of the chapters didn't match or matched wrongly, so I tried it like that and worked perfectly!)
+<br />
+As my ultimate goal is to plot the chapters on a map, I need to obtain the latitude and longitude for each one of them. The `ggmap` package really comes in handy for this kind of task. It interacts with _Google Maps_ to retrieve latitude and longitude, and I don't even have to worry about getting the location into a specific format, because it is so good at interpreting it! (I actually tried extracting the cities first, because I thought it would be the best way, but many of the chapters didn't match or matched wrongly, so I tried it like that and worked perfectly!)
 
 Since the `ggmap::geocode` function returns 2 columns, the first thing I thought was to call it twice: once for the longitude and once for the latitude. But I didn't like it because it was awfully inefficient, and the geocoding takes some time. It was going to be something like this:
 
@@ -123,40 +127,27 @@ library(purrr)
 rladies <- rladies %>% 
   mutate(longlat = purrr::map(.$location, geocode)) 
 
-kable(head(rladies), format = "html")   
+datatable(rladies, rownames = FALSE,
+          options = list(pageLength = 5))   
 ```
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE, screenshot.force = FALSE}
 rladies <- readRDS('/Users/Daniela/rladies_growing/rladies_longlat.rds')
 
-kable(head(rladies), format = "html")   
-
-library(DT)
-datatable(head(rladies))
+datatable(rladies, rownames = FALSE,
+          options = list(pageLength = 5))
 ```
-
 
 ```{r}
 rladies <- rladies %>% 
   unnest() 
 
-kable(head(rladies), format = "html")         
+datatable(rladies, rownames = FALSE,
+          options = list(pageLength = 5))         
 ```
-
-A few more minor changes and my dataframe will be ready! 
-
-I format the date variable `created_at` as `%Y-%m-%d` (just because seeing the hours, minutes and seconds annoys me!) and generate the age in days (for reproducibility, I set a fixed date to compare it with).
-
-```{r}
-rladies <- rladies %>% 
-  mutate(created_at = format(as.Date(created_at), format = '%Y-%m-%d'),
-         age_days = difftime(as.Date('2017-4-25'), created_at, unit = 'days'))
-
-kable(head(rladies), format = "html") 
-```
-
+<br />
 That's it!
 
-Now the dataframe is ready for me to use it for visualizing these Twitter users on the map (considering their sizes and dates of creation), and make some animations! If you are interested, [you can check how I do it here]() {:target="_blank"}
+Now the dataframe is ready for me to use it for visualizing these Twitter users on a map (considering their sizes and dates of creation), and make some animations! If you are interested, [you can check how I do it here]() {:target="_blank"}
 
-Thank you for reading! Please leave your comments below or [Mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616) :)
+Thank you for reading! Please leave your comments and suggestions below or [Mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616) :)
