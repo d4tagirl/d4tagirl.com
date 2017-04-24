@@ -134,8 +134,7 @@ datatable(rladies, rownames = FALSE,
 ```{r echo = FALSE, message = FALSE, warning = FALSE, screenshot.force = FALSE}
 rladies <- readRDS('/Users/Daniela/rladies_growing/rladies_longlat.rds')
 
-datatable(rladies, rownames = FALSE,
-          options = list(pageLength = 5))
+kable(head(rladies), format = "html")
 ```
 
 ```{r}
@@ -143,7 +142,7 @@ rladies <- rladies %>%
   unnest() 
 
 datatable(rladies, rownames = FALSE,
-          options = list(pageLength = 5))         
+          options = list(pageLength = 5))        
 ```
 <br />
 That's it!
