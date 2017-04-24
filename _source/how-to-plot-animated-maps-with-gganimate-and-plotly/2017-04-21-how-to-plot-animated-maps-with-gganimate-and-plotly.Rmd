@@ -2,9 +2,9 @@
 layout: post
 title:  How to plot animated maps with gganimate and plotly
 date: "2017-04-20 12:11:29 UYT"
-published: true
+published: false
 tags: [rstats, r, gganimate, plotly]
-description: How to palot animated maps in R, with gganimate and plotly.
+description: How to plot animated maps in R, with gganimate and plotly.
 ---
 Here I show how to plot the Twitter users' data retrieved in my previous post in different animated maps, using `gganimate` and `plotly`.
 
