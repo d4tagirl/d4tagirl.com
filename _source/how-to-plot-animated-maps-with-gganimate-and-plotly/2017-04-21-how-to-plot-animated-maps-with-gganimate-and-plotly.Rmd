@@ -304,6 +304,8 @@ p
 # 
 # animation::ani.options(ani.width = 750, ani.height = 450)
 # gganimate(map_faster, interval = .2, filename = 'rladies_faster.gif')
-# 
+#   
+
+
 # save.image('RLadies_twitter_growth.RData')
 ```

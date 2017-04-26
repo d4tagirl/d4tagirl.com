@@ -32,7 +32,7 @@ library(knitr)
 knitr::opts_chunk$set(dpi = 130, fig.align = 'center', screenshot.force = FALSE, fig.cap = "")
 options(width = 80, dplyr.width = 150)
 
-users <- readRDS('/Users/Daniela/rladies_growing/users.rds')
+users <- readRDS(gzcon(url('https://github.com/d4tagirl/R-Ladies-growth-maps/raw/master/users.rds')))
 ```
 
 ```{r  false_load_data, eval = FALSE}
@@ -132,7 +132,8 @@ datatable(rladies, rownames = FALSE,
 ```
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE, screenshot.force = FALSE}
-rladies <- readRDS('/Users/Daniela/rladies_growing/rladies_longlat.rds')
+
+rladies <- readRDS(gzcon(url('https://github.com/d4tagirl/R-Ladies-growth-maps/raw/master/rladies_longlat.rds')))
 
 kable(head(rladies), format = "html")
 ```
@@ -144,9 +145,10 @@ rladies <- rladies %>%
 datatable(rladies, rownames = FALSE,
           options = list(pageLength = 5))        
 ```
+
 <br />
 That's it!
 
-Now the dataframe is ready for me to use it for visualizing these Twitter users on a map (considering their sizes and dates of creation), and make some animations! If you are interested, [you can check how I do it here]() {:target="_blank"}
+Now the dataframe is ready for me to use it for visualizing these Twitter users on a map (considering their sizes and dates of creation), and make some animations! If you are interested, you can check how I do it [here for using `plotly`](){:target="_blank"} and [here for using `gganimate`](){:target="_blank"}.
 
 Thank you for reading! Please leave your comments and suggestions below or [Mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616) :)

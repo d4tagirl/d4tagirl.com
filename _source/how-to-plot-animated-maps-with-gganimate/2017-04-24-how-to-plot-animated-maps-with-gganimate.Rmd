@@ -26,30 +26,35 @@ Let's take a look at the data from my last blog post:
 
 library(knitr)
 
-opts_knit$set(animation.fun = hook_ffmpeg_html)
+library(animation)
+ani.options(autobrowse = FALSE, interval = 1)
 
-# opts_knit$set(animation.fun = function(x, options, format = "gif") {
-#   x = c(knitr:::sans_ext(x), knitr:::file_ext(x))
-#   fig.num = options$fig.num
-#   format = sub("^[.]", "", format)
-#   base = sub(paste0(fig.num, '$'), '', x[1])
-#   fig.fname = paste0(sub(paste0(fig.num, "$"), "*", x[1]),
-#                      ".", x[2])
-#   mov.fname = paste0(sub('-$', '', base), '.', format)
-# 
-#   # order correctly
-#   figs <- Sys.glob(fig.fname)
-#   figs <- figs[order(as.numeric(stringr::str_match(figs, paste0("(\\d+)\\.", x[2]))[, 2]))]
-# 
-#   animation::im.convert(figs, output = mov.fname)
-# 
-#   sprintf("![%s](%s)", options$label, paste0(opts_knit$get("base.url"), mov.fname))
-# })
+opts_knit$set(animation.fun = function(x, options, format = "gif") {
+  x = c(knitr:::sans_ext(x), knitr:::file_ext(x))
+  fig.num = options$fig.num
+  format = sub("^[.]", "", format)
+  base = sub(paste0(fig.num, '$'), '', x[1])
+  fig.fname = paste0(sub(paste0(fig.num, "$"), "*", x[1]),
+                     ".", x[2])
+  mov.fname = paste0(sub('-$', '', base), '.', format)
+
+  # order correctly
+  figs <- Sys.glob(fig.fname)
+  figs <- figs[order(as.numeric(stringr::str_match(figs, paste0("(\\d+)\\.", x[2]))[, 2]))]
+
+  animation::im.convert(figs, output = mov.fname)
+  original_path <- basename(mov.fname)
+  file.rename(original_path, mov.fname)
+  file.remove(figs)
+
+  sprintf("![%s](%s)", options$label, paste0(opts_knit$get("base.url"), mov.fname))
+})
+
 
 knitr::opts_chunk$set(dpi = 130, fig.align = 'center', screenshot.force = FALSE, fig.height = 4, fig.cap = "")
 options(width = 80, dplyr.width = 150)
 
-rladies <- readRDS('/Users/Daniela/rladies_growing/rladies.rds')
+rladies <- readRDS(gzcon(url('https://github.com/d4tagirl/R-Ladies-growth-maps/raw/master/rladies.rds')))
 ```
 
 ```{r  head_users, message = FALSE, warning = FALSE}
@@ -59,9 +64,9 @@ datatable(rladies, rownames = FALSE,
           options = list(pageLength = 5))
 ```
 
+<br />
 # Plot the map using ggplot2
 
-<br />
 I want to produce a map where I can plot each chapter according to its location, with the point's size indicating the amount of Twitter followers. 
 
 I use the `maps` package to get the world map, using the `ggplot2` and `theme_map` ones for plotting it nicely. 
@@ -127,7 +132,7 @@ Now the only thing left is to animate the map! The core thing here is I want eve
 # gganimate(map, interval = .3)
 ```
 
-```{r fig.show = "animate"}
+```{r fig.show = "animate", fig.align = "center"}
 
 library(gganimate)
 
@@ -143,7 +148,7 @@ map <- ggplot() +
   labs(size = 'Followers')
 
 animation::ani.options(ani.width = 750, ani.height = 450)
-gganimate(map, interval = .3)
+gganimate(map, interval = .2)
 ```
 
 
