@@ -32,7 +32,13 @@ library(knitr)
 knitr::opts_chunk$set(dpi = 130, fig.align = 'center', screenshot.force = FALSE, fig.cap = "")
 options(width = 80, dplyr.width = 150)
 
-users <- readRDS(gzcon(url('https://github.com/d4tagirl/R-Ladies-growth-maps/raw/master/users.rds')))
+# users <- readRDS(gzcon(url('https://github.com/d4tagirl/R-Ladies-growth-maps/raw/master/users.rds')))
+
+library(readr)
+library(dplyr)
+users <- read_csv(url('https://raw.githubusercontent.com/d4tagirl/R-Ladies-growth-maps/master/users.csv')) %>% 
+  select(-1)
+
 ```
 
 ```{r  false_load_data, eval = FALSE}
@@ -133,7 +139,7 @@ datatable(rladies, rownames = FALSE,
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE, screenshot.force = FALSE}
 
-rladies <- readRDS(gzcon(url('https://github.com/d4tagirl/R-Ladies-growth-maps/raw/master/rladies_longlat.rds')))
+# rladies <- readRDS(gzcon(url('https://github.com/d4tagirl/R-Ladies-growth-maps/raw/master/rladies_longlat.rds')))
 
 kable(head(rladies), format = "html")
 ```

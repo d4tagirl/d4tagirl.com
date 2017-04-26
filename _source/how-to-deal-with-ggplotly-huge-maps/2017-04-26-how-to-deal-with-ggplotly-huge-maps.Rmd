@@ -23,14 +23,18 @@ library(knitr)
 knitr::opts_chunk$set(dpi = 130, fig.align = 'center', screenshot.force = FALSE, fig.height = 4, fig.cap = "")
 options(width = 80, dplyr.width = 150)
 
-rladies <- readRDS(gzcon(url('https://github.com/d4tagirl/R-Ladies-growth-maps/raw/master/rladies.rds')))
+# rladies <- readRDS(gzcon(url('https://github.com/d4tagirl/R-Ladies-growth-maps/raw/master/rladies.rds')))
 
 library(plotly)
 ```
 
 ```{r  head_users, message = FALSE, warning = FALSE}
-library(knitr)
+library(readr)
+library(dplyr)
+rladies <- read_csv(url('https://raw.githubusercontent.com/d4tagirl/R-Ladies-growth-maps/master/rladies.csv')) %>% 
+  select(-1)
 
+library(knitr)
 kable(head(rladies), format = "html")
 ```
 
