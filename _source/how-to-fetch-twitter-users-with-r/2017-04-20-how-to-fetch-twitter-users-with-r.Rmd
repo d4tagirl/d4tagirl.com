@@ -10,7 +10,7 @@ Here I show how to fetch Twitter users using the `rtweet` package, and clean the
 
 <!--more-->
 
-Recently [I came across this post](http://spatial.ly/2017/03/mapping-5000-years-of-city-growth/), and I knew I had to make a similar map for the [R-Ladies' chapters](http://rladies.org/) (probably the purple color had plenty to do with that `r emo::ji("purple_heart")` ). So my idea was to map all the R-Ladies' chapters according to their size, and that's when I thought of using their Twitter followers as a way to estimate it, since it's  
+Recently [I came across this post](http://spatial.ly/2017/03/mapping-5000-years-of-city-growth/), and I knew I had to make a similar map for the [R-Ladies' chapters](http://rladies.org/) (probably the purple color had plenty to do with that `r emo::ji("purple_heart")` ). So my idea was to map all the R-Ladies' chapters according to their size, and that's when I thought of using their Twitter followers as a way to estimate it, since it's the social media we use by excelence (except for some specific chapters).  
 
 If I wanted to show everything I've done in a single post, it would be almost as long as my first one! And I didn't want that `r emo::ji("stuck_out_tongue_closed_eyes")` . So I decided to make 2 _tutorial-like_ posts: one for the data preparation (this very one), and the second one about making the maps and animating them. And finally other post where I just go through what I did without getting into too many details, focusing on the visualisation results. 
 
