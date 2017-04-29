@@ -9,7 +9,7 @@ description: How to produce animated maps in R with plotly, using ggplotly and p
 How I had  to go from `gglotly` to `plotly::plot_geo` to reduce the size of the HTML output for posting animated maps on my blog.
 
 <!--more-->
-I've been experimenting with animating maps these past few days and I finally was able to produce some fancy maps using `plotly` and `gganimate` ([you can see my repo here](https://github.com/d4tagirl/R-Ladies-growth-maps)). Everything was working perfectly on Rstudio, until I wanted to share some kind of tutorial on my blog, and things got complicated. Originally I animated some maps using `ggplotly` and it generated a 3.3 MB HTML widget, and that's an issue when you want to include it on a website! So I tried a different approach: using `plotly::plot_geo` I was able to produce a very similar plot, but generating a way smaller HTML widget.
+I've been experimenting with animating maps these past few days and I finally was able to produce some fancy maps using the `plotly` package and the `gganimate` one ([you can see my repo here](https://github.com/d4tagirl/R-Ladies-growth-maps)). Everything was working perfectly on Rstudio, until I wanted to share some kind of tutorial on my blog, and _things got complicated_. Originally I animated some maps using the `plotly::ggplotly` function and it generated a 3.3 MB HTML widget... and *that's an issue* when you want to include it on a website `r emo::ji("flushed")` . So I tried a different approach: using the `plotly::plot_geo` function I was able to produce a very similar plot, but generating a way smaller HTML widget.
 
 # The data
 
@@ -21,30 +21,32 @@ I'm using the [data produced in this previous post]({% post_url 2017-04-20-how-t
 
 library(knitr)
 knitr::opts_chunk$set(dpi = 130, fig.align = 'center', screenshot.force = FALSE, fig.height = 4, fig.cap = "")
-options(width = 80, dplyr.width = 150)
-
-# rladies <- readRDS(gzcon(url('https://github.com/d4tagirl/R-Ladies-growth-maps/raw/master/rladies.rds')))
+options(width = 80, dplyr.width = 80)
 
 library(plotly)
 ```
 
-```{r  head_users, message = FALSE, warning = FALSE}
+```{r  head_users, message = FALSE, warning = FALSE, autoWidth = TRUE}
 library(readr)
 library(dplyr)
-rladies <- read_csv(url('https://raw.githubusercontent.com/d4tagirl/R-Ladies-growth-maps/master/rladies.csv')) %>% 
+
+url_csv <- 'https://raw.githubusercontent.com/d4tagirl/R-Ladies-growth-maps/master/rladies.csv'
+rladies <- read_csv(url(url_csv)) %>% 
   select(-1)
 
-library(knitr)
-kable(head(rladies), format = "html")
+library(DT)
+datatable(rladies, rownames = FALSE,
+          options = list(pageLength = 5))
 ```
 
-I wanted to produce a map using `plotly` where I could plot each chapter according to its location, with each point's size indicating its Twitter followers. 
+<br />
+I want to produce a `plotly` map where I can plot each location (`lon` and `lat`), with each point's size indicating the amount of `followers`. 
 
 # Using ggplotly
 
-The first thing I did was generate the map using `ggplot2`, because `plotly` integrates easily with it. And I'm so comfortable using the `tidyverse`, that it was the natural thing for me to do. 
+The first thing I did was generate the map using `ggplot2`, because `plotly` integrates easily with it via the `ggplotly` function. And I'm so comfortable using the `tidyverse`, that it was the natural thing for me to do! 
 
-As I wanted to include in the `plotly` labels variables not in the `ggplot`'s aesthetics, I added the extra `text` parameter for `ggplotly` to include them. `ggplot` just ignores it.
+`ggplotly` translates the `ggplot2` object into a `plotly` one, displaying the aesthetic mappings in the tooltip. As I wanted to include other variables in it, I added the extra (and _unofficial_) `text` aesthetic for `ggplotly` to include them. Despite `ggplot2` doesn't have a `text` aesthetic, `ggplotly` recognizes it and display it in the tooltip.
 
 ```{r message = FALSE, warning = FALSE}
 library(ggplot2)
@@ -79,9 +81,9 @@ ggplotly(map, tooltip = c('text', 'size'))
 
 If you want to see the animation, [you can check it here]({% post_url 2017-04-24-huge-ggplotly-map %}){:target="_blank"}, but it will take a while! It is a 3.3 MB page!
 
-It is actually a pretty nice animation, but it takes for ever to load the HTML! And that is why I checked how the `plotly` people make this kind of animations from scratch, and I gave it a try.
+It pretty nice animation, but it takes for ever to load the HTML! And that is why I checked how the `plotly` people make this kind of animations from scratch, and I gave it a try.
 
-It is actually not difficult either! It was not that straightforward for me how to find the chart references for customize the maps (probably I was not searching properly :-/), so [here is the link](https://plot.ly/r/reference/), and for the layout in particular [here it is this other link](https://plot.ly/r/reference/#layout-geo/) just in case you encounter the same difficulties as I did.
+It is actually not that difficult either! The only thing that was not that straightforward for me was finding the chart references for customizing the maps (probably because I was doing a bad job at searching for them `r emo::ji("flushed")` ), so [here is the link](https://plot.ly/r/reference/), and for the layout in particular [here it is this other link](https://plot.ly/r/reference/#layout-geo/) just in case you encounter the same difficulties as I did.
 
 ```{r}
 g <- list(showframe = FALSE,
@@ -104,11 +106,11 @@ plot_geo(rladies,
               size = ~followers,
               hoverinfo = "text",
               text = ~paste('city: ', location,
-                            '<br /> created : ', created_at,
+                            '<br /> created: ', created_at,
                             '<br /> followers: ', followers)) %>%
   layout(geo = g)
 ```
 
-This code produces a 16.2 KB HTML, so there I had a 99.5% reduction :)
+This code produces a 16.2 KB HTML, so there I had a 99.5% reduction `r emo::ji("tada")`
 
-If you had a different experience, or have any comments about this, please comment below or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616).
+If you had a different experience, please let me know! You can comment below or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616). Thanks `r emo::ji("wink")` !

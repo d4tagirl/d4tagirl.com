@@ -10,9 +10,9 @@ Here I show how to fetch Twitter users using the `rtweet` package, and clean the
 
 <!--more-->
 
-Recently [I came across this post](http://spatial.ly/2017/03/mapping-5000-years-of-city-growth/), and I knew I had to make a similar map for the [R-Ladies' chapters](http://rladies.org/) (probably the purple color had plenty to do with that!). So my idea was to map all the R-Ladies' chapters according to their size, and that's when I thought of using their Twitter followers as a way to estimate it. 
+Recently [I came across this post](http://spatial.ly/2017/03/mapping-5000-years-of-city-growth/), and I knew I had to make a similar map for the [R-Ladies' chapters](http://rladies.org/) (probably the purple color had plenty to do with that `r emo::ji("purple_heart")` ). So my idea was to map all the R-Ladies' chapters according to their size, and that's when I thought of using their Twitter followers as a way to estimate it, since it's  
 
-If I wanted to show everything I've done in a single post, it would be almost as long as my first one! And I didn't want that :P So I decided to make 2 _tutorial-like_ posts: one for the data preparation (this very one), and the second one about making the maps and animating them. And finally other post where I don't go into too much detail about everything.
+If I wanted to show everything I've done in a single post, it would be almost as long as my first one! And I didn't want that `r emo::ji("stuck_out_tongue_closed_eyes")` . So I decided to make 2 _tutorial-like_ posts: one for the data preparation (this very one), and the second one about making the maps and animating them. And finally other post where I just go through what I did without getting into too many details, focusing on the visualisation results. 
 
 So here I go!
 
@@ -58,15 +58,15 @@ datatable(users[, c(2:5)], rownames = FALSE,
 ```
 
 <br/>
-This is great! It retrieves the user if it matches the user's _description_ as well as _name_ and _screen name_ (handle), with 36 variables regarding the user. I'm only showing the ones I'm going to use, but there is a lot of extra information there.
+This is great! It retrieves the user if it matches the user's _description_ as well as _name_ and _screen\_name_ (handle), with 36 variables regarding the user. I'm only showing the ones I'm going to use, but there is a lot of extra information there.
 
-I used `DT::datatable` just in case someone wants to go through whats on the whole table. It was not easy to set up the environment for my blog to show this table (it uses `HTML widgets`), but luckily my hubby was more than willing to help me with that part :). If you are using RStudio it is just as simple as installing the `DT` package, or you can always use `knitr::kable(head(users[, c(2:5)]), format = "html")` to see the first rows.
+I used `DT::datatable` just in case someone wants to go through whats on the whole table (of course here I'm thinking about the R-Ladies community). It was not easy to set up the environment for my blog to show this table (it uses `HTML widgets`), but luckily my hubby was more than willing to help me with that part `r emo::ji("sweat_smile")` . If you are using RStudio it is just as simple as installing the `DT` package, or you can always use `knitr::kable(head(users[, c(2:5)]), format = "html")` to see the first rows.
 
 # Cleaning the data
 
-First I make sure I don't have any duplicates, and then I keep only the handles that comply with the stipulated format, using a regular expression. I filter out 3 additional handles: _'RLadies'_, whose _name_ is _'Royal Ladies'_, that I assume has something to do with royalty by the crown on their picture. _'RLadies\_LF'_ is a Japanese account that translated as follows on _Google Translator_: _'Rakuten Ichiba fashion delivery'_. And finally _'RLadiesGlobal'_ because it is not a chapter, so I don't want to plot it. 
+First I make sure I don't have any duplicates, and then I keep only the handles that comply with the stipulated format, using a regular expression. I filter out 3 additional handles: _'RLadies'_ (whose _name_ is _'Royal Ladies'_ and I assume has something to do with royalty by the crown on their picture), _'RLadies\_LF'_ (a Japanese account that translated as follows on _Google Translator_: _'Rakuten Ichiba fashion delivery'_), and _'RLadiesGlobal'_, because it is not a chapter, so I don't want to include it on the plot. 
 
-I correct the missing values on `location` that I'll need to geocode the chapters, format the date class variable `created_at` as `%Y-%m-%d` (just because seeing the hours, minutes and seconds annoys me!) and generate the age in days `age_days` (for reproducibility, I set a fixed date to compare it with).
+I also correct the missing values on `location` that I'll need to geocode the chapters, format the date class variable `created_at` as `%Y-%m-%d` (just because seeing the hours, minutes and seconds annoys me!) and generate the age in days `age_days` (for reproducibility, I set a fixed date to compare it with).
 
 Finally I select the variables I will use for my analysis.
 
