@@ -10,11 +10,11 @@ Here I show how to plot an animated map using `gganimate`, and produce a .gif fi
 
 <!--more-->
 
-As I mentioned in previous posts, I recently [came across this article](http://spatial.ly/2017/03/mapping-5000-years-of-city-growth/), and I knew I had to produce a similar map for the [R-Ladies' chapters](http://rladies.org/). I insist that the purple color did its magic with me `r emo::ji("stuck_out_tongue_closed_eyes")` . So my idea was to plot all the R-Ladies' chapters according to their size, and that's when I thought of using their Twitter followers as a way to estimate it.
+As I mentioned in previous posts, I recently [came across this article](http://spatial.ly/2017/03/mapping-5000-years-of-city-growth/), and I knew I had to produce a similar map for the [R-Ladies' chapters](http://rladies.org/). I insist that the purple color did its magic with me `r emo::ji("stuck_out_tongue_closed_eyes")` . So my idea was to plot all the R-Ladies' chapters according to their size, using their Twitter followers as a way to estimate it, since it's the social media we use by excelence (except for some specific chapters).
 
 The first part of this project was to get all the R-Ladies chapters' Twitter users, and that is [what I did in this previous post]({% post_url 2017-04-20-how-to-fetch-twitter-users-with-r %}){:target="_blank"}. Then I plotted them in a map using `ggplot2` and animated the map using the `plotly` package. Despite `plotly::ggplotly` apparently being the easier way, I discovered that it is not the way to go if you want to publish it on a website, as [I examine in this article]({% post_url 2017-04-26-how-to-deal-with-ggplotly-huge-maps %}){:target="_blank"}. It produces an extremely large HTML, so you should rather use `plotly::plot_geo` instead. 
 
-Now I want to plot a similar map, but animating it using `gganimate`, so I can export it to a .gif file I can easily share. Fun!
+Now I want to plot a similar map, but animating it using the `gganimate` package, that produces a different kind of animation, and I can export it to a .gif file I can easily share. Fun!
 
 # The data
 
@@ -25,6 +25,8 @@ Let's take a look at the data from my last blog post:
 # https://github.com/d4tagirl/R-Ladies-growth-maps
 
 library(knitr)
+
+# This a took from gganimate documentation https://github.com/dgrtwo/gganimate/blob/master/README.Rmd
 
 library(animation)
 ani.options(autobrowse = FALSE, interval = 1)
@@ -50,19 +52,19 @@ opts_knit$set(animation.fun = function(x, options, format = "gif") {
   sprintf("![%s](%s)", options$label, paste0(opts_knit$get("base.url"), mov.fname))
 })
 
-
 knitr::opts_chunk$set(dpi = 130, fig.align = 'center', screenshot.force = FALSE, fig.height = 4, fig.cap = "")
 options(width = 80, dplyr.width = 150)
-
-# rladies <- readRDS(gzcon(url('https://github.com/d4tagirl/R-Ladies-growth-maps/raw/master/rladies.rds')))
 
 ```
 
 ```{r  head_users, message = FALSE, warning = FALSE}
 library(readr)
 library(dplyr)
-rladies <- read_csv(url('https://raw.githubusercontent.com/d4tagirl/R-Ladies-growth-maps/master/rladies.csv')) %>% 
-  select(-1)
+
+url_csv <- 'https://raw.githubusercontent.com/d4tagirl/R-Ladies-growth-maps/master/rladies.csv'
+rladies <- read_csv(url(url_csv)) %>% 
+  select(-1) %>% 
+  slice(1:3)
 
 library(DT)
 
@@ -71,11 +73,11 @@ datatable(rladies, rownames = FALSE,
 ```
 
 <br />
-# Plot the map using ggplot2
+# Plotting the map using ggplot2
 
 I want to produce a map where I can plot each chapter according to its location, with the point's size indicating the amount of Twitter followers. 
 
-I use the `maps` package to get the world map, using the `ggplot2` and `theme_map` ones for plotting it nicely. 
+I use the `maps` package to get the world map, using the `ggplot2::ggplot` and `ggthemes::theme_map` functions for plotting it nicely. 
 
 ```{r message = FALSE, warning = FALSE}
 library(ggplot2)
@@ -108,44 +110,21 @@ map <- world +
 map
 ```
 
-With the `range` parameter I control the scale of the points' size.
+The `range` parameter is what controls the scale of the points' size.
 
 
-# Animate the map using gganimate!
+# Animating the map using gganimate!
 
-Now the only thing left is to animate the map! The core thing here is I want every chapter appearing in the order it was created, to somehow tell a story with the map. Lets start by animating `map`, the `ggplot` object we just created. I have to make a few changes for `gganimate` to work:
+Now the only thing left is to animate the map! The core thing here is that I want every chapter appearing in the order it was created, to somehow tell a story with the map. Lets start by animating `map`: the `ggplot` object we just created. I have to make a few changes for `gganimate` to work:
 
-- for  `gganimate` to work it needs a `frame` aesthetic: I'll use the `created_at` variable. You set this as a new aesthetic in the `ggplot` and it is ignored by it, but it passes to the `gganimate`;
-- I also added the `cumulative = TRUE`, so once the chapter appears on the map, it remains.
+- `gganimate` requires a `frame` aesthetic: I'll use the `created_at` variable. You set this as a new aesthetic in `ggplot` which is ignored by it (as shown in the warning message), but `gganimate` recognizes and uses it;
 
-```{r}
-# 
-# # esta anda pero me deja cada frame separado. supuestamente se arregla poniendo fig.show = 'animate'. pruebo en la que viene!
-# library(gganimate)
-# 
-# map <- ggplot() +
-#   borders('world', colour = 'gray80', fill = 'gray80') +
-#   theme_map() +
-#   geom_point(aes(x = lon, y = lat, text = paste('city: ', location),
-#                  size = followers,
-#                  frame = created_at,
-#                  cumulative = TRUE),
-#              data = rladies, colour = 'purple', alpha = .5) +
-#   scale_size_continuous(range = c(1, 10), breaks = c(250, 500, 750, 1000)) +
-#   labs(size = 'Followers')
-# 
-# animation::ani.options(ani.width = 750, ani.height = 450)
-# gganimate(map, interval = .3)
-```
+- I also add the `cumulative = TRUE`, an additional aesthetic  (same comment about `ggplot` ignoring it), so once the chapter appears on the map, it keeps showing in all following frames.
 
-```{r fig.show = "animate", fig.align = "center"}
 
-library(gganimate)
-
-map <- ggplot() +
-  borders('world', colour = 'gray80', fill = 'gray80') +
-  theme_map() +
-  geom_point(aes(x = lon, y = lat, text = paste('city: ', location),
+```{r map_ani, fig.show = "animate", fig.align = "center", message = FALSE}
+map <- world +
+  geom_point(aes(x = lon, y = lat,
                  size = followers,
                  frame = created_at,
                  cumulative = TRUE),
@@ -153,82 +132,49 @@ map <- ggplot() +
   scale_size_continuous(range = c(1, 10), breaks = c(250, 500, 750, 1000)) +
   labs(size = 'Followers')
 
+library(gganimate)
+
 animation::ani.options(ani.width = 750, ani.height = 450)
 gganimate(map, interval = .2)
 ```
 
+This animation is so nice! It shows how R-Ladies is spreading all over the globe, giving also some idea of how it is growing.
 
-```{r fig.show = "animate"}
+# Customizing the gganimate map
 
-# library(gganimate)
-# 
-# map <- ggplot() +
-#   borders('world', colour = 'gray80', fill = 'gray80') +
-#   theme_map() +
-#   geom_point(aes(x = lon, y = lat, text = paste('city: ', location),
-#                  size = followers,
-#                  frame = created_at,
-#                  cumulative = TRUE),
-#              data = rladies, colour = 'purple', alpha = .5) +
-#   scale_size_continuous(range = c(1, 10), breaks = c(250, 500, 750, 1000)) +
-#   labs(size = 'Followers')
-# 
-# animation::ani.options(ani.width = 750, ani.height = 450)
-# gganimate(map, interval = .3)
+Now it is when I start to worry about some details... The first thing was that I showed the animation to a friend, and he told me that there was no frame with an empty map at the beggining. And this was a very good idea!
 
-# gganimate(map, interval = .3, filename = 'rladies.gif')
-# 
-# animation::ani.options(ani.width = 750, ani.height = 450)
-# gganimate(map, interval = .3, filename = 'rladies.gif')
+The first thing to do was to generate a dataframe with some random data (this data will not be visible), with the same structure than the original dataframe, as follows.
+
+```{r}
+
+ghost_point <- rladies %>%
+  add_row(
+    created_at = format(as.Date('2012-09-01'), format = '%Y-%m-%d'),
+    followers = 0,
+    lon = 0,
+    lat = 0,
+    .before = 1) %>%
+  slice(1)
 
 ```
- 
-```{r}
-# world <- ggplot() +
-#   borders("world", colour = "gray85", fill = "gray80") +
-#   theme_map()
 
-# map <- ggplot() +
-#   borders('world', colour = 'gray80', fill = 'gray80') +
-#   theme_map() +
-#   geom_point(aes(x = lon, y = lat, text = paste('city: ', location),
-#                  size = followers,
-#                  frame = created_at,
-#                  cumulative = TRUE),
-#              data = rladies, colour = 'purple', alpha = .5) +
-#   scale_size_continuous(range = c(1, 10), breaks = c(250, 500, 750, 1000)) + 
-#   labs(size = 'Followers')
-# 
-# library(gganimate)
-# 
-# # animation::ani.options(ani.width = 1000, ani.height = 600)
-# # # gganimate(map, interval = .3)
-# # gganimate(map, interval = .3, filename = 'rladies.gif')
-# 
-# animation::ani.options(ani.width = 750, ani.height = 450)
-# gganimate(map, interval = .3, filename = 'rladies.gif')
-# 
-# #··············
-# # gganimate, adding one transparent geom_point frame at the beggining
-# 
-# # init point to show empty map in the beggining
-# ghost_point <- rladies %>%
-#   add_row(
-#     created_at = format(as.Date('2012-09-01'), format = '%Y-%m-%d'),
-#     followers = 0,
-#     lon = 0,
-#     lat = 0,
-#     .before = 1) %>% 
-#   slice(1)
-# 
-# map_ghost <- map + 
-#   geom_point(aes(x = lon, y = lat, text = paste('city: ', location), #print init point
-#                  size = followers,
-#                  frame = created_at,
-#                  cumulative = TRUE),
-#              data = ghost_point, colour = 'blue', alpha = 0) + 
-#   labs(size = 'Followers')
-# 
+Then I add an extra layer to the `ggplot` object `map`, but with the `alpha` parameter set on 0, so the point will not show in the plot.
+
+```{r ghost_ani}
+map_ghost <- map +
+  geom_point(aes(x = lon, y = lat,
+                 size = followers,
+                 frame = created_at,
+                 cumulative = TRUE),
+             data = ghost_point, colour = 'blue', alpha = 0) +
+  labs(size = 'Followers')
+
+animation::ani.options(ani.width = 750, ani.height = 450)
+gganimate(map_ghost, interval = .2)
+```
+
+```{r}
 # # animation::ani.options(ani.width = 1000, ani.height = 600)
 # # # gganimate(map_ghost, interval = .3)
 # # gganimate(map_ghost, interval = .3, filename = 'rladies_ghost.gif')

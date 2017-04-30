@@ -32,11 +32,11 @@ library(knitr)
 knitr::opts_chunk$set(dpi = 130, fig.align = 'center', screenshot.force = FALSE, fig.cap = "")
 options(width = 80, dplyr.width = 150)
 
-# users <- readRDS(gzcon(url('https://github.com/d4tagirl/R-Ladies-growth-maps/raw/master/users.rds')))
-
 library(readr)
 library(dplyr)
-users <- read_csv(url('https://raw.githubusercontent.com/d4tagirl/R-Ladies-growth-maps/master/users.csv')) %>% 
+
+url_csv <- 'https://raw.githubusercontent.com/d4tagirl/R-Ladies-growth-maps/master/users.csv'
+users <- read_csv(url(url_csv)) %>% 
   select(-1)
 
 ```

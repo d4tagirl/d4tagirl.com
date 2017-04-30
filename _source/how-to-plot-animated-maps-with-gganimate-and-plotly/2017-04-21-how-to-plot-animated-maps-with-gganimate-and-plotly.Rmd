@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  How to plot animated maps with gganimate and plotly
+title:  Visualizing R-Ladies's growth! 
 date: "2017-04-20 12:11:29 UYT"
 published: false
 tags: [rstats, r, gganimate, plotly]
