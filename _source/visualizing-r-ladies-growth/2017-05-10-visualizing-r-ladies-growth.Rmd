@@ -6,9 +6,9 @@ published: true
 tags: [rstats, r, gganimate, plotly]
 description: How to plot animated maps in R, with gganimate and plotly.
 ---
-Here I show how I did this animation, from fetching R-Ladies' chapters' Twitter accounts, to plotting it using `plotly` and `gganimate`.
+Here I show how I did this animation, from fetching R-Ladies' chapters' Twitter accounts, to plotting them using `plotly` and `gganimate`.
 
-![](https://github.com/d4tagirl/d4tagirl.com/blob/rladies-map/figure/source/visualizing-r-ladies-growth/2017-05-10-visualizing-r-ladies-growth/rladies_chiquitito.gif)
+![](/figure/source/visualizing-r-ladies-growth/2017-05-10-visualizing-r-ladies-growth/rladies_chiquitito.gif)
 
 <!--more-->
 
@@ -157,7 +157,7 @@ datatable(rladies, rownames = FALSE,
 ```{r echo = FALSE, message = FALSE, warning = FALSE, screenshot.force = FALSE}
 rladies <- readRDS(gzcon(url('https://github.com/d4tagirl/R-Ladies-growth-maps/raw/master/rladies_longlat.rds'))) %>% 
   mutate(created_at = as.Date(created_at)) %>% 
-  unnest() 
+  unnest()
 
 datatable(rladies, rownames = FALSE,
           options = list(pageLength = 5)) 
@@ -298,7 +298,7 @@ dates <- as_tibble(seq(floor_date(min(rladies$created_at),
 
 Then I generate a new dataframe with every chapter appearing once for every intermediate date from its creation date until today. I assume the number of followers increasing linearly.
 
-I remove some frames from the beginning, because R-Ladies proliferated all over the globe in the past year or so but it took a long time from the creation of the first chapter until it started to get traction. The last part of the animation would be really fast in comparison ([you can check this animation in this post]({% post_url 2017-04-24-how-to-plot-animated-maps-with-gganimate %}){:target="_blank"}, so I take the _R-Ladies London_ creation as a breaking point, and before that date (2016-04-20) I only keep one frame every 6 months. It's a compromise I made: I sacrificed the accuracy of the time scale for the sake of a nicer visualization (and a reduction in the amount of frames!) `r emo::ji("woman_shrugging")`
+I remove some frames from the beginning, because R-Ladies proliferated all over the globe in the past year or so but it took a long time from the creation of the first chapter until it started to get traction. The last part of the animation would be really fast in comparison ([you can check this animation in this post]({% post_url 2017-04-24-how-to-plot-animated-maps-with-gganimate %}#skipping){:target="_blank"}, so I take the _R-Ladies London_ creation as a breaking point, and before that date (2016-04-20) I only keep one frame every 6 months. It's a compromise I made: I sacrificed the accuracy of the time scale for the sake of a nicer visualization (and a reduction in the amount of frames!) `r emo::ji("woman_shrugging")`
 
 ```{r map_frames, warning = FALSE, message = FALSE, fig.show = "animate", fig.align = "center"}
 library(tidyr)
@@ -355,5 +355,6 @@ I wanted a .gif file to share it on Twitter, Slack and other social media, so I 
 <br />
 It was a pretty popular Tweet, you should try!
 
-Please leave your comments if you have any, or mention me on Twitter! Thanks for reading!
+Please leave your comments if you have any, or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616). Thanks `r emo::ji("wink")`
+
 

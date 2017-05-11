@@ -113,4 +113,4 @@ plot_geo(rladies,
 
 This code produces a 16.2 KB HTML, so there I had a 99.5% reduction `r emo::ji("tada") `
 
-If you had a different experience, please let me know! You can comment below or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616). Thanks `r emo::ji("wink")` !
+If you had a different experience, please let me know! You can comment below or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616). Thanks `r emo::ji("wink")`

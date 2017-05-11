@@ -267,5 +267,5 @@ I wanted a .gif file to share it on Twitter, Slack and other social media, so I 
 <br />
 It was a pretty popular Tweet, so you should try! 
 
-That's it! Please leave your comments if you have any, or mention me on Twitter! Thanks for reading!
+That's it! Please leave your comments if you have any, or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616). Thanks `r emo::ji("wink")`
 
