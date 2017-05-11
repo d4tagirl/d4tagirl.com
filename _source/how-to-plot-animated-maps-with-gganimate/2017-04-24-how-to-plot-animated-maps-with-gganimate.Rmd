@@ -10,17 +10,19 @@ Here I show how to plot an animated map using the `gganimate` package, and produ
 
 <!--more-->
 
-I recently [came across this article](http://spatial.ly/2017/03/mapping-5000-years-of-city-growth/), and I knew I had to produce a similar map for the [R-Ladies' chapters](http://rladies.org/). I insist that the purple color did its magic with me `r emo::ji("stuck_out_tongue_closed_eyes")` . So my idea was to plot all the R-Ladies' chapters according to their size, using their Twitter followers as a way to estimate it, since it's the social media we use by excellence (except for some specific chapters).
+I recently [came across this article](http://spatial.ly/2017/03/mapping-5000-years-of-city-growth/), and I knew I had to produce a similar map for the [R-Ladies' chapters](http://rladies.org/). I insist that the purple color did its magic with me `r emo::ji("purple_heart")` . So my idea was to plot all the R-Ladies' chapters according to their size, using their Twitter followers as a way to estimate it, since it's the most popular social media among them (except for some specific chapters).
 
-This post is a spin-off of [the main blog post about visualizing R-Ladies growth]({% post_url 2017-05-10-visualizing-r-ladies-growth %}){:target="_blank"}. 
-- The first part of this project was to get all the R-Ladies chapters' Twitter users, and that is [what I did in this previous post]({% post_url 2017-04-20-how-to-fetch-twitter-users-with-r %}){:target="_blank"}. 
-- Then I plotted them in a map using `ggplot2` and animated the map using the `plotly` package. Despite `plotly::ggplotly` apparently being the easier way, I discovered that it is not the way to go if you want to publish it on a website, as [I examine in this article]({% post_url 2017-04-26-how-to-deal-with-ggplotly-huge-maps %}){:target="_blank"}. It produces an extremely large HTML, so you should rather use `plotly::plot_geo` instead. 
+This post is actually a spin-off of [the main blog post about visualizing R-Ladies growth]({% post_url 2017-05-10-visualizing-r-ladies-growth %}){:target="_blank"}, which I then divided into 3 separate posts to discuss each topic more deeply:
 
-Now I want to plot a similar map, but animating it using the `gganimate` package, that produces a different kind of animation, and I can export it to a .gif file I can easily share. Fun!
+- The first post is about [getting all the R-Ladies' chapters' Twitter users]({% post_url 2017-04-20-how-to-fetch-twitter-users-with-r %}){:target="_blank"}. 
 
-# The data
+- The second one is about [plotting them in a map using `ggplot2` and animating the map using the `plotly` package]({% post_url 2017-04-26-how-to-deal-with-ggplotly-huge-maps %}){:target="_blank"}. There I discuss why despite `plotly::ggplotly` apparently being the easiest way, it is not the way to go if you want to publish it on a website. Spoiler alert: it produces an extremely large HTML, so you should rather use `plotly::plot_geo` instead. 
 
-Let's take a look at the data from my last blog post:
+- This is the third post, where I want to plot a similar map, but animating it using the `gganimate` package, that produces a different kind of animation, and I can export it to a .gif file I can easily share. Fun!
+<br />
+## The data
+
+Let's take a look at the R-Ladies' chapters' Twitter accounts I produced in the first post of this series:
 
 ```{r load_data, echo = FALSE, message = FALSE, warning = FALSE}
 # You can find everything I use here:
@@ -28,7 +30,7 @@ Let's take a look at the data from my last blog post:
 
 library(knitr)
 
-# This a took from gganimate documentation https://github.com/dgrtwo/gganimate/blob/master/README.Rmd
+# This I took (with a few tweaks courtesy of my amazing hubby <3) from gganimate documentation https://github.com/dgrtwo/gganimate/blob/master/README.Rmd
 
 library(animation)
 ani.options(autobrowse = FALSE, ani.width = 850, ani.height = 510)
@@ -73,11 +75,11 @@ datatable(rladies, rownames = FALSE,
 ```
 
 <br />
-# Plotting the map using ggplot2
+## Plotting the map using ggplot2
 
-I want to produce a map where I can plot each chapter according to its location, with the point's size indicating the amount of Twitter followers. 
+The goal is to produce a map where each chapter is plotted according to its location, with the point's size indicating the amount of Twitter followers. 
 
-I use the `maps` package to get the world map, using the `ggplot2::ggplot` and `ggthemes::theme_map` functions for plotting it nicely. 
+I use the `maps` package to get the world map, using the `ggplot2::ggplot` and `ggthemes::theme_map` functions for plotting it nicely. And plot the chapters, choosing the purple color, obviously!
 
 ```{r message = FALSE, warning = FALSE}
 library(ggplot2)
@@ -87,15 +89,7 @@ library(ggthemes)
 world <- ggplot() +
   borders("world", colour = "gray85", fill = "gray80") +
   theme_map() 
-```
 
-```{r empty_map, echo = FALSE, message = FALSE, warning = FALSE}
-world
-```
-
-Now I plot the chapters. I chose the purple color, obviously!
-
-```{r message = FALSE, warning = FALSE}
 map <- world +
   geom_point(aes(x = lon, y = lat,
                  size = followers),
@@ -111,16 +105,16 @@ map
 ```
 
 The `range` parameter is what controls the scale of the points' size.
+<br />
+## Animating the map using gganimate
 
-# Animating the map using gganimate!
-
-Now let's animate the map! The core thing here is that I want every chapter appearing in the order it was created, to somehow tell a story with the map. Lets start by animating `map`: the `ggplot` object we just created. I have to make a few changes for `gganimate` to work:
+Now let's animate the map! The core thing here is that I want every chapter appearing following the creation timeline, to somehow tell a story with the map. Lets start by animating `map`: the `ggplot` object I just created. I have to make a few changes for `gganimate` to work:
 
 - `gganimate` requires a `frame` aesthetic: I'll use the `created_at` variable. You set this as a new aesthetic in `ggplot` which is ignored by it (as shown in the warning messages), but `gganimate` recognizes and uses it;
 
-- I also add the `cumulative = TRUE`, an additional aesthetic  (same comment about `ggplot` ignoring it), so once the chapter appears on the map, it keeps showing in all following frames.
+- I also add the `cumulative = TRUE`, an additional aesthetic  (same comment about `ggplot` ignoring it), so once the chapter appears on the map, it keeps showing in all the following frames.
 
-Taking a friend's suggestion, I add an empty frame at the beginning, so that the first frame you see is just the empty map. I generate a dataframe with some random data (this data will not be visible), with the same structure than the original dataframe, as follows.
+Following a friend's suggestion, I add an empty frame at the beginning so that the first frame you see is just the empty map. I generate a dataframe with the same structure than the original one, with some random data, except for the `created_at` field that should be filled with a date prior to the first chapter creation for it to appear at the beginning.
 
 ```{r}
 ghost_point <- rladies %>%
@@ -133,7 +127,7 @@ ghost_point <- rladies %>%
   slice(1)
 ```
 
-Then I add an extra layer to the `ggplot`, the second `geom_point`, but with the `alpha` parameter set to `0`, so the point will not show in the plot.
+Then I add an extra layer to the `ggplot`: the second `geom_point`, with the `alpha` parameter set to `0` so the point will not show in the plot.
 
 ```{r ani_map, fig.show = "animate", fig.align = "center", message = FALSE}
 map <- world +
@@ -155,17 +149,17 @@ ani.options(interval = 0.2)
 gganimate(map)
 ```
 
-This animation is so cool! It shows how R-Ladies is spreading all over the globe, giving also some idea of how it is growing.
+This animation is so cool! It shows how R-Ladies is spreading all over the globe, giving also some idea of how it is growing: where in the world it concentrates and how it accelerated its growing significantly in the last year or so!
+<br />
+## Customizing the animation
 
-# Customizing the animation
+Now it's when I start to get a little obsessed about some details... You can always improve things, right? `r emo::ji("wink")`
+<br />
+### Adding additional frames
 
-Now it's when I start to get a little obsessed about some details... 
+This idea actually came from my husband, who suggested that each point could start small when the chapter is founded and reach its full size today. How cool would that be?! 
 
-## Adding additional frames
-
-This idea actually came from my husband, who suggested that each point could start small when the chapter is founded and reach its full size today.
-
-I only have each chapter once in the `rladies` dataframe, with the creation date and amount of followers. To create new frames for the `gganimate`, I have to replicate each chapter with intermediate number of followers (I assume linear growth) for each intermediate date. I do that by creating a dataframe of dates from the first R-Ladies chapter was created until today (to make this analysis reproducible I assume today is 2017-05-15), and keep only the dates 1, 10 and 20 of each month (I could keep all dates but It would not improve the quality much and it would generate a heavier animation).
+I only have each chapter once in the `rladies` dataframe, with the creation date and the amount of followers. To create new frames for the `gganimate`, I have to replicate each chapter with an intermediate number of followers (I assume linear growth) for each intermediate date. I do that by creating a dataframe of dates from the first R-Ladies' chapter was created until today (to make this analysis reproducible I assume today is 2017-05-15), and keep only the dates 1, 10 and 20 of each month (I could keep all dates but It would not improve the animation's quality much and it would generate a heavier animation).
 
 ```{r warning = FALSE, message = FALSE}
 library(tibble)
@@ -178,7 +172,7 @@ dates <- as_tibble(seq(floor_date(as.Date(min(rladies$created_at)),
   filter(day(value) %in% c(1, 10, 20))
 ```
 
-Then I generate a new dataframe with every chapter appearing once for every intermediate date from its creation date until today. I assume the number of followers increasing linearly. (If you are familiar with `tidiverse` maybe you [prefer to skip the next part](#skipping) where I explain how I join these tables).
+Then I generate a new dataframe with every chapter appearing once for every intermediate date, from its creation date until today. I assume the number of followers increasing linearly. (If you are familiar with `tidiverse` maybe you [prefer to skip the next part](#skipping) where I explain how I join these tables).
 
 ```{r warning = FALSE, message = FALSE}
 library(tidyr)
@@ -195,7 +189,7 @@ rladies_frames <- rladies %>%
          est_followers = ((followers - 1) / age_total) * age_at_date)
 ```
 
-Step-by-step what I do is take the original `rladies` dataframe and select the `screen_name` column. With the `tidyr::expand` I create one row for every `screen_name`-`date` combination (Cartesian product). The right join then completes the rest of the information for every chapter, and then I keep only the dates for every chapter that are greater than its creation date (I don't want to have frames for a chapter previous to its foundation!). At last I add some variables useful to estimate the amount of followers (`est_followers`), assuming the amount of followers increases linearly.
+Step-by-step what I do is take the original `rladies` dataframe and select the `screen_name` column. With the `tidyr::expand` I create one row for every `screen_name`-`date` combination (Cartesian product). The `right_join` completes the rest of the information for every chapter, and then I keep only the dates for every chapter that are greater than its creation date (I don't want to have frames for a chapter previous to its foundation!). At last I add some variables useful to estimate the amount of followers (`est_followers`), assuming the amount of followers increases linearly.
 
 <a id="skipping"> </a>
 
@@ -220,13 +214,13 @@ ani.options(interval = .05)
 gganimate(map_frames)
 ```
 
-This is a very accurate map in terms of how long it took for every chapter to be founded and how R-Ladies proliferated in the past year or so. 
+This is a very accurate map in terms of the timeline: it shows how long it took for every chapter to be founded and how R-Ladies proliferated in the past year or so. 
 
 But... (I told you I got kind of obsessed!) it takes too long from the creation of the first chapters until it started to get traction and the last part of the animation is really fast in comparison. So let's take care of that `r emo::ji("wink")`
+<br />
+### Removing some frames from the beginning
 
-## Removing some frames from the beginning
-
-The foundation of the London chapter was kind of a turning point: after that R-Ladies started to proliferate all over the globe. So I decided to keep all frames after that date, but remove several frames from before, keeping only the first day of the month, every 6 months. 
+The foundation of the London chapter was kind of a turning point: after that R-Ladies started to spread much faster. So I decided to keep all frames after that date, but remove several frames from before, keeping only the first day of the month, every 6 months. 
 
 ```{r ani_map_less_frames, fig.show = "animate", warning = FALSE, message = FALSE}
 rladies_less_frames <- rladies_frames %>%
@@ -249,14 +243,14 @@ ani.options(interval = .15)
 gganimate(map_less_frames)
 ```
 
-This reduces a lot the amount of frames, at the cost of making the story less accurate in terms of time scale. But it is a nicer animation! 
+This reduces a lot the amount of frames, at the cost of making the story less accurate in terms of time scale. But it is a nicer animation! My favourite actually `r emo::ji("blush")`
+<br />
+## Creating the .gif
 
-# Creating the .gif
-
-The only thing left is to save the animation to a file, in this case I choose a `.gif`, but you can also choose to save it as .mp4, .swf or .html (each requiring specific drivers, [check the documentation here](https://github.com/dgrtwo/gganimate))
+The only thing left is to save the animation to a file, in this case I choose a `.gif`, but you can also choose to save it as .mp4, .swf or .html (each of them requiring specific drivers, [check the documentation here](https://github.com/dgrtwo/gganimate))
 
 ```{r eval = FALSE}
-gganimate(map_faster, interval = .2, filename = 'rladies.gif')
+gganimate(map_less_frames, interval = .2, filename = 'rladies.gif')
 ```
 
 I wanted a .gif file to share it on Twitter, Slack and other social media, so I could post something like this:

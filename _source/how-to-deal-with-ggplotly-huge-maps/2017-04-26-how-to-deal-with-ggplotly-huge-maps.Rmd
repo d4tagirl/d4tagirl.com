@@ -9,9 +9,9 @@ description: How to produce animated maps in R with plotly, using ggplotly and p
 How I had to go from `gglotly` to `plotly::plot_geo` to reduce the size of the HTML output for posting animated maps on my blog.
 
 <!--more-->
-I've been experimenting with animating maps these past few days and I finally was able to produce some fancy maps using the `plotly` package and the `gganimate` one. You can see the whole process [in this blog post]({% post_url 2017-05-10-visualizing-r-ladies-growth %}){:target="_blank"} or [in my GitHub repo](https://github.com/d4tagirl/R-Ladies-growth-maps). Everything was working perfectly on Rstudio, until I wanted to share some kind of tutorial on my blog, and _things got complicated_. Originally I animated some maps using the `plotly::ggplotly` function and it generated a 3.3 MB HTML widget... and *that's an issue* when you want to include it on a website `r emo::ji("flushed")` . So I tried a different approach: using the `plotly::plot_geo` function I was able to produce a very similar plot, but generating a way smaller HTML widget.
+I've been experimenting with animating maps these past few days and I finally was able to produce some fancy maps using the `plotly` package and the `gganimate` one. You can see the whole process [in this blog post]({% post_url 2017-05-10-visualizing-r-ladies-growth %}){:target="_blank"} or [in my GitHub repo](https://github.com/d4tagirl/R-Ladies-growth-maps). Everything was working perfectly on Rstudio, until I wanted to share my results on my blog, and _things got complicated_. Originally I animated some maps using the `plotly::ggplotly` function and it generated a 3.3 MB HTML widget... and *that's an issue* when you want to include it on a website `r emo::ji("flushed")` . So I tried a different approach: using the `plotly::plot_geo` function I was able to produce a very similar plot, but generating a way smaller HTML widget.
 
-# The data
+## The data
 
 I'm using the [data produced in this previous post]({% post_url 2017-04-20-how-to-fetch-twitter-users-with-r %}){:target="_blank"}. Let's take a look at it to see what we are dealing with.
 
@@ -40,13 +40,15 @@ datatable(rladies, rownames = FALSE,
 ```
 
 <br />
-I want to produce a `plotly` map where I can plot each location (`lon` and `lat`), with each point's size indicating the amount of `followers`. 
+This dataframe is about R-Ladies' chapters' Twitter accounts. I want to produce a `plotly` map where I can plot each chapter according to its location (`lon` and `lat`), with each point's size indicating its number of `followers`. 
 
-# Using ggplotly
+## Using ggplotly
 
-The first thing I did was generate the map using `ggplot2`, because `plotly` integrates easily with it via the `ggplotly` function. And I'm so comfortable using the `tidyverse`, that it was the natural thing for me to do! 
+The first thing I did was generate the map using `ggplot2`, because `plotly` integrates easily with it with the `ggplotly` function. And I'm so comfortable using the `tidyverse`, that it was the natural thing for me to do! 
 
-`ggplotly` translates the `ggplot2` object into a `plotly` one, displaying the aesthetic mappings in the tooltip. As I wanted to include other variables in it, I added the extra (and _unofficial_) `text` aesthetic for `ggplotly` to include them. Despite `ggplot2` doesn't have a `text` aesthetic, `ggplotly` recognizes it and display it in the tooltip.
+`ggplotly` translates the `ggplot2` object into a `plotly` one, displaying the aesthetic mappings in the tooltip. As I wanted to include other variables in it, I added the extra (and _unofficial_) `text` aesthetic for `ggplotly` to include them. As `ggplot2` doesn't have a `text` aesthetic it ignores it, but `ggplotly` recognizes it and displays it in the tooltip.
+
+The greatest thing about the `text` aesthetic is that you can include more than one variable outside the `ggplot` aesthetics to display, as shown below.
 
 ```{r message = FALSE, warning = FALSE}
 library(ggplot2)
@@ -71,7 +73,7 @@ map <- world +
 map
 ```
 
-Then I animated it using `ggplotly`, with the following code:
+This is the static map that I'm animating using `ggplotly`, with the following code:
 
 ```{r huge_map, eval = FALSE}
 library(plotly)
@@ -81,9 +83,9 @@ ggplotly(map, tooltip = c('text', 'size'))
 
 If you want to see the animation, [you can check it here]({% post_url 2017-04-24-huge-ggplotly-map %}){:target="_blank"}, but it will take a while! It is a 3.3 MB page!
 
-It pretty nice animation, but it takes forever to load the HTML! And that is why I checked how the `plotly` people make this kind of animations from scratch, and I gave it a try.
+It's a pretty nice animation, but it takes forever to load the HTML! And that is why I checked how the `plotly` people make this kind of animations from scratch, and I gave it a try.
 
-It is actually not that difficult either! The only thing that was not that straightforward for me was finding the chart references for customizing the maps (probably because I was doing a bad job at searching for them `r emo::ji("flushed")` ), so [here is the link](https://plot.ly/r/reference/), and for the layout in particular [here it is this other link](https://plot.ly/r/reference/#layout-geo/) just in case you encounter the same difficulties as I did.
+It is actually pretty easy! The only thing that was not that straightforward for me was finding the chart references for customizing the maps (probably because I was doing a bad job at searching for them `r emo::ji("flushed")` ), so [here is the link](https://plot.ly/r/reference/), and for the layout in particular [here it is this other link](https://plot.ly/r/reference/#layout-geo/) just in case you encounter the same difficulties as I did.
 
 ```{r plotly_map}
 g <- list(showframe = FALSE,
@@ -113,4 +115,4 @@ plot_geo(rladies,
 
 This code produces a 16.2 KB HTML, so there I had a 99.5% reduction `r emo::ji("tada") `
 
-If you had a different experience, please let me know! You can comment below or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616). Thanks `r emo::ji("wink")`
+If you had a different experience, please let me know! You can comment below or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616). Thank you for reading `r emo::ji("wink")`
