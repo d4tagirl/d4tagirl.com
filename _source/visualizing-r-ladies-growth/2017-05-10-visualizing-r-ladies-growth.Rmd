@@ -4,23 +4,23 @@ title:  Visualizing R-Ladies' growth!
 date: "2017-05-10 11:11:29 UYT"
 published: true
 tags: [rstats, r, gganimate, plotly]
-description: How to plot animated maps in R, with gganimate and plotly.
+description: How to plot interactive and animated maps in R, with gganimate and plotly.
 ---
-Here I show how I did this animation, from fetching R-Ladies' chapters' Twitter accounts, to plotting them using `plotly` and `gganimate`.
+Here I show how to go from fetching R-Ladies' chapters' Twitter accounts, to plotting them in a map using `plotly` and animating the map using `gganimate` to produce this .gif file.
 
 ![](/figure/source/visualizing-r-ladies-growth/2017-05-10-visualizing-r-ladies-growth/rladies_chiquitito.gif)
 
 <!--more-->
 
-Recently [I came across this post](http://spatial.ly/2017/03/mapping-5000-years-of-city-growth/), and I knew I had to make a similar map for the [R-Ladies' chapters](http://rladies.org/) (probably the purple color had plenty to do with that `r emo::ji("purple_heart")` ). So my idea was to map all the R-Ladies' chapters according to their size, and that's when I thought of using their Twitter followers as a way to estimate it, since it's the most extended social media they use (except for a few chapters).  
+Recently [I came across this post](http://spatial.ly/2017/03/mapping-5000-years-of-city-growth/), and I knew I had to make a similar map for the [R-Ladies' chapters](http://rladies.org/) (probably the purple color had plenty to do with that `r emo::ji("purple_heart")` ). So my idea was to plot all the R-Ladies' chapters in a map according to their size. I thought of using their Twitter followers as a way to estimate it, since it's the most extended social media they use (except for a few chapters).  
 
 As I don't want this to be an extremely large post (like my first one `r emo::ji("roll_eyes")` ) I decided to make 3 posts to go through the details of what I've done (especially for future me!):
 
   * [How to fetch Twitter users with R]({% post_url 2017-04-20-how-to-fetch-twitter-users-with-r %}){:target="_blank"}: the title is kind of self explanatory...
-  * [How to plot animated maps with gganimate]({% post_url 2017-04-24-how-to-plot-animated-maps-with-gganimate %}){:target="_blank"}: again, pretty obvious subject.
   * [How to deal with ggplotly huge maps]({% post_url 2017-04-26-how-to-deal-with-ggplotly-huge-maps %}){:target="_blank"}: where I go through the details of why I chose not to use `ggplotly` and use `plot_geo` instead to generate HTML.
+  * [How to plot animated maps with gganimate]({% post_url 2017-04-24-how-to-plot-animated-maps-with-gganimate %}){:target="_blank"}: again, pretty obvious subject.
 
-And this one is the most general post about this project, where I don't get into so many details of what I do, focusing on the visualization results.
+This post is the most general one about this project, where I don't get into so many details of what I do, focusing on the visualization results.
 
 So here I go!
 
@@ -28,7 +28,7 @@ So here I go!
 
 I had to learn how to retrieve data from the Twitter API, and I chose to use the `rtweet` package, which is super easy to use! Since I only use public data I don't have to worry about getting my Twitter personal access token. 
 
-Every R-Ladies' chapter uses a standard handle, using the *RLadiesLocation* format (thankfully they are very compliant with this!). 1000 is the maximum number of users returned from a single search, which is not a problem for now but it looks like it will be in the near future, as you are about to see! 
+Every R-Ladies' chapter uses a standard handle, with the *RLadiesLocation* format (I'm surprised about how very compliant with this!). 1000 is the maximum number of users returned from a single search, which is not a problem for now but it looks like it will be in the near future, as you are about to see! 
 
 ```{r load_data, echo = FALSE, message = FALSE, warning = FALSE}
 # The data isn't in this repository, you can find everything I use here:
@@ -41,7 +41,7 @@ library(knitr)
 
 library(knitr)
 
-# This a took from gganimate documentation https://github.com/dgrtwo/gganimate/blob/master/README.Rmd
+# This I took (with a few tweaks courtesy of my amazing hubby <3) from gganimate documentation https://github.com/dgrtwo/gganimate/blob/master/README.Rmd
 
 library(animation)
 ani.options(autobrowse = FALSE, ani.width = 850, ani.height = 510)
@@ -166,9 +166,9 @@ datatable(rladies, rownames = FALSE,
 <br />
 Now the dataframe is ready for me to use it for visualizing these Twitter users on a map (considering their sizes and dates of creation), and make some animations.
 
-# Animating the map using plotly
+# Making the map interactive using plotly
 
-The first thing I did was generate the map using `ggplot2`, because `plotly` integrates easily with it via the `ggplotly` function. And I'm so comfortable using the `tidyverse`, that it was the natural thing for me to do! But (huge but!) by the time I wanted to show that animation on my blog, it took forever to load the HTML! And that is why I checked how the `plotly` people make this kind of animations from scratch, and I gave it a try.
+The first thing I did was generate the map using `ggplot2`, because `plotly` integrates easily with it via the `ggplotly` function. And I'm so comfortable using the `tidyverse`, that it was the natural thing for me to do! But (huge but!) by the time I wanted to show that map on my blog, it took forever to load the HTML! And that is why I checked how the `plotly` people make this kind of maps from scratch, and I gave it a try.
 
 ```{r plotly_map, message = FALSE, warning = FALSE, fig.align = 'center', screenshot.force = FALSE, fig.width = 6.5}
 library(plotly)
@@ -197,7 +197,7 @@ plot_geo(rladies,
   layout(geo = g)
 ```
 
-I love this `plotly` map, but it requires an interaction to take advantage of it. And I wanted to generate a visualization able to be captured on a .gif file so I could share it on Twitter and other social media... And that's when I thought of `gganimate`.
+I love this `plotly` map, but it requires an interaction to take full advantage of it. And I wanted to generate a visualization able to be captured on a .gif file so I could share it on Twitter and other social media... And that's when I thought of `gganimate`.
 
 # Animating the map using gganimate
 
@@ -298,7 +298,7 @@ dates <- as_tibble(seq(floor_date(min(rladies$created_at),
 
 Then I generate a new dataframe with every chapter appearing once for every intermediate date from its creation date until today. I assume the number of followers increasing linearly.
 
-I remove some frames from the beginning, because R-Ladies proliferated all over the globe in the past year or so but it took a long time from the creation of the first chapter until it started to get traction. The last part of the animation would be really fast in comparison ([you can check this animation in this post]({% post_url 2017-04-24-how-to-plot-animated-maps-with-gganimate %}#skipping){:target="_blank"}, so I take the _R-Ladies London_ creation as a breaking point, and before that date (2016-04-20) I only keep one frame every 6 months. It's a compromise I made: I sacrificed the accuracy of the time scale for the sake of a nicer visualization (and a reduction in the amount of frames!) `r emo::ji("woman_shrugging")`
+I remove some frames from the beginning, because R-Ladies proliferated all over the globe in the past year or so but it took a long time from the creation of the first chapter until it started to get traction. The last part of the animation would be really fast in comparison ([you can check this animation in this post]({% post_url 2017-04-24-how-to-plot-animated-maps-with-gganimate %}#skipping){:target="_blank"}, so I take the _R-Ladies London_ creation as a turning point, and before that date (2016-04-20) I only keep one frame every 6 months. It's a compromise I made: I sacrificed the accuracy of the time scale for the sake of a nicer visualization (and a reduction in the amount of frames!) `r emo::ji("woman_shrugging")`
 
 ```{r map_frames, warning = FALSE, message = FALSE, fig.show = "animate", fig.align = "center"}
 library(tidyr)

@@ -4,12 +4,12 @@ title:  How to deal with ggplotly huge maps
 date: "2017-05-10 09:11:29 UYT"
 published: true
 tags: [rstats, r, plotly, ggplotly, maps, plot_geo]
-description: How to produce animated maps in R with plotly, using ggplotly and plot_geo. While ggplotly is easier to use, it produces huge maps (using HTML widgets). Using plot_geo instead is incredibly more efficient.
+description: How to produce interactive maps in R with plotly, using ggplotly and plot_geo. While ggplotly is easier to use, it produces huge HTML content. Using plot_geo instead is incredibly more efficient.
 ---
-How I had to go from `gglotly` to `plotly::plot_geo` to reduce the size of the HTML output for posting animated maps on my blog.
+How I had to go from `gglotly` to `plotly::plot_geo` to reduce the size of the HTML output for posting interactive maps on my blog.
 
 <!--more-->
-I've been experimenting with animating maps these past few days and I finally was able to produce some fancy maps using the `plotly` package and the `gganimate` one. You can see the whole process [in this blog post]({% post_url 2017-05-10-visualizing-r-ladies-growth %}){:target="_blank"} or [in my GitHub repo](https://github.com/d4tagirl/R-Ladies-growth-maps). Everything was working perfectly on Rstudio, until I wanted to share my results on my blog, and _things got complicated_. Originally I animated some maps using the `plotly::ggplotly` function and it generated a 3.3 MB HTML widget... and *that's an issue* when you want to include it on a website `r emo::ji("flushed")` . So I tried a different approach: using the `plotly::plot_geo` function I was able to produce a very similar plot, but generating a way smaller HTML widget.
+I've been experimenting with interactive maps and animated ones these past few days and I finally was able to produce some fancy outputs using the `plotly` package and the `gganimate` one. You can see the whole process [in this blog post]({% post_url 2017-05-10-visualizing-r-ladies-growth %}){:target="_blank"} or [in my GitHub repo](https://github.com/d4tagirl/R-Ladies-growth-maps). Everything was working perfectly on Rstudio, until I wanted to share my results on my blog, and _things got complicated_. Originally I produced some animated maps using the `plotly::ggplotly` function and it generated a 3.3 MB HTML widget... and *that's an issue* when you want to include it on a website `r emo::ji("flushed")` . So I tried a different approach: using the `plotly::plot_geo` function I was able to produce a very similar plot, generating a way smaller HTML widget.
 
 ## The data
 
@@ -81,9 +81,9 @@ library(plotly)
 ggplotly(map, tooltip = c('text', 'size'))
 ```
 
-If you want to see the animation, [you can check it here]({% post_url 2017-04-24-huge-ggplotly-map %}){:target="_blank"}, but it will take a while! It is a 3.3 MB page!
+If you want to see this map [you can check it here]({% post_url 2017-04-24-huge-ggplotly-map %}){:target="_blank"}, but it will take a while! It is a 3.3 MB page!
 
-It's a pretty nice animation, but it takes forever to load the HTML! And that is why I checked how the `plotly` people make this kind of animations from scratch, and I gave it a try.
+It's a pretty nice map, but it takes forever to load the HTML! And that is why I checked how the `plotly` people make this kind of plots from scratch, and I gave it a try.
 
 It is actually pretty easy! The only thing that was not that straightforward for me was finding the chart references for customizing the maps (probably because I was doing a bad job at searching for them `r emo::ji("flushed")` ), so [here is the link](https://plot.ly/r/reference/), and for the layout in particular [here it is this other link](https://plot.ly/r/reference/#layout-geo/) just in case you encounter the same difficulties as I did.
 

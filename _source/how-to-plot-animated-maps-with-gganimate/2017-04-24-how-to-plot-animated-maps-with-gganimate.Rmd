@@ -16,9 +16,9 @@ This post is actually a spin-off of [the main blog post about visualizing R-Ladi
 
 - The first post is about [getting all the R-Ladies' chapters' Twitter users]({% post_url 2017-04-20-how-to-fetch-twitter-users-with-r %}){:target="_blank"}. 
 
-- The second one is about [plotting them in a map using `ggplot2` and animating the map using the `plotly` package]({% post_url 2017-04-26-how-to-deal-with-ggplotly-huge-maps %}){:target="_blank"}. There I discuss why despite `plotly::ggplotly` apparently being the easiest way, it is not the way to go if you want to publish it on a website. Spoiler alert: it produces an extremely large HTML, so you should rather use `plotly::plot_geo` instead. 
+- The second one is about [plotting them in a map using `ggplot2` and make that map interactive using the `plotly` package]({% post_url 2017-04-26-how-to-deal-with-ggplotly-huge-maps %}){:target="_blank"}. There I discuss why despite `plotly::ggplotly` apparently being the easiest way, it is not the way to go if you want to publish it on a website. Spoiler alert: it produces an extremely large HTML, so you should rather use `plotly::plot_geo` instead. 
 
-- This is the third post, where I want to plot a similar map, but animating it using the `gganimate` package, that produces a different kind of animation, and I can export it to a .gif file I can easily share. Fun!
+- This is the third post, where I want to plot a similar map, but animating it using the `gganimate` package so I can export it to a .gif file easily shareable. Fun!
 <br />
 ## The data
 
@@ -79,7 +79,7 @@ datatable(rladies, rownames = FALSE,
 
 The goal is to produce a map where each chapter is plotted according to its location, with the point's size indicating the amount of Twitter followers. 
 
-I use the `maps` package to get the world map, using the `ggplot2::ggplot` and `ggthemes::theme_map` functions for plotting it nicely. And plot the chapters, choosing the purple color, obviously!
+I use the `maps` package to get the world map, using the `ggplot2::ggplot` and `ggthemes::theme_map` functions for plotting it nicely. Then I plot the chapters choosing the purple color, obviously!
 
 ```{r message = FALSE, warning = FALSE}
 library(ggplot2)
@@ -149,7 +149,7 @@ ani.options(interval = 0.2)
 gganimate(map)
 ```
 
-This animation is so cool! It shows how R-Ladies is spreading all over the globe, giving also some idea of how it is growing: where in the world it concentrates and how it accelerated its growing significantly in the last year or so!
+This animation is so cool! It shows how R-Ladies is spreading all over the globe, giving also some idea of how it is growing: where in the world the chapters concentrates and how it accelerated its growing significantly in the last year or so!
 <br />
 ## Customizing the animation
 
