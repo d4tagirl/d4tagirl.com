@@ -6,7 +6,7 @@ published: true
 tags: [rstats, r, gganimate, plotly]
 description: How to plot interactive and animated maps in R, with gganimate and plotly.
 ---
-Here I show how to go from fetching R-Ladies' chapters' Twitter accounts, to plotting them in a map using `plotly` and animating the map using `gganimate` to produce this .gif file.
+Here I show how to go from fetching R-Ladies' chapters' Twitter accounts, to plotting them in an interactive map using `plotly` and animating the map using `gganimate` to produce this .gif file.
 
 ![](/figure/source/visualizing-r-ladies-growth/2017-05-10-visualizing-r-ladies-growth/rladies_chiquitito.gif)
 
@@ -21,6 +21,8 @@ As I don't want this to be an extremely large post (like my first one `r emo::ji
   * [How to plot animated maps with gganimate]({% post_url 2017-04-24-how-to-plot-animated-maps-with-gganimate %}){:target="_blank"}: again, pretty obvious subject.
 
 This post is the most general one about this project, where I don't get into so many details of what I do, focusing on the visualization results.
+
+Also, I should warn you that there are a lot of emojis in this post, courtesy of the `emo` package Hadley recently released and I fanatically adopted `r emo::ji("innocent")`
 
 So here I go!
 
