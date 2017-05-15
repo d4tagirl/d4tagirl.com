@@ -9,11 +9,22 @@ description: How to produce interactive maps in R with plotly, using ggplotly an
 How I had to go from `gglotly` to `plotly::plot_geo` to reduce the size of the HTML output for posting interactive maps on my blog.
 
 <!--more-->
-I've been experimenting with interactive maps and animated ones these past few days and I finally was able to produce some fancy outputs using the `plotly` package and the `gganimate` one. You can see the whole process [in this blog post]({% post_url 2017-05-10-visualizing-r-ladies-growth %}){:target="_blank"} or [in my GitHub repo](https://github.com/d4tagirl/R-Ladies-growth-maps). Everything was working perfectly on Rstudio, until I wanted to share my results on my blog, and _things got complicated_. Originally I produced some animated maps using the `plotly::ggplotly` function and it generated a 3.3 MB HTML widget... and *that's an issue* when you want to include it on a website `r emo::ji("flushed")` . So I tried a different approach: using the `plotly::plot_geo` function I was able to produce a very similar plot, generating a way smaller HTML widget.
+
+This is the second one of the 3-posts-series, where I go from fetching Twitter users and preparing the data to visualizing it (If I wanted to show everything I've done in a single post, it would be almost as long as my first one! And I didn't want that `r emo::ji("stuck_out_tongue_closed_eyes")` ):
+
+1. [How to fetch Twitter users with R]({% post_url 2017-04-20-how-to-fetch-twitter-users-with-r %}): the title is kind of self explanatory...
+2. How to deal with ggplotly huge maps: this one, where I go through the details of why I chose not to use `ggplotly` and use `plot_geo` instead to generate the HTML.
+3. [How to plot animated maps with gganimate]({% post_url 2017-04-24-how-to-plot-animated-maps-with-gganimate %}): again, pretty obvious subject.
+ 
+Finally [I present my favourite visualization here]({% post_url 2017-05-10-visualizing-r-ladies-growth %}).
+
+## Motivation
+
+For this series I've been experimenting with interactive maps and animated ones these past few days and I finally was able to produce some fancy outputs using the `plotly` package and the `gganimate` one. You can see the whole process [in my GitHub repo](https://github.com/d4tagirl/R-Ladies-growth-maps). Everything was working perfectly on RStudio, until I wanted to share my results on my blog, and _things got complicated_. Originally I produced some interactive maps using the `plotly::ggplotly` function and it generated a 3.3 MB HTML... and *that's an issue* when you want to include it on a website `r emo::ji("flushed")` . So I tried a different approach: using the `plotly::plot_geo` function I was able to produce a very similar plot, generating a way smaller HTML.
 
 ## The data
 
-I'm using the [data produced in this previous post]({% post_url 2017-04-20-how-to-fetch-twitter-users-with-r %}){:target="_blank"}. Let's take a look at it to see what we are dealing with.
+I'm using the [data produced in this previous post]({% post_url 2017-04-20-how-to-fetch-twitter-users-with-r %}). Let's take a look at it to see what we are dealing with.
 
 ```{r load_data, echo = FALSE, message = FALSE, warning = FALSE}
 # You can find everything I use here:
@@ -115,4 +126,6 @@ plot_geo(rladies,
 
 This code produces a 16.2 KB HTML, so there I had a 99.5% reduction `r emo::ji("tada") `
 
-If you had a different experience, please let me know! You can comment below or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616). Thank you for reading `r emo::ji("wink")`
+If you had a different experience, please let me know! You can comment below or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616). 
+
+If you enjoyed this article, check out [the next one of the series here!]({% post_url 2017-04-24-how-to-plot-animated-maps-with-gganimate %}) or [the code in my GitHub repo](https://github.com/d4tagirl/R-Ladies-growth-maps). Thank you for reading `r emo::ji("wink")`

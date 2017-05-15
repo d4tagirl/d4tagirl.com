@@ -10,19 +10,18 @@ Here I show how to plot an animated map using the `gganimate` package, and produ
 
 <!--more-->
 
-I recently [came across this article](http://spatial.ly/2017/03/mapping-5000-years-of-city-growth/), and I knew I had to produce a similar map for the [R-Ladies' chapters](http://rladies.org/). I insist that the purple color did its magic with me 💜 . So my idea was to plot all the R-Ladies' chapters according to their size, using their Twitter followers as a way to estimate it, since it's the most popular social media among them (except for some specific chapters).
+This is the third one of the 3-posts-series, where I go from fetching Twitter users and preparing the data to visualizing it (If I wanted to show everything I've done in a single post, it would be almost as long as my first one! And I didn't want that 😝 ):
 
-This post is actually a spin-off of [the main blog post about visualizing R-Ladies growth]({% post_url 2017-05-10-visualizing-r-ladies-growth %}){:target="_blank"}, which I then divided into 3 separate posts to discuss each topic more deeply:
+1. [How to fetch Twitter users with R]({% post_url 2017-04-20-how-to-fetch-twitter-users-with-r %}): the title is kind of self explanatory...
+2. [How to deal with ggplotly huge maps]({% post_url 2017-04-26-how-to-deal-with-ggplotly-huge-maps %}): where I go through the details of why I chose not to use `ggplotly` and use `plot_geo` instead to generate the HTML.
+3. How to plot animated maps with gganimate: this one. Again, pretty obvious subject.
+ 
+Finally [I present my favourite visualization here]({% post_url 2017-05-10-visualizing-r-ladies-growth %}).
 
-- The first post is about [getting all the R-Ladies' chapters' Twitter users]({% post_url 2017-04-20-how-to-fetch-twitter-users-with-r %}){:target="_blank"}. 
-
-- The second one is about [plotting them in a map using `ggplot2` and make that map interactive using the `plotly` package]({% post_url 2017-04-26-how-to-deal-with-ggplotly-huge-maps %}){:target="_blank"}. There I discuss why despite `plotly::ggplotly` apparently being the easiest way, it is not the way to go if you want to publish it on a website. Spoiler alert: it produces an extremely large HTML, so you should rather use `plotly::plot_geo` instead. 
-
-- This is the third post, where I want to plot a similar map, but animating it using the `gganimate` package so I can export it to a .gif file easily shareable. Fun!
 <br />
 ## The data
 
-Let's take a look at the R-Ladies' chapters' Twitter accounts I produced in the first post of this series:
+Let's take a look at the R-Ladies' chapters' Twitter accounts dataframe, `rladies`, I produced in the first post of this series:
 
 
 
@@ -41,8 +40,8 @@ datatable(rladies, rownames = FALSE,
           options = list(pageLength = 5))
 ```
 
-<!--html_preserve--><div id="htmlwidget-e8aafbe44cf926af19ad" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e8aafbe44cf926af19ad">{"x":{"filter":"none","data":[["RLadiesSF","RLadiesNYC","RLadiesIstanbul","RLadiesBCN","RLadiesColumbus","RLadiesBoston","RLadiesLA","RLadiesLondon","RLadiesAU","RLadiesParis","RLadiesLx","RLadiesBerlin","RLadiesRTP","RLadiesCT","RLadiesValencia","RLadiesNash","RLadiesAustin","RLadiesAmes","RLadiesDC","RLadiesBA","RLadiesLdnOnt","RLadiesManchest","RLadiesDublin","RLadiesLima","RLadiesTbilisi","RLadiesAdelaide","RLadiesMunich","RLadiesSR","RLadiesMAD","RLadiesTC","RLadiesBudapest","RLadiesIzmir","RLadiesCapeTown","RLadiesRio","RLadiesMTL","RLadiesSeattle","RLadiesTaipei","RLadiesWarsaw"],["San Francisco","New York","İstanbul, Türkiye","Barcelona, Spain","Columbus, OH","Boston, MA","Los Angeles, CA","London, England","Melbourne, Victoria","Paris, France","Lisbon","Berlin, Deutschland","Durham, NC","Connecticut, USA","Valencia, España","Nashville, TN","Austin, TX","Ames, IA","Washington, DC","Buenos Aires, Argentina","London, Ontario","Manchester, England","Dublin City, Ireland","Lima, Peru","Tbilisi","Adelaide, South Australia","Munich, Bavaria","Santa Rosa, Argentina","Madrid, Spain","Twin Cities","Budapest, Magyarország","Izmir, Turkey","Cape Town, South Africa","Rio de Janeiro, Brazil","Montreal","Seattle","Taipei","Warsaw"],["2012-10-15","2016-09-01","2016-09-06","2016-10-11","2016-10-04","2016-09-06","2016-08-29","2016-04-20","2016-09-02","2016-09-19","2016-10-26","2016-10-03","2016-06-28","2016-11-24","2016-11-13","2016-09-28","2016-12-15","2016-11-30","2016-12-08","2017-01-05","2017-01-19","2016-10-08","2017-01-21","2016-10-08","2016-11-29","2017-02-20","2017-03-21","2017-04-06","2016-09-03","2015-04-04","2017-01-23","2016-10-19","2017-03-06","2017-01-15","2017-04-13","2017-05-06","2014-11-15","2016-11-15"],[916,309,436,377,179,259,320,1154,415,253,199,202,220,141,151,182,113,130,128,217,92,137,84,54,100,58,58,33,473,86,73,88,54,32,1,0,347,80],[1672.91666666667,255.875,250.875,215.875,222.875,250.875,258.875,389.875,254.875,237.875,200.875,223.875,320.875,171.875,182.875,228.875,150.875,165.875,157.875,129.875,115.875,218.875,113.875,218.875,166.875,83.875,54.875,38.875,253.875,771.875,111.875,207.875,69.875,119.875,31.875,8.875,911.916666666667,180.875],[-122.4194155,-74.0059413,28.9783589,2.1734035,-82.9987942,-71.0588801,-118.2436849,-0.1277583,144.9630576,2.3522219,-9.1393366,13.404954,-78.898619,-73.087749,-0.3762881,-86.7816016,-97.7430608,-93.6319131,-77.0368707,-58.3815591,-81.2452768,-2.2426305,-6.2603097,-77.042754,44.827096,138.6007456,11.5819806,-64.2912369,-3.7037902,-93.2009998,19.040235,27.142826,18.4240553,-43.1728965,-73.567256,-122.3320708,121.5654177,21.0122287],[37.7749295,40.7127837,41.0082376,41.3850639,39.9611755,42.3600825,34.0522342,51.5073509,-37.8136276,48.856614,38.7222524,52.5200066,35.9940329,41.6032207,39.4699075,36.1626638,30.267153,42.0307812,38.9071923,-34.6036844,42.9849233,53.4807593,53.3498053,-12.0463731,41.7151377,-34.9284989,48.1351253,-36.620922,40.4167754,44.9374831,47.497912,38.423734,-33.9248685,-22.9068467,45.5016889,47.6062095,25.0329694,52.2296756]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>screen_name<\/th>\n      <th>location<\/th>\n      <th>created_at<\/th>\n      <th>followers<\/th>\n      <th>age_days<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-a6ebdc1ab3a810539338" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a6ebdc1ab3a810539338">{"x":{"filter":"none","data":[["RLadiesSF","RLadiesNYC","RLadiesIstanbul","RLadiesBCN","RLadiesColumbus","RLadiesBoston","RLadiesLA","RLadiesLondon","RLadiesAU","RLadiesParis","RLadiesLx","RLadiesBerlin","RLadiesRTP","RLadiesCT","RLadiesValencia","RLadiesNash","RLadiesAustin","RLadiesAmes","RLadiesDC","RLadiesBA","RLadiesLdnOnt","RLadiesManchest","RLadiesDublin","RLadiesLima","RLadiesTbilisi","RLadiesAdelaide","RLadiesMunich","RLadiesSR","RLadiesMAD","RLadiesTC","RLadiesBudapest","RLadiesIzmir","RLadiesCapeTown","RLadiesRio","RLadiesMTL","RLadiesSeattle","RLadiesTaipei","RLadiesWarsaw"],["San Francisco","New York","İstanbul, Türkiye","Barcelona, Spain","Columbus, OH","Boston, MA","Los Angeles, CA","London, England","Melbourne, Victoria","Paris, France","Lisbon","Berlin, Deutschland","Durham, NC","Connecticut, USA","Valencia, España","Nashville, TN","Austin, TX","Ames, IA","Washington, DC","Buenos Aires, Argentina","London, Ontario","Manchester, England","Dublin City, Ireland","Lima, Peru","Tbilisi","Adelaide, South Australia","Munich, Bavaria","Santa Rosa, Argentina","Madrid, Spain","Twin Cities","Budapest, Magyarország","Izmir, Turkey","Cape Town, South Africa","Rio de Janeiro, Brazil","Montreal","Seattle","Taipei","Warsaw"],["2012-10-15","2016-09-01","2016-09-06","2016-10-11","2016-10-04","2016-09-06","2016-08-29","2016-04-20","2016-09-02","2016-09-19","2016-10-26","2016-10-03","2016-06-28","2016-11-24","2016-11-13","2016-09-28","2016-12-15","2016-11-30","2016-12-08","2017-01-05","2017-01-19","2016-10-08","2017-01-21","2016-10-08","2016-11-29","2017-02-20","2017-03-21","2017-04-06","2016-09-03","2015-04-04","2017-01-23","2016-10-19","2017-03-06","2017-01-15","2017-04-13","2017-05-06","2014-11-15","2016-11-15"],[916,309,436,377,179,259,320,1154,415,253,199,202,220,141,151,182,113,130,128,217,92,137,84,54,100,58,58,33,473,86,73,88,54,32,1,0,347,80],[1672.91666666667,255.875,250.875,215.875,222.875,250.875,258.875,389.875,254.875,237.875,200.875,223.875,320.875,171.875,182.875,228.875,150.875,165.875,157.875,129.875,115.875,218.875,113.875,218.875,166.875,83.875,54.875,38.875,253.875,771.875,111.875,207.875,69.875,119.875,31.875,8.875,911.916666666667,180.875],[-122.4194155,-74.0059413,28.9783589,2.1734035,-82.9987942,-71.0588801,-118.2436849,-0.1277583,144.9630576,2.3522219,-9.1393366,13.404954,-78.898619,-73.087749,-0.3762881,-86.7816016,-97.7430608,-93.6319131,-77.0368707,-58.3815591,-81.2452768,-2.2426305,-6.2603097,-77.042754,44.827096,138.6007456,11.5819806,-64.2912369,-3.7037902,-93.2009998,19.040235,27.142826,18.4240553,-43.1728965,-73.567256,-122.3320708,121.5654177,21.0122287],[37.7749295,40.7127837,41.0082376,41.3850639,39.9611755,42.3600825,34.0522342,51.5073509,-37.8136276,48.856614,38.7222524,52.5200066,35.9940329,41.6032207,39.4699075,36.1626638,30.267153,42.0307812,38.9071923,-34.6036844,42.9849233,53.4807593,53.3498053,-12.0463731,41.7151377,-34.9284989,48.1351253,-36.620922,40.4167754,44.9374831,47.497912,38.423734,-33.9248685,-22.9068467,45.5016889,47.6062095,25.0329694,52.2296756]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>screen_name<\/th>\n      <th>location<\/th>\n      <th>created_at<\/th>\n      <th>followers<\/th>\n      <th>age_days<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 <br />
 ## Plotting the map using ggplot2
@@ -62,8 +61,7 @@ world <- ggplot() +
   theme_map() 
 
 map <- world +
-  geom_point(aes(x = lon, y = lat,
-                 size = followers),
+  geom_point(aes(x = lon, y = lat, size = followers),
              data = rladies, 
              colour = 'purple', alpha = .5) +
   scale_size_continuous(range = c(1, 8), 
@@ -83,18 +81,24 @@ Now let's animate the map! The core thing here is that I want every chapter appe
 
 - I also add the `cumulative = TRUE`, an additional aesthetic  (same comment about `ggplot` ignoring it), so once the chapter appears on the map, it keeps showing in all the following frames.
 
-Following a friend's suggestion, I add an empty frame at the beginning so that the first frame you see is just the empty map. I generate a dataframe with the same structure than the original one, with some random data, except for the `created_at` field that should be filled with a date prior to the first chapter creation for it to appear at the beginning.
+Following [my good friend Bruno](https://www.linkedin.com/in/bruno-chiesa-gispert-b1a6b942)'s suggestion, I add an empty frame at the beginning so that the first frame you see is just the empty map. I generate a dataframe with the same structure than the original one, with some random data, except for the `created_at` field that should be filled with a date prior to the first chapter creation for it to appear at the beginning.
+
+And I add some empty frames at the end as well, to be able to see the final composition of chapters for a bit longer.
 
 
 ```r
-ghost_point <- rladies %>%
-  add_row(
-    created_at = as.Date('2011-09-01'),
-    followers = 0,
-    lon = 0,
-    lat = 0,
-    .before = 1) %>%
-  slice(1)
+library(tibble)
+library(lubridate)
+
+ghost_points_ini <- tibble(
+  created_at = as.Date('2011-09-01'),
+  followers = 0, lon = 0, lat = 0)
+
+ghost_points_fin <- tibble(
+  created_at = seq(as.Date('2017-05-16'),
+                   as.Date('2017-05-30'),
+                   by = 'days'),
+  followers = 0, lon = 0, lat = 0)
 ```
 
 Then I add an extra layer to the `ggplot`: the second `geom_point`, with the `alpha` parameter set to `0` so the point will not show in the plot.
@@ -102,27 +106,21 @@ Then I add an extra layer to the `ggplot`: the second `geom_point`, with the `al
 
 ```r
 map <- world +
-  geom_point(aes(x = lon, y = lat,
-                 size = followers,
+  geom_point(aes(x = lon, y = lat, size = followers, 
                  frame = created_at,
                  cumulative = TRUE),
              data = rladies, colour = 'purple', alpha = .5) +
-  geom_point(aes(x = lon, y = lat,  # this is the transparent frame
-                 size = followers,
+  geom_point(aes(x = lon, y = lat, size = followers, # this is the init transparent frame
                  frame = created_at,
                  cumulative = TRUE),
-             data = ghost_point, alpha = 0) +
-  scale_size_continuous(range = c(1, 10), breaks = c(250, 500, 750, 1000)) +
+             data = ghost_points_ini, alpha = 0) +
+  geom_point(aes(x = lon, y = lat, size = followers, # this is the final transparent frames
+                 frame = created_at,
+                 cumulative = TRUE),
+             data = ghost_points_fin, alpha = 0) +
+  scale_size_continuous(range = c(1, 8), breaks = c(250, 500, 750, 1000)) +
   labs(size = 'Followers') 
-```
 
-```
-## Warning: Ignoring unknown aesthetics: frame, cumulative
-
-## Warning: Ignoring unknown aesthetics: frame, cumulative
-```
-
-```r
 library(gganimate)
 ani.options(interval = 0.2)
 gganimate(map)
@@ -144,9 +142,6 @@ I only have each chapter once in the `rladies` dataframe, with the creation date
 
 
 ```r
-library(tibble)
-library(lubridate)
-
 dates <- as_tibble(seq(floor_date(as.Date(min(rladies$created_at)), 
                                   unit = "month"),
                        as.Date('2017-05-15'),
@@ -165,8 +160,7 @@ rladies_frames <- rladies %>%
   expand(screen_name, date = dates$value) %>%
   right_join(rladies, by = 'screen_name') %>%
   filter(date > created_at) %>%
-  mutate(date = format(date, format = '%Y-%m-%d'),
-         age_total = as.numeric(age_days, units = 'days'),
+  mutate(age_total = as.numeric(age_days, units = 'days'),
          age_at_date = as.numeric(difftime(date, created_at, unit = 'days'), 
                                   units = 'days'),
          est_followers = ((followers - 1) / age_total) * age_at_date)
@@ -178,20 +172,25 @@ Step-by-step what I do is take the original `rladies` dataframe and select the `
 
 
 ```r
-ghost_point <-  ghost_point %>%
-  mutate(date = format(created_at, format = '%Y-%m-%d'),
+ghost_points_ini <-  ghost_points_ini %>%
+  mutate(date = created_at,
          est_followers = 0)
 
+ghost_points_fin <-  ghost_points_fin %>%
+  expand(date = created_at, rladies) %>%
+  select(date, est_followers = followers, lon, lat)
+
 map_frames <- world +
-  geom_point(aes(x = lon, y = lat,
-                 size = est_followers,
+  geom_point(aes(x = lon, y = lat, size = est_followers, 
                  frame = date),
              data = rladies_frames, colour = 'purple', alpha = .5) +
-  geom_point(aes(x = lon, y = lat,
-                 size = est_followers,
+  geom_point(aes(x = lon, y = lat, size = est_followers,
                  frame = date),
-             data = ghost_point, alpha = 0) +
-  scale_size_continuous(range = c(1, 10), breaks = c(250, 500, 750, 1000)) +
+             data = ghost_points_ini, alpha = 0) +
+  geom_point(aes(x = lon, y = lat, size = est_followers,
+                 frame = date),
+             data = ghost_points_fin, colour = 'purple', alpha = .5) +
+  scale_size_continuous(range = c(1, 8), breaks = c(250, 500, 750, 1000)) +
   labs(size = 'Followers')
 
 ani.options(interval = .05)
@@ -215,15 +214,16 @@ rladies_less_frames <- rladies_frames %>%
            date >= rladies$created_at[rladies$screen_name == 'RLadiesLondon'])
 
 map_less_frames <- world +
-  geom_point(aes(x = lon, y = lat,
-                 size = est_followers,
+  geom_point(aes(x = lon, y = lat, size = est_followers, 
                  frame = date),
              data = rladies_less_frames, colour = 'purple', alpha = .5) +
-  geom_point(aes(x = lon, y = lat,
-                 size = est_followers,
+  geom_point(aes(x = lon, y = lat, size = est_followers, 
                  frame = date),
-             data = ghost_point, alpha = 0) +
-  scale_size_continuous(range = c(1, 10), breaks = c(250, 500, 750, 1000)) +
+             data = ghost_points_ini, alpha = 0) +
+  geom_point(aes(x = lon, y = lat, size = est_followers, 
+                 frame = date),
+             data = ghost_points_fin, colour = 'purple', alpha = .5) +
+  scale_size_continuous(range = c(1, 8), breaks = c(250, 500, 750, 1000)) +
   labs(size = 'Followers')
 
 ani.options(interval = .15)
@@ -232,7 +232,7 @@ gganimate(map_less_frames)
 
 ![ani_map_less_frames](/figure/source/how-to-plot-animated-maps-with-gganimate/2017-04-24-how-to-plot-animated-maps-with-gganimate/ani_map_less_frames.gif)
 
-This reduces a lot the amount of frames, at the cost of making the story less accurate in terms of time scale. But it is a nicer animation! My favourite actually 😊
+This reduces a lot the amount of frames, at the cost of making the story less accurate in terms of time scale. But it is a nicer animation! My favorite actually 😊
 <br />
 ## Creating the .gif
 
@@ -251,5 +251,7 @@ I wanted a .gif file to share it on Twitter, Slack and other social media, so I 
 <br />
 It was a pretty popular Tweet, so you should try! 
 
-That's it! Please leave your comments if you have any, or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616). Thanks 😉
+That's it! 
+
+You can check out [the code in my GitHub repo](https://github.com/d4tagirl/R-Ladies-growth-maps). Please leave your comments if you have any, or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616). Thanks 😉
 

@@ -10,22 +10,23 @@ Here I show how to fetch Twitter users using the `rtweet` package, and clean the
 
 <!--more-->
 
-I recently [came across this article](http://spatial.ly/2017/03/mapping-5000-years-of-city-growth/), and I knew I had to make a similar map for the [R-Ladies' chapters](http://rladies.org/) (probably the purple color had plenty to do with that `r emo::ji("purple_heart")` ). So my idea was to map all the R-Ladies' chapters according to their size, and that's when I thought of using their Twitter followers as a way to estimate it, since it's the most extended social media we use (except for some chapters).  
+This is the first one of a 3-posts-series, where I go from fetching Twitter users and preparing the data to visualizing it (If I wanted to show everything I've done in a single post, it would be almost as long as my first one! And I didn't want that `r emo::ji("stuck_out_tongue_closed_eyes")` ):
 
-If I wanted to show everything I've done in a single post, it would be almost as long as my first one! And I didn't want that `r emo::ji("stuck_out_tongue_closed_eyes")` . So I decided to make 3 _tutorial-like_ posts: 
-- one for the data preparation (this one)
-- one about [plotting an interactive map using `plotly` and how to avoid huge HTML content]({% post_url 2017-04-26-how-to-deal-with-ggplotly-huge-maps %}){:target="_blank"}
-- the last one about [making the maps and animating them using `gganimate`]({% post_url 2017-04-24-how-to-plot-animated-maps-with-gganimate %}){:target="_blank"} 
+1. How to fetch Twitter users with R: this one, the title is kind of self explanatory...
+2. [How to deal with ggplotly huge maps]({% post_url 2017-04-26-how-to-deal-with-ggplotly-huge-maps %}): where I go through the details of why I chose not to use `ggplotly` and use `plot_geo` instead to generate the HTML.
+3. [How to plot animated maps with gganimate]({% post_url 2017-04-24-how-to-plot-animated-maps-with-gganimate %}): again, pretty obvious subject.
  
-Finally [there is other post where I just go through what I did without getting into too many details]({% post_url 2017-05-10-visualizing-r-ladies-growth %}){:target="_blank"}, focusing on the visualisation results. 
+Finally [I present my favourite visualization here]({% post_url 2017-05-10-visualizing-r-ladies-growth %}).
 
-So here I go!
+I should warn you that there are a lot of emojis in this series, courtesy of the [`emo` package Hadley recently released](https://github.com/hadley/emo) and I fanatically adopted `r emo::ji("innocent")`
+
+Let's get started!
 
 ## Getting Twitter users
 
 I had to learn how to retrieve data from the Twitter API, and I chose to use the `rtweet` package, which is super easy to use! Since I only use public data I don't have to worry about getting my Twitter personal access token. 
 
-Every R-Ladies' chapter uses a standard handle, with the *RLadiesLocation* format (thankfully they are very compliant with this!). By setting the `q` parameter to `'RLadies'` I'm setting the query to be searched. `n = 1000` sets the number of users to retrieve, being 1000 the maximum from a single search. As I want a dataframe as a result, I set the `parse` parameter to `TRUE`.
+Every R-Ladies' chapter uses a standard handle, with the *RLadiesLocation* format (thankfully they are very compliant with this!). I use the `rtweet::search_users` function, setting the query to be searched with `q = 'RLadies'`. It retrieves the user if it matches the user's _description_ as well as _name_ and _screen\_name_ (handle), with 36 variables regarding the user. I'm only showing the ones I'm going to use, but there is a lot of extra information there. I set `n = 1000` which is the number of users to retrieve, being 1000 the maximum from a single search. As I want a dataframe as a result, I set the `parse` parameter to `TRUE`.
 
 ```{r load_data, echo = FALSE, message = FALSE, warning = FALSE}
 # The data isn't in this repository, you can find everything I use here:
@@ -61,9 +62,7 @@ datatable(users[, c(2:5)], rownames = FALSE,
 ```
 
 <br/>
-It retrieves the user if it matches the user's _description_ as well as _name_ and _screen\_name_ (handle), with 36 variables regarding the user. I'm only showing the ones I'm going to use, but there is a lot of extra information there.
-
-I used `DT::datatable` just in case someone wants to go through whats on the whole table (of course here I'm thinking about the R-Ladies community here `r emo::ji("heart_eyes")` ). It was not easy to set up the environment for my blog to show this table (it uses `HTML widgets`), but luckily my hubby was more than willing to help me with that part `r emo::ji("sweat_smile")` . If you are using RStudio it is just as simple as installing the `DT` package, or you can always use `knitr::kable(head(users[, c(2:5)]), format = "html")` to see the first rows.
+I used `DT::datatable` just in case someone wants to go through whats on the whole table (of course here I'm thinking about the R-Ladies community here `r emo::ji("heart_eyes")` ). It was not easy to set up the environment for my blog to show this table (it uses the `htmlwidgets` package), but luckily my hubby was more than willing to help me with that part `r emo::ji("sweat_smile")` . If you are using RStudio it is just as simple as installing the `DT` package, or you can always use `knitr::kable(head(users[, c(2:5)]), format = "html")` to see the first rows.
 
 ## Cleaning the data
 
@@ -72,7 +71,7 @@ First I make sure I don't have any duplicates, and then I keep only the handles 
 - _'RLadies\_LF'_, a Japanese account that translated as follows on _Google Translator_: _'Rakuten Ichiba fashion delivery'_
 - _'RLadiesGlobal'_, because it is not a chapter, so I don't want to include it on the plot. 
 
-Then I format the _date class_ variable `created_at` as `%Y-%m-%d` (just because seeing the hours, minutes and seconds annoys me!), generate the age in days `age_days` (for reproducibility, I set a fixed date to calculate it) and select the variables I will use for my analysis.
+Then I format the _date class_ variable `created_at` as `%Y-%m-%d` (just because seeing the hours, minutes and seconds annoys me!), generate the age in days `age_days` and select the variables I will use for my analysis.
 
 ```{r  head_rladies, message = FALSE, warning = FALSE}
 library(dplyr)
@@ -162,8 +161,6 @@ datatable(rladies, rownames = FALSE,
 ```
 
 <br />
-That's it!
+That's it! Now the dataframe is ready for me to use it for visualizing these Twitter users on a map (considering their sizes and dates of creation), and make some interactive maps and animations! 
 
-Now the dataframe is ready for me to use it for visualizing these Twitter users on a map (considering their sizes and dates of creation), and make some interactive maps and animations! If you are interested, you can check how I do it [in this post]({% post_url 2017-05-10-visualizing-r-ladies-growth %}){:target="_blank"}. You can also go to my [GitHub repo to see the code](https://github.com/d4tagirl/R-Ladies-growth-maps).
-
-Please leave your comments and suggestions below or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616). Thanks for reading `r emo::ji("wink")`
+If you enjoyed this article, check out [the next one of the series here]({% post_url 2017-04-26-how-to-deal-with-ggplotly-huge-maps %}) or [the code in my GitHub repo](https://github.com/d4tagirl/R-Ladies-growth-maps). You are also welcome to leave your comments and suggestions below or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616). Thank you for reading `r emo::ji("wink")`
