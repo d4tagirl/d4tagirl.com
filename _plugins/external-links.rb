@@ -53,6 +53,9 @@ module Jekyll
       # Stop if no attributes were specified
       return content unless attributes
 
+      # Don't process really long files
+      return content unless content.length < 1024 * 500
+
       doc = Nokogiri::HTML.parse(content)
       # Stop if we could't parse with HTML
       return content unless doc
