@@ -1,0 +1,37 @@
+---
+layout: post
+title:  Huge ggplotly map!
+date: "2017-05-15 07:11:30 UYT"
+published: true
+tags: [skip_index]
+---
+
+<!--more-->
+```{r echo = FALSE, message = FALSE, warning = FALSE, dpi = 150, fig.align = 'center', screenshot.force = FALSE, fig.height = 4, fig.cap = ""}
+
+library(readr)
+library(dplyr)
+url <- 'https://github.com/d4tagirl/R-Ladies-growth-maps/raw/master/rladies.csv'
+# rladies <- readRDS(gzcon(url('https://github.com/d4tagirl/R-Ladies-growth-maps/raw/master/rladies_longlat.rds')))
+rladies <- read_csv(url(url)) %>% 
+  select(-1)
+
+library(ggplot2)
+library(ggthemes)
+library(plotly)
+
+world <- ggplot() +
+  borders("world", colour = "gray85", fill = "gray80") +
+  theme_map()
+
+map <- world +
+  geom_point(aes(x = lon, y = lat,
+                 text = paste('city: ', location,
+                              '</br> created: ', created_at),
+                 size = followers),
+             data = rladies, colour = 'purple', alpha = .5) +
+  scale_size_continuous(range = c(1, 8), breaks = c(250, 500, 750, 1000)) +
+  labs(size = 'Followers')
+
+ggplotly(map, tooltip = c('text', 'size'))
+```

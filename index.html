@@ -5,6 +5,7 @@ title: Home
 
 <div class="posts">
   {% for post in paginator.posts %}
+    {% unless post.tags contains 'skip_index' %}
   <div class="post">
     <h1 class="post-title">
       <a href="{{ post.url }}">
@@ -18,6 +19,7 @@ title: Home
 
     <p><a href="{{ post.url }}" class="readmore">Read More &gt;&gt;</a></p>
   </div>
+    {% endunless %}
   {% endfor %}
 </div>
 
