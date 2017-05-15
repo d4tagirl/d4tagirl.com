@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  How to fetch Twitter users with R
-date: "2017-05-10 08:11:29 UYT"
+date: "2017-05-15 06:11:29 UYT"
 published: true
 tags: [rstats, r, Twitter, rtweet, purrr, map, ggmap]
 description: How to fetch Twitter users and clean the data using R!
@@ -10,7 +10,7 @@ Here I show how to fetch Twitter users using the `rtweet` package, and clean the
 
 <!--more-->
 
-This is the first one of a 3-posts-series, where I go from fetching Twitter users and preparing the data to visualizing it (If I wanted to show everything I've done in a single post, it would be almost as long as my first one! And I didn't want that `r emo::ji("stuck_out_tongue_closed_eyes")` ):
+This is the first one of a 3-posts-series, where I go from fetching Twitter users and preparing the data to visualizing it (If I wanted to show everything I've done in a single post, it would be almost as long as my first one! And believe me: nobody wants that `r emo::ji("stuck_out_tongue_closed_eyes")` ):
 
 1. How to fetch Twitter users with R: this one, the title is kind of self explanatory...
 2. [How to deal with ggplotly huge maps]({% post_url 2017-04-26-how-to-deal-with-ggplotly-huge-maps %}): where I go through the details of why I chose not to use `ggplotly` and use `plot_geo` instead to generate the HTML.
@@ -26,7 +26,7 @@ Let's get started!
 
 I had to learn how to retrieve data from the Twitter API, and I chose to use the `rtweet` package, which is super easy to use! Since I only use public data I don't have to worry about getting my Twitter personal access token. 
 
-Every R-Ladies' chapter uses a standard handle, with the *RLadiesLocation* format (thankfully they are very compliant with this!). I use the `rtweet::search_users` function, setting the query to be searched with `q = 'RLadies'`. It retrieves the user if it matches the user's _description_ as well as _name_ and _screen\_name_ (handle), with 36 variables regarding the user. I'm only showing the ones I'm going to use, but there is a lot of extra information there. I set `n = 1000` which is the number of users to retrieve, being 1000 the maximum from a single search. As I want a dataframe as a result, I set the `parse` parameter to `TRUE`.
+Every R-Ladies' chapter uses a standard handle, with the *RLadiesLocation* format (thankfully they are very compliant with this!). I use the `rtweet::search_users` function, setting the query to be searched with `q = 'RLadies'` and the number of users to retrieve with `n = 1000`, that being the maximum from a single search. As I want a dataframe as a result, I set the `parse` parameter to `TRUE`. This way I get 1,000 rows of users, with 36 variables regarding them. I'm only showing the variables I'm going to use, but there is a lot of extra information there. 
 
 ```{r load_data, echo = FALSE, message = FALSE, warning = FALSE}
 # The data isn't in this repository, you can find everything I use here:
@@ -62,13 +62,15 @@ datatable(users[, c(2:5)], rownames = FALSE,
 ```
 
 <br/>
-I used `DT::datatable` just in case someone wants to go through whats on the whole table (of course here I'm thinking about the R-Ladies community here `r emo::ji("heart_eyes")` ). It was not easy to set up the environment for my blog to show this table (it uses the `htmlwidgets` package), but luckily my hubby was more than willing to help me with that part `r emo::ji("sweat_smile")` . If you are using RStudio it is just as simple as installing the `DT` package, or you can always use `knitr::kable(head(users[, c(2:5)]), format = "html")` to see the first rows.
+As I get so many duplicate users (nearly half of them!), I suspect it retrieves the user if `q` matches the user's _description_, _name_ or _screen\_name_ (handle), but also if it matches something they tweeted (neither the [Twitter API documentation](https://dev.twitter.com/rest/reference/get/users/search) nor the [`rtweet::search_users` one](https://cran.r-project.org/web/packages/rtweet/rtweet.pdf) are clear about this).
+
+I used `DT::datatable` just in case someone wants to go through whats on the whole table (of course I'm thinking about the R-Ladies community here `r emo::ji("heart_eyes")` ). It was not easy to set up the environment for my blog to show this table (it uses the `htmlwidgets` package), but luckily my hubby was more than willing to help me with that part `r emo::ji("sweat_smile")` If you are using RStudio it is just as simple as installing the `DT` package, or you can always use `knitr::kable(head(users[, c(2:5)]), format = "html")` to see the first rows.
 
 ## Cleaning the data
 
-First I make sure I don't have any duplicates, and then I keep only the handles that comply with the stipulated format, using a regular expression. I filter out 3 additional handles: 
+First I remove all the duplicates, and then I keep only the handles that comply with the stipulated format, using a regular expression. I filter out 3 additional handles: 
 - _'RLadies'_, whose _name_ is _'Royal Ladies'_ and I assume has something to do with royalty by the crown on their profile picture `r emo::ji("princess")` 
-- _'RLadies\_LF'_, a Japanese account that translated as follows on _Google Translator_: _'Rakuten Ichiba fashion delivery'_
+- _'RLadies\_LF'_, a Japanese account that translated as follows on _Google Translator_: _'Rakuten Ichiba fashion delivery'_.
 - _'RLadiesGlobal'_, because it is not a chapter, so I don't want to include it on the plot. 
 
 Then I format the _date class_ variable `created_at` as `%Y-%m-%d` (just because seeing the hours, minutes and seconds annoys me!), generate the age in days `age_days` and select the variables I will use for my analysis.
@@ -120,7 +122,7 @@ datatable(rladies, rownames = FALSE,
 ```
 
 <br />
-As my ultimate goal is to plot the chapters on a map, I need to obtain the _latitude_ and _longitude_ for each one of them. That's when the `ggmap` package really comes in handy: it interacts with _Google Maps_ to retrieve latitude and longitude, and I don't even have to worry about getting the location into a specific format, because it is so good that it doesn't need it! (my first try was actually by extracting the cities, but many of the chapters didn't match or matched wrongly, so I tried it this way and it worked perfectly!)
+As my ultimate goal is to plot the chapters on a map, I need to obtain the _latitude_ and _longitude_ for each one of them. That's when the `ggmap` package really comes in handy: it interacts with _Google Maps_ to retrieve the coordinates from the _location_, and I don't even have to worry about getting it into a specific format, because it is so good that it doesn't need it! (my first try was actually by extracting the cities using regular expressions, but many of the chapters didn't match or matched wrongly, so I tried it this way and it worked perfectly!)
 
 Since the `ggmap::geocode` function returns 2 columns, I thought about calling it twice: once for the longitude and once for the latitude. But I didn't like it because it was awfully inefficient, and the geocoding takes some (really long!) time. It was going to be something like this:
 
@@ -132,7 +134,7 @@ rladies <- rladies %>%
          lat = geocode(location)[,2])
 ```
 
-Doing some research I finally decided to use the `purrr::map` function for capturing both values in a single column of the dataframe, and then transform it into two separate columns with `tidyr::unnest`. All of this with never having to leave the `tidyverse` world `r emo::ji("smirk")`
+Doing some research (and benefitting from [Amelia](http://www.science.smith.edu/~amcnamara/)'s super helpful suggestion!) I finally decided to use the `purrr::map` function for capturing both values in a single column of the dataframe, and then transform it into two separate columns with `tidyr::unnest`. All of this with never having to leave the `tidyverse` world `r emo::ji("smirk")`
 
 I'm doing it in two steps to see the intermediate result, with the two columns in a single variable of the dataframe.
 
@@ -145,9 +147,10 @@ rladies <- rladies %>%
 ```
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE, screenshot.force = FALSE}
-rladies <- readRDS(gzcon(url('https://github.com/d4tagirl/R-Ladies-growth-maps/raw/master/rladies_longlat.rds')))
+rladies <- readRDS(gzcon(url('https://github.com/d4tagirl/R-Ladies-growth-maps/raw/master/rladies_longlat.rds'))) %>% 
+  mutate(created_at = as.character(created_at))
 
-kable(head(rladies), format = "html")
+kable(head(rladies))
 ```
 
 ```{r}

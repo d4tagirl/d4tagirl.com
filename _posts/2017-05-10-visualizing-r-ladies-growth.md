@@ -1,9 +1,9 @@
 ---
 layout: post
 title:  Visualizing R-Ladies' growth! 
-date: "2017-05-10 11:11:29 UYT"
+date: "2017-05-15 09:11:29 UYT"
 published: true
-tags: [rstats, r, gganimate, plotly]
+tags: [rstats, r, rladies, visualization]
 description: gganimate animation about R-Ladies' growth.
 ---
 My favourite visualization about R-Ladies growth, using `gganimate` to produce this .gif file.

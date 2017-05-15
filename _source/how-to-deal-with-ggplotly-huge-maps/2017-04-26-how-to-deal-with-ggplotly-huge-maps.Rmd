@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  How to deal with ggplotly huge maps
-date: "2017-05-10 09:11:29 UYT"
+date: "2017-05-15 07:11:29 UYT"
 published: true
 tags: [rstats, r, plotly, ggplotly, maps, plot_geo]
 description: How to produce interactive maps in R with plotly, using ggplotly and plot_geo. While ggplotly is easier to use, it produces huge HTML content. Using plot_geo instead is incredibly more efficient.
@@ -10,7 +10,7 @@ How I had to go from `gglotly` to `plotly::plot_geo` to reduce the size of the H
 
 <!--more-->
 
-This is the second one of the 3-posts-series, where I go from fetching Twitter users and preparing the data to visualizing it (If I wanted to show everything I've done in a single post, it would be almost as long as my first one! And I didn't want that `r emo::ji("stuck_out_tongue_closed_eyes")` ):
+This is the second one of the 3-posts-series, where I go from fetching Twitter users and preparing the data to visualizing it (If I wanted to show everything I've done in a single post, it would be almost as long as my first one! And believe me: nobody wants that `r emo::ji("stuck_out_tongue_closed_eyes")` ):
 
 1. [How to fetch Twitter users with R]({% post_url 2017-04-20-how-to-fetch-twitter-users-with-r %}): the title is kind of self explanatory...
 2. How to deal with ggplotly huge maps: this one, where I go through the details of why I chose not to use `ggplotly` and use `plot_geo` instead to generate the HTML.
@@ -92,9 +92,9 @@ library(plotly)
 ggplotly(map, tooltip = c('text', 'size'))
 ```
 
-If you want to see this map [you can check it here]({% post_url 2017-04-24-huge-ggplotly-map %}){:target="_blank"}, but it will take a while! It is a 3.3 MB page!
+If you want to see this map [you can check it out here]({% post_url 2017-04-24-huge-ggplotly-map %}){:target="_blank"}, but it will take a while! It is a 3.3 MB page!
 
-It's a pretty nice map, but it takes forever to load the HTML! And that is why I checked how the `plotly` people make this kind of plots from scratch, and I gave it a try.
+It's a pretty nice map (and super easy to produce!), but it takes forever to load the HTML! And that is why I checked how the `plotly` people make this kind of plots from scratch, and I gave it a try.
 
 It is actually pretty easy! The only thing that was not that straightforward for me was finding the chart references for customizing the maps (probably because I was doing a bad job at searching for them `r emo::ji("flushed")` ), so [here is the link](https://plot.ly/r/reference/), and for the layout in particular [here it is this other link](https://plot.ly/r/reference/#layout-geo/) just in case you encounter the same difficulties as I did.
 
@@ -128,4 +128,4 @@ This code produces a 16.2 KB HTML, so there I had a 99.5% reduction `r emo::ji("
 
 If you had a different experience, please let me know! You can comment below or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616). 
 
-If you enjoyed this article, check out [the next one of the series here!]({% post_url 2017-04-24-how-to-plot-animated-maps-with-gganimate %}) or [the code in my GitHub repo](https://github.com/d4tagirl/R-Ladies-growth-maps). Thank you for reading `r emo::ji("wink")`
+And, if you enjoyed this article, check out [the next one of the series here!]({% post_url 2017-04-24-how-to-plot-animated-maps-with-gganimate %}) or [the code in my GitHub repo](https://github.com/d4tagirl/R-Ladies-growth-maps). Thank you for reading `r emo::ji("wink")`

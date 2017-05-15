@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  How to plot animated maps with gganimate
-date: "2017-05-10 10:11:29 UYT"
+date: "2017-05-15 08:11:29 UYT"
 published: true
 tags: [rstats, r, gganimate, maps, gif]
 description: How to plot an animated map using the gganimate package, and produce a .gif file to share it!
@@ -10,14 +10,13 @@ Here I show how to plot an animated map using the `gganimate` package, and produ
 
 <!--more-->
 
-This is the third one of the 3-posts-series, where I go from fetching Twitter users and preparing the data to visualizing it (If I wanted to show everything I've done in a single post, it would be almost as long as my first one! And I didn't want that `r emo::ji("stuck_out_tongue_closed_eyes")` ):
+This is the third one of the 3-posts-series, where I go from fetching Twitter users and preparing the data to visualizing it (If I wanted to show everything I've done in a single post, it would be almost as long as my first one! And believe me: nobody wants that `r emo::ji("stuck_out_tongue_closed_eyes")` ):
 
 1. [How to fetch Twitter users with R]({% post_url 2017-04-20-how-to-fetch-twitter-users-with-r %}): the title is kind of self explanatory...
 2. [How to deal with ggplotly huge maps]({% post_url 2017-04-26-how-to-deal-with-ggplotly-huge-maps %}): where I go through the details of why I chose not to use `ggplotly` and use `plot_geo` instead to generate the HTML.
 3. How to plot animated maps with gganimate: this one. Again, pretty obvious subject.
  
 Finally [I present my favourite visualization here]({% post_url 2017-05-10-visualizing-r-ladies-growth %}).
-
 <br />
 ## The data
 
@@ -102,6 +101,7 @@ map
 ```
 
 The `range` parameter is what controls the scale of the points' size.
+
 <br />
 ## Animating the map using gganimate
 
@@ -130,7 +130,7 @@ ghost_points_fin <- tibble(
   followers = 0, lon = 0, lat = 0)
 ```
 
-Then I add an extra layer to the `ggplot`: the second `geom_point`, with the `alpha` parameter set to `0` so the point will not show in the plot.
+Then I add 2 extra layers to the `ggplot`: the second and third `geom_point`s, with the `alpha` parameter set to `0` so the points will not show in the plot.
 
 ```{r ani_map, fig.show = "animate", fig.align = "center", message = FALSE, warning = FALSE}
 map <- world +
@@ -193,7 +193,6 @@ rladies_frames <- rladies %>%
 Step-by-step what I do is take the original `rladies` dataframe and select the `screen_name` column. With the `tidyr::expand` I create one row for every `screen_name`-`date` combination (Cartesian product). The `right_join` completes the rest of the information for every chapter, and then I keep only the dates for every chapter that are greater than its creation date (I don't want to have frames for a chapter previous to its foundation!). At last I add some variables useful to estimate the amount of followers (`est_followers`), assuming the amount of followers increases linearly.
 
 <a id="skipping"> </a>
-
 ```{r ani_map_frames, fig.show = "animate", warning = FALSE}
 ghost_points_ini <-  ghost_points_ini %>%
   mutate(date = created_at,
@@ -222,11 +221,11 @@ gganimate(map_frames)
 
 This is a very accurate map in terms of the timeline: it shows how long it took for every chapter to be founded and how R-Ladies proliferated in the past year or so. 
 
-But... (I told you I got kind of obsessed!) it takes too long from the creation of the first chapters until it started to get traction and the last part of the animation is really fast in comparison. So let's take care of that `r emo::ji("wink")`
+But... (I told you I got kind of obsessed `r emo::ji("woman_shrugging")` ) it takes too long from the creation of the first chapters until it started to get traction and the last part of the animation is really fast in comparison. So let's take care of that `r emo::ji("wink")`
 <br />
 ### Removing some frames from the beginning
 
-The foundation of the London chapter was kind of a turning point: after that R-Ladies started to spread much faster. So I decided to keep all frames after that date, but remove several frames from before, keeping only the first day of the month, every 6 months. 
+The foundation of the London chapter was kind of a turning point: after that, R-Ladies started to spread much faster. So I decided to keep all frames after that date, but remove several frames from before, keeping only the first day of the month, every 6 months. 
 
 ```{r ani_map_less_frames, fig.show = "animate", warning = FALSE, message = FALSE}
 rladies_less_frames <- rladies_frames %>%
@@ -268,7 +267,5 @@ I wanted a .gif file to share it on Twitter, Slack and other social media, so I 
 <br />
 It was a pretty popular Tweet, so you should try! 
 
-That's it! 
-
-You can check out [the code in my GitHub repo](https://github.com/d4tagirl/R-Ladies-growth-maps). Please leave your comments if you have any, or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616). Thanks `r emo::ji("wink")`
+That's it! You can check out [the code in my GitHub repo here](https://github.com/d4tagirl/R-Ladies-growth-maps). Please leave your comments if you have any, or [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616). Thanks for reading `r emo::ji("wink")`
 

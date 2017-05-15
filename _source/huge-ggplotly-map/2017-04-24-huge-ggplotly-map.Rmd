@@ -1,14 +1,20 @@
 ---
 layout: post
 title:  Huge ggplotly map!
-date: "2017-04-24 12:11:29 UYT"
+date: "2017-05-15 07:11:30 UYT"
 published: true
 tags: [skip_index]
 ---
 
 <!--more-->
-```{r echo = FALSE, message = FALSE, warning = FALSE, dpi = 130, fig.align = 'center', screenshot.force = FALSE, fig.height = 4, fig.cap = ""}
-rladies <- readRDS('/Users/Daniela/rladies_growing/rladies.rds')
+```{r echo = FALSE, message = FALSE, warning = FALSE, dpi = 150, fig.align = 'center', screenshot.force = FALSE, fig.height = 4, fig.cap = ""}
+
+library(readr)
+library(dplyr)
+url <- 'https://github.com/d4tagirl/R-Ladies-growth-maps/raw/master/rladies.csv'
+# rladies <- readRDS(gzcon(url('https://github.com/d4tagirl/R-Ladies-growth-maps/raw/master/rladies_longlat.rds')))
+rladies <- read_csv(url(url)) %>% 
+  select(-1)
 
 library(ggplot2)
 library(ggthemes)
