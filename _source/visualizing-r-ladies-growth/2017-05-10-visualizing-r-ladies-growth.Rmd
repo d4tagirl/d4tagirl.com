@@ -27,7 +27,7 @@ This is the visualization I liked the most, so I wanted to share it here...
 
 ... as I did on Twitter, Slack and other social media `r emo::ji("purple_heart")`
 
-<blockquote class="twitter-tweet tw-align-center" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/hashtag/RLadies?src=hash">#RLadies</a> is growing! A sneak peek to my next blog post ;) <a href="https://twitter.com/hashtag/gganimate?src=hash">#gganimate</a> <a href="https://twitter.com/hashtag/rstats?src=hash">#rstats</a> <a href="https://t.co/rIJ02WzRTx">pic.twitter.com/rIJ02WzRTx</a></p>&mdash; Daniela Vázquez (@d4tagirl) <a href="https://twitter.com/d4tagirl/status/853003269953789952">April 14, 2017</a></blockquote>
+<blockquote class="twitter-tweet tw-align-center" data-lang="en"><p lang="en" dir="ltr">New <a href="https://twitter.com/hashtag/rstats?src=hash">#rstats</a> post! Visualizing <a href="https://twitter.com/hashtag/RLadies?src=hash">#RLadies</a> growth 💜 Step-by-step from Twitter users to <a href="https://twitter.com/hashtag/plotly?src=hash">#plotly</a> and <a href="https://twitter.com/hashtag/gganimate?src=hash">#gganimate</a> <a href="https://t.co/Jgi82Xb4X0">https://t.co/Jgi82Xb4X0</a> <a href="https://t.co/5qkxQwJKQF">pic.twitter.com/5qkxQwJKQF</a></p>&mdash; Daniela Vázquez (@d4tagirl) <a href="https://twitter.com/d4tagirl/status/864207469911957504">May 15, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 <br />

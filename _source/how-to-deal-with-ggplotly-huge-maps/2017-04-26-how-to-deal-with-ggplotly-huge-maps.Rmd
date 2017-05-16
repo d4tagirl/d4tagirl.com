@@ -92,7 +92,7 @@ library(plotly)
 ggplotly(map, tooltip = c('text', 'size'))
 ```
 
-If you want to see this map [you can check it out here]({% post_url 2017-04-24-huge-ggplotly-map %}){:target="_blank"}, but it will take a while! It is a 3.3 MB page!
+If you want to see this map [you can check it out here]({% post_url 2017-04-24-huge-ggplotly-map %}){:target="_blank"}, but it will take a while! It is a 3.3 MB page (1.2 MB gzipped)!
 
 It's a pretty nice map (and super easy to produce!), but it takes forever to load the HTML! And that is why I checked how the `plotly` people make this kind of plots from scratch, and I gave it a try.
 
