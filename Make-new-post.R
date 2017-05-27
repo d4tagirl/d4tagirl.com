@@ -1,3 +1,3 @@
 library(brocks)
-new_post("Using nested dataframes to explain Trump's winning by race, across income quintiles")
+new_post("John Oliver")
 blog_serve()

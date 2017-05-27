@@ -1,0 +1,210 @@
+---
+layout: post
+title:  John Oliver
+date: "2017-05-25 12:11:29 UYT"
+published: true
+tags: [rstats, john oliver, sentiment analysis, youtube, facebook, tidytext]
+description: How to fetch Twitter users and clean the data using R!
+---
+.  
+
+<!--more-->
+
+<div align="center"><img src="/figure/source/john-oliver/2017-05-26-john-oliver/banner.jpg"/></div>
+
+# Welcome, welcome,  welcome!
+
+One thing my husband and I enjoy a lot is to watch [*Last Week Tonight with John Oliver*](http://www.hbo.com/last-week-tonight-with-john-oliver) every week. It is an HBO political talk-show that airs on Sunday nights, but we usually watch it while we have dinner some day during the week. We love the show because it covers a huge amount of diverse topics and news from all over the world, plus we laugh a lot (bittersweet laughs mostly `r emo::ji("woman_shrugging")` ).
+
+I think he has a fantastic sense of humor and he is a spectacular communicator, but only if you share the way he sees the world. And because he is so enthusiastic about his views, I believe it is a character you either love or hate. I suspect he arouses strong feelings in people and I want to check it by analyzing the comments people leave on [his Youtube videos](https://www.youtube.com/user/LastWeekTonight) and [his Facebook ones](https://www.facebook.com/LastWeekTonight/) as well.
+
+I've been wanting to try [Julia Silge](juliasilge.com) and [David Robinson](http://varianceexplained.org/)'s [`tidytext` package](http://tidytextmining.com/) for a while now, and after I read [Erin's text analysis on the Lizzie Bennet Diaries' Yutube captions](https://eringrand.github.io/lizziebennet_textmining/) I thought about giving Youtube a try `r emo::ji("smiley")` Every episode has one _main story_ and many _"short stories"_ that are mostly [available online to watch via Youtube](https://www.youtube.com/user/LastWeekTonight).
+
+<br/>
+<div align="center"><img src="https://media.giphy.com/media/pOVsnroKZWeNG/giphy.gif"/></div>
+<br/>
+
+# Fetching Youtube videos and comments
+
+I'm using [Youtube Data API](https://developers.google.com/youtube/v3/) and the [`tuber` package](https://github.com/soodoku/tuber) to get the info from Youtube (I found a bug in the `get_comment_thread` function on the CRAN version, so I recommend you use the GitHub one insted where this is fixed). The first time you need to do some things to obtain authorization credentials so your application can submit API requests (you can follow [this guide to do so](https://developers.google.com/youtube/v3/getting-started)). Then you just use the `tuber::yt_oauth` function that launches a browser to allow you to authorize the application and you can start retreiving information.
+
+First I search for the Youtube channel, I select the correct one and then I retrieve the `playlist_id` that I'm going to use to fetch all videos.
+
+```{r eval = FALSE}
+library(tuber)
+
+app_id <- "####"
+app_password <- "####"
+yt_oauth(app_id, app_password)
+
+search_channel <- yt_search("lastweektonight")
+
+channel <- search_channel %>%
+  slice(1) %>%
+  select(channelId) %>%
+  .$channelId %>%
+  as.character
+
+channel_resources <- list_channel_resources(filter = c(channel_id = channel),
+                                                part =  "contentDetails")
+
+playlist_id <- channel_resources$items[[1]]$contentDetails$relatedPlaylists$uploads
+```
+
+## Fetching the videos
+
+The `tuber` package is all about lists, and not _tidy dataframes_, so I dedicate a lot of effort to tidying this data.
+
+To get all videos I used the `get_playlist_items` function, but it only retrieve the first 50 elements. I know [soodoku](https://github.com/soodoku) is planning on implementing an argument *ala "get_all"*, but in the meantime I had to implement this myself to get all the videos (I took [more than a few ideas from Erin's script!](https://eringrand.github.io/lizziebennet_textmining/)).
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+# you can find everything I use here:
+# https://github.com/d4tagirl/John-Oliver-sentiment-analysis
+
+library(knitr)
+knitr::opts_chunk$set(dpi = 130, fig.align = 'center', screenshot.force = FALSE, fig.cap = "")
+options(width = 80, dplyr.width = 150)
+```
+
+```{r eval = FALSE}
+library(dplyr)
+library(tuber)
+library(purrr)
+library(magrittr)
+library(tibble)
+
+get_videos <- function(playlist) {
+  # pass NA as next page to get first page
+  nextPageToken <- NA
+  videos <- {}
+
+  # Loop over every available page
+  repeat {
+    vid      <- get_playlist_items(filter = c(playlist_id = playlist),
+                                   page_token = nextPageToken)
+
+    vid_id   <- map(vid$items, "contentDetails") %>%
+      map_df(magrittr::extract, c("videoId", "videoPublishedAt"))
+
+    titles   <- lapply(vid_id$videoId, get_video_details) %>%
+      map("localized") %>%
+      map_df(magrittr::extract, c("title", "description"))
+
+    videos   <- videos %>% bind_rows(tibble(id          = vid_id$videoId,
+                                            created     = vid_id$videoPublishedAt,
+                                            title       = titles$title,
+                                            description = titles$description))
+
+    # get the token for the next page
+    nextPageToken <- ifelse(!is.null(vid$nextPageToken), vid$nextPageToken, NA)
+
+    # if no more pages then done
+    if (is.na(nextPageToken)) {
+      break
+    }
+  }
+  return(videos)
+}
+
+videos <- get_videos(playlist_id)
+```
+Then I extract from the title the first part of the title and description (the rest is just propaganda), whether the video comes from HBO or from a Web exclusive, and format the video's creation date
+```{r message = FALSE, warning = FALSE}
+videos <- videos %>%
+  mutate(short_title = str_match(title, "^([^:]+).+")[,2],
+         hbo_web     = str_match(title, ".+\\((.+)\\)$")[,2],
+         short_desc  = str_match(description, "^([^\n]+).+")[,2],
+         vid_created = as.Date(created)) %>%
+  select(-created)
+```
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+library(dplyr)
+library(tuber)
+library(purrr)
+library(magrittr)
+library(tibble)
+library(readr)
+
+url_csv <- 'https://github.com/d4tagirl/John-Oliver-sentiment-analysis/raw/master/videos.csv'
+videos <- read_csv(url(url_csv)) %>%
+  select(-1)
+```
+Lets take a look at the 204 videos.
+```{r message = FALSE, warning = FALSE}
+library(DT)
+datatable(videos, rownames = FALSE,
+          options = list(pageLength = 3))
+```
+
+<br/>
+## Fetching the comments
+
+Now I get the comments for every video. I made my own functions for the same reason as before. The function `get_1_video_comments` retrieves comments from a given `video_id`, receiving the `n` parameter as the maximum of comments we want.
+
+```{r eval = FALSE}
+get_1_video_comments <- function(video_id, n = 5) {
+  nextPageToken <- NULL
+  comments <- {}
+
+  repeat {
+    com <- get_comment_threads(c(video_id  = video_id),
+                               part        = "id, snippet",
+                               page_token  = nextPageToken,
+                               text_format = "plainText")
+
+    for (i in 1:length(com$items)) {
+      com_id      <- com$items[[i]]$snippet$topLevelComment$id
+      com_text    <- com$items[[i]]$snippet$topLevelComment$snippet$textDisplay
+      com_video   <- com$items[[i]]$snippet$topLevelComment$snippet$videoId
+      com_created <- com$items[[i]]$snippet$topLevelComment$snippet$publishedAt
+
+      comments    <- comments %>% bind_rows(tibble(video_id    = com_video,
+                                                   com_id      = com_id,
+                                                   com_text    = com_text,
+                                                   com_created = com_created))
+      if (nrow(comments) == n) {
+        break
+      }
+
+      nextPageToken <- ifelse(!is.null(com$nextPageToken), com$nextPageToken, NA)
+    }
+
+    if (is.na(nextPageToken) | nrow(comments) == n) {
+      break
+    }
+  }
+  return(comments)
+}
+```
+
+ The function `get_comments_dani` receives a vector of `video_id`s and returns `n` comments for every video, using the previous `get_1_video_comments` function. Then I remove empty comments, join with the video information and remove videos with less than 100 comments.
+
+```{r eval = FALSE}
+get_comments_dani <- function(videos, n = 10){
+  comments <- pmap_df(list(videos, n), get_1_video_comments)
+}
+
+raw_yt_comments <- get_comments_dani(videos$id, n = 300)
+
+yt_comments <- raw_yt_comments %>%
+  filter(com_text != "")
+  left_join(videos, by = c("video_id" = "id")) %>%
+  group_by(short_title) %>%
+  mutate(n = n(),
+         com_created = as.Date(com_created)) %>%
+  ungroup() %>%
+  filter(n >= 100)
+```
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+url_csv <- 'https://github.com/d4tagirl/John-Oliver-sentiment-analysis/raw/master/yt_comments.csv'
+yt_comments <- read_csv(url(url_csv)) %>%
+  select(-1)
+```
+And looking at the first rows we can already see some of that passion I was talking about `r emo::ji("flushed")`
+
+```{r message = FALSE, warning = FALSE}
+
+kable(head(yt_comments[, -c(2, 5, 6, 8, 11)], 5), format = "html")
+```
+
+# What is next?
