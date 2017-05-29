@@ -681,8 +681,6 @@ wordcloud(words, colors = viridis::viridis_pal(end = 0.8)(10),
 
 # The end
 
-<div align="center"><img src="https://media.giphy.com/media/zZOJ2I4KiKaJ2/giphy.gif"/></div>
-
 Well, I hope you enjoyed this article as much as I did while writing it! It was so amusing to play with all these tools, and find out the feelings behind all those people who, like me, enjoy this show. If you haven't watch any episode yet, I recommend you give it a try. As we can see here: you won't probably be indifferent about it!
 
 Despite this post being fairly extensive, it was actually hard for me to pick what to show here. You can [find the complete analysis here](https://github.com/d4tagirl/John-Oliver-sentiment-analysis), and feel free to reach me with your comments :) 
