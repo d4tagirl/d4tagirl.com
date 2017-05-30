@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Code to compare Facebook and Youtube's comments
-date: "2017-05-25 12:11:29 UYT"
+date: "2017-05-30 02:11:29 UYT"
 published: true
 tags: [skip_index]
 ---
@@ -52,7 +52,7 @@ library(tidytext)
 library(ggplot2)
 library(tidyr)
 
-url_csv <- 'https://github.com/d4tagirl/John-Oliver-sentiment-analysis/raw/master/fb_comments.csv'
+url_csv <- 'https://github.com/d4tagirl/John-Oliver-sentiment-analysis/raw/master/blog_post_csv/fb_comments.csv'
 fb_comments <- read_csv(url(url_csv)) %>%
   select(-1)
 
@@ -78,7 +78,7 @@ fb_pos_neg_words <- tidy_fb_comments %>%
   geom_col(show.legend = FALSE) +
   scale_fill_manual(values = c("red2", "green3")) +
   facet_wrap(~sentiment, scales = "free_y") +
-  ylim(0, 2000) +
+  ylim(0, 2500) +
   xlab(NULL) +
   ylab(NULL) +
   coord_flip() +
@@ -117,7 +117,7 @@ fb_title_sent <- fb_comment_sent %>%
 I join the Youtube and Facebook's sentiment by video tables to compare comments. I have to filter the videos present in both platforms to make a fair comparison.
 
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
-url_csv <- 'https://github.com/d4tagirl/John-Oliver-sentiment-analysis/raw/master/yt_title_sent.csv'
+url_csv <- 'https://github.com/d4tagirl/John-Oliver-sentiment-analysis/raw/master/blog_post_csv/yt_title_sent.csv'
 yt_title_sent <- read_csv(url(url_csv)) %>%
   select(-1)
 ```

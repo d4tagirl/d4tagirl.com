@@ -1,24 +1,25 @@
 ---
 layout: post
-title:  John Oliver
-date: "2017-05-25 12:11:29 UYT"
+title:  How do you feel about Last Week Tonight?
+date: "2017-05-30 02:11:29 UYT"
 published: TRUE
 tags: [rstats, r, john oliver, sentiment analysis, youtube, facebook, tidytext, last week tonight]
-description: Analysis of text and sentiment behind the comments on _"Last week Tonight woth John Oliver"_  videos found in Youtube and Facebook.
+description: Analysis of the text and sentiment behind the comments on _Last week Tonight with John Oliver_'s videos found in Youtube and Facebook.
 ---
-Here I analyze the text and sentiment behind the comments on _"Last week Tonight woth John Oliver"_ Youtube videos, and compare them with the Facebook ones.
+Here I analyze the text and sentiment behind the comments on the _Last week Tonight with John Oliver_ TV show's Youtube videos, and compare them with the Facebook ones.
 
 <!--more-->
 
-<div align="center"><img src="/figure/source/john-oliver/2017-05-26-john-oliver/banner.jpg"/></div>
+<div align="center"><img src="/figure/source/how-do-you-feel-about-last-week-tonight/2017-05-29-how-do-you-feel-about-last-week-tonight/banner.jpg"/></div>
+
 
 # Welcome, welcome,  welcome!
 
-One thing my husband and I enjoy a lot is to watch [*Last Week Tonight with John Oliver*](http://www.hbo.com/last-week-tonight-with-john-oliver) every week. It is an HBO political talk-show that airs on Sunday nights, and we usually watch it while we have dinner sometime during the week. We love the show because it covers a huge amount of diverse topics and news from all over the world, plus we laugh a lot (bittersweet laughs mostly `r emo::ji("woman_shrugging")` ).
+One thing my husband and I enjoy a lot is watching [*Last Week Tonight with John Oliver*](http://www.hbo.com/last-week-tonight-with-john-oliver) every week. It is an HBO political talk-show that airs on Sunday nights, and we usually watch it while we have dinner sometime during the week. We love the show because it covers a huge amount of diverse topics and news from all over the world, plus we laugh a lot (bittersweet laughs mostly `r emo::ji("woman_shrugging")` ).
 
 I think John has a fantastic sense of humor and he is a spectacular communicator, but only if you share the way he sees the world. And because he is so enthusiastic about his views, I believe it is a character you either love or hate. I suspect he (as well as the controversial topics he proposes) arouses strong feelings in people and I want to check it by analyzing the comments people leave on [his Youtube videos](https://www.youtube.com/user/LastWeekTonight) and [his Facebook ones](https://www.facebook.com/LastWeekTonight/) as well.
 
-I've been wanting to try [Julia Silge](juliasilge.com) and [David Robinson](http://varianceexplained.org/)'s [`tidytext` package](http://tidytextmining.com/) for a while now, and after I read [Erin's text analysis on the Lizzie Bennet Diaries' Yutube captions](https://eringrand.github.io/lizziebennet_textmining/) I thought about giving Youtube a try `r emo::ji("smiley")` 
+I've been wanting to try [Julia Silge](juliasilge.com) and [David Robinson](http://varianceexplained.org/)'s [`tidytext` package](http://tidytextmining.com/) for a while now, and after I read [Erin's text analysis on the Lizzie Bennet Diaries' Youtube captions](https://eringrand.github.io/lizziebennet_textmining/) I thought about giving Youtube a try `r emo::ji("smiley")` 
 
 <br/>
 <div align="center"><img src="https://media.giphy.com/media/pOVsnroKZWeNG/giphy.gif"/></div>
@@ -108,7 +109,7 @@ get_videos <- function(playlist) {
 videos <- get_videos(playlist_id)
 ```
 
-Then I extract the first part from the title and description (the rest is just propaganda), and format the video's creation date,
+Then I extract the first part from the title and description (the rest is just advertisement), and format the video's creation date,
 
 ```{r eval = FALSE, message = FALSE, warning = FALSE}
 library(stringr)
@@ -128,7 +129,7 @@ library(tibble)
 library(stringr)
 library(readr)
 
-url_csv <- 'https://github.com/d4tagirl/John-Oliver-sentiment-analysis/raw/master/videos.csv'
+url_csv <- 'https://github.com/d4tagirl/John-Oliver-sentiment-analysis/raw/master/blog_post_csv/videos.csv'
 videos <- read_csv(url(url_csv)) %>%
   select(-1)
 ```
@@ -136,7 +137,7 @@ Lets take a look at the videos.
 
 ```{r message = FALSE, warning = FALSE}
 library(DT)
-datatable(videos[, c(4, 6, 7)], rownames = FALSE,
+datatable(videos[, c(4:6)], rownames = FALSE,
           options = list(pageLength = 5)) %>% 
   formatStyle(c(1:3), `font-size` = '15px')
 
@@ -145,10 +146,10 @@ datatable(videos[, c(4, 6, 7)], rownames = FALSE,
 <br/>
 ## Fetching the comments
 
-Now I get the comments for every video. I make my own functions for the same reason as before. The function `get_1_video_comments` retrieves comments from a given `video_id`, receiving the `n` parameter as the maximum of comments we want.
+Now I get the comments for every video. I make my own functions for the same reason as before. The function `get_video_comments` retrieves comments from a given `video_id`, receiving the `n` parameter as the maximum of comments we want.
 
 ```{r eval = FALSE}
-get_1_video_comments <- function(video_id, n = 5) {
+get_video_comments <- function(video_id, n = 5) {
   nextPageToken <- NULL
   comments <- {}
 
@@ -183,17 +184,17 @@ get_1_video_comments <- function(video_id, n = 5) {
 }
 ```
 
-The function `get_comments_dani` receives a vector of `video_id`s and returns `n` comments for every video, using the previous `get_1_video_comments` function. Then I remove empty comments, join with the video information and remove videos with less than 100 comments.
+The function `get_videos_comments` receives a vector of `video_id`s and returns `n` comments for every video, using the previous `get_video_comments` function. Then I remove empty comments, join with the video information and remove videos with less than 100 comments.
 
 ```{r eval = FALSE}
-get_comments_dani <- function(videos, n = 10){
-  comments <- pmap_df(list(videos, n), get_1_video_comments)
+get_videos_comments <- function(videos, n = 10){
+  comments <- pmap_df(list(videos, n), get_video_comments)
 }
 
-raw_yt_comments <- get_comments_dani(videos$id, n = 300)
+raw_yt_comments <- get_videos_comments(videos$id, n = 300)
 
 yt_comments <- raw_yt_comments %>%
-  filter(com_text != "")
+  filter(com_text != "") %>% 
   left_join(videos, by = c("video_id" = "id")) %>%
   group_by(short_title) %>%
   mutate(n = n(),
@@ -203,7 +204,7 @@ yt_comments <- raw_yt_comments %>%
 ```
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
-url_csv <- 'https://github.com/d4tagirl/John-Oliver-sentiment-analysis/raw/master/yt_comments.csv'
+url_csv <- 'https://github.com/d4tagirl/John-Oliver-sentiment-analysis/raw/master/blog_post_csv/yt_comments.csv'
 yt_comments <- read_csv(url(url_csv)) %>%
   select(-1)
 ```
@@ -212,7 +213,7 @@ And looking at the first rows we can already see some of that passion I was talk
 
 ```{r message = FALSE, warning = FALSE}
 datatable(head(yt_comments[, c(7, 9, 3)], 30), rownames = FALSE,
-          options = list(pageLength = 1)) %>% 
+          options = list(pageLength = 5)) %>% 
   formatStyle(c(1:3), `font-size` = '15px')
 ```
 <br/>
@@ -249,6 +250,7 @@ yt_pos_neg_words <- tidy_yt_comments %>%
   geom_col(show.legend = FALSE) +
   scale_fill_manual(values = c("red2", "green3")) +
   facet_wrap(~sentiment, scales = "free_y") +
+  ylim(0, 2500) +
   labs(y = NULL, x = NULL) +
   coord_flip() +
   theme_minimal()
@@ -285,7 +287,7 @@ Definitely more negative than positive words. OK.
 
 ## More sentiments in comments
 
-There is a different lexicon, the `nrc` one, that classifies the words into more categories: positive, negative, anger, anticipation, disgust, fear, joy, sadness, surprise, and trust. Let's check what we find!
+There is a different lexicon, the `nrc` one, that classifies the words into more categories: two _sentiments_: _positive_ and _negative_, and eight _basic emotions_: _anger_, _anticipation_, _disgust_, _fear_, _joy_, _sadness_, _surprise_, and _trust_. Let's check what we find!
 
 ```{r warning = FALSE, message = FALSE, fig.height = 4.5}
 tidy_yt_comments  %>%
@@ -300,19 +302,19 @@ tidy_yt_comments  %>%
   facet_wrap(~sentiment, scales = "free_y") +
   xlab(NULL) +
   ylab(NULL) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   coord_flip() +
   theme_minimal()
 ```
 
 OK... a few comments here. 
 
-* `john` is considered a word with _disgust_ and _negative_ sentiment... So I checked and found that [it means either a toilet or a prostitute's client](https://www.google.com.uy/search?q=john+meaning&oq=john+meaning&aqs=chrome..69i57j0l5.5413j0j4&sourceid=chrome&ie=UTF-8), so now I get it `r emo::ji("toilet")` Either way, I'm going to include it in the `custom_stop_words` dataframe because it is a word so frequent that makes every other word disproportionate.
+* `john` is considered a _negative_ word associated with _disgust_... So I checked and found that [it means either a toilet or a prostitute's client](https://www.google.com.uy/search?q=john+meaning&oq=john+meaning&aqs=chrome..69i57j0l5.5413j0j4&sourceid=chrome&ie=UTF-8), so now I get it `r emo::ji("toilet")` Either way, I'm going to include it in the `custom_stop_words` dataframe because it is a word so frequent that makes every other word disproportionate.
 
-* `trump` again is considered a _positive_ word and also a _surprise_ one (no doubt about the surprise element for both the word and the character though).
+* `trump` again is considered a _positive_ word, associated with _surprise_ (no doubt about the _surprise_ element for both the word and the character though).
 
 <div align="center"><img src="https://media.giphy.com/media/26BoCIHm4kozdBVo4/giphy.gif"/></div>
 
-* `money`: `r emo::ji("moneybag")` what is wrong with this word?! Apparently is a very confusing one, because it is linked with _positive_ sentiment as _anticipation_, _joy_, _surprise_ and _trust_, but is also with _anger_. Anyway, this is a side comment because it's about the lexicon (_or the human nature!_) and not this analysis.
 
 ```{r warning = FALSE, message = FALSE, fig.height = 4.5}
 custom_stop_words <- bind_rows(data_frame(word = c("john"), 
@@ -331,11 +333,23 @@ yt_comments %>%
   ggplot(aes(word, nn, fill = sentiment)) +
   geom_col(show.legend = FALSE) +
   facet_wrap(~sentiment, scales = "free_y") +
+  scale_y_continuous(breaks = c(0, 1000, 2000)) +
   xlab(NULL) +
   ylab(NULL) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   coord_flip() +
   theme_minimal()
 ```
+
+There are very controversial classifications on this `nrc` lexicon, especially with the terms `black`, classified as _negative_ (and _sadness_) and `white` as _positive_ (and _joy_, _anticipation_ and _trust_).
+
+I also have some comments:
+
+* `goverment` is _negative_ while `president` is _positive_. Just caught my attention.
+
+* `money`: `r emo::ji("moneybag")` what is wrong with this word?! Apparently it is a very confusing one, because it is linked with _positive_ sentiment and _anticipation_, _joy_, _surprise_ and _trust_ emotions, but also with _anger_ `r emo::ji("thinking")`
+
+Anyway, this 2 are side comments because they are about the lexicon (_or the human nature!_) and not this analysis. Bottom line: I don't like this lexicon `r emo::ji("unamused")`
 
 What is the most present sentiment?
 
@@ -358,7 +372,7 @@ yt_comments %>%
   coord_flip()
 ```
 
-According to this lexicon, there are more positive than negative words! The opposite of what we found using the `bing` lexicon. The thing about this one is that allows us to analyze other sentiments as well.
+According to this lexicon, there are more positive than negative words! The opposite of what we found using the `bing` lexicon. The thing about this one is that allows us to analyze other sentiments as well. But of course I'm not going to use it anymore `r emo::ji("triumph")`
 
 # Most used n-grams
 
@@ -380,7 +394,7 @@ yt_comments %>%
 
 _how is this still a_ and _is this still a thing_ of course ring a bell for those of us who watch the show, since it has a section called _"How is this still a thing?"_ questioning certain traditions or things that for some reason seemed adequate at some point in time, but now are totally absurd. Like [voting for the US Presidential Elections on Tuesday](https://www.youtube.com/watch?v=e0bMfS-_pjM), or [the _swimsuit issue_ of the Sports Illustrated magazine](https://www.youtube.com/watch?v=l8QNDRbjong) `r emo::ji("roll_eyes")`
 
-The _am i the only one_, _i the only one who_ and _is it just me or_ 5-grams shows us a lot of misunderstood people, or maybe looking for a friend? I'm going to take a peek at these comments!
+The _am i the only one_, _i the only one who_ and _is it just me or_ 5-grams shows us how much people love rethorical questions! Like a lot! I'm going to take a peek at these comments!
 
 ```{r warning = FALSE, message = FALSE}
 am_i_the_only_one <- yt_comments %>%
@@ -390,7 +404,7 @@ am_i_the_only_one <- yt_comments %>%
 
 datatable(head(yt_comments[yt_comments$com_id %in% am_i_the_only_one$com_id, c(7, 3)], 30), 
           rownames = FALSE,
-          options = list(pageLength = 1)) %>% 
+          options = list(pageLength = 5)) %>% 
   formatStyle(c(1:2), `font-size` = '15px')
 ``` 
 <br />
@@ -404,7 +418,7 @@ great_great_great_great_great <- yt_comments %>%
 
 datatable(head(yt_comments[yt_comments$com_id %in% great_great_great_great_great$com_id, c(7, 3)], 1), 
           rownames = FALSE,
-          options = list(pageLength = 1)) %>% 
+          options = list(pageLength = 5)) %>% 
   formatStyle(c(1:2), `font-size` = '15px') 
 ```
 
@@ -475,7 +489,7 @@ head(yt_title_sent, 7) %>% bind_rows(tail(yt_title_sent, 7)) %>%
   coord_flip() +
   theme_minimal() 
 ```
-The _most positive_ videos are not actually main stories, but small stories or web specials. But the _most negative_ ones are main stories about very hard topics like mental health, opioids and abortion, that makes people outraged. This totally makes sense: John always mix hard stories with some comic relief in between. As he never covers a happy ending main story, the _happy_ videos are some comic short ones or Web Exclusives.
+The _most positive_ videos are not actually main stories, but small stories or web specials. But the _most negative_ ones are main stories about very hard topics like mental health, opioids and abortion, that makes people outraged. This totally makes sense: John always mixes hard stories with some comic relief in between. As he never covers a happy ending main story, the _happy_ videos are some comic short ones or web exclusives.
 
 You can check what are these episodes about below.
 
@@ -486,7 +500,7 @@ datatable(
     left_join(videos, by = "short_title") %>% 
     select(short_title, short_desc, sentiment),
   rownames = FALSE,
-  options = list(pageLength = 1)) %>%
+  options = list(pageLength = 7)) %>%
   formatStyle(c(1:3), `font-size` = '15px')
 ```
 <br />
@@ -498,11 +512,11 @@ My husband and I were discussing which audience would be more positive: the Yout
 
 ## Fetching Facebook videos and comments
 
-First I have to retrieve [Facebook](https://www.facebook.com/LastWeekTonight/) videos. I find the `Rfacebook` package way easier than `tuber` to interact with the [Facebook Graph API](https://www.facebook.com/LastWeekTonight/), since you don't have to deal with pages to get the videos nor the comments. 
+First I have to retrieve [Facebook](https://www.facebook.com/LastWeekTonight/) videos. I find the `Rfacebook` package way easier than `tuber` to interact with the [Facebook Graph API](https://developers.facebook.com/docs/graph-api), since you don't have to deal with pages to get the videos nor the comments. 
 
-You have to create a temporary access token (you can also try with a more permanent one, all you need to know is in [this package documentation](https://cran.r-project.org/web/packages/Rfacebook/Rfacebook.pdf)) and you are ready! With `getPage` and `n = 5000` you retrieve 5000 posts. It is an exaggerated number, but I wanted all of them. 
+You have to create a temporary access token (you can also try with a more permanent one, all you need to know is in [this package documentation](https://cran.r-project.org/web/packages/Rfacebook/Rfacebook.pdf)) and you are ready! With `getPage` and `n = 5000` you retrieve 5000 posts. It is an exaggerated number, but I want to make sure I get all of them (there are 559 at the moment, in case you are wondering).
 
-As I want only the videos coming from Youtube (so I can compare the comments), I filter the posts using a regular expression and then join the table with the `videos` dataframe from the youtube videos to have the video information.
+As I want only the videos coming from Youtube (so I can compare the comments), I filter the posts using a regular expression and then join the table with the `videos` dataframe from the Youtube videos to have the video information.
 
 ```{r eval = FALSE, warning = FALSE, message = FALSE}
 library(Rfacebook)
@@ -561,7 +575,7 @@ tidy_fb_comments <- fb_comments %>%
 ```
 
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
-url_csv <- 'https://github.com/d4tagirl/John-Oliver-sentiment-analysis/raw/master/fb_comments.csv'
+url_csv <- 'https://github.com/d4tagirl/John-Oliver-sentiment-analysis/raw/master/blog_post_csv/fb_comments.csv'
 fb_comments <- read_csv(url(url_csv)) %>%
   select(-1)
 
@@ -584,7 +598,7 @@ fb_pos_neg_words <- tidy_fb_comments %>%
   geom_col(show.legend = FALSE) +
   scale_fill_manual(values = c("red2", "green3")) +
   facet_wrap(~sentiment, scales = "free_y") +
-  ylim(0, 2000) +
+  ylim(0, 2500) +
   xlab(NULL) +
   ylab(NULL) +
   coord_flip() +
@@ -600,7 +614,7 @@ grid.arrange(arrangeGrob(yt_pos_neg_words, top = "Youtube"),
 
 Some remarks here:
 
-* People don't talk as much on Facebook! Youtube's words exceed 2,000 and Facebook's only go up to 500. I thought people on Facebook would be more verbal than on Youtube, but I only use this platform to see some specific videos and I've never left (or even read!) a comment there, so I'm far from an expert on this field.
+* People don't talk as much on Facebook! Youtube's words exceed 2,000 and Facebook's ones only go up to 500. I thought people on Facebook would be more verbal than on Youtube, but I only use this platform to see some specific videos and I've never left (or even read!) a comment there, so I'm far from an expert on this field.
 
 * People don't use _the F-word_ that much on Facebook! I attribute it the _the granny effect_ `r emo::ji("older_woman")`
 
@@ -641,7 +655,7 @@ comments_by_title <- yt_title_sent %>%
 ```
 
 
-```{r warning = FALSE, message = FALSE, fig.height = 4}  
+```{r warning = FALSE, message = FALSE, fig.align = 'center', fig.height = 4, dpi = 130}  
 library(plotly)
 ggplotly(comments_by_title %>%
   
@@ -661,7 +675,7 @@ So Facebook audience is more positive than the Youtube one for almost every vide
 
 # Wordcloud!
 
-Probably you were waiting for this! I couldn't pass up the opportunity to make a wordcloud `r emo::ji("tada")` Are those awesome or what?!
+Probably you were hoping for this! I couldn't pass up the opportunity to make a wordcloud `r emo::ji("tada")` Are those awesome or what?!
 
 ```{r eval = FALSE, warning = FALSE, message = FALSE, dpi = 300, strip.white = TRUE, fig.env = 'figure'}
 library(wordcloud)
@@ -677,13 +691,14 @@ wordcloud(words, colors = viridis::viridis_pal(end = 0.8)(10),
 ```
 
 
-<div align="center"><img src="/figure/source/john-oliver/2017-05-26-john-oliver/wordcloud.png"/></div>
+<div align="center"><img src="/figure/source/how-do-you-feel-about-last-week-tonight/2017-05-29-how-do-you-feel-about-last-week-tonight/wordcloud.png"/></div>
+
 
 # The end
 
 Well, I hope you enjoyed this article as much as I did while writing it! It was so amusing to play with all these tools, and find out the feelings behind all those people who, like me, enjoy this show. If you haven't watch any episode yet, I recommend you give it a try. As we can see here: you won't probably be indifferent about it!
 
-Despite this post being fairly extensive, it was actually hard for me to pick what to show here. You can [find the complete analysis here](https://github.com/d4tagirl/John-Oliver-sentiment-analysis), and feel free to reach me with your comments :) 
+Despite this post being fairly extensive, it was actually hard for me to pick what to show here. You can [find the complete analysis here](https://github.com/d4tagirl/John-Oliver-sentiment-analysis), and feel free to reach out to me with your comments `r emo::ji("smiley")`
 
 
 
