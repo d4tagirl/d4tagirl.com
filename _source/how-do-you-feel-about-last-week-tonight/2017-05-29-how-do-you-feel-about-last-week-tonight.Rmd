@@ -6,7 +6,7 @@ published: TRUE
 tags: [rstats, r, john oliver, sentiment analysis, youtube, facebook, tidytext, last week tonight]
 description: Analysis of the text and sentiment behind the comments on _Last week Tonight with John Oliver_'s videos found in Youtube and Facebook.
 ---
-Here I analyze the text and sentiment behind the comments on the _Last week Tonight with John Oliver_ TV show's Youtube videos, and compare them with the Facebook ones.
+I analyze the text and sentiment behind the comments on the _Last week Tonight with John Oliver_ TV show's Youtube videos, and compare them with the Facebook ones.
 
 <!--more-->
 
@@ -341,7 +341,7 @@ yt_comments %>%
   theme_minimal()
 ```
 
-There are very controversial classifications on this `nrc` lexicon, especially with the terms `black`, classified as _negative_ (and _sadness_) and `white` as _positive_ (and _joy_, _anticipation_ and _trust_).
+There are very controversial classifications on this `nrc` lexicon, especially with the terms `black`, classified as _negative_ (and _sadness_) and `white` as _positive_ (and _joy_, _anticipation_ and _trust_). I don't like this at all...
 
 I also have some comments:
 
@@ -349,9 +349,9 @@ I also have some comments:
 
 * `money`: `r emo::ji("moneybag")` what is wrong with this word?! Apparently it is a very confusing one, because it is linked with _positive_ sentiment and _anticipation_, _joy_, _surprise_ and _trust_ emotions, but also with _anger_ `r emo::ji("thinking")`
 
-Anyway, this 2 are side comments because they are about the lexicon (_or the human nature!_) and not this analysis. Bottom line: I don't like this lexicon `r emo::ji("unamused")`
+Anyway, these are side comments because they are about the lexicon (_or the human nature!_) and not this analysis. Bottom line: I don't like this lexicon `r emo::ji("unamused")`
 
-What is the most present sentiment?
+What is the most present sentiment/emotion?
 
 ```{r warning = FALSE, message = FALSE, fig.height = 3}
 yt_comments %>%
@@ -392,9 +392,9 @@ yt_comments %>%
   theme_minimal()
 ```
 
-_how is this still a_ and _is this still a thing_ of course ring a bell for those of us who watch the show, since it has a section called _"How is this still a thing?"_ questioning certain traditions or things that for some reason seemed adequate at some point in time, but now are totally absurd. Like [voting for the US Presidential Elections on Tuesday](https://www.youtube.com/watch?v=e0bMfS-_pjM), or [the _swimsuit issue_ of the Sports Illustrated magazine](https://www.youtube.com/watch?v=l8QNDRbjong) `r emo::ji("roll_eyes")`
+_"how is this still a"_ and _"is this still a thing"_ of course ring a bell for those of us who watch the show, since it has a section called _"How is this still a thing?"_ questioning certain traditions or things that for some reason seemed adequate at some point in time, but now are totally absurd. Like [voting for the US Presidential Elections on Tuesday](https://www.youtube.com/watch?v=e0bMfS-_pjM), or [the _swimsuit issue_ of the Sports Illustrated magazine](https://www.youtube.com/watch?v=l8QNDRbjong) `r emo::ji("roll_eyes")`
 
-The _am i the only one_, _i the only one who_ and _is it just me or_ 5-grams shows us how much people love rethorical questions! Like a lot! I'm going to take a peek at these comments!
+The _"am i the only one"_, _"i the only one who"_ and _"is it just me or"_ 5-grams shows us how much people love rethorical questions! Like a lot! I'm going to take a peek at these comments!
 
 ```{r warning = FALSE, message = FALSE}
 am_i_the_only_one <- yt_comments %>%
@@ -408,7 +408,7 @@ datatable(head(yt_comments[yt_comments$com_id %in% am_i_the_only_one$com_id, c(7
   formatStyle(c(1:2), `font-size` = '15px')
 ``` 
 <br />
-And a very strange 5-gram: "great great great great great"... I have to check what this is about!
+And a very strange 5-gram: _"great great great great great"_... I have to check what this is about!
 
 ```{r warning = FALSE, message = FALSE}
 great_great_great_great_great <- yt_comments %>%
@@ -675,7 +675,7 @@ So Facebook audience is more positive than the Youtube one for almost every vide
 
 # Wordcloud!
 
-Probably you were hoping for this! I couldn't pass up the opportunity to make a wordcloud `r emo::ji("tada")` Are those awesome or what?!
+You were probably hoping for this! I couldn't pass up the opportunity to make a wordcloud `r emo::ji("tada")` Are those awesome or what?!
 
 ```{r eval = FALSE, warning = FALSE, message = FALSE, dpi = 300, strip.white = TRUE, fig.env = 'figure'}
 library(wordcloud)
