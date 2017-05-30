@@ -19,7 +19,7 @@ One thing my husband and I enjoy a lot is watching [*Last Week Tonight with John
 
 I think John has a fantastic sense of humor and he is a spectacular communicator, but only if you share the way he sees the world. And because he is so enthusiastic about his views, I believe it is a character you either love or hate. I suspect he (as well as the controversial topics he proposes) arouses strong feelings in people and I want to check it by analyzing the comments people leave on [his Youtube videos](https://www.youtube.com/user/LastWeekTonight) and [his Facebook ones](https://www.facebook.com/LastWeekTonight/) as well.
 
-I've been wanting to try [Julia Silge](juliasilge.com) and [David Robinson](http://varianceexplained.org/)'s [`tidytext` package](http://tidytextmining.com/) for a while now, and after I read [Erin's text analysis on the Lizzie Bennet Diaries' Youtube captions](https://eringrand.github.io/lizziebennet_textmining/) I thought about giving Youtube a try `r emo::ji("smiley")` 
+I've been wanting to try [Julia Silge](https://juliasilge.com/blog/) and [David Robinson](http://varianceexplained.org/)'s [`tidytext` package](http://tidytextmining.com/) for a while now, and after I read [Erin's text analysis on the Lizzie Bennet Diaries' Youtube captions](https://eringrand.github.io/lizziebennet_textmining/) I thought about giving Youtube a try `r emo::ji("smiley")` 
 
 <br/>
 <div align="center"><img src="https://media.giphy.com/media/pOVsnroKZWeNG/giphy.gif"/></div>
