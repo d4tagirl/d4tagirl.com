@@ -1,3 +1,2 @@
-library(brocks)
-new_post("John Oliver")
-blog_serve()
+brocks::new_post("Al estilo R-Ladies!")
+brocks::blog_serve()
