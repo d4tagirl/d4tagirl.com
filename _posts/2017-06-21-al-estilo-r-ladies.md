@@ -18,7 +18,7 @@ Lo gracioso (y aterrador) era que no tenía idea de lo que iba a hacer después.
 Me tomé un par de semanas para estar más tranquila y después empecé a mirar qué estaba pasando en la comunidad de R. He usado R desde la Universidad, pero nunca había interactuado con la comunidad. Mi estrategia fue empezar a seguir gente interesante en Twitter (ni siquiera me acuerdo cómo supe a quién seguir), leer [R-Bloggers](https://www.r-bloggers.com/), y *hacer cosas* que parecían de alguna forma útiles o que me hicieran sentir realizada:
 
 * ayudé a [traducir a español](https://github.com/BetaAndBit/ComicBooks/blob/master/es_la/HeavyDog_es_la.pdf) [un comic de introducción a R para estudiantes de secundaria](https://github.com/BetaAndBit/ComicBooks/blob/master/en/HeavyDog_en.pdf) 
-* descubrí y apliqué al [programa NASA Datanauts 2017 program](https://open.nasa.gov/explore/datanauts/) 
+* descubrí y apliqué al [programa NASA Datanauts 2017](https://open.nasa.gov/explore/datanauts/) 
 * tomé clases de Machine Learning en la Maestría que estoy cursando
 * aprendí a resolver un cubo de Rubik (bueno, la verdad es que lo Googleé! Y siempre quise aprender a hacerlo así que no me juzgues...) 
 
@@ -32,7 +32,7 @@ Tratando de ver cómo podía ayudar con el capítulo de Buenos Aires me di cuent
 
 Ya estaba pensando en tener mi blog, y la sensación de que empezaba a ser *una de ellas* me dio el impulso extra que necesitaba. Como el inglés no es mi lengua nativa, tenía esa preocupación adicional. Antes de anunciar [mi primer artículo del blog]({% post_url 2017-01-23-what-demographics-voted-for-trump %}) tuve las sugerencias de varias R-Ladies. Gente que nunca hubiera esperado que me contactara me estaba dando su opinión, personas que eran como celebridades para mi! En el momento en que lo publiqué me sentí mucho más segura y relajada como para disfrutarlo 😃 
 
-Las cosas empezaron a funcionar para mi: Me aceptaron para unirme a la [clase de Primavera de NASA Datanauts 2017](https://open.nasa.gov/blog/welcome-datanauts-2017-spring-class/) (despúes supe que fue el tweet de una R-Lady por el que me enteré que existía el programa) e incluso respondí algunas preguntas de Stack Overflow! Ésta era la clase de estímulo que precisaba para recuperar la confianza! Ahora estoy en la busca de un trabajo genial! 😉
+Las cosas empezaron a funcionar para mi: Me aceptaron para unirme a la [clase de Primavera de NASA Datanauts 2017](https://open.nasa.gov/blog/welcome-datanauts-2017-spring-class/) (despúes supe que fue el tweet de una R-Lady por el que me enteré que existía el programa) e incluso respondí algunas preguntas de Stack Overflow! Ésta era la clase de estímulo que precisaba para recuperar la confianza! Ahora estoy en busca de un trabajo genial! 😉
 
 Lo que estoy tratando de decir con todo esto es: sea que haya un capítulo en tu ciudad o no, sin importar tu grado de timidez, hay un grupo genial de mujeres listas para proporcionarte la contención que necesitás para alcanzar tu potencial. Algunas de ellas probablemente estén en una situación similar a la tuya, así que también es un lugar para compartir experiencias y no sentirte sola.
 
