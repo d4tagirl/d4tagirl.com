@@ -3,7 +3,7 @@ layout: post
 title:  Al estilo R-Ladies!
 date: "2017-06-21 15:19:29 UYT"
 published: true
-tags: [r-ladies, comunidad, genero, inclusion, grupo de usuarios, r, rstats, español]
+tags: [r-ladies, comunidad, genero, inclusion, grupo de usuarios, r, rstats, español, es]
 description: Mi experiencia con la comunidad de R-Ladies, un grupo genial de mujeres que construyeron un entorno verdaderamente inclusivo para mujeres en la comunidad de R.
 ---
 Mi experiencia con la comunidad de R-Ladies, un grupo genial de mujeres que construyeron un entorno verdaderamente inclusivo, para que mujeres en la comunidad de R de todo el mundo alcancen su verdadero potencial.
