@@ -4,15 +4,15 @@ title:  Uruguay, el país de los nombres raros?
 date: "`r Sys.time()`"
 published: true
 tags: [r, rstats, es, shiny, shinyapp, uruguay, nombres]
-description: Análisis de los nombres uruguayos a partir de los datos abiertos del Registro Civil desde 1942 hasta 2011.
+description: Análisis de los nombres uruguayos a partir de los datos abiertos del Registro Civil desde 1940 hasta 2011.
 ---
-A los uruguayos nos gusta inventar nombres raros... O al menos eso es lo que venimos escuchando hace años ya! Así que se me ocurrió analizar los nombres que los uruguayos hemos puesto a nuestros hijos desde 1942 hasta 2011 para ver qué encuentro. Un poco para apoyar la iniciativa de Datos Abiertos de [DATA](http://www.datauy.org/) y otro poco por mi propia curiosidad `r emo::ji("hugs")` [Acá podés jugar con los datos en una Shiny app](https://d4tagirl.shinyapps.io/uy_names/)!
+A los uruguayos nos gusta inventar nombres raros... O al menos eso es lo que venimos escuchando hace años ya! Así que se me ocurrió analizar los nombres que los uruguayos hemos puesto a nuestros hijos desde 1940 hasta 2011 para ver qué encuentro. Un poco para apoyar la iniciativa de Datos Abiertos de [DATA](http://www.datauy.org/) y otro poco por mi propia curiosidad `r emo::ji("hugs")`  [Acá podés jugar con los datos en una Shiny app que hice](https://d4tagirl.shinyapps.io/uy_names/)!
 
 <!--more-->
 
 Hace unos años surgió en Uruguay [DATA](http://www.datauy.org/), una organización de la sociedad civil que trabaja en la promoción y el uso de datos abiertos en Uruguay. Falta mucho camino por recorrer aún, pero ya existe [un conjunto de 146 datasets](https://catalogodatos.gub.uy/), incluyendo [uno acerca de la producción de cerveza artesanal en Uruguay](https://catalogodatos.gub.uy/dataset/productores-puntos-de-venta-y-tipos-de-cerveza-artesanal-uruguaya-dondepinta-uy), que seguramente sea mi próximo desafío con datos abiertos en Uruguay `r emo::ji("beers")`
 
-Siempre se dijo que los uruguayos somos muy creativos para ponerle nombre a nuestros hijos (algo que llama mucho la atención sobre todo a los argentinos, como se muestra [en esta nota](https://www.pagina12.com.ar/diario/suplementos/radar/9-1233-2004-02-15.html)). Los criterios del Registro Civil para registrar los nombres de los nacidos son muy laxas, lo que deja mucho lugar a la discrecionalidad de los padres, así que cuando ví que el Registro Civil disponibilizó estos datos, algo tenía que hacer!
+Siempre se dijo que los uruguayos somos muy creativos para ponerle nombre a nuestros hijos (algo que llama mucho la atención sobre todo a los argentinos, como resaltan [en esta nota](https://www.pagina12.com.ar/diario/suplementos/radar/9-1233-2004-02-15.html)). Los criterios del Registro Civil para registrar los nombres de los nacidos no son muy estrictos, lo que deja mucho lugar a la discrecionalidad de los padres, así que cuando ví que el Registro Civil disponibilizó estos datos, algo tenía que hacer!
 
 Si querés vos mismo jugar con los datos, [acá está la Shiny app que hice](https://d4tagirl.shinyapps.io/uy_names/) donde podés explorar y graficar varias cosas!
 
@@ -108,14 +108,14 @@ datatable(nombres_año[c(1:100),], rownames = FALSE,
 
 Por cada `nombre`-`año` tengo:
 * `frec`: la cantidad de personas registradas con el nombre en ese año, 
-* `total_nombre`: el total de las personas registradas con ese nombre entre 1942 y 2011,
+* `total_nombre`: el total de las personas registradas con ese nombre entre 1940 y 2011,
 * `porc_nombre`: el porcentaje de personas registradas con el nombre en ese año, en proporción con el total de personas registradas con ese nombre (`frec`/`total_nombre`).
 
 Ahora se pone divertido!
 
 ## Qué nombres son los más usados?
 
-Veamos los nombres más usados a lo largo de los 69 años.
+Veamos los nombres más usados a lo largo de los 71 años.
 
 ```{r message = FALSE, warning = FALSE, dpi = 100}
 library(ggplot2)
@@ -131,12 +131,13 @@ nombres_año %>%
   coord_flip() +
   theme_minimal(base_size = 14) +
   theme(legend.position = "none") +
-  scale_fill_viridis(discrete = TRUE)
+  scale_fill_viridis(discrete = TRUE) +
+  ggtitle("Nombres más frecuentes")
 ```
 
-Para los que vivimos bordeando el Río de la Plata estos nombres no nos sorprenden. Lo único que me llama la atención es lo bíblico de varios de ellos, siendo Uruguay [uno de los países más irreligiosos del mundo](https://en.wikipedia.org/wiki/Irreligion_in_Uruguay)). Esto no se refleja en los nombres más usados!
+Para los que vivimos bordeando el Río de la Plata estos nombres no nos sorprenden. Lo único que me llama la atención es lo bíblico de varios de ellos, siendo Uruguay [uno de los países más irreligiosos del mundo](https://en.wikipedia.org/wiki/Irreligion_in_Uruguay). Esto no se refleja en los nombres más usados!
 
-Veamos en los últimos años (después de 1980 porque nací en 1983 y si tomo algún año posteriores me siento vieja `r emo::ji("older_woman")` )
+Veamos en los últimos años (después de 1980 porque nací en 1983 y si tomo algún año posterior me siento vieja `r emo::ji("older_woman")` )
 
 ```{r message = FALSE, warning = FALSE, dpi = 100}
 nombres_año %>% 
@@ -154,10 +155,11 @@ nombres_año %>%
   coord_flip() +
   theme_minimal(base_size = 14) +
   theme(legend.position = "none") +
-  scale_fill_viridis(discrete = TRUE)
+  scale_fill_viridis(discrete = TRUE) +
+  ggtitle("Nombres más frecuentes \ndespués de 1980")
 ```
 
-Si bien los nombres del puesto 3 para abajo cambian, y ciertamente se parecen a nombres de generaciones más jóvenes para nosotros, siguen siendo los más usados María y Juan. María siempre por un margen muy amplio. En particular María es muy usado en nombres compuestos (María del Carmen, María Inés), y puede ser usado para hombre o para mujer (Juan María por ejemplo), así que es muy popular.
+Si bien los nombres del puesto 3 para abajo cambian, y ciertamente se parecen a nombres de generaciones más jóvenes para nosotros, siguen siendo los más usados María y Juan. María siempre por un margen muy amplio. Es nombre muy usado en nombres compuestos (María del Carmen, María Inés), y puede ser usado para hombre o para mujer (Juan María por ejemplo), así que es muy popular.
 
 ## Qué nombres son los menos usados?
 
@@ -171,12 +173,12 @@ nombres_unicos <- nombres_año %>%
 
 library(DT)
 datatable(nombres_unicos, rownames = FALSE,
-          options = list(pageLength = 5))
+          options = list(pageLength = 5)) 
 ```
 <br />
 Y muchos parecen ser errores... aunque quizás no lo sean `r emo::ji("scream")`
 
-Arbitrar iamente puse un límite de 200 personas con un nombre, y ahí me fijé los menos populares a ver qué tan exóticos son.
+Arbitrariamente puse un límite de 200 personas con un nombre, y ahí me fijé los menos populares a ver qué tan exóticos son.
 
 ```{r nombres_menos_usados, eval = FALSE, message = FALSE, warning = FALSE, dpi = 100}
 library(here)
@@ -193,7 +195,8 @@ nombres_año %>%
   coord_flip() +
   theme_minimal(base_size = 14) +
   theme(legend.position = "none") +
-  scale_fill_viridis(discrete = TRUE)
+  scale_fill_viridis(discrete = TRUE) +
+  ggtitle("Nombres menos frecuentes")
 
 ggsave(filename = here("", "nombres_menos_usados.png"), width = 5, height = 4, dpi = 140)
 
@@ -216,7 +219,7 @@ Ahora sí, podemos decir que nos gustan los nombres anglosajones, aunque la form
 
 Pero... hablemos de lo que acabo de hacer... no está buenísima la animación?? Para los que les interese acá van mis comentarios, y para los que no, pueden seguir [por acá nomás](#skipping)! 
 
-La idea surge de un artículo de [Daniel Hadley](https://twitter.com/danielphadley) donde [muestra el código para hacer una animación como la que acabo de hacer](http://danielphadley.com/ggplot-Logo/). El paquete `here` lo único que hace es permitirnos olvidarnos de las rutas, así que no voy a entrar mucho en detalles. Pero el paquete `magick` de [rOpenSci](https://ropensci.org/) es el que hace la magia `r emo::ji("sparkles")` era de sospecharse! Interpreta en `grafico` la imagen del plot que guardé con `ggsave` y en `gif` cada cuadro del archivo .gif que elegí. Acá hay un secreto: todos los cuadros del archivo .gif tienen que tener el mismo tamaño, si no la imagen termina rebotando para todos lados! Esto me llevó mucho rato (y frustración!), hasta que [Gervasio](https://twitter.com/g3rv4?lang=en) salió al rescate! Usando [esta página](https://ezgif.com/resize) pude cambiar el .gif, usando la opción de `optimize`/`coalesce`. Y quedó bárbaro!
+La idea surge de un artículo de [Daniel Hadley](https://twitter.com/danielphadley) donde [muestra el código para hacer una animación como la que acabo de hacer](http://danielphadley.com/ggplot-Logo/). El paquete `here` lo único que hace es permitirnos olvidarnos de las rutas, así que no voy a entrar mucho en detalles. Pero el paquete `magick` de [rOpenSci](https://ropensci.org/) es el que hace la magia `r emo::ji("sparkles")`  (era de sospecharse!). Interpreta en `grafico` la imagen del plot que guardé con `ggsave()` y en `gif` cada cuadro del archivo .gif que elegí. Acá hay un secreto: todos los cuadros del archivo .gif tienen que tener el mismo tamaño, si no la imagen termina rebotando para todos lados! Esto me llevó mucho rato (y frustración!), hasta que [Gervasio](https://twitter.com/g3rv4?lang=en) salió al rescate! Usando [esta página](https://ezgif.com/resize) pude cambiar el .gif, usando la opción de `optimize`/`coalesce`. Y quedó bárbaro!
 
 <a id="skipping"> </a>
 
@@ -241,10 +244,10 @@ pendientes <- nombres_año %>%
   arrange(desc(estimate))
 ```
 
-Lo primero que hago es quedarme con los nombres que fueron registrados al menos 800 veces en los 69 años (creo que esto no es muy exigente, estamos hablando de que en promedio tiene que haber sido usado menos de 15 veces!). Cuando hago `nest(-nombre)` genero un dataframe que tiene 2 columnas: la primera es `nombre`, y la segunda es `data`. Lo más curioso es la columna `data`, porque cada elementos de la columna son dataframes chiquitos, con la información agrupada por `nombre`. Entonces para cada nombre tengo un dataframe, que tiene como columnas: `año`, `frec`, `total_nombre` y `porc_nombre`, y cada fila representa un año diferente. Esto me permite poder ajustar un modelo distinto para cada nombre! Entonces lo que hago es usar la función `map::purrr()` para que a cada dataframe (para cada nombre) le ajuste un modelo lineal, que especifico con `map(data, ~ lm(porc_nombre ~ año, .))`. Después extraigo los resultados del modelo con `broom::tidy` y me quedo sólo con el coeficiente correspondiente a `año`. Al fial me quedo sólo con los que tienen un p-valor ajustado menor a 0.05.
+Primero me quedo con los nombres que fueron registrados al menos 800 veces en los 71 años (creo que esto no es muy exigente, estamos hablando de que en promedio tiene que haber sido usado menos de 15 veces!). Cuando hago `nest(-nombre)` genero un dataframe que tiene 2 columnas: la primera es `nombre`, y la segunda es `data`. Lo más curioso es la columna `data`, porque cada elementos de la columna son dataframes chiquitos, con la información agrupada por `nombre`. Entonces para cada nombre tengo un dataframe, que tiene como columnas: `año`, `frec`, `total_nombre` y `porc_nombre`, y cada fila representa un año diferente. Esto me permite poder ajustar un modelo distinto para cada nombre! Entonces lo que hago es usar la función `map::purrr()` para que a cada dataframe (para cada nombre) le ajuste un modelo lineal, que especifico con `map(data, ~ lm(porc_nombre ~ año, .))`. Después extraigo los resultados del modelo con `broom::tidy` y me quedo sólo con el coeficiente correspondiente a `año`. Al fial me quedo sólo con los que tienen un p-valor ajustado menor a 0.05.
 
 <a id="skipping-2"> </a>
-```{r message = FALSE, warning = FALSE}
+```{r message = FALSE, warning = FALSE, fig.height = 6}
 head(pendientes, 12) %>% 
   bind_rows(tail(pendientes, 12)) %>%
   ggplot(aes(reorder(nombre, estimate), estimate, fill = reorder(nombre, estimate))) +
@@ -253,7 +256,9 @@ head(pendientes, 12) %>%
   ylab(NULL) +
   coord_flip() +
   theme_minimal() +
-  scale_fill_manual(values = c("red", "green"))
+  scale_fill_manual(values = c("red", "green")) +
+  ggtitle("Nombres que más crecieron y decrecieron") +
+  labs(caption = "los que más crecieron ---->")
 ```
 
 Acá se ven los nombres que más crecieron y los que menos. De nuevo para los locales, no hay novedades porque los nombres en verde son los asociados a las nuevas generaciones y los rojos los asociados a las menos nuevas.
@@ -276,7 +281,7 @@ spline_prediccion <- nombres_año %>%
 
 Después lo que hago es comparar la máxima predicción de esa spline cúbica: `.fitted` con el promedio de todas las predicciones `average` y calculo el `ratio` como la predicción máxima para cada nombre sobre el promedio. Selecciono a los 10 con ratio más grande y los grafico.
 
-```{r message = FALSE, warning = FALSE, dpi = 130, fig.height = 6}
+```{r message = FALSE, warning = FALSE, dpi = 130, fig.height = 5}
 spline_prediccion %>%
   group_by(nombre) %>%
   mutate(average = mean(.fitted)) %>%
@@ -289,14 +294,17 @@ spline_prediccion %>%
   ggplot(aes(año, frec, color = nombre)) +
   geom_line() +
   facet_wrap( ~ reorder(nombre, desc(frec))) +
-  theme_minimal() 
+  ggtitle("Evolución de los nombres con crecimientos excepcionales \n") +
+  theme_minimal() +
+  theme(legend.position = "none", axis.title.x = element_blank(),
+        axis.title.y = element_blank())
 ```
 
 Vemos que los picos más pronunciados se dieron siempre en los últimos años. Podés hacer [este mismo análisis pero considerando diferentes rangos de años en esta Shiny app](https://d4tagirl.shinyapps.io/uy_names/).
 
 ## Hay nombres que crecen porque hay algún personaje que se hace famoso?
 
-Una teoría que siempre ronda es que cuando hay alguna telenovela nueva, aumentan los registros de nombres relacionados por ejemplo, al actor o actriz principal. Podemos contrastar esto ahora! Voy a tomar el caso de *Agustina*, que es el nombre de pila de la actríz que hacía de "Mili" en ["Chiquititas"](https://es.wikipedia.org/wiki/Chiquititas) ([Agustina Cherri](https://es.wikipedia.org/wiki/Mili_Uri%C3%A9n)). Chiquititas era una telenovela argentina infantil, que fue furor desde que empezó en 1995 y duró 7 temporadas.
+Una teoría que siempre ronda es que cuando hay alguna telenovela nueva, aumentan los registros de nombres relacionados por ejemplo, al actor o actriz principal. Podemos contrastar esto ahora! Voy a tomar el caso de *Agustina*, que es el nombre de pila de la actríz que hacía de "Mili" en "Chiquititas" ([Agustina Cherri](https://es.wikipedia.org/wiki/Mili_Uri%C3%A9n)). [Chiquititas es una telenovela argentina infantil](https://es.wikipedia.org/wiki/Chiquititas), que fue furor desde que empezó en 1995 y duró 7 temporadas.
 
 ```{r message = FALSE, warning = FALSE, dpi = 130, fig.height = 4}
 nombres_año %>% 
@@ -317,4 +325,24 @@ nombres_año %>%
 
 ```
 
-Para ver otros nombres (yo no me acuerdo de muchos casos como este!) podés [jugar con esta Shiny app](https://d4tagirl.shinyapps.io/uy_names/).
+Para ver otros nombres (yo tengo muy mala memoria!) podés [jugar con esta Shiny app](https://d4tagirl.shinyapps.io/uy_names/). 
+
+## Cada vez hay más nombres o es un mito?
+
+Lo último que quiero ver es si nos hemos vuelto más creativos con los años. Para eso analizo la cantidad de nombres que hubo cada año, a ver si aumentó o disminuyó.
+
+```{r message = FALSE, warning = FALSE, dpi = 130, fig.height = 4}
+nombres %>%
+  group_by(año) %>%
+  summarize(total_año = n()) %>% 
+  ggplot(aes(año, total_año, fill = año)) +
+  geom_col() +
+  geom_smooth(se = FALSE) +
+  scale_fill_viridis() +
+  theme_minimal() +
+  theme(axis.title.x = element_blank(), axis.title.y = element_blank(),
+        legend.position = 'none') +
+  ggtitle("Cantidad de nombres por año")
+```
+
+Aumentó de unos 1500 nombres en 1940 a unos 2000 en 2011, no parece tanto!
