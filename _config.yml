@@ -3,7 +3,8 @@ markdown:         kramdown
 highlighter:      rouge
 
 # Permalinks
-permalink:        pretty
+permalink:        pretty #local
+#prod:permalink:  /:year/:month/:title
 
 # Setup
 title:            'd4tagirl'
@@ -23,9 +24,8 @@ excerpt_separator: <!--more-->
 
 extlinks:
   attributes: {rel: nofollow, target: _blank}
-#  check_links: true
+#prod:  check_links: true
   check_exclude: ['twitter.com', 'disqus.com']
-#  rel_exclude: ['host1.com', 'host2.net']
 
 page_gen:
   - data: tags
