@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Uruguay, el país de los nombres raros?
-date: "`r Sys.time()`"
+date: "2017-08-13 22:20:29 UYT"
 published: true
 tags: [r, rstats, es, shiny, shinyapp, uruguay, nombres]
 description: Análisis de los nombres uruguayos a partir de los datos abiertos del Registro Civil desde 1940 hasta 2011.
