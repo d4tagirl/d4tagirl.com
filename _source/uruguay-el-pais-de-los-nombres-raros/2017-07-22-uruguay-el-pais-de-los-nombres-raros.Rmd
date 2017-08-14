@@ -12,9 +12,9 @@ A los uruguayos nos gusta inventar nombres raros... O al menos eso es lo que ven
 
 <!--more-->
 
-Hace unos años surgió en Uruguay [DATA](http://www.datauy.org/), una organización de la sociedad civil que trabaja en la promoción y el uso de datos abiertos en Uruguay. Falta mucho camino por recorrer todavía, pero ya existe [un conjunto de 146 datasets](https://catalogodatos.gub.uy/), incluyendo [uno acerca de la producción de cerveza artesanal en Uruguay](https://catalogodatos.gub.uy/dataset/productores-puntos-de-venta-y-tipos-de-cerveza-artesanal-uruguaya-dondepinta-uy), que seguramente sea mi próximo desafío con datos abiertos en Uruguay `r emo::ji("beers")`
+Hace unos años surgió en Uruguay [DATA](http://www.datauy.org/), una organización de la sociedad civil que trabaja en la promoción y el uso de datos abiertos en Uruguay. Falta mucho camino por recorrer todavía, pero ya existe [un conjunto de 146 datasets](https://catalogodatos.gub.uy/), incluyendo [uno acerca de la producción de cerveza artesanal en Uruguay](https://catalogodatos.gub.uy/dataset/productores-puntos-de-venta-y-tipos-de-cerveza-artesanal-uruguaya-dondepinta-uy), que seguramente sea mi próximo desafío con datos abiertos `r emo::ji("beers")`
 
-Siempre se dijo que los uruguayos somos muy creativos para ponerle nombre a nuestros hijos (algo que llama mucho la atención sobre todo a los argentinos, como se menciona [en esta nota de Página 12](https://www.pagina12.com.ar/diario/suplementos/radar/9-1233-2004-02-15.html)). Los criterios del Registro Civil para registrar los nombres son bastante laxos y eso deja mucho lugar a la discrecionalidad de los padres. Cuando ví estos datos entre los disponibiles, enseguida me puse a ver qué encontraba!
+Siempre se dice que los uruguayos somos muy creativos para ponerle nombre a nuestros hijos (algo que llama mucho la atención sobre todo a los argentinos, como se menciona [en esta nota de Página 12](https://www.pagina12.com.ar/diario/suplementos/radar/9-1233-2004-02-15.html)). Los criterios del Registro Civil para registrar los nombres son bastante laxos y eso deja mucho lugar a la discrecionalidad de los padres. Cuando ví estos que estaban estos datos disponibiles, enseguida me puse a ver qué encontraba!
 
 Si querés jugar con los datos [acá está la Shiny app que hice](https://shiny.d4tagirl.com/uy-names/) donde podés graficar nombres, fijarte los más usados en distintos rangos de años y ver cuáles tuvieron crecimiento excepcional en algún período en particular! A mi por ejemplo me gusta mucho ver qué pasó cuando algún personje se hizo famoso, porque en general impacta en la cantidad de registros de esos años.
 
@@ -53,7 +53,7 @@ knitr::kable(head(nombres_orig[c(1:5),]), format = "html",
              table.attr = "style='width:30%;'")
 ```
 
-La tabla tiene una fila por cada combinación de `año`-`sexo`-`nombre`-`frecuencia`.
+La tabla tiene una fila por cada combinación de `año`-`sexo`-`nombre`.
 
 ## Limpiando los datos
 
@@ -76,9 +76,9 @@ Con `trimws` saco los espacios en blanco antes y después del `nombre`, y con `s
 
 Después elimino los nombres que quedaron vacíos y elimino los datos de 2012 porque sólo están hasta la mitad del año.
 
-En las 3 últimas líneas lo que hago es remplazar la columna frec por el nuevo cálculo de la frecuencia de cada nombre en el año, que seguramente haya cambiado después de todos los cambios que hice.
+En las 3 últimas líneas lo que hago es remplazar la columna `frec` por el nuevo cálculo de la frecuencia de cada nombre en el año, que seguramente haya cambiado después de todos los cambios que hice.
 
-En este paso me deshice de la columna `sexo`, porque tengo la impresión de que no es del todo confiable. Es probable que lo sea, pero a los efectos del análisis la excluyo. Quizás más adelante retome esto y la incluya.
+En este paso me deshice de la columna `sexo`, porque tengo la impresión de que no es del todo confiable. Es probable que lo sea, pero por las dudas prefiero excluirla. Quizás más adelante retome esto y la incluya.
 
 Lo que me queda es algo como esto:
 
@@ -88,7 +88,7 @@ knitr::kable(head(nombres[c(1:5),]), format = "html",
              table.attr = "style='width:30%;'")
 ```
 
-Vemos ya algunos nombres que llaman la atención... serán errores de tipeo o se llamarán así? `r emo::ji("thinking")`  De todas formas para el análisis después excluyo los nombres que tienen baja frecuencia, así que esto no es un problema.
+Vemos ya algunos nombres que llaman la atención... serán errores de tipeo o se llamarán así? `r emo::ji("thinking")`  De todas formas para el análisis posterior excluyo los nombres que tienen baja frecuencia, así que no es un problema.
 
 ## Transformación de los datos
 
@@ -108,7 +108,7 @@ nombres_año <- nombres  %>%
 
 Con `tidyr::complete()`, para cada combinación de `nombre`-`año` que no existe, la genero y le agrego en la columna `frec` el valor `0`. De esta forma me aseguro de siempre tener todos los nombres para todos los años. Esto me sirve para poder calcular la variable `porc_nombre`, que se calcula como la cantidad de personas con ese nombre en el año, en proporción a la cantidad de personas con ese nombre que hay en total (sumando todos los años).
 
-Lo que tengo al final es esto (sólo están disponibles en esta table los 100 primeros resultados):
+Lo que tengo al final es ésto (sólo están disponibles en esta tabla los 100 primeros resultados):
 
 ```{r message = FALSE, warning = FALSE}
 library(DT)
@@ -285,7 +285,7 @@ Acá se ven los nombres que más crecieron y los que menos. Una vez más, para l
 
 Para hacer esto me basé en el artículo de [David Robinson](https://twitter.com/drob) donde [analiza las tendencias de los términos usados en Hacker News](http://varianceexplained.org/r/hn-trends/).
 
-De la misma forma que ajusté una regresión lineal para cada nombre, ahora ajusto una _spline_ cúbica. ([pueden saltearse ésto acá](#skipping-3))
+De la misma forma que ajusté una regresión lineal para cada nombre, ahora ajusto una _spline_ cúbica. ([Pueden saltearse ésto acá](#skipping-3))
 
 ```{r message = FALSE, warning = FALSE}
 library(splines)
