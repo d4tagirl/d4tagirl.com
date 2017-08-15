@@ -367,3 +367,5 @@ nombres %>%
 Aumentó de unos 1500 nombres en 1940 a unos 2000 en 2011, no parece tanto! Más si consideramos que la población de Uruguay pasó de ser [2:163.547 en 1940](http://cienciassociales.edu.uy/wp-content/uploads/sites/8/2013/archivos/estadisticas%20historicas%201.pdf) a ser [3.286.314 en 2011](http://www.ine.gub.uy/documents/10181/35289/analisispais.pdf/cc0282ef-2011-4ed8-a3ff-32372d31e690). No quiere decir que no haya nombres creativos, pero para averiguarlo una vez más te propongo que [visites la Shiny app](https://shiny.d4tagirl.com/uy-names/) `r emo::ji("wink")`
 
 Espero que te haya gustado, a mi me pareció divertidísimo hacerlo! 
+
+Como siempre, [acá dejo el código que usé en este artículo y el de la Shiny app](https://github.com/d4tagirl/uruguayan_names).
