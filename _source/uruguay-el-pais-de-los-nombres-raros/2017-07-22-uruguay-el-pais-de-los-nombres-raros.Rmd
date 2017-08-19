@@ -348,7 +348,7 @@ Para ver otros nombres (yo tengo muy mala memoria!) también lo podés [hacer en
 
 ## Cada vez hay más nombres o es un mito?
 
-Lo último que quiero ver es si nos hemos vuelto más creativos con los años. Para eso analizo la cantidad de nombres que hubo cada año, a ver si aumentó o disminuyó. No estoy tomando en cuenta el efecto del aumento de la población porque la cantidad de nombres registrados que tengo en esta base no se refiere a la cantidad de personas registradas, entonces no sabría cómo hacerlo. 
+Lo último que quiero ver es si nos hemos vuelto más creativos con los años. Para eso analizo la cantidad de nombres que hubo cada año, a ver si aumentó o disminuyó. No estoy tomando en cuenta el efecto del aumento de la población porque la cantidad de nombres registrados que tengo en esta base no se refiere a la cantidad de personas registradas, entonces no tengo información suficiente para hacerlo. 
 
 ```{r message = FALSE, warning = FALSE, dpi = 130, fig.height = 4}
 nombres %>%
@@ -368,4 +368,4 @@ Aumentó de unos 1500 nombres en 1940 a unos 2000 en 2011, no parece tanto! Más
 
 Espero que te haya gustado, a mi me pareció divertidísimo hacerlo! 
 
-Como siempre, [acá dejo el código que usé en este artículo y el de la Shiny app](https://github.com/d4tagirl/uruguayan_names).
+Como siempre, [acá dejo el código del análisis que hice y de la Shiny app](https://github.com/d4tagirl/uruguayan_names).
