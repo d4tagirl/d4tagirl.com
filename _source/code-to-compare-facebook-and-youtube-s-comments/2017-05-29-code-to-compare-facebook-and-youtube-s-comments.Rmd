@@ -8,7 +8,7 @@ tags: [skip_index]
 
 <!--more-->
 <br />
-```{r echo = FALSE, message = FALSE, warning = FALSE}
+```{r echo = FALSE, message = FALSE, warning = FALSE} 
 # you can find everything I use here:
 # https://github.com/d4tagirl/John-Oliver-sentiment-analysis
 

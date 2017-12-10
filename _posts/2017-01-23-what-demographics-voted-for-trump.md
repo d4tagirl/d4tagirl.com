@@ -28,11 +28,13 @@ I start by loading the data and merging it. No mystery here, except I load it us
 library(readr)
 library(dplyr)
 
-pop <- read_csv('county_facts.csv')
-results <- read_csv('US_County_Level_Presidential_Results_12-16.csv')
+url_pop <- 'https://github.com/d4tagirl/TrumpVsClintonCountiesRpart/raw/master/data/county_facts.csv'
+url_results <- 'https://github.com/d4tagirl/TrumpVsClintonCountiesRpart/raw/master/data/US_County_Level_Presidential_Results_12-16.csv'  
+pop <- read_csv(url(url_pop))
+results <- read_csv(url(url_results))
 
-votes2 <- pop %>%
-  left_join(results, by = c("fips" = "combined_fips"))
+votes <- results %>% 
+  inner_join(pop, by = c("combined_fips" = "fips"))
 ```
 
 It is a clean dataset, but I need to do some modifications for the analysis:
@@ -431,11 +433,11 @@ knitr::kable(train.rpart$results, align = "l")
 
 
 
-|cp        |Accuracy  |Kappa     |AccuracySD |KappaSD   |
-|:---------|:---------|:---------|:----------|:---------|
-|0.0380117 |0.9167799 |0.6602173 |0.0146824  |0.0736236 |
+|cp        |Accuracy  |Kappa  |AccuracySD |KappaSD   |
+|:---------|:---------|:------|:----------|:---------|
+|0.0380117 |0.9222377 |0.6869 |0.0111048  |0.0525811 |
 
-The `Kappa` statistic is now 0.66 (it was also 0.66 for the `winner_rpart`), with a 0.07 standard deviation. Again: good results!
+The `Kappa` statistic is now 0.69 (it was also 0.66 for the `winner_rpart`), with a 0.05 standard deviation. Again: good results!
 
 # Variable Importance
 

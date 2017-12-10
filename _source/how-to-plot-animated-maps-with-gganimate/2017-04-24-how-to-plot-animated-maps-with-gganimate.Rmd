@@ -27,7 +27,6 @@ Let's take a look at the R-Ladies' chapters' Twitter accounts dataframe, `rladie
 # https://github.com/d4tagirl/R-Ladies-growth-maps
 
 library(knitr)
-
 # This I took (with a few tweaks courtesy of my amazing hubby <3) from gganimate documentation https://github.com/dgrtwo/gganimate/blob/master/README.Rmd
 
 library(animation)
@@ -221,7 +220,7 @@ gganimate(map_frames)
 
 This is a very accurate map in terms of the timeline: it shows how long it took for every chapter to be founded and how R-Ladies proliferated in the past year or so. 
 
-But... (I told you I got kind of obsessed `r emo::ji("woman_shrugging")` ) it takes too long from the creation of the first chapters until it started to get traction and the last part of the animation is really fast in comparison. So let's take care of that `r emo::ji("wink")`
+But... (I told you I got kind of obsessed `r emo::ji("woman_shrugging_light_skin_tone")` ) it takes too long from the creation of the first chapters until it started to get traction and the last part of the animation is really fast in comparison. So let's take care of that `r emo::ji("wink")`
 <br />
 ### Removing some frames from the beginning
 

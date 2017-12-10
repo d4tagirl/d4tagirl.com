@@ -18,6 +18,9 @@ Continuing with the same dataframe from [my post about the analysis of counties 
 For that I load the data first.
 
 
+```
+## Error in readChar(con, 5L, useBytes = TRUE): cannot open the connection
+```
 
 
 ```r
@@ -44,20 +47,19 @@ votes <- votes %>%
          edu_batch_q      = nt(edu_batchelors),
          urban_q          = nt(housing_units_multistruct),
          income_q         = nt(income))
+```
 
+```
+## Error in eval(lhs, parent, parent): object 'votes' not found
+```
+
+```r
 knitr::kable(head(votes))
 ```
 
-
-
-| combined_fips| votes_dem_2016| votes_gop_2016| total_votes_2016|   Clinton|     Trump| diff_2016| per_point_diff_2016|state_abbr |county_name    |FIPS  | total_votes_2012| votes_dem_2012| votes_gop_2012|county_fips |state_fips |     Obama|    Romney| diff_2012| per_point_diff_2012|area_name      |state_abbreviation | pop2014| pop_change| age5minus| age18minus| age65plus| sex_f| white| black| american_indian| asian| native_haw| two_races_plus| hisp_latin| white_alone| living_same_house_12m| foreign| nonenglish| edu_highschool| edu_batchelors| veterans| travel_time_commute| housing_Units| home_owners_rate| housing_units_multistruct| Med_val_own_occup| households| pers_per_household| income| Med_house_income| poverty| priv_nonfarm_estab| priv_nofarm_employ| priv_nonfarm_employ_change| firms_num| black_firms| native_firms| asian_Firms| pacific_isl_firms| hispanic_firms| women_firms| manuf_ship| retail_sales| retail_sales_percap| sales_accomod_food| building_permits| land_area| density| ID|pref_cand_T | white_alone_q| white_q| black_q| hisp_latin_q| edu_batch_q| urban_q| income_q|
-|-------------:|--------------:|--------------:|----------------:|---------:|---------:|---------:|-------------------:|:----------|:--------------|:-----|----------------:|--------------:|--------------:|:-----------|:----------|---------:|---------:|---------:|-------------------:|:--------------|:------------------|-------:|----------:|---------:|----------:|---------:|-----:|-----:|-----:|---------------:|-----:|----------:|--------------:|----------:|-----------:|---------------------:|-------:|----------:|--------------:|--------------:|--------:|-------------------:|-------------:|----------------:|-------------------------:|-----------------:|----------:|------------------:|------:|----------------:|-------:|------------------:|------------------:|--------------------------:|---------:|-----------:|------------:|-----------:|-----------------:|--------------:|-----------:|----------:|------------:|-------------------:|------------------:|----------------:|---------:|-------:|--:|:-----------|-------------:|-------:|-------:|------------:|-----------:|-------:|--------:|
-|          1001|           5908|          18110|            24661| 0.2395685| 0.7343579|     12202|          -0.4947893|AL         |Autauga County |01001 |            23909|           6354|          17366|001         |01         | 0.2657577| 0.7263374|     11012|          -0.4605797|Autauga County |AL                 |   55395|        1.5|       6.0|       25.2|      13.8|  51.4|  77.9|  18.7|             0.5|   1.1|        0.1|            1.8|        2.7|        75.6|                  85.0|     1.6|        3.5|           85.6|           20.9|     5922|                26.2|         22751|             76.8|                       8.3|            136200|      20071|               2.71|  24571|            53682|    12.1|                817|              10120|                        2.1|      4067|        15.2|          0.0|         1.3|                 0|            0.7|        31.7|          0|       598175|               12003|              88157|              131|    594.44|    91.8|  1|1           |             2|       2|       5|            2|           4|       3|        4|
-|          1003|          18409|          72780|            94090| 0.1956531| 0.7735147|     54371|          -0.5778616|AL         |Baldwin County |01003 |            84988|          18329|          65772|003         |01         | 0.2156657| 0.7738975|     47443|          -0.5582318|Baldwin County |AL                 |  200111|        9.8|       5.6|       22.2|      18.7|  51.2|  87.1|   9.6|             0.7|   0.9|        0.1|            1.6|        4.6|        83.0|                  82.1|     3.6|        5.5|           89.1|           27.7|    19346|                25.9|        107374|             72.6|                      24.4|            168600|      73283|               2.52|  26766|            50221|    13.9|               4871|              54988|                        3.7|     19035|         2.7|          0.4|         1.0|                 0|            1.3|        27.3|    1410273|      2966489|               17166|             436955|             1384|   1589.78|   114.6|  2|1           |             3|       2|       4|            3|           5|       5|        4|
-|          1005|           4848|           5431|            10390| 0.4666025| 0.5227141|       583|          -0.0561116|AL         |Barbour County |01005 |            11459|           5873|           5539|005         |01         | 0.5125229| 0.4833755|       334|           0.0291474|Barbour County |AL                 |   26887|       -2.1|       5.7|       21.2|      16.5|  46.6|  50.2|  47.6|             0.6|   0.5|        0.2|            0.9|        4.5|        46.6|                  84.8|     2.9|        5.0|           73.7|           13.4|     2120|                24.6|         11799|             67.7|                      10.6|             89200|       9200|               2.66|  16829|            32911|    26.7|                464|               6611|                       -5.6|      1667|         0.0|          0.0|         0.0|                 0|            0.0|        27.0|          0|       188337|                6334|                  0|                8|    884.88|    31.0|  3|1           |             1|       1|       5|            3|           2|       3|        1|
-|          1007|           1874|           6733|             8748| 0.2142204| 0.7696616|      4859|          -0.5554412|AL         |Bibb County    |01007 |             8391|           2200|           6131|007         |01         | 0.2621857| 0.7306638|      3931|          -0.4684781|Bibb County    |AL                 |   22506|       -1.8|       5.3|       21.0|      14.8|  45.9|  76.3|  22.1|             0.4|   0.2|        0.1|            0.9|        2.1|        74.5|                  86.6|     1.2|        2.1|           77.5|           12.1|     1327|                27.6|          8978|             79.0|                       7.3|             90500|       7091|               3.03|  17427|            36447|    18.1|                275|               3145|                        7.5|      1385|        14.9|          0.0|         0.0|                 0|            0.0|         0.0|          0|       124707|                5804|              10757|               19|    622.58|    36.8|  4|1           |             2|       2|       5|            2|           1|       2|        1|
-|          1009|           2150|          22808|            25384| 0.0846990| 0.8985188|     20658|          -0.8138197|AL         |Blount County  |01009 |            23980|           2961|          20741|009         |01         | 0.1234779| 0.8649291|     17780|          -0.7414512|Blount County  |AL                 |   57719|        0.7|       6.1|       23.6|      17.0|  50.5|  96.0|   1.8|             0.6|   0.3|        0.1|            1.2|        8.7|        87.8|                  88.7|     4.3|        7.3|           77.0|           12.1|     4540|                33.9|         23826|             81.0|                       4.5|            117100|      21108|               2.70|  20730|            44145|    15.8|                660|               6798|                        3.4|      4458|         0.0|          0.0|         0.0|                 0|            0.0|        23.2|     341544|       319700|                5622|              20941|                3|    644.78|    88.9|  5|1           |             3|       4|       3|            4|           1|       1|        2|
-|          1011|           3530|           1139|             4701| 0.7509041| 0.2422889|      2391|           0.5086152|AL         |Bullock County |01011 |             5318|           4058|           1250|011         |01         | 0.7630688| 0.2350508|      2808|           0.5280181|Bullock County |AL                 |   10764|       -1.4|       6.3|       21.4|      14.9|  45.3|  26.9|  70.1|             0.8|   0.3|        0.7|            1.1|        7.5|        22.1|                  84.7|     5.4|        5.2|           67.8|           12.5|      636|                26.9|          4461|             74.3|                       8.7|             70600|       3741|               2.73|  18628|            32033|    21.6|                112|                  0|                        0.0|       417|         0.0|          0.0|         0.0|                 0|            0.0|        38.8|          0|        43810|                3995|               3670|                1|    622.81|    17.5|  6|0           |             1|       1|       5|            4|           1|       3|        1|
+```
+## Error in head(votes): object 'votes' not found
+```
 
 Once I have that, I define a function `group_quintiles` whose input is a dataframe that has already has a column name `q` (the column with the quintiles) and groups by it and calculates a the portion of counties that voted for Trump for each quintile. I use it for every characteristic I'm interested in.
 
@@ -72,44 +74,80 @@ group_quitiles <- function(x){
 black_quintiles <- votes %>% 
   mutate(q = black_q) %>%
   group_quitiles()
+```
 
+```
+## Error in eval(lhs, parent, parent): object 'votes' not found
+```
+
+```r
 white_alone_quintiles <- votes %>% 
   mutate(q = white_alone_q) %>% 
   group_quitiles()
+```
 
+```
+## Error in eval(lhs, parent, parent): object 'votes' not found
+```
+
+```r
 white_quintiles <- votes %>% 
   mutate(q = white_q) %>% 
   group_quitiles()
+```
 
+```
+## Error in eval(lhs, parent, parent): object 'votes' not found
+```
+
+```r
 hisp_latin_quintiles <- votes %>% 
   mutate(q = hisp_latin_q) %>% 
   group_quitiles()  
+```
 
+```
+## Error in eval(lhs, parent, parent): object 'votes' not found
+```
+
+```r
 edu_batch_quintiles <- votes %>% 
   mutate(q = edu_batch_q) %>% 
   group_quitiles()
+```
 
+```
+## Error in eval(lhs, parent, parent): object 'votes' not found
+```
+
+```r
 urban_quintiles <- votes %>% 
   mutate(q = urban_q) %>% 
   group_quitiles()
+```
 
+```
+## Error in eval(lhs, parent, parent): object 'votes' not found
+```
+
+```r
 income_quintiles <- votes %>% 
   mutate(q = income_q) %>%
   group_quitiles() 
+```
 
+```
+## Error in eval(lhs, parent, parent): object 'votes' not found
+```
+
+```r
 library(knitr)
 knitr::kable(black_quintiles, align = 'l')
 ```
 
-
-
-|q  |mean_Trump |
-|:--|:----------|
-|1  |0.9518459  |
-|2  |0.8697749  |
-|3  |0.8924559  |
-|4  |0.8327974  |
-|5  |0.6688103  |
+```
+## Error in knitr::kable(black_quintiles, align = "l"): object 'black_quintiles' not found
+```
 
 I thought it would be more visual to see these results in a plot, so I define this other function that takes a dataframe as an input, and returns a plot. I did that so I didn't have to write for every characteristic the same (long!) code again and again. So lets plot!
 
@@ -143,7 +181,9 @@ grid.arrange(plot_quintiles(white_alone_quintiles), plot_quintiles(white_quintil
                             gp = gpar(fontsize = 15)))
 ```
 
-<img src="/figure/source/using-nested-dataframes-to-explain-trump-s-winning-by-race-across-income-quintiles/2017-02-13-using-nested-dataframes-to-explain-trump-s-winning-by-race-across-income-quintiles/unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" />
+```
+## Error in eval(lhs, parent, parent): object 'white_alone_quintiles' not found
+```
 
 Results imply that the lower the `white` and `white_alone` quintile, the less those counties voted for Trump (especially the lowest quintile!). The opposite happens with `black` and `hisp_latin`, and also with what I called `urban`, which is the amount of housing units in multi-unit structures (you can [check the meaning of this variables in my previous post]({% post_url 2017-01-23-what-demographics-voted-for-trump %}) {:target="_blank"}). With `edu_batch` and `income` we can se a inverted "U": the lowest and highest quintiles are the counties that had less proportion of votes for Trump. For the `income`, this is where you see this *middle class* support that Trump had.
 
@@ -159,7 +199,13 @@ regions <- tibble(state.region, state.abb)
 votes <- votes %>% 
   inner_join(regions, 
              by = c("state_abbr" = "state.abb"))
+```
 
+```
+## Error in eval(lhs, parent, parent): object 'votes' not found
+```
+
+```r
 # study race and % votes for each candidates by_region
 by_region <- votes %>% 
   group_by(state.region) %>% 
@@ -173,18 +219,19 @@ by_region <- votes %>%
             mean_income      = mean(income),
             mean_trump       = mean(Trump),
             mean_clinton     = mean(Clinton))
+```
 
+```
+## Error in eval(lhs, parent, parent): object 'votes' not found
+```
+
+```r
 knitr::kable(by_region)
 ```
 
-
-
-|state.region  | mean_white| mean_white_alone| mean_black| mean_hisp_latin| mean_edu_batch| mean_urban| mean_income| mean_trump| mean_clinton|
-|:-------------|----------:|----------------:|----------:|---------------:|--------------:|----------:|-----------:|----------:|------------:|
-|Northeast     |   89.26544|         84.08295|   5.770968|        6.488018|       26.88341|   22.28618|    28517.61|  0.5157132|    0.4364073|
-|South         |   78.59944|         69.31337|  17.051443|       10.298804|       17.72836|   10.66481|    21844.81|  0.6540622|    0.3153637|
-|North Central |   92.53602|         88.70701|   2.606540|        4.403602|       19.52550|   11.99137|    24367.44|  0.6614149|    0.2856526|
-|West          |   88.60311|         72.73110|   1.583014|       17.837321|       23.35383|   13.63756|    24763.42|  0.5754544|    0.3387524|
+```
+## Error in knitr::kable(by_region): object 'by_region' not found
+```
 
 We can see some differences in characteristics across the regions, but lets check what happens if we fit a logistic regression (because my response variable is binary) to each region and see if we discover some differences between them!
 
@@ -205,18 +252,19 @@ by_region_white_alone <- votes %>%
   unnest(map(models, tidy)) %>% 
   filter(term == "white_alone") %>%
   mutate(OR = exp(estimate))
+```
 
+```
+## Error in eval(lhs, parent, parent): object 'votes' not found
+```
+
+```r
 knitr::kable(by_region_white_alone)
 ```
 
-
-
-|state.region  |term        |  estimate| std.error| statistic| p.value|       OR|
-|:-------------|:-----------|---------:|---------:|---------:|-------:|--------:|
-|South         |white_alone | 0.1215167| 0.0077964| 15.586229|       0| 1.129208|
-|West          |white_alone | 0.0482535| 0.0060178|  8.018514|       0| 1.049437|
-|Northeast     |white_alone | 0.0897197| 0.0157405|  5.699923|       0| 1.093868|
-|North Central |white_alone | 0.0803994| 0.0085641|  9.387916|       0| 1.083720|
+```
+## Error in knitr::kable(by_region_white_alone): object 'by_region_white_alone' not found
+```
 
 This means that for a one-unit increase in `white_alone` population in the South region, we would expect to see about 13% increase in the odds of voting for Trump. For the West region, the expected increase would be 5%. 
 
@@ -235,18 +283,19 @@ by_region_black <- votes %>%
   unnest(map(models, tidy)) %>% 
   filter(term == "black") %>%
   mutate(OR = exp(estimate))
+```
 
+```
+## Error in eval(lhs, parent, parent): object 'votes' not found
+```
+
+```r
 knitr::kable(by_region_black)
 ```
 
-
-
-|state.region  |term  |   estimate| std.error|  statistic| p.value|        OR|
-|:-------------|:-----|----------:|---------:|----------:|-------:|---------:|
-|South         |black | -0.0843630| 0.0052221| -16.155115|   0e+00| 0.9190976|
-|West          |black | -0.3424013| 0.0627653|  -5.455264|   0e+00| 0.7100632|
-|Northeast     |black | -0.1735466| 0.0334918|  -5.181762|   2e-07| 0.8406780|
-|North Central |black | -0.1929370| 0.0210642|  -9.159458|   0e+00| 0.8245339|
+```
+## Error in knitr::kable(by_region_black): object 'by_region_black' not found
+```
 
 In this case for a one-unit increase in `black` population in the South region, we would expect to see about 8% reduction in the odds of voting for Trump. For the West region, the expected decrease would be 29%. 
 
@@ -264,7 +313,9 @@ ggplot() +
         panel.grid.major = element_blank(), panel.border = element_blank())
 ```
 
-<img src="/figure/source/using-nested-dataframes-to-explain-trump-s-winning-by-race-across-income-quintiles/2017-02-13-using-nested-dataframes-to-explain-trump-s-winning-by-race-across-income-quintiles/unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
+```
+## Error in fortify(data): object 'by_region_black' not found
+```
 
 And that is it! This is my humble contribution to show how useful nested dataframes can be when you want to estimate different models for different groups!
 

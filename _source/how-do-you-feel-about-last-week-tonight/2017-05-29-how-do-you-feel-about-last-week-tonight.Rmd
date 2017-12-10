@@ -15,7 +15,7 @@ I analyze the text and sentiment behind the comments on the _Last week Tonight w
 
 # Welcome, welcome,  welcome!
 
-One thing my husband and I enjoy a lot is watching [*Last Week Tonight with John Oliver*](http://www.hbo.com/last-week-tonight-with-john-oliver) every week. It is an HBO political talk-show that airs on Sunday nights, and we usually watch it while we have dinner sometime during the week. We love the show because it covers a huge amount of diverse topics and news from all over the world, plus we laugh a lot (bittersweet laughs mostly `r emo::ji("woman_shrugging")` ).
+One thing my husband and I enjoy a lot is watching [*Last Week Tonight with John Oliver*](http://www.hbo.com/last-week-tonight-with-john-oliver) every week. It is an HBO political talk-show that airs on Sunday nights, and we usually watch it while we have dinner sometime during the week. We love the show because it covers a huge amount of diverse topics and news from all over the world, plus we laugh a lot (bittersweet laughs mostly `r emo::ji("woman_shrugging_light_skin_tone")` ).
 
 I think John has a fantastic sense of humor and he is a spectacular communicator, but only if you share the way he sees the world. And because he is so enthusiastic about his views, I believe it is a character you either love or hate. I suspect he (as well as the controversial topics he proposes) arouses strong feelings in people and I want to check it by analyzing the comments people leave on [his Youtube videos](https://www.youtube.com/user/LastWeekTonight) and [his Facebook ones](https://www.facebook.com/LastWeekTonight/) as well.
 
@@ -262,7 +262,7 @@ yt_pos_neg_words
 
 There is a lot of strong words here! And I'm pretty sure this [`trump` _positive_ word](https://www.merriam-webster.com/dictionary/trump) we are seeing is not quite the same [_Trump_ John has been talking about non stop for the last two years](https://www.youtube.com/watch?v=Ml5qULGjbno)... and not precisely in a positive way...  I could include this word in a `custom_stop_words` dataframe, but I'm going leave it like that for now.
 
-Also... not sure why `funny` is in the `negative` category `r emo::ji("thinking")` I know it can be used as _weird_ or something like that, but I think this happens because I'm not a native English speaker `r emo::ji("woman_shrugging")`
+Also... not sure why `funny` is in the `negative` category `r emo::ji("thinking")` I know it can be used as _weird_ or something like that, but I think this happens because I'm not a native English speaker `r emo::ji("woman_shrugging_light_skin_tone")`
 
 Are there more positive or negative words?
 

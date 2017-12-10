@@ -231,7 +231,7 @@ image_animate(image_join(frames))
 
 <div align="center"><img src="https://github.com/d4tagirl/uruguayan_names/raw/master/nombres_menos_usados.gif"/></div>
 
-Algo podemos decir es que nos gustan los nombres anglosajones, aunque la forma de escribirlos tiene sus toques locales! La verdad es que tenemos nombres raros `r emo::ji("woman_shrugging")`
+Algo podemos decir es que nos gustan los nombres anglosajones, aunque la forma de escribirlos tiene sus toques locales! La verdad es que tenemos nombres raros `r emo::ji("woman_shrugging_light_skin_tone")`
 
 Pero... hablemos de lo que acabo de hacer... no está buenísima la animación?? Para los que les interese acá van mis comentarios, y para los que no, pueden seguir [por acá nomás](#skipping)! 
 
