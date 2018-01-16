@@ -17,7 +17,7 @@ layout: null
 
  {% for post in site.posts %}
    {% if post.tags contains 'rstats' %}
-     {% unless post.tags contains 'es' or post.tags contains 'skip_index' %}
+     {% unless post.tags contains 'es' or post.tags contains 'skip_index' or post.tags contains 'skip_rstats_feed' %}
  <entry>
    <title>{{ post.title }}</title>
    <link href="{{ site.url }}{{ post.url }}"/>
