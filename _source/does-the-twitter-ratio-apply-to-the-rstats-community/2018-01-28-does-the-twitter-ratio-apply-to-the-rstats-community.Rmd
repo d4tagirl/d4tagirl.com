@@ -26,6 +26,10 @@ Not long ago I came across [a FiveThirtyEight post called "The Worst Tweeter In 
 
 FiveThirtyEight used a ternary plot to illustrate the proportion of replies, retweets and likes of every Trump tweet. In this post I'm going to plot tweets with the rstats hashtag, suspecting that the ones that have a higher ratio of replies might be an exception to this rule since conversations tend to be pretty friendly in this community. But let's find out!
 
+# Disclaimer
+
+It wasn’t until I had this post ready for publishing that I realized the replies the media were discussing were the direct ones, without considering the replies of the replies, so **I just invented a new ratio** `r emo::ji('scream')` I spent a great amount of extra work to consider all the replies (direct and indirect ones) but I liked the way it turned out and the way I had to solve some problems, so I’ll just stick with _my personal definition of the ratio_, knowing it’s not what it’s supposed to be `r emo::ji('tipping_hand_woman')`
+
 # Retrieving the data
 
 I'm becoming more and more fan of the `rtweet` package, built and maintained by [Michael W. Kearney](https://twitter.com/kearneymw?lang=en). It's _the_ way to go when you want to interact with Twitter's API using R. I fetch some tweets with `#rstats` to analize!
@@ -349,6 +353,6 @@ graphs[[4]]
 ```
 A tweet about graphs, how timely `r emo::ji('smiley')`
 
-Poeople doesn't seem angry at all in these replies, they look more like friendly conversations, just as I suspected `r emo::ji('sunglasses')`   
+Poeople doesn't seem angry at all in these replies, they look more like friendly conversations, just as I suspected `r emo::ji('sunglasses')` 
 
-**\#rstats rocks!** `r emo::ji('metal')`
+Let´s not forget that I'm analyzing _my personal definition of the ratio_, not the real ratio that was discussed on the media. But anyway: **\#rstats rocks!** `r emo::ji('metal')`
