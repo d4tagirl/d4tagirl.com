@@ -30,7 +30,7 @@ Trying to figure out how I could help the Buenos Aires chapter, I realized I did
 
 I was already thinking about starting a blog, and the feeling that I was *one of them* certainly gave me the extra push I needed. As I'm not a native English speaker I had this additional preocupation. Before I announced [my first blog post]({% post_url 2017-01-23-what-demographics-voted-for-trump %}){:target="_blank"} I had several R-Ladies' suggestions. People I had never expected to contact me were giving me feedback, and they were like celebrities to me! By the time it was public I felt a lot more secure and relaxed to enjoy it :) 
 
-Things started to work out for me: I got accepted to join the [NASA Datanauts 2017 Spring Class](https://open.nasa.gov/blog/welcome-datanauts-2017-spring-class/) (turned out it was an R-Lady's tweet I saw that encouraged me to apply) and I even answered a few Stack Overflow questions! This was the exact kind of confidence boost I needed! I'm looking forward to getting an amazing job! (*wink wink!*)
+Things started to work out for me: I got accepted to join the [NASA Datanauts 2017 Spring Class](https://open.nasa.gov/blog/welcome-datanauts-2017-spring-class/) (turned out it was an R-Lady's tweet I saw that encouraged me to apply) and I even answered a few Stack Overflow questions! This was the exact kind of confidence boost I needed! I'm looking forward to getting an amazing job!
 
 What I'm trying to say here is: whether there is a chapter in your city or not, no matter how shy you are, there is an amazing group of ladies ready to give you the support you need to reach your true potential. And some of them are probably in a situation similar to yours, so it is also a place for sharing experiences and not feeling lonely.
 
