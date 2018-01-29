@@ -1,13 +1,13 @@
 ---
 layout: post
 title:  'Does "the twitter ratio" apply to the #rstats community?'
-date: "2018-01-28 12:11:29 UYT"
+date: "2018-01-28 17:11:29 UYT"
 published: true
 tags: [rstats, rtweet, ggtern, purrr, the ratio]
-description: "Analysis of the #rstats twitter ratio and visualization of replies, RTs and likes in a pyramid using ggtern, and some particular conversations using interactive graphs."
+description: "Analysis of the #rstats twitter ratio, visualization of replies, retweets and likes in a ternary plot using ggtern and exploration of some conversations using interactive graphs."
 ---
 
-I analize the \#rstats on Twitter to check if "The Ratio" actually makes sense for this community. What is "The Ratio" you ask? There is this theory that if a tweet has more replies than likes and retweets, that implies that people are not happy about it.
+I analize the \#rstats on Twitter to check if "The Ratio" actually makes sense for this community. What is "The Ratio" you ask? There is this theory that if a tweet has more replies than likes and retweets, that implies that people are not happy about it. 
 
 <!--more-->
 
