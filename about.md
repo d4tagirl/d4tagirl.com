@@ -1,7 +1,7 @@
 ---
 layout: page
 title: About
-permalink: /about.html
+permalink: /about
 ---
 
 My name is Daniela and I'm a Data Scientist at [Idatha](http://www.idatha.com/), a company that specializes in Natural Language Processing and Social Media data. I am from [Uruguay, a little country in South America](https://en.wikipedia.org/wiki/Uruguay) where I also live. Originally I studied Economics, but only worked in that field briefly in the Academia. Right when I finished my studies I started working at Equifax Uruguay where I discovered (*and fell in love with!*) Data Science. I've been working in Data Science for the last 5 years. 

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Talks
-permalink: /talks.html
+permalink: /talks
 hide_from_sidebar: true
 ---
 
