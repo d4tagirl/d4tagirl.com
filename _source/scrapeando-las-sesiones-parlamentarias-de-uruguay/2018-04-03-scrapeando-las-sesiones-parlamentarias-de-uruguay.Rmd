@@ -3,7 +3,7 @@ layout: post
 title:  'Scrapeando las Sesiones Parlamentarias de Uruguay'
 date: "2018-04-03 17:11:29 UYT"
 published: true
-tags: [rstats, open data, scraping, rvest, pdftools, parlamento, uruguay, senadores, diputados]
+tags: [rstats, open data, scraping, rvest, pdftools, parlamento, uruguay, senadores, diputados, es, r]
 description: "Scraping de las sesiones de diputados y senadores desde 2017 hasta hoy y extracción de los textos de los archivos en formato pdf."
 ---
   
