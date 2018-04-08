@@ -637,4 +637,6 @@ Ahora con los datos en este formato, estoy en condiciones de analizar las sesion
 
 Para más información acerca de cómo trabajar con datos de la web, hay un [tutorial de Arvid Kingl en Datacamp en inglés para usar `rvest`](https://www.datacamp.com/community/tutorials/r-web-scraping-rvest) y hay un [curso de Charlotte Wickham y Oliver Keyes, también en inglés y en Datacamp,](https://www.datacamp.com/courses/working-with-web-data-in-r) que habla además de otras formas de consumir datos de la web, como a través de APIs.
 
+Si querés analizar las sesiones fuera de R, o preferís ahorrarte el paso de hacer scraping, [acá tenés las sesiones de Diputados en formato csv](https://github.com/d4tagirl/uruguayan_parliamentary_session_diary/blob/master/data/diputados.csv), y [acá las sesiones de Senadores en formato csv](https://github.com/d4tagirl/uruguayan_parliamentary_session_diary/blob/master/data/senadores.csv) para hacer tus análisis! (Gracias [Rodrigo](https://twitter.com/rolaguna) por la sugerencia!)
+
 Todo lo que usé en este artículo (y más!) está [disponible en GitHub](https://github.com/d4tagirl/uruguayan_parliamentary_session_diary). Espero que haya resultado útil! Dejame tus comentarios abajo o [mencioname en Twitter](https://twitter.com/intent/tweet?user_id=114258616) 😃
