@@ -133,7 +133,7 @@ Además en las sesiones de senadores se habló menos (probablemente sean más co
 
 Las palabras más comúnes de todas las sesiones de ambas Cámaras son las que aparecen a continuación (como siempre, muestro el código para Diputados, y para Senadores es análogo).
 
-Para contar palabras, es buena práctica sacar las palabras comúnes como "y", "el", "es", comúnmente llamadas "stopwords". No hay tantos diccionarios disponibles para español como para inglés, pero algunos hay! Acá voy a usar las stopwords incluidas en el parquete `rcorpora` para español.
+Para contar palabras, es buena práctica sacar las palabras comúnes como "y", "el", "es", comúnmente llamadas "stopwords". No hay tantos diccionarios disponibles para español como para inglés, pero algunos hay! Acá voy a usar las stopwords incluidas en el paquete `rcorpora` para español.
 
 Las palabras más usadas en las Sesiones de Diputados:
 
@@ -177,7 +177,7 @@ No nos dice mucho esta información: son palabras que protocolarmente se utiliza
 
 # Análisis de Sentimiento
 
-Me costó un poquito más encontrar un diccionario en español que tuviera sentimiento, pero [encontré este que es el que voy a estar usando](http://web.eecs.umich.edu/~mihalcea/downloads/SpanishSentimentLexicons.tar.gz).
+Me costó un poquito más encontrar un diccionario en español que tuviera sentimiento, pero [encontré este que es el que voy a usar](http://web.eecs.umich.edu/~mihalcea/downloads/SpanishSentimentLexicons.tar.gz).
 
 Levanto el diccionario, que llamo `lexicon` (lo levanto de mi repositorio de GitHub para asegurarme de que siempre esté disponible).
 
@@ -221,11 +221,11 @@ tidy_diputados %>%
 
 <img src="/figure/source/de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/2018-04-08-de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/unnamed-chunk-3-1.png" style="display: block; margin: auto;" />
 
-Hay algunas palabras que aparecen con una carga de sentimiento que, dado el contexto, no es apropiado que la tengan. Por ejemplo: "consideracion", "especial" o "atención". Así que las agrego como stopwords así no las considero.
+Hay algunas palabras que aparecen con una carga de sentimiento que, dado el contexto, no es apropiado que la tengan. Por ejemplo: "consideracion", "especial" o "atención". Y otras con las que no estoy de acuerdo, como que la palabra "negro" esté clasificada como negativa. Así que las agrego como stopwords así no las considero.
 
 
 ```r
-stopwords_personalizadas <- c(stopwords, "discusion", "atento", "consideracion",
+stopwords_personalizadas <- c(stopwords, "negro", "discusion", "atento", "consideracion",
                               "especial", "dicha", "facultades", "atencion", "asunto")
 
 tidy_diputados <- diputados %>%
@@ -292,7 +292,7 @@ Para senadores:
 
 <img src="/figure/source/de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/2018-04-08-de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
 
-Para las sesiones de Senadores no se observa un comportamiento similar al de las de Diputados.
+Para las sesiones de Senadores no se observa un comportamiento similar al de las de Diputados 🤷🏾
 
 # Sentimiento en las distintas sesiones
 
@@ -330,15 +330,15 @@ knitr::kable(
 <tbody>
   <tr>
    <td style="text-align:left;"> 2018-03-06_2 </td>
-   <td style="text-align:right;"> 178 </td>
+   <td style="text-align:right;"> 177 </td>
    <td style="text-align:right;"> 436 </td>
-   <td style="text-align:right;"> 258 </td>
+   <td style="text-align:right;"> 259 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 2017-12-20_1 </td>
-   <td style="text-align:right;"> 381 </td>
+   <td style="text-align:right;"> 379 </td>
    <td style="text-align:right;"> 577 </td>
-   <td style="text-align:right;"> 196 </td>
+   <td style="text-align:right;"> 198 </td>
   </tr>
 </tbody>
 </table>
@@ -373,15 +373,15 @@ knitr::kable(
 <tbody>
   <tr>
    <td style="text-align:left;"> 2017-05-10_14 </td>
-   <td style="text-align:right;"> 903 </td>
+   <td style="text-align:right;"> 894 </td>
    <td style="text-align:right;"> 406 </td>
-   <td style="text-align:right;"> -497 </td>
+   <td style="text-align:right;"> -488 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 2017-02-15_3 </td>
-   <td style="text-align:right;"> 890 </td>
+   <td style="text-align:right;"> 882 </td>
    <td style="text-align:right;"> 529 </td>
-   <td style="text-align:right;"> -361 </td>
+   <td style="text-align:right;"> -353 </td>
   </tr>
 </tbody>
 </table>
@@ -401,21 +401,15 @@ Las sesiones con sentimientos más positivos son las que aparecen a continuació
 <tbody>
   <tr>
    <td style="text-align:left;"> 2017-05-16_15 </td>
-   <td style="text-align:right;"> 57 </td>
+   <td style="text-align:right;"> 56 </td>
    <td style="text-align:right;"> 171 </td>
-   <td style="text-align:right;"> 114 </td>
+   <td style="text-align:right;"> 115 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 2017-05-09_12 </td>
-   <td style="text-align:right;"> 46 </td>
-   <td style="text-align:right;"> 104 </td>
-   <td style="text-align:right;"> 58 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 2017-08-02_27 </td>
-   <td style="text-align:right;"> 102 </td>
-   <td style="text-align:right;"> 160 </td>
-   <td style="text-align:right;"> 58 </td>
+   <td style="text-align:left;"> 2017-11-28_44 </td>
+   <td style="text-align:right;"> 267 </td>
+   <td style="text-align:right;"> 343 </td>
+   <td style="text-align:right;"> 76 </td>
   </tr>
 </tbody>
 </table>
@@ -434,9 +428,9 @@ Y las que tienen sentimiento más negativo las siguientes.
 <tbody>
   <tr>
    <td style="text-align:left;"> 2017-09-18_32 </td>
-   <td style="text-align:right;"> 637 </td>
+   <td style="text-align:right;"> 633 </td>
    <td style="text-align:right;"> 387 </td>
-   <td style="text-align:right;"> -250 </td>
+   <td style="text-align:right;"> -246 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 2017-06-07_18 </td>
