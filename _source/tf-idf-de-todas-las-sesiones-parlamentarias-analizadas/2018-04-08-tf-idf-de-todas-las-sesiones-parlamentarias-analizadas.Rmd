@@ -1,0 +1,88 @@
+---
+layout: post
+title:  tf-idf de todas las sesiones parlamentarias analizadas
+date: "2017-05-30 02:11:29 UYT"
+published: true
+tags: [skip_index]
+---
+
+<!--more-->
+<br />
+```{r setup, echo = FALSE}
+# you can find everything I use here:
+# https://github.com/d4tagirl/uruguayan_parliamentary_session_diary
+library(emo)
+library(knitr)
+knitr::opts_chunk$set(fig.align = 'center', screenshot.force = FALSE, fig.cap = "",
+                      dpi = 120, message = FALSE, warning = FALSE)
+options(width = 80, dplyr.width = 150)
+```
+
+```{r load_rds_diputados_senadores, echo = FALSE}
+url_rds_diputados <- 'https://github.com/d4tagirl/uruguayan_parliamentary_session_diary/raw/master/data/pdf_diputados'
+diputados <- readRDS(url(url_rds_diputados)) 
+
+url_rds_senadores <- 'https://github.com/d4tagirl/uruguayan_parliamentary_session_diary/raw/master/data/pdf_senadores'
+senadores <- readRDS(url(url_rds_senadores)) 
+```
+
+## Diputados:
+
+```{r results='asis'}
+library(dplyr)
+library(tidytext)
+
+sesion_diputados_words <- diputados %>%
+  unnest_tokens(word, pdf) %>%
+  count(fecha, sesion, fecha_sesion, word, sort = TRUE) %>%
+  ungroup()
+
+diputados_words <- sesion_diputados_words %>% 
+  group_by(fecha_sesion) %>% 
+  summarize(total = sum(n))
+
+sesion_diputados_tfidf <- left_join(sesion_diputados_words, diputados_words) %>%
+  bind_tf_idf(word, fecha_sesion, n) 
+
+for (i in unique(sesion_diputados_tfidf$fecha_sesion)){
+  sesion_diputados_tfidf %>%
+    filter(fecha_sesion == i) %>%
+    arrange(desc(tf_idf)) %>%
+    mutate(word = factor(word, levels = rev(unique(word)))) %>%
+    top_n(15, tf_idf) %>%
+    knitr::kable(format = "html") %>%
+    print(kableExtra::kable_styling(full_width = F))
+  cat("\n")
+}
+
+```
+
+
+
+## Senadores
+
+```{r results='asis'}
+sesion_senadores_words <- senadores %>%
+  unnest_tokens(word, pdf) %>%
+  count(fecha, sesion, fecha_sesion, word, sort = TRUE) %>%
+  ungroup()
+
+senadores_words <- sesion_senadores_words %>% 
+  group_by(fecha_sesion) %>% 
+  summarize(total = sum(n))
+
+sesion_senadores_tfidf <- left_join(sesion_senadores_words, senadores_words) %>%
+  bind_tf_idf(word, fecha_sesion, n) 
+
+for (i in unique(sesion_senadores_tfidf$fecha_sesion)){
+  sesion_senadores_tfidf %>%
+    filter(fecha_sesion == i) %>%
+    arrange(desc(tf_idf)) %>%
+    mutate(word = factor(word, levels = rev(unique(word)))) %>%
+    top_n(15, tf_idf) %>%
+    knitr::kable(format = "html") %>%
+    print(kableExtra::kable_styling(full_width = F))
+  cat("\n")
+}
+```
+
