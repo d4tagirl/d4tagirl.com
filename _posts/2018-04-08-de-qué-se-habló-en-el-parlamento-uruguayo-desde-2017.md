@@ -57,9 +57,9 @@ grid.arrange(freq_diputados, freq_senadores)
 
 <img src="/figure/source/de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/2018-04-08-de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/histograma-1.png" style="display: block; margin: auto;" />
 
-Según [esta nota de "En Perspectiva"](https://www.enperspectiva.net/home/regimen-laboral-de-los-parlamentarios-uruguayos/) que encontré, *"El régimen de sesiones ordinarias, [...] en ambas cámaras se desarrollan los días martes y miércoles, entre el 1º y el 18 de cada mes. [...] luego del día 18 puede haber sesiones extraordinarias, donde se considera cualquier tema."* Según mis cálculos tiene que haber como mínimo entre 4 y 6 sesiones mensuales. Los diputados lo cumplieron todos los meses exceptuando enero, febrero y marzo (meses asociados al verano y las licencias), y los Senadores lo cumplieron todos los meses exceptuando febrero de 2017, setiembre de 2017 (quizás vacaciones de promavera?), enero de 2018 y marzo de 2018.
+Según [esta nota de "En Perspectiva"](https://www.enperspectiva.net/home/regimen-laboral-de-los-parlamentarios-uruguayos/) que encontré, *"El régimen de sesiones ordinarias, [...] en ambas Cámaras se desarrollan los días martes y miércoles, entre el 1º y el 18 de cada mes. [...] luego del día 18 puede haber sesiones extraordinarias, donde se considera cualquier tema."* Según mis cálculos tiene que haber como mínimo entre 4 y 6 sesiones mensuales. Los diputados lo cumplieron todos los meses exceptuando enero de 2017, febrero de ambos años y marzo de 2018 (meses asociados al verano y las licencias). Los Senadores lo cumplieron todos los meses exceptuando febrero de 2017, setiembre de 2017 (quizás vacaciones de primavera?), enero de 2018 y marzo de 2018. Sospecho que aún no subieron todas las sesiones de marzo de 2018 y por eso aparecen tan pocas sesiones para ambas Cámaras. 
 
-Tanto Diputados como Senadores tuvieron un máximo de sesiones mensuales de 8, con una frecuencia mayor entre marzo y diciembre. Diciembre, como ya sospechaba, es un mes ocupado para ambas cámaras.
+Tanto Diputados como Senadores tuvieron un máximo de sesiones mensuales de 8, con una frecuencia mayor entre marzo y diciembre. Diciembre, como ya sospechaba, es un mes ocupado en el Parlamento.
 
 # Qué tan largas fueron las sesiones?
 
@@ -292,7 +292,7 @@ Para senadores:
 
 <img src="/figure/source/de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/2018-04-08-de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
 
-Para las sesiones de Senadores no se observa un comportamiento similar al de las de Diputados 🤷🏾
+Para las sesiones de Senadores no se observa un comportamiento similar al de las de Diputados 🤷
 
 # Sentimiento en las distintas sesiones
 
@@ -506,7 +506,7 @@ Las sesiones más negativas de los Senadores son:
   * 18 de setiembre de 2017: se discutió el proyecto de ley para aprobar la Rendición de Cuentas y Balance de
 Ejecución Presupuestal correspondiente al ejercicio 2016.
 
-Podés [ver acá el top 15 de las palabras con mayor tf-idf]({% post_url 2018-04-08-tf-idf-de-todas-las-sesiones-parlamentarias-analizadas %}) de todas las sesiones de ambas cámaras.
+Podés [ver acá el top 15 de las palabras con mayor tf-idf]({% post_url 2018-04-08-tf-idf-de-todas-las-sesiones-parlamentarias-analizadas %}) de todas las sesiones de ambas Cámaras.
 
 # Fin! 
 
