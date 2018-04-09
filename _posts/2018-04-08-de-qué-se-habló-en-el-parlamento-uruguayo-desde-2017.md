@@ -13,11 +13,32 @@ En el artículo pasado mostré cómo obtener los textos los Diarios de Sesiones 
   
 
 
-
-
 En el artículo pasado [mostré cómo se pueden obtener los textos de los Diarios de Sesiones]({% post_url 2018-04-03-scrapeando-las-sesiones-parlamentarias-de-uruguay %}). Primero obtuve los archivos pdf haciendo [*web scraping*](https://es.wikipedia.org/wiki/Web_scraping) y después extraje los textos de esos archivos.
 
 Ahora que tengo los datos, en este artículo analizo el texto de las sesiones de Diputados y Senadores desde 2017 usando el paquete [tidytext](https://github.com/juliasilge/tidytext), centrándome en el sentimiento y en identificar los temas tratados.
+
+# Levanto los datos
+
+Levanto los datos que obtuve del scraping de [mi repositorio de GitHub](https://github.com/d4tagirl/uruguayan_parliamentary_session_diary) y les saco los saltos de línea (los dejé porque para algún análisis podría servir tenerlos).
+
+
+```r
+library(dplyr)
+library(stringi)
+
+url_rds_diputados <- 'https://github.com/d4tagirl/uruguayan_parliamentary_session_diary/raw/master/data/pdf_diputados'
+diputados <- readRDS(url(url_rds_diputados)) 
+
+url_rds_senadores <- 'https://github.com/d4tagirl/uruguayan_parliamentary_session_diary/raw/master/data/pdf_senadores'
+senadores <- readRDS(url(url_rds_senadores)) 
+
+# saco los saltos de linea
+diputados <- diputados %>%
+  mutate(pdf = stri_replace_all(pdf, replacement = "", regex = "\\\n"))
+
+senadores <- senadores %>%
+  mutate(pdf = stri_replace_all(pdf, replacement = "", regex = "\\\n"))
+```
 
 # Con qué frecuencia se reunieron?
 
@@ -69,7 +90,6 @@ Primero transformo los datos para generar un dataframe con la cantidad de palabr
 
 
 ```r
-library(dplyr)
 library(tidytext)
 
 # calculo las palabras por mes
@@ -292,7 +312,7 @@ Para senadores:
 
 <img src="/figure/source/de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/2018-04-08-de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
 
-Para las sesiones de Senadores no se observa un comportamiento similar al de las de Diputados 🤷
+Para las sesiones de Senadores no se observa un comportamiento similar al de las de Diputados 🤷🏽‍♂️
 
 # Sentimiento en las distintas sesiones
 
@@ -330,15 +350,15 @@ knitr::kable(
 <tbody>
   <tr>
    <td style="text-align:left;"> 2018-03-06_2 </td>
-   <td style="text-align:right;"> 177 </td>
-   <td style="text-align:right;"> 436 </td>
-   <td style="text-align:right;"> 259 </td>
+   <td style="text-align:right;"> 158 </td>
+   <td style="text-align:right;"> 379 </td>
+   <td style="text-align:right;"> 221 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 2017-12-20_1 </td>
-   <td style="text-align:right;"> 379 </td>
-   <td style="text-align:right;"> 577 </td>
-   <td style="text-align:right;"> 198 </td>
+   <td style="text-align:right;"> 336 </td>
+   <td style="text-align:right;"> 506 </td>
+   <td style="text-align:right;"> 170 </td>
   </tr>
 </tbody>
 </table>
@@ -373,15 +393,15 @@ knitr::kable(
 <tbody>
   <tr>
    <td style="text-align:left;"> 2017-05-10_14 </td>
-   <td style="text-align:right;"> 894 </td>
-   <td style="text-align:right;"> 406 </td>
-   <td style="text-align:right;"> -488 </td>
+   <td style="text-align:right;"> 792 </td>
+   <td style="text-align:right;"> 360 </td>
+   <td style="text-align:right;"> -432 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 2017-02-15_3 </td>
-   <td style="text-align:right;"> 882 </td>
-   <td style="text-align:right;"> 529 </td>
-   <td style="text-align:right;"> -353 </td>
+   <td style="text-align:right;"> 788 </td>
+   <td style="text-align:right;"> 484 </td>
+   <td style="text-align:right;"> -304 </td>
   </tr>
 </tbody>
 </table>
@@ -401,15 +421,15 @@ Las sesiones con sentimientos más positivos son las que aparecen a continuació
 <tbody>
   <tr>
    <td style="text-align:left;"> 2017-05-16_15 </td>
-   <td style="text-align:right;"> 56 </td>
-   <td style="text-align:right;"> 171 </td>
-   <td style="text-align:right;"> 115 </td>
+   <td style="text-align:right;"> 52 </td>
+   <td style="text-align:right;"> 158 </td>
+   <td style="text-align:right;"> 106 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 2017-11-28_44 </td>
-   <td style="text-align:right;"> 267 </td>
-   <td style="text-align:right;"> 343 </td>
-   <td style="text-align:right;"> 76 </td>
+   <td style="text-align:right;"> 243 </td>
+   <td style="text-align:right;"> 321 </td>
+   <td style="text-align:right;"> 78 </td>
   </tr>
 </tbody>
 </table>
@@ -428,15 +448,15 @@ Y las que tienen sentimiento más negativo las siguientes.
 <tbody>
   <tr>
    <td style="text-align:left;"> 2017-09-18_32 </td>
-   <td style="text-align:right;"> 633 </td>
-   <td style="text-align:right;"> 387 </td>
-   <td style="text-align:right;"> -246 </td>
+   <td style="text-align:right;"> 598 </td>
+   <td style="text-align:right;"> 364 </td>
+   <td style="text-align:right;"> -234 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 2017-06-07_18 </td>
-   <td style="text-align:right;"> 485 </td>
-   <td style="text-align:right;"> 259 </td>
-   <td style="text-align:right;"> -226 </td>
+   <td style="text-align:right;"> 458 </td>
+   <td style="text-align:right;"> 242 </td>
+   <td style="text-align:right;"> -216 </td>
   </tr>
 </tbody>
 </table>
@@ -510,4 +530,8 @@ Podés [ver acá el top 15 de las palabras con mayor tf-idf]({% post_url 2018-04
 
 # Fin! 
 
-Hay muchas más cosas que se pueden analizar, éstas fueron las que más me interesaron y por eso las comparto. [El análisis completo está en GitHub](https://github.com/d4tagirl/uruguayan_parliamentary_session_diary). Bienvenidas todas las sugerencias y comentarios!
+Hay muchas más cosas que se pueden analizar, éstas fueron las que más me interesaron y por eso las comparto. [El análisis completo está en GitHub](https://github.com/d4tagirl/uruguayan_parliamentary_session_diary). 
+
+Si querés analizar las sesiones fuera de R, o preferís ahorrarte el paso de hacer scraping, [acá tenés las sesiones de Diputados en formato csv](https://github.com/d4tagirl/uruguayan_parliamentary_session_diary/blob/master/data/diputados.csv), y [acá las sesiones de Senadores en formato csv](https://github.com/d4tagirl/uruguayan_parliamentary_session_diary/blob/master/data/senadores.csv) para hacer tus análisis! (Gracias [Rodrigo](https://twitter.com/rolaguna) por la sugerencia!)
+
+Bienvenidas todas las sugerencias y comentarios!
