@@ -16,6 +16,6 @@ This is the code of my blog, hosted at [d4tagirl.com](https://d4tagirl.com). Cha
 
 ## License
 
-Open sourced under the [MIT license](LICENSE.md).
+My blog posts are released under a [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
 
 <3
