@@ -20,3 +20,5 @@ So this is me, and here I am: exploring the many ways Data Science can help tell
 
 I hope you enjoy my posts as much as I enjoy writing them, and please feel welcome to leave your comments and [mention me on Twitter](https://twitter.com/intent/tweet?user_id=114258616) :) 
 
+My blog posts are released under a [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
+
