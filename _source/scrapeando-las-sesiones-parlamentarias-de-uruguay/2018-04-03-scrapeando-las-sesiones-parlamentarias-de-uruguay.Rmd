@@ -125,7 +125,7 @@ extract_pdf <- function(url, pag = 1) {
     }
   
   pdfs <- url %>%
-    ead_html() %>%
+    read_html() %>%
     html_nodes(".views-field-DS-File-IMG a") %>%   # seleccionar clase
     html_attr("href") %>%
     map(~ paste0("https://parlamento.gub.uy", .)) %>%
