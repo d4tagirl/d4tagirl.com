@@ -5,7 +5,18 @@ permalink: /talks
 hide_from_sidebar: true
 ---
 
+## Coming up...
+
+  * Aug 18, Buenos Aires, Argentina: [**CSSConf Argentina**](https://cssconfar.com/) - _Usando data science para visualizar datos de redes sociales_.
+  
+  * Sep 5, Buenos Aires, Argentina: [**LatinR**](http://latin-r.com) - _Abriendo y analizando los Diarios de Sesiones del Parlamento uruguayo con R_.
+  
+  * Sep 20, Salto, Uruguay: [**Foro Tech Salto**](https://www.meetup.com/Foro-Tecnologico-de-Salto/) - _TBD_.
+
 ## 2018
+
+  * Aug 02, Santa Fe, Argentina: [**R-Ladies Santa Fe Meetup**](https://www.meetup.com/rladies-santa-fe/events/251650981/) - [_Abriendo y analizando los Diarios de Sesiones del Parlamento uruguayo con R_](https://docs.google.com/presentation/d/1JSRkQJskAVf0cl9A5gbxLxjc9GUg_0O-eL4G-Wq41So/edit?usp=sharing).
+  
   * Feb 15, New York, USA: [**R-Ladies New York City Meetup**](https://www.meetup.com/rladies-newyork/events/247304067/) - [_What I blog about_](https://docs.google.com/presentation/d/1JSRkQJskAVf0cl9A5gbxLxjc9GUg_0O-eL4G-Wq41So/edit?usp=sharing).
 
 ## 2017
