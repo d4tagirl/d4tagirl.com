@@ -19,7 +19,7 @@ I live in Uruguay, South America, so it's extra expensive for me to attend R con
 
 # The application
 
-By the time to apply for the scholarship, I was going through an _"I won't lose anything if I try"_ face that led me to apply to all of the R conferences that I could, even when I wasn't having any positive responses. It was pretty obvious to me that they could use the money to finance 3 or 4 people from around, instead of only me: greater impact! And I was at peace with that. But I wanted to know what it felt like to _live_ the R community in person, a community I was being a part of for more than a year by then. So I tried one more time.
+By the time to apply for the scholarship, I was going through an _"I won't lose anything if I try"_ phase that led me to apply to all of the R conferences that I could, even when I wasn't having any positive responses. It was pretty obvious to me that they could use the money to finance 3 or 4 people from around, instead of only me having greater impact! And I was at peace with that. But I wanted to know what it felt like to _live_ the R community in person, a community I was being a part of for more than a year by then. So I tried one more time.
 
 I know it is hard to express all your excitement and how you expect to impact your community with what you'll learn in a couple of sentences... Just in case you are looking for inspiration, you can check my application out!
 
@@ -61,7 +61,7 @@ RStudio::conf(2018) took place in San Diego, California, January 31-Feb 3.
 
 The conference for me started two days earlier, with the 2 days workshop (to choose from a total of 11 ones aimed to both beginners and experts) to go deeper into a topic. It is a great opportunity to learn some techniques from really amazing Teachers and TAs (some times you even learn how to use a package from its creators or contributors, which is pretty awesome!). 
 
-Keynote speakers were Dianne Cook, with _“To the Tidyverse and Beyond: Challenges for the Future in Data Science”_ and JJ Allaire with _“Machine Learning with R and TensorFlow”_. There were 2 fireside chats: a _"Tidyverse discussion"_ with _Jenny Bryan_, _Mine Çetinkaya-Rundel_, _Max Kuhn_ and _Hadley Wickham_, were _Mara Averick_ was the moderator. And a _"R in industry discussion"_ with _Eduardo Ariño de la Rubia_, _Tanya Cashorali_, _Eric Colson_, _Elaine McVey_, _David Robinson_, where _Tareef Kawaf_ was the moderator. There were also over 60 great 15 minutes talks, divided into 3 simultaneous tracks. You can [check the full conference schedule here](https://beta.rstudioconnect.com/content/3105/) and [all the videos here](https://www.rstudio.com/resources/videos/rstudioconf-2018-talks/).
+Keynote speakers were [_Dianne Cook_](https://twitter.com/visnut), with _“To the Tidyverse and Beyond: Challenges for the Future in Data Science”_ and [_JJ Allaire_](https://twitter.com/fly_upside_down) with _“Machine Learning with R and TensorFlow”_. There were 2 fireside chats: a _"Tidyverse discussion"_ with [_Jenny Bryan_](https://twitter.com/JennyBryan/), [_Mine Çetinkaya-Rundel_](https://twitter.com/minebocek), [_Max Kuhn_](https://twitter.com/topepos) and [_Hadley Wickham_](https://twitter.com/hadleywickham), were [_Mara Averick_](https://twitter.com/dataandme) was the moderator. And a _"R in industry discussion"_ with [_Eduardo Ariño de la Rubia_](https://twitter.com/earino), [_Tanya Cashorali_](https://twitter.com/tanyacash21), [_Eric Colson_](https://twitter.com/ericcolson), [_Elaine McVey_](https://twitter.com/eamcvey?lang=es), [_David Robinson_](https://twitter.com/drob), where [_Tareef Kawaf_](https://twitter.com/tareefk) was the moderator. There were also over 60 great 15 minutes talks, divided into 3 simultaneous tracks. You can [check the full conference schedule here](https://beta.rstudioconnect.com/content/3105/) and [all the videos here](https://www.rstudio.com/resources/videos/rstudioconf-2018-talks/).
 
 <div align="center"><img src="/figure/source/rstudio-conf-diversity-scholarships-for-the-worth/2018-08-16-rstudio-conf-diversity-scholarships-for-the-worth/welcome.JPG" width="200" /></div>
 
@@ -129,7 +129,7 @@ We ended up having a short roadtrip with [Flor](https://twitter.com/cantoflor_87
 
 <img src="/figure/source/rstudio-conf-diversity-scholarships-for-the-worth/2018-08-16-rstudio-conf-diversity-scholarships-for-the-worth/flor.JPG" style="float: left; width: 35%; margin-left: 10%; margin-right: 10%; margin-bottom: 0.5em;">
 
-<img src="/figure/source/rstudio-conf-diversity-scholarships-for-the-worth/2018-08-16-rstudio-conf-diversity-scholarships-for-the-worth/roadtrip.JPG" style="float: left; width: 35%; margin-right: 10%; margin-bottom: 0.5em;">
+<img src="/figure/source/rstudio-conf-diversity-scholarships-for-the-worth/2018-08-16io-conf-diversity-scholarships-for-the-worth/roadtrip.JPG" style="float: left; width: 35%; margin-right: 10%; margin-bottom: 0.5em;">
 
 <div style="clear: both;"></div>
 
@@ -139,5 +139,7 @@ It was time to go home, but after that I felt a completely different connection 
 
 <blockquote class="twitter-tweet tw-align-center" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/rstudio?ref_src=twsrc%5Etfw">@rstudio</a>::conf(<a href="https://twitter.com/hashtag/rladies?src=hash&amp;ref_src=twsrc%5Etfw">#rladies</a>) %&gt;%<br>  <a href="https://twitter.com/d4tagirl?ref_src=twsrc%5Etfw">@d4tagirl</a>::📸 %&gt;%<br>  🎩✨::image_annotate(&quot;R-Ladies at rstudio::conf&quot;,<br>                         size = 500, gravity = &quot;north&quot;, <br>                         color = 💜,<br>                         boxcolor = &quot;white&quot;) %&gt;%<br>  🎩✨::image_border( 💜,&quot;200x200&quot;) <a href="https://t.co/IFDNXrVoc8">pic.twitter.com/IFDNXrVoc8</a></p>&mdash; R-Ladies Global (@RLadiesGlobal) <a href="https://twitter.com/RLadiesGlobal/status/959707423111024641?ref_src=twsrc%5Etfw">February 3, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<br />
 
 Needless to say: I encourage anyone interested in R to attend this conference. I'm sure I'll go again as soon as I can!
