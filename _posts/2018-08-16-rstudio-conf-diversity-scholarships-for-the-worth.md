@@ -129,7 +129,7 @@ We ended up having a short roadtrip with [Flor](https://twitter.com/cantoflor_87
 
 <img src="/figure/source/rstudio-conf-diversity-scholarships-for-the-worth/2018-08-16-rstudio-conf-diversity-scholarships-for-the-worth/flor.JPG" style="float: left; width: 35%; margin-left: 10%; margin-right: 10%; margin-bottom: 0.5em;">
 
-<img src="/figure/source/rstudio-conf-diversity-scholarships-for-the-worth/2018-08-16io-conf-diversity-scholarships-for-the-worth/roadtrip.JPG" style="float: left; width: 35%; margin-right: 10%; margin-bottom: 0.5em;">
+<img src="/figure/source/rstudio-conf-diversity-scholarships-for-the-worth/2018-08-16-rstudio-conf-diversity-scholarships-for-the-worth/roadtrip.JPG" style="float: left; width: 35%; margin-right: 10%; margin-bottom: 0.5em;">
 
 <div style="clear: both;"></div>
 
