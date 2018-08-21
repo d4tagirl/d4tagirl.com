@@ -7,7 +7,7 @@ hide_from_sidebar: true
 
 ## Coming up...
 
-  * Aug 18, Buenos Aires, Argentina: [**CSSConf Argentina**](https://cssconfar.com/) - _Usando data science para visualizar datos de redes sociales_.
+  * Sep 4, Buenos Aires, Argentina: [**LatinR**](http://latin-r.com) - _Community panel 1: RUGs - R-Ladies_
   
   * Sep 5, Buenos Aires, Argentina: [**LatinR**](http://latin-r.com) - _Abriendo y analizando los Diarios de Sesiones del Parlamento uruguayo con R_.
   
@@ -15,7 +15,9 @@ hide_from_sidebar: true
 
 ## 2018
 
-  * Aug 02, Santa Fe, Argentina: [**R-Ladies Santa Fe Meetup**](https://www.meetup.com/rladies-santa-fe/events/251650981/) - [_Abriendo y analizando los Diarios de Sesiones del Parlamento uruguayo con R_](https://docs.google.com/presentation/d/1JSRkQJskAVf0cl9A5gbxLxjc9GUg_0O-eL4G-Wq41So/edit?usp=sharing).
+  * Aug 18, Buenos Aires, Argentina: [**CSSConf Argentina**](https://cssconfar.com/) - [_Usando data science para visualizar datos de redes sociales_](https://docs.google.com/presentation/d/1WyGtoOa9-4Alpr7x6aqpRSkb1HWM5MZgP3NKzpuYgFA/edit?usp=sharing).
+
+  * Aug 02, Santa Fe, Argentina: [**R-Ladies Santa Fe Meetup**](https://www.meetup.com/rladies-santa-fe/events/251650981/) - [_Abriendo y analizando los Diarios de Sesiones del Parlamento uruguayo con R_](https://docs.google.com/presentation/d/12E6dWEdRGazal3VNYEVVJr17KFJS8FN_LW3OofJw5dM/edit?usp=sharing).
   
   * Feb 15, New York, USA: [**R-Ladies New York City Meetup**](https://www.meetup.com/rladies-newyork/events/247304067/) - [_What I blog about_](https://docs.google.com/presentation/d/1JSRkQJskAVf0cl9A5gbxLxjc9GUg_0O-eL4G-Wq41So/edit?usp=sharing).
 
