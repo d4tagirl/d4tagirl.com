@@ -19,14 +19,6 @@ pipeline:
       - "rm -rf /var/site-destination/*"
       - "cp -r _site/* /var/site-destination/"
 
-      # Expire Cloudflare's cache
-      - "curl -X DELETE \"https://api.cloudflare.com/client/v4/zones/$${CLOUDFLARE_ZONE}/purge_cache\" -H \"X-Auth-Email: $${CLOUDFLARE_EMAIL}\" -H \"X-Auth-Key: $${CLOUDFLARE_KEY}\" -H \"Content-Type: application/json\" --data '{\"purge_everything\":true}'"
-      - echo 'sleeping 30 seconds...'
-      - sleep 30
-
-      # hit all the routes
-      - phantomjs --ignore-ssl-errors=true --ssl-protocol=any /var/building-scripts/force-cache.js $$(wget -O - https://d4tagirl.com/sitemap.xml | grep loc | sed 's/ *<loc>\(.*\)<\\\/loc>/\\1/' | sed ':a;N;$$!ba;s/\\\n/ /g')
-
     secrets: [cloudflare_zone, cloudflare_email, cloudflare_key]
     volumes:
       - /home/gervasio/docker/nginx/volumes/html/d4tagirl.com:/var/site-destination
