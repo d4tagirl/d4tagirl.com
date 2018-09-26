@@ -11,7 +11,7 @@ hide_from_sidebar: true
   
   * Jul 2018 - present: [_R for Data Science_ translation to Spanish](https://github.com/cienciadedatos/descripcion-y-orientaciones) community project.
 
-  * Aug 30, 2017 - present: [R-Ladies Montevideo](https://www.meetup.com/rladies-montevideo) co-founder and co-organizer.
+  * Aug 30, 2017 - present: [R-Ladies Montevideo](https://www.meetup.com/rladies-montevideo/) co-founder and co-organizer.
   
 ## Past
 
@@ -19,7 +19,7 @@ hide_from_sidebar: true
   
   * Jul 2018: [TalkR bot](https://github.com/chucheria/talkR) collaborator. Retweets all tweets containing #rstatsES (the Spanish version of #rstats), deployed in a Heroku app.
 
-  * Mar 2017 - Aug 2017: [R-Ladies Buenos Aires](https://www.meetup.com/rladies-buenos-aires) co-founder and co-organizer.
+  * Mar 2017 - Aug 2017: [R-Ladies Buenos Aires](https://www.meetup.com/rladies-buenos-aires/) co-founder and co-organizer.
   
   * Dec 2016: [Comic Books in _The Beta and Bit_ series translation to Spanish](https://github.com/BetaAndBit/ComicBooks/blob/master/es_la/HeavyDog_es_la.pdf) community project.
   

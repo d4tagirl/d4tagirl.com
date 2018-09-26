@@ -34,7 +34,7 @@ En este artículo muestro cómo se pueden sortear ambas dificultades, usando los
 
 Si bien se trata de datos abiertos, hay ciertas normas *de etiqueta* que es recomendable seguir. Respetar las reglas que establecieron los que administran el sitio acerca de cómo quieren que la gente lo use es una de ellas. Puede ser que sólo quieran que se navegue *a mano*, entonces no debería intentar acceder de la forma en que estoy planeando.
 
-Para ver si la sección del sitio web que quiero navegar permite ser accedida por un *robot* (que es lo que pretendo construir! 🤖), examino [el archivo *robots.txt*](https://en.wikipedia.org/wiki/Robots_exclusion_standard), donde se establece para cada sección del sitio si este uso es adecuado. Desde R se puede hacer fácilmente usando [el parquete robotstxt](https://github.com/ropenscilabs/robotstxt) de [rOpenSci](https://ropensci.org/), que [Maëlle mencionó en su post donde scrapea datos de *The Guardian*](http://www.masalmon.eu/2017/10/02/guardian-experience/).
+Para ver si la sección del sitio web que quiero navegar permite ser accedida por un *robot* (que es lo que pretendo construir! 🤖), examino [el archivo *robots.txt*](https://en.wikipedia.org/wiki/Robots_exclusion_standard), donde se establece para cada sección del sitio si este uso es adecuado. Desde R se puede hacer fácilmente usando [el parquete robotstxt](https://github.com/ropensci/robotstxt) de [rOpenSci](https://ropensci.org/), que [Maëlle mencionó en su post donde scrapea datos de *The Guardian*](https://masalmon.eu/2017/10/02/guardian-experience/).
 
 Este es todo el archivo *robots.txt* del [sitio web del Parlamento](https://parlamento.gub.uy):
   
@@ -191,7 +191,7 @@ url_senadores
 
 Las páginas web son archivos html que el navegador interpreta y los transforma en lo que nosotros vemos. No voy a entrar en muchos detalles de cómo interpretar un archivo html (porque recién estoy aprendiendo!), pero acá describo la  forma más intuitiva que encontré para seleccionar el contenido del html al que quiero acceder. 
 
-Como se muestra en la animación a continuación, usando el [Selector Gadget](http://selectorgadget.com/) (que tiene una extensión para Google Chrome muy conveniente) me paro con el mouse sobre uno de los links a los pdfs y hago click. Ahí queda pintada toda la columna, porque pinta todos los elementos que son de la misma *clase* (no nos preocupemos de qué es una *clase* ahora). Lo importante es que necesito *el nombre de la clase* para lo que viene a continuación, entonces copio el texto que aparece en el recuadro (en este caso es `.views-field-DS-File-IMG`). 
+Como se muestra en la animación a continuación, usando el [Selector Gadget](https://selectorgadget.com/) (que tiene una extensión para Google Chrome muy conveniente) me paro con el mouse sobre uno de los links a los pdfs y hago click. Ahí queda pintada toda la columna, porque pinta todos los elementos que son de la misma *clase* (no nos preocupemos de qué es una *clase* ahora). Lo importante es que necesito *el nombre de la clase* para lo que viene a continuación, entonces copio el texto que aparece en el recuadro (en este caso es `.views-field-DS-File-IMG`). 
 
 ![](/figure/source/scrapeando-las-sesiones-parlamentarias-de-uruguay/2018-04-03-scrapeando-las-sesiones-parlamentarias-de-uruguay/selector_gadget.gif) 
 

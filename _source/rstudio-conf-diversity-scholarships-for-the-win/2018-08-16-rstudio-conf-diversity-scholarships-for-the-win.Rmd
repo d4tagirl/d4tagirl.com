@@ -96,7 +96,7 @@ Then [Page Piccinini](https://twitter.com/pageinini) kindly organized an R-Ladie
 
 There was plenty of time to chat and get involved with the community throughout the conference, during breakfast, lunch and breaks, but also between sessions and at the many social events like the bof sessions and parties. RStudio made sure of that, as well as the very friendly and welcoming R community.
 
-Here are some pics from the event; you can find [some beautiful ones here](https://photos.app.goo.gl/5Ylt7n46V3RYyoTH2) that [JD Long](https://twitter.com/cmastication) took and shared.
+Here are some pics from the event; you can find [some beautiful ones here](https://photos.google.com/share/AF1QipNjtVVjtcMtz3MWQkgsRO8NqlOlvGZ7kNkdUHJ1qWe_AiLn8F-PlKk5Qmq1PWaG1A?key=d1NoeDVBUnJMU2tZVzFOaV9odjVJbFF4UmQ5cW9n) that [JD Long](https://twitter.com/cmastication) took and shared.
 
 <img src="/figure/source/rstudio-conf-diversity-scholarships-for-the-win/2018-08-16-rstudio-conf-diversity-scholarships-for-the-win/bye.JPG" style="float: left; width: 35%; margin-left: 10%; margin-right: 10%; margin-bottom: 0.5em;">
 

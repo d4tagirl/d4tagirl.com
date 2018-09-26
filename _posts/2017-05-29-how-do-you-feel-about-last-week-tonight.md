@@ -15,11 +15,12 @@ I analyze the text and sentiment behind the comments on the _Last week Tonight w
 
 # Welcome, welcome,  welcome!
 
-One thing my husband and I enjoy a lot is watching [*Last Week Tonight with John Oliver*](http://www.hbo.com/last-week-tonight-with-john-oliver) every week. It is an HBO political talk-show that airs on Sunday nights, and we usually watch it while we have dinner sometime during the week. We love the show because it covers a huge amount of diverse topics and news from all over the world, plus we laugh a lot (bittersweet laughs mostly 🤷🏻‍♀️ ).
+One thing my husband and I enjoy a lot is watching [*Last Week Tonight with John Oliver*](https://www.hbo.com/last-week-tonight-with-john-oliver) every week. It is an HBO political talk-show that airs on Sunday nights, and we usually watch it while we have dinner sometime during the week. We love the show because it covers a huge amount of diverse topics and news from all over the world, plus we laugh a lot (bittersweet laughs mostly 🤷🏻
+♀️ ).
 
 I think John has a fantastic sense of humor and he is a spectacular communicator, but only if you share the way he sees the world. And because he is so enthusiastic about his views, I believe it is a character you either love or hate. I suspect he (as well as the controversial topics he proposes) arouses strong feelings in people and I want to check it by analyzing the comments people leave on [his Youtube videos](https://www.youtube.com/user/LastWeekTonight) and [his Facebook ones](https://www.facebook.com/LastWeekTonight/) as well.
 
-I've been wanting to try [Julia Silge](https://juliasilge.com/blog/) and [David Robinson](http://varianceexplained.org/)'s [`tidytext` package](http://tidytextmining.com/) for a while now, and after I read [Erin's text analysis on the Lizzie Bennet Diaries' Youtube captions](https://eringrand.github.io/lizziebennet_textmining/) I thought about giving Youtube a try 😃 
+I've been wanting to try [Julia Silge](https://juliasilge.com/blog/) and [David Robinson](http://varianceexplained.org/)'s [`tidytext` package](https://www.tidytextmining.com/) for a while now, and after I read [Erin's text analysis on the Lizzie Bennet Diaries' Youtube captions](https://eringrand.github.io/lizziebennet_textmining/) I thought about giving Youtube a try 😃 
 
 <br/>
 <div align="center"><img src="https://media.giphy.com/media/pOVsnroKZWeNG/giphy.gif"/></div>
@@ -207,7 +208,7 @@ datatable(head(yt_comments[, c(7, 9, 3)], 30), rownames = FALSE,
 <br/>
 # Most used words and sentiment
 
-In the _tidy text_ world, a [tidy dataset](http://tidytextmining.com/tidytext.html) is a table with one-token-per-row. I start by tidying the `yt_comments` dataframe, and removing the stop words (the `stop_word` dictionary is already included in the `tidytext` package).
+In the _tidy text_ world, a [tidy dataset](https://www.tidytextmining.com/tidytext.html) is a table with one-token-per-row. I start by tidying the `yt_comments` dataframe, and removing the stop words (the `stop_word` dictionary is already included in the `tidytext` package).
 
 
 ```r
@@ -250,7 +251,8 @@ yt_pos_neg_words <- tidy_yt_comments %>%
 
 There is a lot of strong words here! And I'm pretty sure this [`trump` _positive_ word](https://www.merriam-webster.com/dictionary/trump) we are seeing is not quite the same [_Trump_ John has been talking about non stop for the last two years](https://www.youtube.com/watch?v=Ml5qULGjbno)... and not precisely in a positive way...  I could include this word in a `custom_stop_words` dataframe, but I'm going leave it like that for now.
 
-Also... not sure why `funny` is in the `negative` category 🤔 I know it can be used as _weird_ or something like that, but I think this happens because I'm not a native English speaker 🤷🏻‍♀️
+Also... not sure why `funny` is in the `negative` category 🤔 I know it can be used as _weird_ or something like that, but I think this happens because I'm not a native English speaker 🤷🏻
+♀️
 
 Are there more positive or negative words?
 
@@ -376,7 +378,7 @@ According to this lexicon, there are more positive than negative words! The oppo
 
 # Most used n-grams
 
-Other interesting thing to do is find the most common [_n-grams_](http://tidytextmining.com/ngrams.html) (threads of n amount of words that tend to co-occur).
+Other interesting thing to do is find the most common [_n-grams_](https://www.tidytextmining.com/ngrams.html) (threads of n amount of words that tend to co-occur).
 
 
 ```r

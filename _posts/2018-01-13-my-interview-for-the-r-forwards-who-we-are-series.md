@@ -10,7 +10,7 @@ Gina Merchant kindly interviewed me for the 'Who we are!' series, in the [R-Forw
 
 <!--more-->
 
-A few months ago I was contacted by [Gina Merchant](http://gmerchant.ucsd.edu/) about being interviewed for the [R-Forwards' Facebook group](https://www.facebook.com/groups/163371137549666) as part of the 'Who we are!' series. The series asks R users about how they started coding, and how they got to where they are today. I wasn't sure I would have much to say until I realized my interview could help encourage people, as [my older post about how the R-Ladies community welcomed me]({% post_url 2017-01-27-the-r-ladies-way %}) did (I know of at least one R-Lady who reached out to us thanks to this post and I'm so proud of that 💁 ). Also, [Emily Robinson's latest two-part blog post](https://robinsones.github.io/Building-Your-Data-Science-Network-Reaching-Out/) (which I highly recommend) led me to [this Rachel Thomas' blog post about _personal branding_](http://www.fast.ai/2017/12/18/personal-brand/) where she stated: _"[...] remember that your target audience is you-6-months-ago [...]. You are best positioned to help people one step behind you."_. And I decided to go for it! I'm even making this public post here to reach even more people!
+A few months ago I was contacted by [Gina Merchant](http://gmerchant.ucsd.edu/) about being interviewed for the [R-Forwards' Facebook group](https://www.facebook.com/groups/163371137549666) as part of the 'Who we are!' series. The series asks R users about how they started coding, and how they got to where they are today. I wasn't sure I would have much to say until I realized my interview could help encourage people, as [my older post about how the R-Ladies community welcomed me]({% post_url 2017-01-27-the-r-ladies-way %}) did (I know of at least one R-Lady who reached out to us thanks to this post and I'm so proud of that 💁 ). Also, [Emily Robinson's latest two-part blog post](http://hookedondata.org/Building-Your-Data-Science-Network-Reaching-Out/) (which I highly recommend) led me to [this Rachel Thomas' blog post about _personal branding_](http://www.fast.ai/2017/12/18/personal-brand/) where she stated: _"[...] remember that your target audience is you-6-months-ago [...]. You are best positioned to help people one step behind you."_. And I decided to go for it! I'm even making this public post here to reach even more people!
 
 <div align="center"><img src="/figure/source/r-forwards-who-we-are-series/2018-01-13-r-forwards-who-we-are-series/forwards.png" width="120" /></div>
 
@@ -44,7 +44,7 @@ Data science isn’t a broadly known discipline where Daniela lives in Uruguay. 
 
 **Fun facts about Daniela:**
 
-1) She is a [member of the 2017 Spring NASA Datanaut class](https://open.nasa.gov/…/welcome-datanauts-2017-spring-class/)!
+1) She is a [member of the 2017 Spring NASA Datanaut class](https://open.nasa.gov/blog/welcome-datanauts-2017-spring-class/)!
 
 2) She recently co-founded the Montevideo's [R-Ladies](https://rladies.org) chapter in Uruguay. But she started in Buenos Aires - also as a cofounder. She took a boat for 3 hours to get there! The first R-Ladies’ Buenos Aires meetup was 25 ladies, and now it is a huge community! 
 _Interviewee note: If you have questions about starting an R-Ladies meetup, Daniela is a great resource!_

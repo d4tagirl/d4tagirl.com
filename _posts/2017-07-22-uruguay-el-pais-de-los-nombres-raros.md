@@ -6,17 +6,17 @@ published: true
 tags: [r, rstats, es, shiny, shinyapp, uruguay, nombres]
 description: Análisis de los nombres uruguayos a partir de los datos abiertos del Registro Civil desde 1940 hasta 2011.
 ---
-A los uruguayos nos gusta inventar nombres raros... O al menos eso es lo que venimos escuchando hace años! Así que se me ocurrió analizar los nombres que los montevideanos hemos puesto a nuestros hijos desde 1940 hasta 2011 para ver qué encuentro. Un poco para apoyar la iniciativa de Datos Abiertos de [DATA](http://www.datauy.org/) y otro poco por mi propia curiosidad 🤗  
+A los uruguayos nos gusta inventar nombres raros... O al menos eso es lo que venimos escuchando hace años! Así que se me ocurrió analizar los nombres que los montevideanos hemos puesto a nuestros hijos desde 1940 hasta 2011 para ver qué encuentro. Un poco para apoyar la iniciativa de Datos Abiertos de [DATA](https://www.datauy.org/) y otro poco por mi propia curiosidad 🤗  
 
-[Acá podés jugar con los datos en una Shiny app](https://shiny.d4tagirl.com/uy-names/)!
+[Acá podés jugar con los datos en una Shiny app](https://d4tagirl.shinyapps.io/uy_names/)!
 
 <!--more-->
 
-Hace unos años surgió en Uruguay [DATA](http://www.datauy.org/), una organización de la sociedad civil que trabaja en la promoción y el uso de datos abiertos en Uruguay. Falta mucho camino por recorrer todavía, pero ya existe [un conjunto de 146 datasets](https://catalogodatos.gub.uy/), incluyendo [uno acerca de la producción de cerveza artesanal en Uruguay](https://catalogodatos.gub.uy/dataset/productores-puntos-de-venta-y-tipos-de-cerveza-artesanal-uruguaya-dondepinta-uy), que seguramente sea mi próximo desafío con datos abiertos 🍻
+Hace unos años surgió en Uruguay [DATA](https://www.datauy.org/), una organización de la sociedad civil que trabaja en la promoción y el uso de datos abiertos en Uruguay. Falta mucho camino por recorrer todavía, pero ya existe [un conjunto de 146 datasets](https://catalogodatos.gub.uy/), incluyendo [uno acerca de la producción de cerveza artesanal en Uruguay](https://catalogodatos.gub.uy/dataset/productores-puntos-de-venta-y-tipos-de-cerveza-artesanal-uruguaya-dondepinta-uy), que seguramente sea mi próximo desafío con datos abiertos 🍻
 
 Siempre se dice que los uruguayos somos muy creativos para ponerle nombre a nuestros hijos (algo que llama mucho la atención sobre todo a los argentinos, como se menciona [en esta nota de Página 12](https://www.pagina12.com.ar/diario/suplementos/radar/9-1233-2004-02-15.html)). Los criterios del Registro Civil para registrar los nombres son bastante laxos y eso deja mucho lugar a la discrecionalidad de los padres. Cuando ví estos que estaban estos datos disponibiles, enseguida me puse a ver qué encontraba!
 
-Si querés jugar con los datos [acá está la Shiny app que hice](https://shiny.d4tagirl.com/uy-names/) donde podés graficar nombres, fijarte los más usados en distintos rangos de años y ver cuáles tuvieron crecimiento excepcional en algún período en particular! A mi por ejemplo me gusta mucho ver qué pasó cuando algún personje se hizo famoso, porque en general impacta en la cantidad de registros de esos años.
+Si querés jugar con los datos [acá está la Shiny app que hice](https://d4tagirl.shinyapps.io/uy_names/) donde podés graficar nombres, fijarte los más usados en distintos rangos de años y ver cuáles tuvieron crecimiento excepcional en algún período en particular! A mi por ejemplo me gusta mucho ver qué pasó cuando algún personje se hizo famoso, porque en general impacta en la cantidad de registros de esos años.
 
 ## Cargando los datos
 
@@ -324,11 +324,12 @@ image_animate(image_join(frames))
 
 <div align="center"><img src="https://github.com/d4tagirl/uruguayan_names/raw/master/nombres_menos_usados.gif"/></div>
 
-Algo podemos decir es que nos gustan los nombres anglosajones, aunque la forma de escribirlos tiene sus toques locales! La verdad es que tenemos nombres raros 🤷🏻‍♀️
+Algo podemos decir es que nos gustan los nombres anglosajones, aunque la forma de escribirlos tiene sus toques locales! La verdad es que tenemos nombres raros 🤷🏻
+♀️
 
 Pero... hablemos de lo que acabo de hacer... no está buenísima la animación?? Para los que les interese acá van mis comentarios, y para los que no, pueden seguir [por acá nomás](#skipping)! 
 
-La idea surgió de un artículo de [Daniel Hadley](https://twitter.com/danielphadley) donde [muestra el código para hacer una animación como la que acabo de hacer](http://danielphadley.com/ggplot-Logo/). El paquete `here` lo único que hace es permitirnos olvidarnos de las rutas, así que no voy a entrar mucho en detalles. Pero el paquete `magick` de [rOpenSci](https://ropensci.org/) es el que hace la magia ✨  (era de sospecharse, con ese nombre!). Interpreta en `grafico` la imagen del plot que guardé con `ggsave()` y en `gif` cada cuadro del archivo .gif que elegí. Acá hay un secreto: todos los cuadros del archivo .gif tienen que tener el mismo tamaño, si no la imagen termina rebotando para todos lados! Esto me llevó mucho rato (y frustración!), hasta que [Gervasio](https://twitter.com/g3rv4?lang=en) se dio cuenta! Usando [esta página](https://ezgif.com/resize) pude cambiar el .gif, usando la opción de `optimize`/`coalesce`. Y quedó bárbaro!
+La idea surgió de un artículo de [Daniel Hadley](https://twitter.com/danielphadley) donde [muestra el código para hacer una animación como la que acabo de hacer](https://www.danielphadley.com/ggplot-logo/). El paquete `here` lo único que hace es permitirnos olvidarnos de las rutas, así que no voy a entrar mucho en detalles. Pero el paquete `magick` de [rOpenSci](https://ropensci.org/) es el que hace la magia ✨  (era de sospecharse, con ese nombre!). Interpreta en `grafico` la imagen del plot que guardé con `ggsave()` y en `gif` cada cuadro del archivo .gif que elegí. Acá hay un secreto: todos los cuadros del archivo .gif tienen que tener el mismo tamaño, si no la imagen termina rebotando para todos lados! Esto me llevó mucho rato (y frustración!), hasta que [Gervasio](https://twitter.com/g3rv4?lang=en) se dio cuenta! Usando [esta página](https://ezgif.com/resize) pude cambiar el .gif, usando la opción de `optimize`/`coalesce`. Y quedó bárbaro!
 
 <a id="skipping"> </a>
 
@@ -420,11 +421,11 @@ spline_prediccion %>%
 
 <img src="/figure/source/uruguay-el-pais-de-los-nombres-raros/2017-07-22-uruguay-el-pais-de-los-nombres-raros/unnamed-chunk-14-1.png" style="display: block; margin: auto;" />
 
-Los picos más pronunciados se dieron siempre en los últimos años. Podés hacer [este mismo análisis pero considerando diferentes rangos de años en la Shiny app](https://shiny.d4tagirl.com/uy-names/).
+Los picos más pronunciados se dieron siempre en los últimos años. Podés hacer [este mismo análisis pero considerando diferentes rangos de años en la Shiny app](https://d4tagirl.shinyapps.io/uy_names/).
 
 ## Hay nombres que crecen porque hay algún personaje que se hace famoso?
 
-Una teoría que siempre ronda por ahí es que cuando hay alguna telenovela nueva, aumentan los registros de nombres relacionados por ejemplo, al actor o actriz principal. Podemos contrastar esto ahora! Voy a tomar el caso de *Agustina*, que es el nombre de pila de la actríz que hacía de "Mili" en "Chiquititas" ([Agustina Cherri](https://es.wikipedia.org/wiki/Mili_Uri%C3%A9n)). [Chiquititas es una telenovela argentina infantil](https://es.wikipedia.org/wiki/Chiquititas), que fue furor desde que empezó en 1995 y duró 7 temporadas. Yo nunca la miré pero todas mis amigas la miraban 📺 
+Una teoría que siempre ronda por ahí es que cuando hay alguna telenovela nueva, aumentan los registros de nombres relacionados por ejemplo, al actor o actriz principal. Podemos contrastar esto ahora! Voy a tomar el caso de *Agustina*, que es el nombre de pila de la actríz que hacía de "Mili" en "Chiquititas" ([Agustina Cherri](https://es.wikipedia.org/wiki/Agustina_Cherri)). [Chiquititas es una telenovela argentina infantil](https://es.wikipedia.org/wiki/Chiquititas), que fue furor desde que empezó en 1995 y duró 7 temporadas. Yo nunca la miré pero todas mis amigas la miraban 📺 
 
 
 ```r
@@ -447,7 +448,7 @@ nombres_año %>%
 
 <img src="/figure/source/uruguay-el-pais-de-los-nombres-raros/2017-07-22-uruguay-el-pais-de-los-nombres-raros/unnamed-chunk-15-1.png" style="display: block; margin: auto;" />
 
-Para ver otros nombres (yo tengo muy mala memoria!) también lo podés [hacer en esta Shiny](https://shiny.d4tagirl.com/uy-names/). 
+Para ver otros nombres (yo tengo muy mala memoria!) también lo podés [hacer en esta Shiny](https://d4tagirl.shinyapps.io/uy_names/). 
 
 ## Cada vez hay más nombres o es un mito?
 
@@ -470,7 +471,7 @@ nombres %>%
 
 <img src="/figure/source/uruguay-el-pais-de-los-nombres-raros/2017-07-22-uruguay-el-pais-de-los-nombres-raros/unnamed-chunk-16-1.png" style="display: block; margin: auto;" />
 
-Aumentó de unos 1500 nombres en 1940 a unos 2000 en 2011, no parece tanto! Más si consideramos que la población de Uruguay pasó de ser [2:163.547 en 1940](http://cienciassociales.edu.uy/wp-content/uploads/sites/8/2013/archivos/estadisticas%20historicas%201.pdf) a ser [3.286.314 en 2011](http://www.ine.gub.uy/documents/10181/35289/analisispais.pdf/cc0282ef-2011-4ed8-a3ff-32372d31e690). No quiere decir que no haya nombres creativos, pero para averiguarlo una vez más te propongo que [visites la Shiny app](https://shiny.d4tagirl.com/uy-names/) 😉
+Aumentó de unos 1500 nombres en 1940 a unos 2000 en 2011, no parece tanto! Más si consideramos que la población de Uruguay pasó de ser [2:163.547 en 1940](http://cienciassociales.edu.uy/wp-content/uploads/sites/8/2013/archivos/estadisticas%20historicas%201.pdf) a ser [3.286.314 en 2011](http://www.ine.gub.uy/documents/10181/35289/analisispais.pdf/cc0282ef-2011-4ed8-a3ff-32372d31e690). No quiere decir que no haya nombres creativos, pero para averiguarlo una vez más te propongo que [visites la Shiny app](https://d4tagirl.shinyapps.io/uy_names/) 😉
 
 Espero que te haya gustado, a mi me pareció divertidísimo hacerlo! 
 

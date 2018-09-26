@@ -40,4 +40,4 @@ Are you still on the fence? You can:
 * E-mail info@rladies.org (or feel free to email me directly at daniela.vazquez@gmail.com)
 * Follow us on Twitter: [@RLadiesGlobal](https://twitter.com/intent/user?screen_name=RLadiesGlobal)
 
-Or if you are just curious you can visit: [http://www.rladies.org](http://www.rladies.org)
+Or if you are just curious you can visit: [rladies.org](https://rladies.org/)

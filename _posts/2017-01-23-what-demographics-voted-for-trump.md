@@ -79,7 +79,7 @@ Note that there is a `white` variable and a `white_alone` variable. This is beca
 
 * `white_alone` refers to *white race* people who also reported *not Hispanic or Latino origin*.
 
-For further references on any variable you can [go to the Census Bureau's site](https://www.census.gov/quickfacts/).
+For further references on any variable you can [go to the Census Bureau's site](https://www.census.gov/quickfacts/fact/table/US/PST045217).
 
 # Building the Response Variable
 
@@ -353,7 +353,7 @@ Just looking into this matrix we can have some clues on how good is the classifi
 
 ## ROC Curve and AUROC
 
-To complement the performance evaluation, I check the `ROC curve`. It plots the *True Positive Rate* against the *False Positive Rate* across many different thresholds of predicted probability. As we are evaluating a tree with only 6 final nodes, there is a limited amount of thresholds. (Trying to simplify this explanation, I came across [this video](http://www.dataschool.io/roc-curves-and-auc-explained/) that is very clear if you want to go deeper)
+To complement the performance evaluation, I check the `ROC curve`. It plots the *True Positive Rate* against the *False Positive Rate* across many different thresholds of predicted probability. As we are evaluating a tree with only 6 final nodes, there is a limited amount of thresholds. (Trying to simplify this explanation, I came across [this video](https://www.dataschool.io/roc-curves-and-auc-explained/) that is very clear if you want to go deeper)
 
 This measure is great for classification analysis, and it is particularly useful here because it is not affected by unbalanced classes. Luckily I came across this great `ggplot2` extension, `plotROC`, and now I can use my favorite tools to create a pretty nice plot!
 
@@ -379,7 +379,7 @@ annotate("text", x = .75, y = .25,
 
 <img src="/figure/source/what-demographics-voted-for-trump/2017-01-23-what-demographics-voted-for-trump/roc_curve-1.png" title="plot of chunk roc_curve" alt="plot of chunk roc_curve" style="display: block; margin: auto;" />
 
-The `AUROC` (*A*rea *U*nder the *ROC* curve) computes the probability that the classifier ranks higher a positive instance than a negative one. (If you want to go deeper into this, I highly recommend [this Tom Fawcett paper](http://tomfawcett.info/papers/ROC-PRL.pdf))
+The `AUROC` (*A*rea *U*nder the *ROC* curve) computes the probability that the classifier ranks higher a positive instance than a negative one.
 
 # Warning about Classification Trees instability
 

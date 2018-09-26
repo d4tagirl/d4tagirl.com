@@ -81,7 +81,7 @@ Now let's animate the map! The core thing here is that I want every chapter appe
 
 - I also add the `cumulative = TRUE`, an additional aesthetic  (same comment about `ggplot` ignoring it), so once the chapter appears on the map, it keeps showing in all the following frames.
 
-Following [my good friend Bruno](https://www.linkedin.com/in/bruno-chiesa-gispert-b1a6b942)'s suggestion, I add an empty frame at the beginning so that the first frame you see is just the empty map. I generate a dataframe with the same structure than the original one, with some random data, except for the `created_at` field that should be filled with a date prior to the first chapter creation for it to appear at the beginning.
+Following [my good friend Bruno](https://www.linkedin.com/in/bruno-chiesa-gispert-b1a6b942/)'s suggestion, I add an empty frame at the beginning so that the first frame you see is just the empty map. I generate a dataframe with the same structure than the original one, with some random data, except for the `created_at` field that should be filled with a date prior to the first chapter creation for it to appear at the beginning.
 
 And I add some empty frames at the end as well, to be able to see the final composition of chapters for a bit longer.
 
@@ -200,7 +200,8 @@ gganimate(map_frames)
 
 This is a very accurate map in terms of the timeline: it shows how long it took for every chapter to be founded and how R-Ladies proliferated in the past year or so. 
 
-But... (I told you I got kind of obsessed 🤷🏻‍♀️ ) it takes too long from the creation of the first chapters until it started to get traction and the last part of the animation is really fast in comparison. So let's take care of that 😉
+But... (I told you I got kind of obsessed 🤷🏻
+♀️ ) it takes too long from the creation of the first chapters until it started to get traction and the last part of the animation is really fast in comparison. So let's take care of that 😉
 <br />
 ### Removing some frames from the beginning
 
@@ -235,7 +236,7 @@ This reduces a lot the amount of frames, at the cost of making the story less ac
 <br />
 ## Creating the .gif
 
-The only thing left is to save the animation to a file, in this case I choose a `.gif`, but you can also choose to save it as .mp4, .swf or .html (each of them requiring specific drivers, [check the documentation here](https://github.com/dgrtwo/gganimate))
+The only thing left is to save the animation to a file, in this case I choose a `.gif`, but you can also choose to save it as .mp4, .swf or .html (each of them requiring specific drivers, [check the documentation here](https://github.com/thomasp85/gganimate/releases/tag/v0.1.1))
 
 
 ```r
