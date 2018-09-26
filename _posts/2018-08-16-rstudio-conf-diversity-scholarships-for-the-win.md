@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  rstudio::conf diversity scholarships for the win!
+title:  Rstudio::conf diversity scholarships for the win!
 date: "2018-08-16 14:30:00 UYT"
 published: true
 tags: [rstats, rladies, diversity, inclusion, rstudio, community]
