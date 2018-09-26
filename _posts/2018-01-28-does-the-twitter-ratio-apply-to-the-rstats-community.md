@@ -122,7 +122,7 @@ This is what I get:
 
 # Getting the chain of replies
 
-Then I'll use another resource from [Lucy's **genius** post to get the chain of replies from a tweet](http://livefreeordichotomize.com/2017/07/24/twitter-trees/). I create a function that takes the `status_id` as input, and returns all the replies and the replies of that replies and so on. Again I use `purrr` to apply the function to all the `status_id`s from the `orig_tweets` dataframe, but this time I need to pass only one argument to the function, so I use `map` instead of `pmap`.
+Then I'll use another resource from [Lucy's **genius** post to get the chain of replies from a tweet](https://livefreeordichotomize.com/2017/07/24/twitter-trees/). I create a function that takes the `status_id` as input, and returns all the replies and the replies of that replies and so on. Again I use `purrr` to apply the function to all the `status_id`s from the `orig_tweets` dataframe, but this time I need to pass only one argument to the function, so I use `map` instead of `pmap`.
 
 
 ```r
