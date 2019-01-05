@@ -271,7 +271,7 @@ tidy_diputados %>%
 
 <img src="/figure/source/de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/2018-04-08-de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
 
-Acá están las 20 palabras más usadas por Diputados, separadas por sentimiento en negativas y positivas. Ahora tiene más sentido, sobre todo para los que vivimos en Uruguay. Que la primera palabra sea renuncia, cuando [en setiempre de 2017 renunció el Vice Presidente de la República](http://www.elmundo.es/internacional/2017/09/09/59b42150ca47411b3a8b4600.html), tiene mucho sentido! No estoy del todo conforme con las palabras positivas, porque transporte no me queda claro que sea positivo, pero lo voy a dejar así.
+Acá están las 20 palabras más usadas por Diputados, separadas por sentimiento en negativas y positivas. Ahora tiene más sentido, sobre todo para los que vivimos en Uruguay. Que la primera palabra sea renuncia, cuando [en setiempre de 2017 renunció el Vice Presidente de la República](https://www.elmundo.es/internacional/2017/09/09/59b42150ca47411b3a8b4600.html), tiene mucho sentido! No estoy del todo conforme con las palabras positivas, porque transporte no me queda claro que sea positivo, pero lo voy a dejar así.
 
 A continuación las palabras más usadas por Senadores, separadas por sentimiento.
 
@@ -312,7 +312,8 @@ Para senadores:
 
 <img src="/figure/source/de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/2018-04-08-de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
 
-Para las sesiones de Senadores no se observa un comportamiento similar al de las de Diputados 🤷🏽‍♂️
+Para las sesiones de Senadores no se observa un comportamiento similar al de las de Diputados 🤷🏽
+♂️
 
 # Sentimiento en las distintas sesiones
 

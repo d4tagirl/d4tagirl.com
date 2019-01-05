@@ -134,7 +134,7 @@ rladies <- rladies %>%
          lat = geocode(location)[,2])
 ```
 
-Doing some research (and benefitting from [Amelia](http://www.science.smith.edu/~amcnamara/)'s super helpful suggestion!) I finally decided to use the `purrr::map` function for capturing both values in a single column of the dataframe, and then transform it into two separate columns with `tidyr::unnest`. All of this with never having to leave the `tidyverse` world `r emo::ji("smirk")`
+Doing some research (and benefitting from [Amelia](http://www.amelia.mn/)'s super helpful suggestion!) I finally decided to use the `purrr::map` function for capturing both values in a single column of the dataframe, and then transform it into two separate columns with `tidyr::unnest`. All of this with never having to leave the `tidyverse` world `r emo::ji("smirk")`
 
 I'm doing it in two steps to see the intermediate result, with the two columns in a single variable of the dataframe.
 
