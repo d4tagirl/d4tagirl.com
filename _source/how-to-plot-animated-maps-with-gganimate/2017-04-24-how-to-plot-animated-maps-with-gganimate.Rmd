@@ -10,6 +10,12 @@ Here I show how to plot an animated map using the `gganimate` package, and produ
 
 <!--more-->
 
+___
+
+This map was built using [`gganimate` v0.1.1](https://github.com/thomasp85/gganimate/releases/tag/v0.1.1). It breaks with the latest version.
+
+___ 
+
 This is the third one of the 3-posts-series, where I go from fetching Twitter users and preparing the data to visualizing it (If I wanted to show everything I've done in a single post, it would be almost as long as my first one! And believe me: nobody wants that `r emo::ji("stuck_out_tongue_closed_eyes")` ):
 
 1. [How to fetch Twitter users with R]({% post_url 2017-04-20-how-to-fetch-twitter-users-with-r %}): the title is kind of self explanatory...
