@@ -199,7 +199,7 @@ Como se muestra en la animación a continuación, usando el [Selector Gadget](ht
 
 ## Extraigo los pdfs
 
-Ahora es que empiezo a usar el paquete [rvest](https://github.com/hadley/rvest). Defino una función que descarga los pdfs y los guarda en un dataframe, haciendo algunas transformaciones. Para explicar lo que hace la función voy a ignorar que como las sesiones son muchas, las muestra en dos páginas separadas. Es verdad que podría haber puesto un poco más de esfuerzo en hacer esta función generalizable a *n* páginas, pero como sabía que tenía sólo 2, lo dejé así 😇
+Ahora es que empiezo a usar el paquete [rvest](https://github.com/tidyverse/rvest). Defino una función que descarga los pdfs y los guarda en un dataframe, haciendo algunas transformaciones. Para explicar lo que hace la función voy a ignorar que como las sesiones son muchas, las muestra en dos páginas separadas. Es verdad que podría haber puesto un poco más de esfuerzo en hacer esta función generalizable a *n* páginas, pero como sabía que tenía sólo 2, lo dejé así 😇
 
 
 ```r

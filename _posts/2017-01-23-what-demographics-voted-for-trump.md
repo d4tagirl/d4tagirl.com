@@ -79,7 +79,7 @@ Note that there is a `white` variable and a `white_alone` variable. This is beca
 
 * `white_alone` refers to *white race* people who also reported *not Hispanic or Latino origin*.
 
-For further references on any variable you can [go to the Census Bureau's site](https://www.census.gov/quickfacts/fact/table/US/PST045217).
+For further references on any variable you can [go to the Census Bureau's site](https://www.census.gov/quickfacts/fact/table/US/PST045218).
 
 # Building the Response Variable
 

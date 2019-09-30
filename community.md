@@ -13,13 +13,13 @@ hide_from_sidebar: true
   
 ## Past
 
-  * Sep 25-27, 2019: [LatinR](http://latin-r.com) volunteer (First Latin American R conference).
+  * Sep 25-27, 2019: [LatinR](https://latin-r.com/) volunteer (First Latin American R conference).
   
-  * Jul 2018 - Sep 2019: [_R for Data Science_ translation to Spanish](https://github.com/cienciadedatos/descripcion-y-orientaciones) community project.
+  * Jul 2018 - Sep 2019: [_R for Data Science_ translation to Spanish](https://github.com/cienciadedatos/documentacion-traduccion-r4ds) community project.
   
   * Jan 24-26, 2019: [ConectaR](http://www.conectar2019.ucr.ac.cr/) scientific committee.
 
-  * Sep 4-5, 2018: [LatinR](http://latin-r.com) organizer (First Latin American R conference).
+  * Sep 4-5, 2018: [LatinR](https://latin-r.com/) organizer (First Latin American R conference).
   
   * Jul 2018: [TalkR bot](https://github.com/chucheria/talkR) collaborator. Retweets all tweets containing #rstatsES (the Spanish version of #rstats), deployed in a Heroku app.
 

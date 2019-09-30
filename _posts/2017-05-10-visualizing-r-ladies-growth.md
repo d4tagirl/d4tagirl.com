@@ -12,7 +12,7 @@ My favourite visualization about R-Ladies growth, using `gganimate` to produce t
 
 <!--more-->
 
-I recently came across [an article](http://spatial.ly/2017/03/mapping-5000-years-of-city-growth/) in which they map 5,000 years of city growth in a beautiful animation, and I knew I had to make a similar map for the [R-Ladies' chapters](https://rladies.org/) (probably the purple color they use had plenty to do with that 💜 ). So my idea was to map all the R-Ladies' chapters according to their size, and that's when I thought of using their Twitter followers as a way to estimate it, since it's the most extended social media we use (except for some chapters).
+I recently came across [an article](https://spatial.ly/2017/03/mapping-5000-years-of-city-growth/) in which they map 5,000 years of city growth in a beautiful animation, and I knew I had to make a similar map for the [R-Ladies' chapters](https://rladies.org/) (probably the purple color they use had plenty to do with that 💜 ). So my idea was to map all the R-Ladies' chapters according to their size, and that's when I thought of using their Twitter followers as a way to estimate it, since it's the most extended social media we use (except for some chapters).
 
 I decided to make 3 posts to go through the details of what I've done (especially for future me!):
 

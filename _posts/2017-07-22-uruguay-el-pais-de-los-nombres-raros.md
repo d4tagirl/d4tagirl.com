@@ -6,7 +6,7 @@ published: true
 tags: [r, rstats, es, shiny, shinyapp, uruguay, nombres]
 description: Análisis de los nombres uruguayos a partir de los datos abiertos del Registro Civil desde 1940 hasta 2011.
 ---
-A los uruguayos nos gusta inventar nombres raros... O al menos eso es lo que venimos escuchando hace años! Así que se me ocurrió analizar los nombres que los montevideanos hemos puesto a nuestros hijos desde 1940 hasta 2011 para ver qué encuentro. Un poco para apoyar la iniciativa de Datos Abiertos de [DATA](https://www.datauy.org/) y otro poco por mi propia curiosidad 🤗  
+A los uruguayos nos gusta inventar nombres raros... O al menos eso es lo que venimos escuchando hace años! Así que se me ocurrió analizar los nombres que los montevideanos hemos puesto a nuestros hijos desde 1940 hasta 2011 para ver qué encuentro. Un poco para apoyar la iniciativa de Datos Abiertos de [DATA](https://data.org.uy/) y otro poco por mi propia curiosidad 🤗  
 
 [Acá podés jugar con los datos en una Shiny app](https://d4tagirl.shinyapps.io/uy_names/)!
 
