@@ -7,13 +7,17 @@ hide_from_sidebar: true
 
 ## Present
 
-  * Jan 24-26, 2019: [ConectaR](http://www.conectar2019.ucr.ac.cr/) scientific committee.
-  
-  * Jul 2018 - present: [_R for Data Science_ translation to Spanish](https://github.com/cienciadedatos/descripcion-y-orientaciones) community project.
+  * Nov 21, 2017 - present: [RUG::Montevideo, GURU](https://www.meetup.com/GURU-mvd/) co-founder and co-organizer.
 
   * Aug 30, 2017 - present: [R-Ladies Montevideo](https://www.meetup.com/rladies-montevideo/) co-founder and co-organizer.
   
 ## Past
+
+  * Sep 25-27, 2019: [LatinR](http://latin-r.com) volunteer (First Latin American R conference).
+  
+  * Jul 2018 - Sep 2019: [_R for Data Science_ translation to Spanish](https://github.com/cienciadedatos/descripcion-y-orientaciones) community project.
+  
+  * Jan 24-26, 2019: [ConectaR](http://www.conectar2019.ucr.ac.cr/) scientific committee.
 
   * Sep 4-5, 2018: [LatinR](http://latin-r.com) organizer (First Latin American R conference).
   
