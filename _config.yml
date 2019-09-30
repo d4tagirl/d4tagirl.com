@@ -25,7 +25,7 @@ excerpt_separator: <!--more-->
 extlinks:
   attributes: {rel: nofollow, target: _blank}
 #prod:  check_links: true
-  check_exclude: ['twitter.com', 'disqus.com', 't.co', 'www.meetup.com', 'www.facebook.com', 'www.linkedin.com', 'd4tagirl.shinyapps.io', 'catalogodatos.gub.uy']
+  check_exclude: ['twitter.com', 'disqus.com', 't.co', 'www.meetup.com', 'www.facebook.com', 'www.linkedin.com', 'd4tagirl.shinyapps.io', 'catalogodatos.gub.uy', 'www.ine.gub.uy']
 
 page_gen:
   - data: tags
