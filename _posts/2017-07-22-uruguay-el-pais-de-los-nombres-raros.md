@@ -12,7 +12,7 @@ A los uruguayos nos gusta inventar nombres raros... O al menos eso es lo que ven
 
 <!--more-->
 
-Hace unos años surgió en Uruguay [DATA](https://www.datauy.org/), una organización de la sociedad civil que trabaja en la promoción y el uso de datos abiertos en Uruguay. Falta mucho camino por recorrer todavía, pero ya existe [un conjunto de 146 datasets](https://catalogodatos.gub.uy/), incluyendo [uno acerca de la producción de cerveza artesanal en Uruguay](https://catalogodatos.gub.uy/dataset/productores-puntos-de-venta-y-tipos-de-cerveza-artesanal-uruguaya-dondepinta-uy), que seguramente sea mi próximo desafío con datos abiertos 🍻
+Hace unos años surgió en Uruguay [DATA](https://data.org.uy/), una organización de la sociedad civil que trabaja en la promoción y el uso de datos abiertos en Uruguay. Falta mucho camino por recorrer todavía, pero ya existe [un conjunto de 146 datasets](https://catalogodatos.gub.uy/), incluyendo [uno acerca de la producción de cerveza artesanal en Uruguay](https://catalogodatos.gub.uy/dataset/productores-puntos-de-venta-y-tipos-de-cerveza-artesanal-uruguaya-dondepinta-uy), que seguramente sea mi próximo desafío con datos abiertos 🍻
 
 Siempre se dice que los uruguayos somos muy creativos para ponerle nombre a nuestros hijos (algo que llama mucho la atención sobre todo a los argentinos, como se menciona [en esta nota de Página 12](https://www.pagina12.com.ar/diario/suplementos/radar/9-1233-2004-02-15.html)). Los criterios del Registro Civil para registrar los nombres son bastante laxos y eso deja mucho lugar a la discrecionalidad de los padres. Cuando ví estos que estaban estos datos disponibiles, enseguida me puse a ver qué encontraba!
 

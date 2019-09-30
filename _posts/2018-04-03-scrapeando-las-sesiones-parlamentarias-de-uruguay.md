@@ -7,7 +7,7 @@ tags: [rstats, open data, scraping, rvest, pdftools, parlamento, uruguay, senado
 description: "Scraping de las sesiones de diputados y senadores desde 2017 hasta hoy y extracción de los textos de los archivos en formato pdf."
 ---
   
-En Uruguay venimos avanzando con las iniciativas de datos abiertos, pero aún queda mucho camino por recorrer. Uno de los impedimentos para analizar datos es que no siempre son fácilmente consumibles, sea porque no hay una forma sistemática de descargarlos o porque están en formato pdf, que no es muy amigable para ser interpretado por máquinas. En este artículo muestro cómo se pueden sortear ambas dificultades usando los paquetes [rvest](https://github.com/hadley/rvest) y [pdftools](https://github.com/ropensci/pdftools) respectivamente, y tener los Diarios de Sesiones descargados en el mejor formato posible para analizarlos. 
+En Uruguay venimos avanzando con las iniciativas de datos abiertos, pero aún queda mucho camino por recorrer. Uno de los impedimentos para analizar datos es que no siempre son fácilmente consumibles, sea porque no hay una forma sistemática de descargarlos o porque están en formato pdf, que no es muy amigable para ser interpretado por máquinas. En este artículo muestro cómo se pueden sortear ambas dificultades usando los paquetes [rvest](https://github.com/tidyverse/rvest) y [pdftools](https://github.com/ropensci/pdftools) respectivamente, y tener los Diarios de Sesiones descargados en el mejor formato posible para analizarlos. 
 
 <!--more-->
   
@@ -28,7 +28,7 @@ En particular hay dos problemas que quiero resolver:
 
   * Extraer el texto contenido en los archivos en formato pdf.
 
-En este artículo muestro cómo se pueden sortear ambas dificultades, usando los paquetes [rvest](https://github.com/hadley/rvest) para explorar la web y descargar los Diarios de Sesiones, y [pdftools](https://github.com/ropensci/pdftools) para extraer el contenido de los archivos en formato pdf.
+En este artículo muestro cómo se pueden sortear ambas dificultades, usando los paquetes [rvest](https://github.com/tidyverse/rvest) para explorar la web y descargar los Diarios de Sesiones, y [pdftools](https://github.com/ropensci/pdftools) para extraer el contenido de los archivos en formato pdf.
 
 # Está permitido que un robot se comunique con estas páginas?
 
