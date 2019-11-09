@@ -1,0 +1,86 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>r-forwards on d4tagirl</title>
+    <link>/tags/r-forwards/</link>
+    <description>Recent content in r-forwards on d4tagirl</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 16 Jan 2018 20:10:00 +0000</lastBuildDate>
+    
+        <atom:link href="/tags/r-forwards/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>My interview for the R-Forwards &#39;Who we are!&#39; series</title>
+      <link>/2018/01/my-interview-for-the-r-forwards-who-we-are-series/</link>
+      <pubDate>Tue, 16 Jan 2018 20:10:00 +0000</pubDate>
+      
+      <guid>/2018/01/my-interview-for-the-r-forwards-who-we-are-series/</guid>
+      <description>
+
+&lt;p&gt;A few months ago I was contacted by &lt;a href=&#34;http://gmerchant.ucsd.edu/&#34;&gt;Gina Merchant&lt;/a&gt; about being interviewed for the &lt;a href=&#34;https://www.facebook.com/groups/163371137549666&#34;&gt;R-Forwards&amp;rsquo; Facebook group&lt;/a&gt; as part of the &amp;lsquo;Who we are!&amp;rsquo; series. The series asks R users about how they started coding, and how they got to where they are today. I wasn&amp;rsquo;t sure I would have much to say until I realized my interview could help encourage people, as &lt;a href=&#34;/2017/01/the-r-ladies-way/&#34;&gt;my older post about how the R-Ladies community welcomed me&lt;/a&gt; did (I know of at least one R-Lady who reached out to us thanks to this post and I&amp;rsquo;m so proud of that 💁 ). Also, &lt;a href=&#34;https://hookedondata.org/building-your-data-science-network-reaching-out/&#34;&gt;Emily Robinson&amp;rsquo;s latest two-part blog post&lt;/a&gt; (which I highly recommend) led me to &lt;a href=&#34;https://www.fast.ai/2017/12/18/personal-brand/&#34;&gt;this Rachel Thomas&amp;rsquo; blog post about &lt;em&gt;personal branding&lt;/em&gt;&lt;/a&gt; where she stated: &lt;em&gt;&amp;ldquo;[&amp;hellip;] remember that your target audience is you-6-months-ago [&amp;hellip;]. You are best positioned to help people one step behind you.&amp;rdquo;&lt;/em&gt;. And I decided to go for it! I&amp;rsquo;m even making this public post here to reach even more people!&lt;/p&gt;
+
+&lt;div align=&#34;center&#34;&gt;&lt;img src=&#34;/post/r-forwards-who-we-are-series/2018-01-13-r-forwards-who-we-are-series/forwards.png&#34; width=&#34;120&#34; /&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://forwards.github.io/about/&#34;&gt;R-Forward&lt;/a&gt; advocates for and encourages women and other under-represented groups to engage in the R community. Quoting them from their about page, &lt;em&gt;&amp;ldquo;The R Forwards Taskforce addresses the underrepresentation of women and other groups such as LGBT, minority ethnic groups, and people with disabilities in the R community. Task force members are diverse not only in their identities but also in their R proficiency, work contexts, and career stages.&amp;rdquo;&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;This Facebook group is a very inclusive one that can be great if you are looking for a supportive group to encourage you while you navigate through your R journey. You can &lt;a href=&#34;https://www.facebook.com/groups/163371137549666&#34;&gt;request access to the group here&lt;/a&gt; or &lt;a href=&#34;https://twitter.com/intent/tweet?user_id=114258616&#34;&gt;contact me&lt;/a&gt; if you prefer. The group is currently looking for moderators to include more geographic and user-skill diversity, so this can be a great opportunity to get more involved too 😃&lt;/p&gt;
+
+&lt;p&gt;Gina was really nice and I totally enjoyed the process. The questions were well thought out and I had the opportunity to read everything and comment before it was published. Also, there is a great vibe in the way she expressed what we covered in our talk that I love. I&amp;rsquo;m deeply thankful to her. If you want to share your experience, &lt;a href=&#34;https://twitter.com/drgmerchant?lang=en&#34;&gt;please reach out to her&lt;/a&gt;. The only requirement is that you take a selfie with R , so here it is mine (not really a selfie, but still&amp;hellip;) 💁&lt;/p&gt;
+
+&lt;div align=&#34;center&#34;&gt;&lt;img src=&#34;/post/r-forwards-who-we-are-series/2018-01-13-r-forwards-who-we-are-series/fb_pic.jpg&#34; width=&#34;500&#34; /&gt;&lt;/div&gt;
+
+&lt;p&gt;Without further ado, here it is. I hope you enjoy it!&lt;/p&gt;
+
+&lt;p&gt;(Note: Cross-posted with the R-Forwards Facebook closed group)&lt;/p&gt;
+
+&lt;h1 id=&#34;who-we-are&#34;&gt;WHO WE ARE!&lt;/h1&gt;
+
+&lt;p&gt;In our second installation of the Who We Are series, I&amp;rsquo;d like to introduce Daniela Vázquez Leggiadro. She was kind enough to share her R background and experiences with the group. Thank you Daniela!&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Months/years as R user:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;7 years. She started in 2010 as an undergrad (because her professors said “we have to do this in R.”). But Daniela has been a daily user for the past 5 years, beginning with her first job as analytics consultant at Equifax.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Occupation:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Data science isn’t a broadly known discipline where Daniela lives in Uruguay. She works as a Data Scientist at &lt;a href=&#34;http://www.idatha.com/&#34;&gt;Idatha&lt;/a&gt; on a variety of projects. She works mostly with engineers, and her statistical and economics background gives her a unique perspective.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Quote:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;“I wasn’t confident [with R] at first. I quit my job last September to get better at R and data science. So I’d like to share a few tips - especially for someone in a country that doesn’t have as many resources (we are just 3 million in Uruguay; and half of us are in the capital). I grew my pool of resources by reaching out through social media. I am (or was?) kind of shy but with time, I learned how to slowly develop relationships with people that I don’t know in person. These contacts are essential to anyone, knowing that you have people that you can reach out to, that want to help you. These relationships guide me to understand how to study, what to study. Being part of the community has been wonderful. I was out of a job for about 10 months, which is scary, but now, I’m at my new job, and it’s just been 1 month but I know this is where I am meant to be. And I want to tell others that if you work hard, you will make it. &lt;strong&gt;You can do it&lt;/strong&gt;.”&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Fun facts about Daniela:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;1) She is a &lt;a href=&#34;https://open.nasa.gov/blog/welcome-datanauts-2017-spring-class/&#34;&gt;member of the 2017 Spring NASA Datanaut class&lt;/a&gt;!&lt;/p&gt;
+
+&lt;p&gt;2) She recently co-founded the Montevideo&amp;rsquo;s &lt;a href=&#34;https://rladies.org&#34;&gt;R-Ladies&lt;/a&gt; chapter in Uruguay. But she started in Buenos Aires - also as a cofounder. She took a boat for 3 hours to get there! The first R-Ladies’ Buenos Aires meetup was 25 ladies, and now it is a huge community!
+&lt;em&gt;Interviewee note: If you have questions about starting an R-Ladies meetup, Daniela is a great resource!&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;If you could tell your pre-R using self one thing about learning the language, what would it be?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Start with the &lt;code&gt;tidyverse&lt;/code&gt;. This is probably the best advice to give to anyone according to my experience.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What do you use R for?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Data wrangling, visualization, machine learning and NLP mostly.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What are your favorite packages and why?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;It depends on what I’m playing with at the moment. Recently &lt;code&gt;gganimate&lt;/code&gt;. In fact, Daniela made &lt;a href=&#34;/2017/05/how-to-plot-animated-maps-with-gganimate/&#34;&gt;a GIF showing the growth of R Ladies&lt;/a&gt;. She started using the &lt;code&gt;tidyverse&lt;/code&gt; a little more than a year ago, and her life has forever changed! &lt;code&gt;tidytext&lt;/code&gt; is on her favorites list.&lt;/p&gt;
+
+&lt;p&gt;&lt;blockquote class=&#34;twitter-tweet tw-align-center&#34; data-lang=&#34;en&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;Updating the 🗺 for the &lt;a href=&#34;https://twitter.com/RLadiesMVD?ref_src=twsrc%5Etfw&#34;&gt;@RLadiesMVD&lt;/a&gt;&amp;#39;s kickoff on Wednesday: &lt;a href=&#34;https://twitter.com/hashtag/RLadies?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#RLadies&lt;/a&gt; keeps growing 🎉 Now &lt;a href=&#34;https://twitter.com/hashtag/LatAm?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#LatAm&lt;/a&gt; is turning purple too 💜 &lt;a href=&#34;https://twitter.com/hashtag/rstats?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#rstats&lt;/a&gt; &lt;a href=&#34;https://t.co/FY2TaOUdJa&#34;&gt;pic.twitter.com/FY2TaOUdJa&lt;/a&gt;&lt;/p&gt;&amp;mdash; Daniela Vázquez (@d4tagirl) &lt;a href=&#34;https://twitter.com/d4tagirl/status/902130856260771842?ref_src=twsrc%5Etfw&#34;&gt;August 28, 2017&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What resources do you use when you get stuck?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Stack Overflow. Also uses R-Ladies channel in Slack called R Help. Both in global Slack and in her specific chapters. Sometimes Twitter - using #rstats (mostly for general or conceptual questions). And now we have the &lt;a href=&#34;https://community.rstudio.com/&#34;&gt;brand new RStudio Community&lt;/a&gt; that seems great and promises to be very friendly to newcomers!&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What do you aspire to learn in R?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Exposure to others has expanded her horizons, and she wants to keep up! Recent example is `tidytext: &lt;a href=&#34;https://www.tidytextmining.com/nasa.html&#34;&gt;Julia Silge analyzes NASA’s datasets&lt;/a&gt;, counting co-occurence, and making a beautiful plot (a net). People expose you to things you didn’t know you wanted to be able to do!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

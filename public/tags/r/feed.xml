@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>r on d4tagirl</title>
+    <link>/tags/r/</link>
+    <description>Recent content in r on d4tagirl</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 08 Apr 2018 17:11:29 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/r/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>¿De qué se habló en el Parlamento uruguayo desde 2017?</title>
+      <link>/2018/04/de-qu%C3%A9-se-habl%C3%B3-en-el-parlamento-uruguayo-desde-2017/</link>
+      <pubDate>Sun, 08 Apr 2018 17:11:29 +0000</pubDate>
+      
+      <guid>/2018/04/de-qu%C3%A9-se-habl%C3%B3-en-el-parlamento-uruguayo-desde-2017/</guid>
+      <description>En el artículo pasado mostré cómo obtener los textos los Diarios de Sesiones de Diputados y Senadores del Parlamento uruguayo desde 2017 haciendo &lt;em&gt;web scraping&lt;/em&gt;. Ahora analizo el sentimiento de las sesiones e intento averiguar de qué temas se habló en cada una, usando el paquete &lt;a href=&#34;https://github.com/juliasilge/tidytext&#34;&gt;tidytext&lt;/a&gt;.</description>
+    </item>
+    
+    <item>
+      <title>Scrapeando las Sesiones Parlamentarias de Uruguay</title>
+      <link>/2018/04/scrapeando-las-sesiones-parlamentarias-de-uruguay/</link>
+      <pubDate>Tue, 03 Apr 2018 17:11:29 +0000</pubDate>
+      
+      <guid>/2018/04/scrapeando-las-sesiones-parlamentarias-de-uruguay/</guid>
+      <description>En Uruguay venimos avanzando con las iniciativas de datos abiertos, pero aún queda mucho camino por recorrer. Uno de los impedimentos para analizar datos es que no siempre son fácilmente consumibles, sea porque no hay una forma sistemática de descargarlos o porque están en formato pdf, que no es muy amigable para ser interpretado por máquinas. En este artículo muestro cómo se pueden sortear ambas dificultades usando los paquetes &lt;a href=&#34;https://github.com/tidyverse/rvest&#34;&gt;rvest&lt;/a&gt; y &lt;a href=&#34;https://github.com/ropensci/pdftools&#34;&gt;pdftools&lt;/a&gt; respectivamente, y tener los Diarios de Sesiones descargados en el mejor formato posible para analizarlos.</description>
+    </item>
+    
+    <item>
+      <title>Uruguay, el país de los nombres raros?</title>
+      <link>/2017/08/uruguay-el-pais-de-los-nombres-raros/</link>
+      <pubDate>Sun, 13 Aug 2017 22:20:29 +0000</pubDate>
+      
+      <guid>/2017/08/uruguay-el-pais-de-los-nombres-raros/</guid>
+      <description>A los uruguayos nos gusta inventar nombres raros&amp;hellip; O al menos eso es lo que venimos escuchando hace años! Así que se me ocurrió analizar los nombres que los montevideanos hemos puesto a nuestros hijos desde 1940 hasta 2011 para ver qué encuentro. Un poco para apoyar la iniciativa de Datos Abiertos de &lt;a href=&#34;https://data.org.uy/&#34;&gt;DATA&lt;/a&gt; y otro poco por mi propia curiosidad 🤗</description>
+    </item>
+    
+    <item>
+      <title>Al estilo R-Ladies!</title>
+      <link>/2017/06/al-estilo-r-ladies/</link>
+      <pubDate>Wed, 21 Jun 2017 15:19:29 +0000</pubDate>
+      
+      <guid>/2017/06/al-estilo-r-ladies/</guid>
+      <description>Mi experiencia con la comunidad de R-Ladies, un grupo genial de mujeres que construyeron un entorno verdaderamente inclusivo, para que mujeres en la comunidad de R de todo el mundo alcancen su verdadero potencial.</description>
+    </item>
+    
+    <item>
+      <title>How do you feel about Last Week Tonight?</title>
+      <link>/2017/05/how-do-you-feel-about-last-week-tonight/</link>
+      <pubDate>Tue, 30 May 2017 02:11:29 +0000</pubDate>
+      
+      <guid>/2017/05/how-do-you-feel-about-last-week-tonight/</guid>
+      <description>I analyze the text and sentiment behind the comments on the &lt;em&gt;Last week Tonight with John Oliver&lt;/em&gt; TV show&amp;rsquo;s Youtube videos, and compare them with the Facebook ones.</description>
+    </item>
+    
+    <item>
+      <title>Visualizing R-Ladies&#39; growth!</title>
+      <link>/2017/05/visualizing-r-ladies-growth/</link>
+      <pubDate>Mon, 15 May 2017 09:11:29 +0000</pubDate>
+      
+      <guid>/2017/05/visualizing-r-ladies-growth/</guid>
+      <description>My favourite visualization about R-Ladies growth, using &lt;code&gt;gganimate&lt;/code&gt; to produce a .gif file.</description>
+    </item>
+    
+    <item>
+      <title>How to plot animated maps with gganimate</title>
+      <link>/2017/05/how-to-plot-animated-maps-with-gganimate/</link>
+      <pubDate>Mon, 15 May 2017 08:11:29 +0000</pubDate>
+      
+      <guid>/2017/05/how-to-plot-animated-maps-with-gganimate/</guid>
+      <description>Here I show how to plot an animated map using the &lt;code&gt;gganimate&lt;/code&gt; package, and produce a .gif file to share it!</description>
+    </item>
+    
+    <item>
+      <title>How to deal with ggplotly huge maps</title>
+      <link>/2017/05/how-to-deal-with-ggplotly-huge-maps/</link>
+      <pubDate>Mon, 15 May 2017 07:11:29 +0000</pubDate>
+      
+      <guid>/2017/05/how-to-deal-with-ggplotly-huge-maps/</guid>
+      <description>How I had to go from &lt;code&gt;gglotly&lt;/code&gt; to &lt;code&gt;plotly::plot_geo&lt;/code&gt; to reduce the size of the HTML output for posting interactive maps on my blog.</description>
+    </item>
+    
+    <item>
+      <title>How to fetch Twitter users with R</title>
+      <link>/2017/05/how-to-fetch-twitter-users-with-r/</link>
+      <pubDate>Mon, 15 May 2017 06:11:29 +0000</pubDate>
+      
+      <guid>/2017/05/how-to-fetch-twitter-users-with-r/</guid>
+      <description>Here I show how to fetch Twitter users using the &lt;code&gt;rtweet&lt;/code&gt; package, and clean the data using the &lt;code&gt;tidyverse&lt;/code&gt; set of packages, for later usage in plotting animated maps.</description>
+    </item>
+    
+    <item>
+      <title>The R-Ladies way!</title>
+      <link>/2017/01/the-r-ladies-way/</link>
+      <pubDate>Fri, 27 Jan 2017 12:11:29 +0000</pubDate>
+      
+      <guid>/2017/01/the-r-ladies-way/</guid>
+      <description>My experience with the R-Ladies community, an amazing group of ladies who built a truly supportive environment for women in the R community to reach their true potential across the world.</description>
+    </item>
+    
+    <item>
+      <title>Using Rpart to figure out who voted for Trump</title>
+      <link>/2017/01/rpart-who-voted-for-trump/</link>
+      <pubDate>Mon, 23 Jan 2017 22:00:53 +0000</pubDate>
+      
+      <guid>/2017/01/rpart-who-voted-for-trump/</guid>
+      <description>I examine the characteristics of the population that made Donald Trump the 45th President of the United States. Through Machine Learning algorithm CART I analize the Election Results by county.</description>
+    </item>
+    
+  </channel>
+</rss>

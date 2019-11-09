@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>skip_rstats_feed on d4tagirl</title>
+    <link>/tags/skip_rstats_feed/</link>
+    <description>Recent content in skip_rstats_feed on d4tagirl</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 16 Jan 2018 20:10:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/skip_rstats_feed/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>My interview for the R-Forwards &#39;Who we are!&#39; series</title>
+      <link>/2018/01/my-interview-for-the-r-forwards-who-we-are-series/</link>
+      <pubDate>Tue, 16 Jan 2018 20:10:00 +0000</pubDate>
+      
+      <guid>/2018/01/my-interview-for-the-r-forwards-who-we-are-series/</guid>
+      <description>Gina Merchant kindly interviewed me for the &amp;lsquo;Who we are!&amp;rsquo; series, in the &lt;a href=&#34;http://forwards.github.io/about/&#34;&gt;R-Forwards&lt;/a&gt;&amp;rsquo; Facebook group.</description>
+    </item>
+    
+    <item>
+      <title>Nested dataframes to explain Trump&#39;s winning by race, across regions</title>
+      <link>/2017/02/nested-dataframes-to-explain-trumps-winning-by-race-across-regions/</link>
+      <pubDate>Mon, 13 Feb 2017 11:20:16 +0000</pubDate>
+      
+      <guid>/2017/02/nested-dataframes-to-explain-trumps-winning-by-race-across-regions/</guid>
+      <description>It&amp;rsquo;s been a while since I learned about nested dataframes to estimate different models across different groups of observations. Actually it was when I took David Robinson&amp;rsquo;s Datacamp course: Exploratory Data Analysis in R: Case Study and I found it really useful! The other day I was listening to the 31st episode of the Not So Standard Deviations when Hilary started talking about nested dataframes and how it could be not completely straightforward for everyone to appreciate how useful this could be.</description>
+    </item>
+    
+    <item>
+      <title>Hello World!</title>
+      <link>/2016/12/hello-world/</link>
+      <pubDate>Fri, 30 Dec 2016 19:13:23 +0000</pubDate>
+      
+      <guid>/2016/12/hello-world/</guid>
+      <description>My Hello World post, to warm up!</description>
+    </item>
+    
+  </channel>
+</rss>

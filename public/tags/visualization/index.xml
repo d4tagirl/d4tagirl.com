@@ -1,0 +1,46 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>visualization on d4tagirl</title>
+    <link>/tags/visualization/</link>
+    <description>Recent content in visualization on d4tagirl</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 15 May 2017 09:11:29 +0000</lastBuildDate>
+    
+        <atom:link href="/tags/visualization/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Visualizing R-Ladies&#39; growth!</title>
+      <link>/2017/05/visualizing-r-ladies-growth/</link>
+      <pubDate>Mon, 15 May 2017 09:11:29 +0000</pubDate>
+      
+      <guid>/2017/05/visualizing-r-ladies-growth/</guid>
+      <description>&lt;p&gt;I recently came across &lt;a href=&#34;https://spatial.ly/2017/03/mapping-5000-years-of-city-growth/&#34;&gt;an article&lt;/a&gt; in which they map 5,000 years of city growth in a beautiful animation, and I knew I had to make a similar map for the &lt;a href=&#34;https://rladies.org/&#34;&gt;R-Ladies&amp;rsquo; chapters&lt;/a&gt; (probably the purple color they use had plenty to do with that 💜 ). So my idea was to map all the R-Ladies&amp;rsquo; chapters according to their size, and that&amp;rsquo;s when I thought of using their Twitter followers as a way to estimate it, since it&amp;rsquo;s the most extended social media we use (except for some chapters).&lt;/p&gt;
+
+&lt;p&gt;I decided to make 3 posts to go through the details of what I&amp;rsquo;ve done (especially for future me!):&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;/2017/05/how-to-fetch-twitter-users-with-r/&#34;&gt;How to fetch Twitter users with R&lt;/a&gt;: the title is kind of self explanatory&amp;hellip;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/2017/05/how-to-deal-with-ggplotly-huge-maps/&#34;&gt;How to deal with ggplotly huge maps&lt;/a&gt;: where I go through the details of why I chose not to use &lt;code&gt;ggplotly&lt;/code&gt; and use &lt;code&gt;plot_geo&lt;/code&gt; instead to generate the HTML.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/2017/05/how-to-plot-animated-maps-with-gganimate/&#34;&gt;How to plot animated maps with gganimate&lt;/a&gt;: again, pretty obvious subject.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This is the visualization I liked the most, so I wanted to share it here&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;/post/how-to-plot-animated-maps-with-gganimate/2017-04-24-how-to-plot-animated-maps-with-gganimate/ani_map_less_frames.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&amp;hellip; as I did on Twitter, Slack and other social media 💜&lt;/p&gt;
+
+&lt;p&gt;&lt;blockquote class=&#34;twitter-tweet tw-align-center&#34; data-lang=&#34;en&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;New &lt;a href=&#34;https://twitter.com/hashtag/rstats?src=hash&#34;&gt;#rstats&lt;/a&gt; post! Visualizing &lt;a href=&#34;https://twitter.com/hashtag/RLadies?src=hash&#34;&gt;#RLadies&lt;/a&gt; growth 💜 Step-by-step from Twitter users to &lt;a href=&#34;https://twitter.com/hashtag/plotly?src=hash&#34;&gt;#plotly&lt;/a&gt; and &lt;a href=&#34;https://twitter.com/hashtag/gganimate?src=hash&#34;&gt;#gganimate&lt;/a&gt; &lt;a href=&#34;https://t.co/Jgi82Xb4X0&#34;&gt;https://t.co/Jgi82Xb4X0&lt;/a&gt; &lt;a href=&#34;https://t.co/5qkxQwJKQF&#34;&gt;pic.twitter.com/5qkxQwJKQF&lt;/a&gt;&lt;/p&gt;&amp;mdash; Daniela Vázquez (@d4tagirl) &lt;a href=&#34;https://twitter.com/d4tagirl/status/864207469911957504&#34;&gt;May 15, 2017&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&#34;//platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+It was a pretty popular Tweet, you should try!&lt;/p&gt;
+
+&lt;p&gt;Please leave your comments if you have any, or &lt;a href=&#34;https://twitter.com/intent/tweet?user_id=114258616&#34;&gt;mention me on Twitter&lt;/a&gt;. Thanks 😉&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

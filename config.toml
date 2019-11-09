@@ -1,0 +1,95 @@
+# Site settings
+baseurl = "/"
+languageCode = "en"
+title = "d4tagirl"
+theme = "hugo-theme-cactus-plus"
+googleAnalytics = "90827501"
+# Set the value to true if your site include CJK (Chinese, Japanese, and Korean languages) characters
+hasCJKLanguage = false
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+
+[params]
+	author = "Daniela Vázquez"
+	description = "A blog about a girl who found her way into data science :)"
+	bio = "in love with data since 2012"
+
+	twitter = "114258616"
+
+	enableRSS = false
+	enableToc = false
+
+	enableDisqus = true
+	disqusShortname = "d4tagirl"
+
+
+	enableSummary = true
+	# Set the value to true if use description in post front matter replace content summary
+	useDescriptionReplaceSummary = false
+
+
+	enableGoogleAnalytics = true
+	enableBaiduAnalytics = false
+	# Set the value to your baidu analysis code if you want to use baidu analytics
+	baiduAnalytics = 'your_baidu_analysis_code'
+
+	enableTwitterCard = true
+	# The url for twitter card image, default is avatar.png in static/images directory
+	twitterCardImage = ""
+
+	# Add custom assets with their paths relative to the static folder
+	customCSS = []
+	customJS  = []
+
+	# The variables below are optionally too and can be used to
+	# translate or customize each string of the theme.
+
+	# Navigation links
+	home = ""
+	about = ""
+	archive = ""
+	subscribe = ""
+
+	olderPosts = ""
+	newerPosts = ""
+	copyright = ""
+
+	# show latest posts in single page
+	showLatestPosts = false
+	readMore = ""
+
+	# Share
+	enableShare = false
+	tweet = ""
+	share = ""
+
+	# 404 page
+	title404 = ""
+	subtitle404 = ""
+
+	# Choose a font for the social icons in the footer. Either "mono-social" or "font-awesome"
+	iconFont = "font-awesome"
+  # The social icons can be styled differently if you use mono as font - circle, rounded, or empty
+  socialIconStyle = ""
+
+	skip_from_rss = ["es", "skip_index", "skip_rstats_feed"]
+
+
+
+# Add additional social link entries underneath
+[social]
+	# facebook-square = "https://www.facebook.com/nodejh"
+	twitter-square = "https://www.twitter.com/d4tagirl"
+	github-square = "https://www.github.com/d4tagirl"
+	linkedin-square = "https://www.linkedin.com/in/d4tagirl"
+
+[permalinks]
+    post = "/:year/:month/:title/"
+
+[outputs]
+home = [ "RSS", "HTML"]
+section  = ["HTML"]
+
+[outputFormats]
+[outputFormats.RSS]
+mediatype = "application/rss"
+baseName = "feed"

@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="¿De qué se habló en el Parlamento uruguayo desde 2017?"/>
+  <meta name="twitter:description" content="En el artículo pasado mostré cómo obtener los textos los Diarios de Sesiones de Diputados y Senadores del Parlamento uruguayo desde 2017 haciendo web scraping. Ahora analizo el sentimiento de las sesiones e intento averiguar de qué temas se habló en cada una, usando el paquete tidytext."/>
+  
+    <meta name="twitter:site" content="@114258616"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@Daniela Vázquez"/>
+  
+
+
+
+		
+		<meta name="author" content="Daniela Vázquez">
+		<meta name="description" content="A blog about a girl who found her way into data science :)">
+		<meta name="generator" content="Hugo 0.59.1" />
+		<title>¿De qué se habló en el Parlamento uruguayo desde 2017? &middot; d4tagirl</title>
+		<link rel="shortcut icon" href="/images/favicon.ico">
+		<link rel="stylesheet" href="/css/style.css">
+		<link rel="stylesheet" href="/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="/css/font-awesome.min.css">
+		
+
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='/'> Home</a>
+	
+	<a href='/about'>About</a>
+	<a href='/talks'>Talks</a>
+	<a href='/community'>Community</a>
+
+	
+
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        ¿De qué se habló en el Parlamento uruguayo desde 2017?
+                    </h1>
+                    <h2 class="headline">
+                        Apr 8, 2018  
+                    · 2291 words
+                    · 11 minute read 
+                    </h2>
+                </header>
+                
+                <br>
+                <br>
+                <section id="post-body">
+                    
+
+<p>En el artículo pasado <a href="/2018/04/scrapeando-las-sesiones-parlamentarias-de-uruguay/">mostré cómo se pueden obtener los textos de los Diarios de Sesiones</a>. Primero obtuve los archivos pdf haciendo <a href="https://es.wikipedia.org/wiki/Web_scraping"><em>web scraping</em></a> y después extraje los textos de esos archivos.</p>
+
+<p>Ahora que tengo los datos, en este artículo analizo el texto de las sesiones de Diputados y Senadores desde 2017 usando el paquete <a href="https://github.com/juliasilge/tidytext">tidytext</a>, centrándome en el sentimiento y en identificar los temas tratados.</p>
+
+<h1 id="levanto-los-datos">Levanto los datos</h1>
+
+<p>Levanto los datos que obtuve del scraping de <a href="https://github.com/d4tagirl/uruguayan_parliamentary_session_diary">mi repositorio de GitHub</a> y les saco los saltos de línea (los dejé porque para algún análisis podría servir tenerlos).</p>
+
+<pre><code class="language-r">library(dplyr)
+library(stringi)
+
+url_rds_diputados &lt;- 'https://github.com/d4tagirl/uruguayan_parliamentary_session_diary/raw/master/data/pdf_diputados'
+diputados &lt;- readRDS(url(url_rds_diputados)) 
+
+url_rds_senadores &lt;- 'https://github.com/d4tagirl/uruguayan_parliamentary_session_diary/raw/master/data/pdf_senadores'
+senadores &lt;- readRDS(url(url_rds_senadores)) 
+
+# saco los saltos de linea
+diputados &lt;- diputados %&gt;%
+  mutate(pdf = stri_replace_all(pdf, replacement = &quot;&quot;, regex = &quot;\\\n&quot;))
+
+senadores &lt;- senadores %&gt;%
+  mutate(pdf = stri_replace_all(pdf, replacement = &quot;&quot;, regex = &quot;\\\n&quot;))
+</code></pre>
+
+<h1 id="con-qué-frecuencia-se-reunieron">Con qué frecuencia se reunieron?</h1>
+
+<p>Como quiero averiguar la cantidad de sesiones por mes-año, porque tengo más de un mes de enero (el enero de 2017 y el de 2018), busqué y me quedé muy contenta de encontrar la función <code>zoo::as.yearmon()</code> que extrae exactamente esa información de una fecha!</p>
+
+<pre><code class="language-r">library(ggplot2)
+library(scales)
+library(zoo)
+library(lubridate)
+
+freq_diputados &lt;- ggplot(diputados, aes(as.factor(as.yearmon(fecha)), fill=as.factor(as.yearmon(fecha)))) + 
+  geom_bar(position='dodge', show.legend = FALSE) + 
+  ylab(&quot;Cantidad&quot;) + 
+  xlab(&quot;&quot;) + 
+  scale_x_discrete(limits = as.factor(as.yearmon(seq.Date(floor_date(min(diputados$fecha), &quot;month&quot;),
+                                                          floor_date(max(diputados$fecha), &quot;month&quot;), &quot;month&quot;)))) +
+  theme_minimal() +
+  theme(axis.text.x=element_blank()) +
+  ggtitle(&quot;Sesiones de Diputados&quot;)
+
+freq_senadores &lt;- ggplot(senadores, aes(as.factor(as.yearmon(fecha)), fill=as.factor(as.yearmon(fecha)))) + 
+  geom_bar(position='dodge', show.legend = FALSE) +
+  xlab(&quot;&quot;) + 
+  ylab(&quot;Cantidad&quot;) +
+  scale_x_discrete(limits = as.factor(as.yearmon(seq.Date(floor_date(min(senadores$fecha), &quot;month&quot;), floor_date(max(senadores$fecha), &quot;month&quot;), &quot;month&quot;)))) +
+  theme_minimal() +
+  theme(axis.text.x  = element_text(angle=45,
+                                    hjust = 1,
+                                    vjust = 1)) +
+  ggtitle(&quot;Sesiones de Senadores&quot;)
+
+library(gridExtra)
+grid.arrange(freq_diputados, freq_senadores)
+</code></pre>
+
+<p><img src="/post/de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/2018-04-08-de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/histograma-1.png" style="margin: auto;" /></p>
+
+<p>Según <a href="https://www.enperspectiva.net/home/regimen-laboral-de-los-parlamentarios-uruguayos/">esta nota de &ldquo;En Perspectiva&rdquo;</a> que encontré, <em>&ldquo;El régimen de sesiones ordinarias, [&hellip;] en ambas Cámaras se desarrollan los días martes y miércoles, entre el 1º y el 18 de cada mes. [&hellip;] luego del día 18 puede haber sesiones extraordinarias, donde se considera cualquier tema.&rdquo;</em> Según mis cálculos tiene que haber como mínimo entre 4 y 6 sesiones mensuales. Los diputados lo cumplieron todos los meses exceptuando enero de 2017, febrero de ambos años y marzo de 2018 (meses asociados al verano y las licencias). Los Senadores lo cumplieron todos los meses exceptuando febrero de 2017, setiembre de 2017 (quizás vacaciones de primavera?), enero de 2018 y marzo de 2018. Sospecho que aún no subieron todas las sesiones de marzo de 2018 y por eso aparecen tan pocas sesiones para ambas Cámaras.</p>
+
+<p>Tanto Diputados como Senadores tuvieron un máximo de sesiones mensuales de 8, con una frecuencia mayor entre marzo y diciembre. Diciembre, como ya sospechaba, es un mes ocupado en el Parlamento.</p>
+
+<h1 id="qué-tan-largas-fueron-las-sesiones">Qué tan largas fueron las sesiones?</h1>
+
+<p>Asumir que la cantidad de palabras en una sesión es una buena forma de aproximarme a la duración de la sesión, parece bastante razonable. Nunca estuve en una sesión, pero no me imagino a los parlamentarios reunidos y sin hablar 🗣️</p>
+
+<p>Primero transformo los datos para generar un dataframe con la cantidad de palabras en promedio por sesión en cada mes (lo muestro para diputados, es análogo para senadores).</p>
+
+<pre><code class="language-r">library(tidytext)
+
+# calculo las palabras por mes
+sesion_diputados_words_mes &lt;- diputados %&gt;%
+  unnest_tokens(word, pdf) %&gt;%
+  mutate(mes = as.yearmon(fecha)) %&gt;% 
+  count(mes, sort = TRUE) %&gt;%
+  ungroup()
+
+# calculo la cantidad de sesiones por mes
+cant_sesiones_diputados_mes &lt;- diputados %&gt;% 
+  group_by(mes = as.yearmon(fecha)) %&gt;% 
+  summarise(cant_sesiones = n()) %&gt;%
+  ungroup()
+
+# los junto
+sesion_diputados_words_mes &lt;- left_join(sesion_diputados_words_mes, cant_sesiones_diputados_mes) %&gt;% 
+  mutate(palabras_prom_sesion = n/cant_sesiones)
+</code></pre>
+
+<p>Y ahora los grafico:</p>
+
+<pre><code class="language-r">prom_palabras_sesiones_diputados &lt;- ggplot(sesion_diputados_words_mes, aes(x = as.factor(mes), fill=as.factor(mes))) + 
+  geom_col(aes(y = palabras_prom_sesion), show.legend = FALSE) + 
+  scale_y_continuous(limit=c(0,150000)) +
+  ylab(&quot;Cantidad de palabras promedio\nde las sesiones del mes&quot;) + 
+  xlab(&quot;&quot;) + 
+  scale_x_discrete(limits = as.factor(as.yearmon(seq.Date(floor_date(min(senadores$fecha), &quot;month&quot;),
+                                                          floor_date(max(senadores$fecha), &quot;month&quot;), &quot;month&quot;)))) +
+  theme_minimal() +
+  theme(axis.text.x=element_blank()) +
+  ggtitle(&quot;Cantidad de palabras promedio en sesiones de Diputados&quot;)
+
+prom_palabras_sesiones_senadores &lt;- ggplot(sesion_senadores_words_mes, aes(x = as.factor(mes), fill=as.factor(mes))) + 
+  geom_col(aes(y = palabras_prom_sesion), show.legend = FALSE) + 
+  scale_y_continuous(limit=c(0,150000)) + 
+  scale_x_discrete(limits = as.factor(as.yearmon(seq.Date(floor_date(min(senadores$fecha), &quot;month&quot;),
+                                                          floor_date(max(senadores$fecha), &quot;month&quot;), &quot;month&quot;)))) +
+  xlab(&quot;&quot;) + 
+  ylab(&quot;Cantidad de palabras promedio\nde las sesiones del mes&quot;) +
+  theme_minimal() +
+  theme(axis.text.x  = element_text(angle=45,
+                                    hjust = 1,
+                                    vjust = 1)) +
+  ggtitle(&quot;Cantidad de palabras promedio en sesiones de Senadores&quot;)
+
+grid.arrange(prom_palabras_sesiones_diputados, prom_palabras_sesiones_senadores)
+</code></pre>
+
+<p><img src="/post/de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/2018-04-08-de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/unnamed-chunk-1-1.png" style="margin: auto;" /></p>
+
+<p>Hubo una sola sesion de diputados en febrero de 2017, pero fue mucho más extensa que las demás. Después vamos a ver que tuvo que ver con la <a href="https://www.minterior.gub.uy/index.php/component/content/article/2-uncategorised/4410-bonomi-sobre-la-violencia-en-el-deporte">interpelación del Ministro del Interior Eduardo Bonomi por una situación de extrema violencia en el fútbol</a>.</p>
+
+<p>Además en las sesiones de senadores se habló menos (probablemente sean más cortas). Tiene sentido porque son 30 los senadores, mientras que los diputados son 99!</p>
+
+<h1 id="palabras-más-comúnes">Palabras más comúnes</h1>
+
+<p>Las palabras más comúnes de todas las sesiones de ambas Cámaras son las que aparecen a continuación (como siempre, muestro el código para Diputados, y para Senadores es análogo).</p>
+
+<p>Para contar palabras, es buena práctica sacar las palabras comúnes como &ldquo;y&rdquo;, &ldquo;el&rdquo;, &ldquo;es&rdquo;, comúnmente llamadas &ldquo;stopwords&rdquo;. No hay tantos diccionarios disponibles para español como para inglés, pero algunos hay! Acá voy a usar las stopwords incluidas en el paquete <code>rcorpora</code> para español.</p>
+
+<p>Las palabras más usadas en las Sesiones de Diputados:</p>
+
+<pre><code class="language-r">library(rcorpora)
+library(viridis)
+stopwords &lt;- corpora(&quot;words/stopwords/es&quot;)$stopWords
+
+stopwords &lt;- c(stopwords, as.character(seq(1:50)))
+
+# Diputados
+tidy_diputados &lt;- diputados %&gt;%
+  tidytext::unnest_tokens(word, pdf) %&gt;% 
+  filter(!word %in% stopwords) 
+
+most_used_dip &lt;- tidy_diputados %&gt;%
+  count(word, sort = TRUE) %&gt;%
+  ungroup()
+
+most_used_dip %&gt;%
+  top_n(30) %&gt;%
+  ungroup() %&gt;%
+  mutate(word = reorder(word, n)) %&gt;%
+  ggplot(aes(word, n, fill = word)) +
+  geom_col(show.legend = FALSE) +
+  coord_flip() +
+  theme_minimal() +
+  theme(axis.title.y =element_blank() , axis.title.x =element_blank()) + 
+  scale_fill_viridis(discrete = TRUE) +
+  ggtitle(&quot;Palabras más usadas en Sesiones de Diputados&quot;)
+</code></pre>
+
+<p><img src="/post/de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/2018-04-08-de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/most_common_words_diputados-1.png" style="margin: auto;" /></p>
+
+<p>Las más usadas en las Sesiones de Senadores:</p>
+
+<p><img src="/post/de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/2018-04-08-de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/most_common_words_senadores-1.png" style="margin: auto;" /></p>
+
+<p>No nos dice mucho esta información: son palabras que protocolarmente se utilizan en estos entornos, así como nombres de políticos. Para lo único que nos sirve es para confirmar que efectivamente tiene sentido que estos textos sean los de los Diarios de Sesiones, y no otra cosa 😂</p>
+
+<h1 id="análisis-de-sentimiento">Análisis de Sentimiento</h1>
+
+<p>Me costó un poquito más encontrar un diccionario en español que tuviera sentimiento, pero <a href="http://web.eecs.umich.edu/~mihalcea/downloads/SpanishSentimentLexicons.tar.gz">encontré este que es el que voy a usar</a>.</p>
+
+<p>Levanto el diccionario, que llamo <code>lexicon</code> (lo levanto de mi repositorio de GitHub para asegurarme de que siempre esté disponible).</p>
+
+<pre><code class="language-r">library(readr)
+
+url_lexicon &lt;- 'https://raw.githubusercontent.com/d4tagirl/uruguayan_parliamentary_session_diary/master/SpanishSentimentLexicons/fullStrengthLexicon.txt'
+
+lexicon &lt;- read_tsv(url(url_lexicon),
+                    col_names = FALSE) %&gt;% 
+  select(X1, X3) %&gt;% 
+  rename(palabra = X1, sentimiento = X3)
+</code></pre>
+
+<p>Este diccionario tiene 1347 palabras, 476 positivas y 871 negativas. Podemos decir que es un diccionario bastante negativo. Es importante para después analizar los resultados, saber si es balanceado o no un diccionario.</p>
+
+<pre><code class="language-r">tidy_diputados &lt;- diputados %&gt;%
+  tidytext::unnest_tokens(word, pdf) %&gt;% 
+  filter(!word %in% stopwords) 
+
+tidy_diputados %&gt;%  
+  inner_join(lexicon, by = c(&quot;word&quot; = &quot;palabra&quot;)) %&gt;%
+  count(word, sentimiento, sort = TRUE) %&gt;%
+  ungroup() %&gt;%
+  group_by(sentimiento) %&gt;%
+  top_n(20) %&gt;%
+  ungroup() %&gt;%
+  mutate(word = reorder(word, n)) %&gt;%
+  ggplot(aes(word, n, fill = sentimiento)) +
+  geom_col(show.legend = FALSE) +
+  scale_fill_viridis(discrete = TRUE) +
+  facet_wrap(~sentimiento, scales = &quot;free_y&quot;) +
+  labs(y = NULL, x = NULL) +
+  coord_flip() +
+  ggtitle(&quot;Palabras con sentimientos más extremos en\nsesiones de Diputados&quot;) + 
+  theme_minimal()
+</code></pre>
+
+<p><img src="/post/de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/2018-04-08-de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/unnamed-chunk-3-1.png" style="margin: auto;" /></p>
+
+<p>Hay algunas palabras que aparecen con una carga de sentimiento que, dado el contexto, no es apropiado que la tengan. Por ejemplo: &ldquo;consideracion&rdquo;, &ldquo;especial&rdquo; o &ldquo;atención&rdquo;. Y otras con las que no estoy de acuerdo, como que la palabra &ldquo;negro&rdquo; esté clasificada como negativa. Así que las agrego como stopwords así no las considero.</p>
+
+<pre><code class="language-r">stopwords_personalizadas &lt;- c(stopwords, &quot;negro&quot;, &quot;discusion&quot;, &quot;atento&quot;, &quot;consideracion&quot;,
+                              &quot;especial&quot;, &quot;dicha&quot;, &quot;facultades&quot;, &quot;atencion&quot;, &quot;asunto&quot;)
+
+tidy_diputados &lt;- diputados %&gt;%
+  tidytext::unnest_tokens(word, pdf) %&gt;% 
+  filter(!word %in% stopwords_personalizadas) 
+
+tidy_diputados %&gt;%  
+  inner_join(lexicon, by = c(&quot;word&quot; = &quot;palabra&quot;)) %&gt;%
+  count(word, sentimiento, sort = TRUE) %&gt;%
+  ungroup() %&gt;%
+  group_by(sentimiento) %&gt;%
+  top_n(20) %&gt;%
+  ungroup() %&gt;%
+  mutate(word = reorder(word, n)) %&gt;%
+  ggplot(aes(word, n, fill = sentimiento)) +
+  geom_col(show.legend = FALSE) +
+  scale_fill_viridis(discrete = TRUE) +
+  facet_wrap(~sentimiento, scales = &quot;free_y&quot;) +
+  labs(y = NULL, x = NULL) +
+  coord_flip() +
+  theme_minimal()
+</code></pre>
+
+<p><img src="/post/de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/2018-04-08-de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/unnamed-chunk-4-1.png" style="margin: auto;" /></p>
+
+<p>Acá están las 20 palabras más usadas por Diputados, separadas por sentimiento en negativas y positivas. Ahora tiene más sentido, sobre todo para los que vivimos en Uruguay. Que la primera palabra sea renuncia, cuando <a href="https://www.elmundo.es/internacional/2017/09/09/59b42150ca47411b3a8b4600.html">en setiempre de 2017 renunció el Vice Presidente de la República</a>, tiene mucho sentido! No estoy del todo conforme con las palabras positivas, porque transporte no me queda claro que sea positivo, pero lo voy a dejar así.</p>
+
+<p>A continuación las palabras más usadas por Senadores, separadas por sentimiento.</p>
+
+<p><img src="/post/de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/2018-04-08-de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/unnamed-chunk-5-1.png" style="margin: auto;" /></p>
+
+<h2 id="sentimiento-en-los-distintos-meses">Sentimiento en los distintos meses</h2>
+
+<p>Separo por mes y veo el sentimiento en los distintos meses. Este análisis lo hago para ver cómo fue era el clima en los distintos momentos del año, y después lo voy a mirar por sesiones.</p>
+
+<p>Para Diputados:</p>
+
+<pre><code class="language-r">library(tidyr)
+
+tidy_diputados  %&gt;%
+  inner_join(lexicon, by = c(&quot;word&quot; = &quot;palabra&quot;)) %&gt;%
+  group_by(mes = as.yearmon(fecha)) %&gt;% 
+  count(sentimiento) %&gt;%
+  ungroup %&gt;% 
+  spread(sentimiento, n, fill = 0) %&gt;%
+  mutate(sentimiento = pos - neg) %&gt;% 
+  arrange(mes) %&gt;% 
+  ggplot(aes(as.factor(mes), sentimiento)) +
+  geom_col(aes(fill = sentimiento &gt; 0), show.legend = FALSE) +
+  theme_minimal() +
+  theme(axis.title.x=element_blank(), axis.text.x  = element_text(angle=45,
+                                                                  hjust = 1,
+                                                                  vjust = 1)) +
+  scale_fill_viridis(discrete = TRUE)
+</code></pre>
+
+<p><img src="/post/de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/2018-04-08-de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/unnamed-chunk-6-1.png" style="margin: auto;" /></p>
+
+<p>Parece haber una mejora del clima en setiembre, que coincide con la renuncia del Vice Presidente Raúl Sendic 😱</p>
+
+<p>Para senadores:</p>
+
+<p><img src="/post/de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/2018-04-08-de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/unnamed-chunk-7-1.png" style="margin: auto;" /></p>
+
+<p>Para las sesiones de Senadores no se observa un comportamiento similar al de las de Diputados 🤷🏽
+♂️</p>
+
+<h1 id="sentimiento-en-las-distintas-sesiones">Sentimiento en las distintas sesiones</h1>
+
+<p>Me voy a enfocar en las sesiones con sentimientos más extremos. Para eso agrupo por <code>fecha_sesion</code>, que es una variable que tiene la fecha de la sesión junto con el número de la sesión. Es el identificador único de cada sesión.</p>
+
+<p>Para Diputados:
+Las sesiones con sentimientos más positivos son las que aparecen a continuación.</p>
+
+<pre><code class="language-r">library(kableExtra)
+knitr::kable(
+  sesiones_positivas_diputados &lt;- tidy_diputados  %&gt;%
+    inner_join(lexicon, by = c(&quot;word&quot; = &quot;palabra&quot;)) %&gt;%
+    group_by(fecha_sesion) %&gt;% 
+    count(sentimiento) %&gt;%
+    ungroup %&gt;% 
+    spread(sentimiento, n, fill = 0) %&gt;%
+    mutate(sentimiento = pos - neg) %&gt;% 
+    arrange(desc(sentimiento)) %&gt;% 
+    top_n(2, sentimiento), 
+  format = &quot;html&quot;) %&gt;%
+  kable_styling(full_width = F)
+</code></pre>
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> fecha_sesion </th>
+   <th style="text-align:right;"> neg </th>
+   <th style="text-align:right;"> pos </th>
+   <th style="text-align:right;"> sentimiento </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 2018-03-06_2 </td>
+   <td style="text-align:right;"> 158 </td>
+   <td style="text-align:right;"> 379 </td>
+   <td style="text-align:right;"> 221 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2017-12-20_1 </td>
+   <td style="text-align:right;"> 336 </td>
+   <td style="text-align:right;"> 506 </td>
+   <td style="text-align:right;"> 170 </td>
+  </tr>
+</tbody>
+</table>
+
+<p>Y las que tienen sentimiento más negativo las siguientes.</p>
+
+<pre><code class="language-r">knitr::kable(
+  sesiones_negativas_diputados &lt;- tidy_diputados  %&gt;%
+    inner_join(lexicon, by = c(&quot;word&quot; = &quot;palabra&quot;)) %&gt;%
+    group_by(fecha_sesion) %&gt;% 
+    count(sentimiento) %&gt;%
+    ungroup %&gt;% 
+    spread(sentimiento, n, fill = 0) %&gt;%
+    mutate(sentimiento = pos - neg) %&gt;% 
+    arrange(sentimiento) %&gt;% 
+    top_n(-2, sentimiento),
+  format = &quot;html&quot;) %&gt;%
+  kable_styling(full_width = F)
+</code></pre>
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> fecha_sesion </th>
+   <th style="text-align:right;"> neg </th>
+   <th style="text-align:right;"> pos </th>
+   <th style="text-align:right;"> sentimiento </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 2017-05-10_14 </td>
+   <td style="text-align:right;"> 792 </td>
+   <td style="text-align:right;"> 360 </td>
+   <td style="text-align:right;"> -432 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2017-02-15_3 </td>
+   <td style="text-align:right;"> 788 </td>
+   <td style="text-align:right;"> 484 </td>
+   <td style="text-align:right;"> -304 </td>
+  </tr>
+</tbody>
+</table>
+
+<p>Para Senadores:
+Las sesiones con sentimientos más positivos son las que aparecen a continuación.</p>
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> fecha_sesion </th>
+   <th style="text-align:right;"> neg </th>
+   <th style="text-align:right;"> pos </th>
+   <th style="text-align:right;"> sentimiento </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 2017-05-16_15 </td>
+   <td style="text-align:right;"> 52 </td>
+   <td style="text-align:right;"> 158 </td>
+   <td style="text-align:right;"> 106 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2017-11-28_44 </td>
+   <td style="text-align:right;"> 243 </td>
+   <td style="text-align:right;"> 321 </td>
+   <td style="text-align:right;"> 78 </td>
+  </tr>
+</tbody>
+</table>
+
+<p>Y las que tienen sentimiento más negativo las siguientes.</p>
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> fecha_sesion </th>
+   <th style="text-align:right;"> neg </th>
+   <th style="text-align:right;"> pos </th>
+   <th style="text-align:right;"> sentimiento </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 2017-09-18_32 </td>
+   <td style="text-align:right;"> 598 </td>
+   <td style="text-align:right;"> 364 </td>
+   <td style="text-align:right;"> -234 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2017-06-07_18 </td>
+   <td style="text-align:right;"> 458 </td>
+   <td style="text-align:right;"> 242 </td>
+   <td style="text-align:right;"> -216 </td>
+  </tr>
+</tbody>
+</table>
+
+<h1 id="de-qué-se-habló-en-las-sesiones-más-negativas">De qué se habló en las sesiones más negativas?</h1>
+
+<p>Una de las formas de averiguar ésto es calculando el <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf">tf-idf</a>. La explicación a continuación es una traducción casi literal de la explicación en inglés del libro <a href="https://www.tidytextmining.com/tfidf.html">&ldquo;Text mining with R: a tidy approach&rdquo;</a>, de <a href="https://twitter.com/juliasilge">Julia Silge</a> y <a href="https://twitter.com/drob">David Robinson</a>, libro que recomiendo.</p>
+
+<p>Una medida de qué tan importante es una palabra en una sesión parlamentaria es el <em>term frequency (tf)</em> (frecuencia del término), que mide <strong>qué tan frecuentemente aparece una palabra en la sesión</strong>. Sin embargo, hay palabras que se pueden repetir mucho pero no ser importantes, como las <em>stopwords</em> que mencionábamos anteriormente, las palabras &ldquo;protocolares&rdquo; que en cada sesión se repiten y los nombres de los legisladores. Podríamos eliminarlas como hicimos antes, pero podría ser que alguna de ellas fuera más importante en algunas sesiones que en otras, por ejemplo, si un legislador tiene mayor protagonismo en una sesión por alguna razón.</p>
+
+<p>Otro enfoque entonces es mirar el <em>inverse document frequency (idf)</em> de cada palabra (el inverso de la frecuencia del documento), que <strong>reduce el peso a las palabras comúnmente usadas en el total de las sesiones</strong> y aumenta el de las que no son muy usadas. Combinando esta medida con el <em>term frquency</em>, calculamos el <em>tf-idf</em> de una palabra (multiplicando ambas medidas): la frecuencia del término, ajustada por qué tan raramente es usada. Con el estadístico <em>tf-idf</em> intento medir qué tan importante es una palabra para una sesión, en el conjunto de sesiones que estoy analizando.</p>
+
+<p>Calculo el tf-idf de las palabras para cada <code>fecha_sesion</code>, usando la función <code>tidytext::bind_tf_idf()</code>.</p>
+
+<p>Para Diputados:</p>
+
+<pre><code class="language-r">sesion_diputados_words &lt;- diputados %&gt;%
+  unnest_tokens(word, pdf) %&gt;%
+  count(fecha, sesion, fecha_sesion, word, sort = TRUE) %&gt;%
+  ungroup()
+
+diputados_words &lt;- sesion_diputados_words %&gt;% 
+  group_by(fecha_sesion) %&gt;% 
+  summarize(total = sum(n))
+
+sesion_diputados_tfidf &lt;- left_join(sesion_diputados_words, diputados_words) %&gt;%
+  bind_tf_idf(word, fecha_sesion, n) 
+</code></pre>
+
+<p>Acá tengo todos los tf-idf calculados para todas las sesiones. Filtrando sólo las sesiones más negativas, esto es lo que encuentro.</p>
+
+<pre><code class="language-r">sesion_diputados_tfidf_neg &lt;- sesion_diputados_tfidf %&gt;% 
+  filter(fecha_sesion %in% sesiones_negativas_diputados$fecha_sesion)
+
+sesion_diputados_tfidf_neg %&gt;%
+  arrange(desc(tf_idf)) %&gt;%
+  mutate(word = factor(word, levels = rev(unique(word)))) %&gt;% 
+  group_by(fecha_sesion) %&gt;% 
+  top_n(15, tf_idf) %&gt;% 
+  ungroup %&gt;%
+  ggplot(aes(word, tf_idf, fill = fecha_sesion)) +
+  geom_col(show.legend = FALSE) +
+  labs(x = NULL, y = &quot;tf-idf&quot;) +
+  scale_fill_viridis(discrete = TRUE, option=&quot;C&quot;) +
+  facet_wrap(~fecha_sesion, ncol = 2,  scales = &quot;free&quot;) +
+  ggtitle(&quot;tf-idf sesiones de Diputados más negativas&quot;) +
+  coord_flip() +
+  theme_minimal() 
+</code></pre>
+
+<p><img src="/post/de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/2018-04-08-de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/unnamed-chunk-13-1.png" style="margin: auto;" /></p>
+
+<p>Las dos sesiones más negativas de Diputados fueron dos interpelaciones: la interpelación al Ministro del Interior Eduardo Bonomi que comentaba antes, y <a href="https://parlamento.gub.uy/noticiasyeventos/noticias/node/87146">la interpelación al canciller Nin Novoa por la posición a adoptar ante la crisis venezolana</a>.</p>
+
+<p>Para Senadores:</p>
+
+<p><img src="/post/de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/2018-04-08-de-qué-se-habló-en-el-parlamento-uruguayo-desde-2017/unnamed-chunk-14-1.png" style="margin: auto;" /></p>
+
+<p>Las sesiones más negativas de los Senadores son:</p>
+
+<ul>
+<li><p>7 de junio de 2017: se votó la <a href="https://parlamento.gub.uy/noticiasyeventos/noticias/node/87300">derogación de un artículo del Código Penal referido al Abuso de Funciones en casos no previstos especialmente por la ley</a>.</p></li>
+
+<li><p>18 de setiembre de 2017: se discutió el proyecto de ley para aprobar la Rendición de Cuentas y Balance de
+Ejecución Presupuestal correspondiente al ejercicio 2016.</p></li>
+</ul>
+
+<p>Podés <a href="/2017/05/tf-idf-de-todas-las-sesiones-parlamentarias-analizadas/">ver acá el top 15 de las palabras con mayor tf-idf</a> de todas las sesiones de ambas Cámaras.</p>
+
+<h1 id="fin">Fin!</h1>
+
+<p>Hay muchas más cosas que se pueden analizar, éstas fueron las que más me interesaron y por eso las comparto. <a href="https://github.com/d4tagirl/uruguayan_parliamentary_session_diary">El análisis completo está en GitHub</a>.</p>
+
+<p>Si querés analizar las sesiones fuera de R, o preferís ahorrarte el paso de hacer scraping, <a href="https://github.com/d4tagirl/uruguayan_parliamentary_session_diary/blob/master/data/diputados.csv">acá tenés las sesiones de Diputados en formato csv</a>, y <a href="https://github.com/d4tagirl/uruguayan_parliamentary_session_diary/blob/master/data/senadores.csv">acá las sesiones de Senadores en formato csv</a> para hacer tus análisis! (Gracias <a href="https://twitter.com/rolaguna">Rodrigo</a> por la sugerencia!)</p>
+
+<p>Bienvenidas todas las sugerencias y comentarios!</p>
+
+                </section>
+            </article>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'd4tagirl'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://www.github.com/d4tagirl">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.linkedin.com/in/d4tagirl">
+        <i class="fa fa-linkedin-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.twitter.com/d4tagirl">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> Daniela Vázquez
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', '90827501', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+
+
+    </body>
+</html>

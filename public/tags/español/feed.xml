@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>español on d4tagirl</title>
+    <link>/tags/espa%C3%B1ol/</link>
+    <description>Recent content in español on d4tagirl</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 21 Jun 2017 15:19:29 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/espa%C3%B1ol/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Al estilo R-Ladies!</title>
+      <link>/2017/06/al-estilo-r-ladies/</link>
+      <pubDate>Wed, 21 Jun 2017 15:19:29 +0000</pubDate>
+      
+      <guid>/2017/06/al-estilo-r-ladies/</guid>
+      <description>Mi experiencia con la comunidad de R-Ladies, un grupo genial de mujeres que construyeron un entorno verdaderamente inclusivo, para que mujeres en la comunidad de R de todo el mundo alcancen su verdadero potencial.</description>
+    </item>
+    
+  </channel>
+</rss>

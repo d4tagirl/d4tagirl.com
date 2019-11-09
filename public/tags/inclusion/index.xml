@@ -1,0 +1,241 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>inclusion on d4tagirl</title>
+    <link>/tags/inclusion/</link>
+    <description>Recent content in inclusion on d4tagirl</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 16 Aug 2018 14:30:00 +0000</lastBuildDate>
+    
+        <atom:link href="/tags/inclusion/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Rstudio::conf diversity scholarships for the win!</title>
+      <link>/2018/08/rstudio-conf-diversity-scholarships-for-the-win/</link>
+      <pubDate>Thu, 16 Aug 2018 14:30:00 +0000</pubDate>
+      
+      <guid>/2018/08/rstudio-conf-diversity-scholarships-for-the-win/</guid>
+      <description>
+
+&lt;p&gt;&lt;a href=&#34;https://blog.rstudio.com/2018/08/10/rstudio-conf-2019-diversity-scholarships/&#34;&gt;Applications for the rstudio::conf(2019) are now open&lt;/a&gt;! Last year I was lucky enough to be the receipient of an international diversity scholarships to attend
+rstudio::conf(2018). It was hard to believe at first, but it was true!&lt;/p&gt;
+
+&lt;p&gt;I live in Uruguay, South America, so it&amp;rsquo;s extra expensive for me to attend R conferences that are mainly hosted far away from here. There is now a clear community effort in building a stronger latin american R community, take a look at &lt;a href=&#34;https://latin-r.com/&#34;&gt;LatinR 2018 in Argentina&lt;/a&gt; and &lt;a href=&#34;https://www.conectar2019.org/&#34;&gt;ConectaR 2019 in Costa Rica&lt;/a&gt;! But this was hardly the case in previous years.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;/post/rstudio-conf-diversity-scholarships-for-the-win/2018-08-16-rstudio-conf-diversity-scholarships-for-the-win/mapContinentUru.jpeg&#34; style=&#34;float: center; width: 50%; margin-left: 25%; margin-right: 25%;&#34;&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;the-application&#34;&gt;The application&lt;/h1&gt;
+
+&lt;p&gt;By the time to apply for the scholarship, I was going through an &lt;em&gt;&amp;ldquo;I won&amp;rsquo;t lose anything if I try&amp;rdquo;&lt;/em&gt; phase that led me to apply to all of the R conferences that I could, even when I wasn&amp;rsquo;t having any positive responses. It was pretty obvious to me that they could use the money to finance 3 or 4 people from around, instead of only me having greater impact! And I was at peace with that. But I wanted to know what it felt like to &lt;em&gt;live&lt;/em&gt; the R community in person, a community I was being a part of for more than a year by then. So I tried one more time.&lt;/p&gt;
+
+&lt;p&gt;I know it is hard to express all your excitement and how you expect to impact your community with what you&amp;rsquo;ll learn in a couple of sentences&amp;hellip; Just in case you are looking for inspiration, you can check my application out!&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Please briefly describe why you are good candidate for the diversity scholarship&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;I’m an economist who transitioned into Data Science a few years ago, in a country where most companies don’t yet know what Data Science is. I’m an R-Ladies Buenos Aires co-organizer and a NASA Datanaut (I love communities!), and as there wasn’t any Data Science community in Uruguay, I started R-Ladies Montevideo (our first meetup will be next week!) ☺ I also have a blog where I try to combine posts in English and Spanish, to reach more people (there are not as many resources in Spanish as I would like) and share what I think will help others.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;What you want to get out of rstudio::conf?&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;In addition of learning a lot of cool stuff, I am looking forward to meeting all these amazing people in the R community. I am in touch with a lot of them through Twitter and Slack on a daily basis, especially R-Ladies, and it would be awesome to finally get to know many of them. I want to gather the experience of other communities so I can be a better host and make the most of R-Ladies Montevideo and Buenos Aires’ communities.&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;If you are still not sure, you can &lt;a href=&#34;https://docs.google.com/forms/d/e/1FAIpQLSck8FBjNWjziI8pPIoCBlf5J4oQ_6pzeUdbQ1HjYfJ2bNDwDw/viewform&#34;&gt;request an application review to the &lt;em&gt;R-Ladies Abstract/Scholarship Review Program&lt;/em&gt;&lt;/a&gt;, lead by the amazing &lt;a href=&#34;https://twitter.com/jent103&#34;&gt;Jennifer Thompson&lt;/a&gt; for all the R-Ladies out there!&lt;/p&gt;
+
+&lt;p&gt;&lt;blockquote class=&#34;twitter-tweet tw-align-center&#34; data-lang=&#34;en&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;rstudio::conf diversity scholarship applications for 2019 are open! &lt;a href=&#34;https://t.co/TUG3bKSdND&#34;&gt;https://t.co/TUG3bKSdND&lt;/a&gt;&lt;a href=&#34;https://twitter.com/hashtag/RLadies?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#RLadies&lt;/a&gt;, if you&amp;#39;re interested in getting feedback on your application before you submit, make sure and fill out our request form: &lt;a href=&#34;https://t.co/YHZw7XRowl&#34;&gt;https://t.co/YHZw7XRowl&lt;/a&gt; &lt;a href=&#34;https://t.co/WFmELK4LYS&#34;&gt;pic.twitter.com/WFmELK4LYS&lt;/a&gt;&lt;/p&gt;&amp;mdash; R-Ladies Global (@RLadiesGlobal) &lt;a href=&#34;https://twitter.com/RLadiesGlobal/status/1029801709260787712?ref_src=twsrc%5Etfw&#34;&gt;15 de agosto de 2018&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;Or you can always chat about your concerns in our &lt;em&gt;All the R-Ladies&lt;/em&gt; Slack! You can &lt;a href=&#34;https://rladies-community-slack.herokuapp.com/&#34;&gt;request access using this link&lt;/a&gt; and connect with R-Ladies from all over the world!&lt;/p&gt;
+
+&lt;p&gt;&lt;blockquote class=&#34;twitter-tweet tw-align-center&#34; data-lang=&#34;en&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;📢 Join our new ✨ R-Ladies community Slack! ✨&lt;br&gt;&lt;br&gt;It&amp;#39;s aiming for a safe &amp;amp; global space to discuss topics and share ideas around &lt;a href=&#34;https://twitter.com/hashtag/rstats?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#rstats&lt;/a&gt; &amp;amp; the &lt;a href=&#34;https://twitter.com/hashtag/rladies?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#rladies&lt;/a&gt; community! 💜&lt;br&gt;&lt;br&gt;We invite all non-cis male R users to sign-up via &lt;a href=&#34;https://t.co/TOXALUGLuf&#34;&gt;https://t.co/TOXALUGLuf&lt;/a&gt; 🚀 &lt;a href=&#34;https://t.co/ZMNuqkN0HW&#34;&gt;pic.twitter.com/ZMNuqkN0HW&lt;/a&gt;&lt;/p&gt;&amp;mdash; R-Ladies Global (@RLadiesGlobal) &lt;a href=&#34;https://twitter.com/RLadiesGlobal/status/1022031250759053314?ref_src=twsrc%5Etfw&#34;&gt;July 25, 2018&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;about-the-scholarship&#34;&gt;About the scholarship&lt;/h1&gt;
+
+&lt;p&gt;The scholarship covered the admission to both the conference and a training session (workshop) of my choice, as well as $3,000 towards our other related expenses like flight and hotel. Since breakfast, lunch and breaks were provided daily, it basically covered all my expenses. I found a good deal on my flight and the rest was enough for me to book a room at the conference hotel (that came with a regular visitor as you can see in the pic), so I didn&amp;rsquo;t have to pay for anything!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;/post/rstudio-conf-diversity-scholarships-for-the-win/2018-08-16-rstudio-conf-diversity-scholarships-for-the-win/room_with_a_view.JPG&#34; style=&#34;float: center; width: 40%; margin-left: 30%; margin-right: 30%;&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;RStudio offered to put us in touch with other like-minded scholarship recipient so we could share a room. That&amp;rsquo;s a great opportunity to meet new people!&lt;/p&gt;
+
+&lt;p&gt;Anne Carome was my point of contact and she was great! Very supportive and taking care of every detail!&lt;/p&gt;
+
+&lt;h1 id=&#34;about-the-conference&#34;&gt;About the conference&lt;/h1&gt;
+
+&lt;p&gt;RStudio::conf(2018) took place in San Diego, California, January 31-Feb 3.&lt;/p&gt;
+
+&lt;p&gt;The conference for me started two days earlier, with the 2 days workshop (to choose from a total of 11 ones aimed to both beginners and experts) to go deeper into a topic. It is a great opportunity to learn some techniques from really amazing Teachers and TAs (some times you even learn how to use a package from its creators or contributors, which is pretty awesome!).&lt;/p&gt;
+
+&lt;p&gt;Keynote speakers were &lt;a href=&#34;https://twitter.com/visnut&#34;&gt;&lt;em&gt;Dianne Cook&lt;/em&gt;&lt;/a&gt;, with &lt;em&gt;“To the Tidyverse and Beyond: Challenges for the Future in Data Science”&lt;/em&gt; and &lt;a href=&#34;https://twitter.com/fly_upside_down&#34;&gt;&lt;em&gt;JJ Allaire&lt;/em&gt;&lt;/a&gt; with &lt;em&gt;“Machine Learning with R and TensorFlow”&lt;/em&gt;. There were 2 fireside chats: a &lt;em&gt;&amp;ldquo;Tidyverse discussion&amp;rdquo;&lt;/em&gt; with &lt;a href=&#34;https://twitter.com/JennyBryan/&#34;&gt;&lt;em&gt;Jenny Bryan&lt;/em&gt;&lt;/a&gt;, &lt;a href=&#34;https://twitter.com/minebocek&#34;&gt;&lt;em&gt;Mine Çetinkaya-Rundel&lt;/em&gt;&lt;/a&gt;, &lt;a href=&#34;https://twitter.com/topepos&#34;&gt;&lt;em&gt;Max Kuhn&lt;/em&gt;&lt;/a&gt; and &lt;a href=&#34;https://twitter.com/hadleywickham&#34;&gt;&lt;em&gt;Hadley Wickham&lt;/em&gt;&lt;/a&gt;, were &lt;a href=&#34;https://twitter.com/dataandme&#34;&gt;&lt;em&gt;Mara Averick&lt;/em&gt;&lt;/a&gt; was the moderator. And a &lt;em&gt;&amp;ldquo;R in industry discussion&amp;rdquo;&lt;/em&gt; with &lt;a href=&#34;https://twitter.com/earino&#34;&gt;&lt;em&gt;Eduardo Ariño de la Rubia&lt;/em&gt;&lt;/a&gt;, &lt;a href=&#34;https://twitter.com/tanyacash21&#34;&gt;&lt;em&gt;Tanya Cashorali&lt;/em&gt;&lt;/a&gt;, &lt;a href=&#34;https://twitter.com/ericcolson&#34;&gt;&lt;em&gt;Eric Colson&lt;/em&gt;&lt;/a&gt;, &lt;a href=&#34;https://twitter.com/eamcvey?lang=es&#34;&gt;&lt;em&gt;Elaine McVey&lt;/em&gt;&lt;/a&gt;, &lt;a href=&#34;https://twitter.com/drob&#34;&gt;&lt;em&gt;David Robinson&lt;/em&gt;&lt;/a&gt;, where &lt;a href=&#34;https://twitter.com/tareefk&#34;&gt;&lt;em&gt;Tareef Kawaf&lt;/em&gt;&lt;/a&gt; was the moderator. There were also over 60 great 15 minutes talks, divided into 3 simultaneous tracks. You can &lt;a href=&#34;https://beta.rstudioconnect.com/content/3105/&#34;&gt;check the full conference schedule here&lt;/a&gt; and &lt;a href=&#34;https://resources.rstudio.com/rstudio-conf-2018&#34;&gt;all the videos here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;/post/rstudio-conf-diversity-scholarships-for-the-win/2018-08-16-rstudio-conf-diversity-scholarships-for-the-win/welcome.JPG&#34; style=&#34;float: center; width: 50%; margin-left: 25%; margin-right: 25%;&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;We could enjoy an &lt;em&gt;R-Ladies&amp;rsquo; Birds of a Feather&lt;/em&gt; session, where we had the opportunity to meet and greet with all the R-Ladies, and spread the love 💜 It was the perfect ocassion to take a pic!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;/post/rstudio-conf-diversity-scholarships-for-the-win/2018-08-16-rstudio-conf-diversity-scholarships-for-the-win/rladies.JPG&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;There were 2 parties involved (more on that next!). The first one was at the hotel pool, where there was some balloons and a book signing involved.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;/post/rstudio-conf-diversity-scholarships-for-the-win/2018-08-16-rstudio-conf-diversity-scholarships-for-the-win/pool.JPG&#34; style=&#34;width: 50%; margin-left: 25%; margin-right: 25%;&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;/post/rstudio-conf-diversity-scholarships-for-the-win/2018-08-16-rstudio-conf-diversity-scholarships-for-the-win/booksigning.JPG&#34; style=&#34;width: 50%; margin-left: 25%; margin-right: 25%;&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;The other was a rooftop party at the Hard Rock Hotel 🤘&lt;/p&gt;
+
+&lt;h1 id=&#34;about-the-r-community&#34;&gt;About the R community&lt;/h1&gt;
+
+&lt;p&gt;Undoubtedly one of the things I enjoyed the most about the conference was meeting people. I&amp;rsquo;m somewhat active in the R community on Twitter and on the R-Ladies Slack, but I&amp;rsquo;ve never had the opportunity to meet the community in person (with a few exceptions). I can endorse now what is widely spread about the R community being extremely friendly and welcoming to new folks. I felt at home immediately and &lt;em&gt;Twitter friends&lt;/em&gt; were coming to say hi as soon as they saw me :)&lt;/p&gt;
+
+&lt;p&gt;My first contact with the community was with &lt;a href=&#34;https://twitter.com/gdequeiroz?lang=es&#34;&gt;Gaby&lt;/a&gt;, the founder of R-Ladies. I have had met her before, and everytime we meet is like we could spend hours talking :)&lt;/p&gt;
+
+&lt;div align=&#34;center&#34;&gt;&lt;img src=&#34;/post/rstudio-conf-diversity-scholarships-for-the-win/2018-08-16-rstudio-conf-diversity-scholarships-for-the-win/gaby.JPG&#34; style=&#34;width: 60%; margin-left: 20%; margin-right: 20%;&#34; /&gt;&lt;/div&gt;
+
+&lt;p&gt;Then &lt;a href=&#34;https://twitter.com/pageinini&#34;&gt;Page Piccinini&lt;/a&gt; kindly organized an R-Ladies San Diego Meetup, where Hadley Wickham and Jenny Bryan gave talks and we had some time to meet and chat with many R-Ladies and allies.&lt;/p&gt;
+
+&lt;p&gt;&lt;blockquote class=&#34;twitter-tweet tw-align-center&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;Thanks so much to everyone who came out tonight! &lt;a href=&#34;https://twitter.com/hashtag/RLadies?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#RLadies&lt;/a&gt; &lt;a href=&#34;https://twitter.com/classy?ref_src=twsrc%5Etfw&#34;&gt;@classy&lt;/a&gt; &lt;a href=&#34;https://t.co/3Nje42i8vf&#34;&gt;pic.twitter.com/3Nje42i8vf&lt;/a&gt;&lt;/p&gt;&amp;mdash; R-Ladies San Diego (@RLadiesSanDiego) &lt;a href=&#34;https://twitter.com/RLadiesSanDiego/status/958562941346889728?ref_src=twsrc%5Etfw&#34;&gt;January 31, 2018&lt;/a&gt;&lt;/blockquote&gt; &lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;There was plenty of time to chat and get involved with the community throughout the conference, during breakfast, lunch and breaks, but also between sessions and at the many social events like the bof sessions and parties. RStudio made sure of that, as well as the very friendly and welcoming R community.&lt;/p&gt;
+
+&lt;p&gt;Here are some pics from the event; you can find &lt;a href=&#34;https://photos.google.com/share/AF1QipNjtVVjtcMtz3MWQkgsRO8NqlOlvGZ7kNkdUHJ1qWe_AiLn8F-PlKk5Qmq1PWaG1A?key=d1NoeDVBUnJMU2tZVzFOaV9odjVJbFF4UmQ5cW9n&#34;&gt;some beautiful ones here&lt;/a&gt; that &lt;a href=&#34;https://twitter.com/cmastication&#34;&gt;JD Long&lt;/a&gt; took and shared.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;/post/rstudio-conf-diversity-scholarships-for-the-win/2018-08-16-rstudio-conf-diversity-scholarships-for-the-win/bye.JPG&#34; style=&#34;float: left; width: 35%; margin-left: 10%; margin-right: 10%; margin-bottom: 0.5em;&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;/post/rstudio-conf-diversity-scholarships-for-the-win/2018-08-16-rstudio-conf-diversity-scholarships-for-the-win/rladies_pool.JPG&#34; style=&#34;float: left; width: 35% ; margin-right: 10%; margin-bottom: 0.5em;&#34;&gt;&lt;/p&gt;
+
+&lt;div style=&#34;clear: both;&#34;&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;/post/rstudio-conf-diversity-scholarships-for-the-win/2018-08-16-rstudio-conf-diversity-scholarships-for-the-win/rladies_pool2.JPG&#34; style=&#34;float: left; width: 35%; margin-left: 10%; margin-right: 10%; margin-bottom: 0.5em;&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;/post/rstudio-conf-diversity-scholarships-for-the-win/2018-08-16-rstudio-conf-diversity-scholarships-for-the-win/jd.JPG&#34; style=&#34;float: left; width: 35% ; margin-right: 10%; margin-bottom: 0.5em;&#34;&gt;&lt;/p&gt;
+
+&lt;div style=&#34;clear: both;&#34;&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;/post/rstudio-conf-diversity-scholarships-for-the-win/2018-08-16-rstudio-conf-diversity-scholarships-for-the-win/hardrock1.JPG&#34; style=&#34;float: left; width: 35%; margin-left: 10%; margin-right: 10%; margin-bottom: 0.5em;&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;/post/rstudio-conf-diversity-scholarships-for-the-win/2018-08-16-rstudio-conf-diversity-scholarships-for-the-win/hardrock2.JPG&#34; style=&#34;float: left; width: 35% ; margin-right: 10%; margin-bottom: 0.5em;&#34;&gt;&lt;/p&gt;
+
+&lt;div style=&#34;clear: both;&#34;&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;We ended up having a short roadtrip with &lt;a href=&#34;https://twitter.com/cantoflor_87&#34;&gt;Flor&lt;/a&gt;, another international scholarship recipient from Buenos Aires, Argentina, that was the beggining of a beautiful frienship :)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;/post/rstudio-conf-diversity-scholarships-for-the-win/2018-08-16-rstudio-conf-diversity-scholarships-for-the-win/flor.JPG&#34; style=&#34;float: left; width: 35%; margin-left: 10%; margin-right: 10%; margin-bottom: 0.5em;&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;/post/rstudio-conf-diversity-scholarships-for-the-win/2018-08-16-rstudio-conf-diversity-scholarships-for-the-win/roadtrip.JPG&#34; style=&#34;float: left; width: 35%; margin-right: 10%; margin-bottom: 0.5em;&#34;&gt;&lt;/p&gt;
+
+&lt;div style=&#34;clear: both;&#34;&gt;&lt;/div&gt;
+
+&lt;h1 id=&#34;the-end&#34;&gt;The end&lt;/h1&gt;
+
+&lt;p&gt;It was time to go home, but after that I felt a completely different connection with the community. And we now have this tweet :)&lt;/p&gt;
+
+&lt;p&gt;&lt;blockquote class=&#34;twitter-tweet tw-align-center&#34; data-lang=&#34;en&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;&lt;a href=&#34;https://twitter.com/rstudio?ref_src=twsrc%5Etfw&#34;&gt;@rstudio&lt;/a&gt;::conf(&lt;a href=&#34;https://twitter.com/hashtag/rladies?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#rladies&lt;/a&gt;) %&amp;gt;%&lt;br&gt;  &lt;a href=&#34;https://twitter.com/d4tagirl?ref_src=twsrc%5Etfw&#34;&gt;@d4tagirl&lt;/a&gt;::📸 %&amp;gt;%&lt;br&gt;  🎩✨::image_annotate(&amp;quot;R-Ladies at rstudio::conf&amp;quot;,&lt;br&gt;                         size = 500, gravity = &amp;quot;north&amp;quot;, &lt;br&gt;                         color = 💜,&lt;br&gt;                         boxcolor = &amp;quot;white&amp;quot;) %&amp;gt;%&lt;br&gt;  🎩✨::image_border( 💜,&amp;quot;200x200&amp;quot;) &lt;a href=&#34;https://t.co/IFDNXrVoc8&#34;&gt;pic.twitter.com/IFDNXrVoc8&lt;/a&gt;&lt;/p&gt;&amp;mdash; R-Ladies Global (@RLadiesGlobal) &lt;a href=&#34;https://twitter.com/RLadiesGlobal/status/959707423111024641?ref_src=twsrc%5Etfw&#34;&gt;February 3, 2018&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Needless to say: I encourage anyone interested in R to attend this conference. I&amp;rsquo;m sure I&amp;rsquo;ll go again as soon as I can!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Al estilo R-Ladies!</title>
+      <link>/2017/06/al-estilo-r-ladies/</link>
+      <pubDate>Wed, 21 Jun 2017 15:19:29 +0000</pubDate>
+      
+      <guid>/2017/06/al-estilo-r-ladies/</guid>
+      <description>&lt;p&gt;Hace ya unos meses escribí un &lt;a href=&#34;/2017/01/the-r-ladies-way/&#34;&gt;artículo en inglés de mi experiencia cuando me acerqué a la comunidad de R-Ladies&lt;/a&gt;. Mi motivación en ese momento era difundir la comunidad y que más gente se acerque, así que acá está mi artículo en español con el objetivo de que el idioma no sea una barrera. Como se me acabó el repertorio de idiomas en los que puedo escribir (y transmitir lo que efectivamente quiero!), dejo la puerta abierta a que surjan voluntari@s para traducirlo a otras lenguas 🤷🏻
+♀️&lt;/p&gt;
+
+&lt;p&gt;4 meses atrás renuncié a mi trabajo en una de las decisiones más valientes (y difíciles) de mi carrera. No es que nunca me haya visualizado como una persona que tiene un trabajo para toda la vida (para nada!), pero siempre he sido muy cautelosa con mis decisiones, pensando varios movimientos adelante. Hace alrededor de un año estaba en un cargo en Equifax que me gustaba y tenía mucha estabilidad. Como Analytics Consultant dedicaba la mayoría de mi tiempo a desarrollar modelos a medida de Credit Scoring, y la sensación de que necesitaba un cambio empezó a aparecer: no me sentía suficientemente desafiada y no estaba encontrando ninguna forma de motivarme. Tenía que hacer un cambio. Empecé a buscar trabajo, pero &lt;a href=&#34;https://es.wikipedia.org/wiki/Uruguay&#34;&gt;Uruguay (donde vivo)&lt;/a&gt; es un país muy chico donde las posiciones de Data Science no son tan comunes, así que las pocas cosas que fueron surgiendo no llevaron a ningún lado. Entonces decidí que iba a renunciar de todas formas y ver si podía volver a estar contenta y seguir mi viaje para convertirme en Data Scientist. Y lo hice.&lt;/p&gt;
+
+&lt;p&gt;Lo gracioso (y aterrador) era que no tenía idea de lo que iba a hacer después. Intentá explicarle a tus padres que estás tratando de &lt;em&gt;encontrarte&lt;/em&gt; a los 33 años de edad&amp;hellip; no es tan fácil! El único plan que tenía era enfocarme en capacitarme y en aprender a convivir y llevarme bien con la incertidumbre (no es que tuviera otra alternativa para esto último!).&lt;/p&gt;
+
+&lt;p&gt;Me tomé un par de semanas para estar más tranquila y después empecé a mirar qué estaba pasando en la comunidad de R. He usado R desde la Universidad, pero nunca había interactuado con la comunidad. Mi estrategia fue empezar a seguir gente interesante en Twitter (ni siquiera me acuerdo cómo supe a quién seguir), leer &lt;a href=&#34;https://www.r-bloggers.com/&#34;&gt;R-Bloggers&lt;/a&gt;, y &lt;em&gt;hacer cosas&lt;/em&gt; que parecían de alguna forma útiles o que me hicieran sentir realizada:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ayudé a &lt;a href=&#34;https://github.com/BetaAndBit/ComicBooks/blob/master/es_la/HeavyDog_es_la.pdf&#34;&gt;traducir a español&lt;/a&gt; &lt;a href=&#34;https://github.com/BetaAndBit/ComicBooks/blob/master/en/HeavyDog_en.pdf&#34;&gt;un comic de introducción a R para estudiantes de secundaria&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;descubrí y apliqué al &lt;a href=&#34;https://open.nasa.gov/explore/datanauts/&#34;&gt;programa NASA Datanauts 2017&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;tomé clases de Machine Learning en la Maestría que estoy cursando&lt;/li&gt;
+&lt;li&gt;aprendí a resolver un cubo de Rubik (bueno, la verdad es que lo Googleé! Y siempre quise aprender a hacerlo así que no me juzgues&amp;hellip;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Si trabajaba duro y seguía mi intuición algo iba a salir. Incluso si no, iba a estar probando cosas nuevas y divirtiéndome. Esto sí que era un desafío!&lt;/p&gt;
+
+&lt;p&gt;De alguna forma empezaron a aparecer tweets de R-Ladies en mi timeline, y empecé a prestarles atención. Muchas de esas personas que me inspiraban y seguía en Twitter estaban vinculadas a esta organización, así que definitivamente era &lt;em&gt;algo&lt;/em&gt;. Exactamente esa fue la razón por la que sentí que no iba a tener un lugar ahí: probablemente ya tuvieran todo resuelto (lo cual era cierto) y no creí que tuviera nada para contribuir (&lt;em&gt;este fue mi primer error&lt;/em&gt;). Buscando un capítulo en Uruguay para empezar a ir a sus reuniones (capítulo es como se llama a cada grupo local), no encontré ninguno (como decía, es un país pequeño). Mi segundo intento fue Argentina, un país 12 veces más grande y a 3 horas de barco desde mi ciudad, pero no encontré ningún capítulo tampoco. Así que no hice nada (&lt;em&gt;segundo error&lt;/em&gt;). Siempre fui un poco tímida cuando no conozco a nadie, así que no me sentí cómoda como para escribir igual y empezar a participar de la comunidad. Ni siquiera creo que se me haya cruzado por la cabeza.&lt;/p&gt;
+
+&lt;p&gt;Los primeros días de enero anunciaron el capítulo de Buenos Aires de R-Ladies (Argentina, buenísimo!), una forma genial de empezar mi año de no tener ni idea qué hacer! Y esta vez me anoté a &lt;a href=&#34;https://www.meetup.com/rladies-buenos-aires/&#34;&gt;su grupo en Meetup&lt;/a&gt; para participar de los encuentros. Les conté a las organizadoras mi situación y en dos días me convertí en co-organizadora de ese capítulo, con dos mujeres divinas que no conocía (&lt;em&gt;acá fue que empecé a ver que ésta era una forma mucho mejor de hacer las cosas&lt;/em&gt; 😅 ). Enseguida me sentí incluida e inmediatamente empecé a encontrar cosas en las que podía contribuir, sin importar qué tan chiquitas parecían.&lt;/p&gt;
+
+&lt;p&gt;Tratando de ver cómo podía ayudar con el capítulo de Buenos Aires me di cuenta de que no sabía cómo funcionaban algunas cosas. Y esta vez sentí algo diferente: &lt;em&gt;no tuve miedo de preguntar&lt;/em&gt;. Fue la primera vez que no tuve miedo de decir algo equivocado o preguntar algo obvio y ser ridiculizada. Ni siquiera sé si esto fue un efecto puramente de género, pero este grupo de mujeres tuvo tanta buena onda conmigo que nunca me sentí desubicada. Más bien todo lo contrario!&lt;/p&gt;
+
+&lt;p&gt;Ya estaba pensando en tener mi blog, y la sensación de que empezaba a ser &lt;em&gt;una de ellas&lt;/em&gt; me dio el impulso extra que necesitaba. Como el inglés no es mi lengua nativa, tenía esa preocupación adicional. Antes de anunciar &lt;a href=&#34;/2017/01/rpart-who-voted-for-trump/&#34;&gt;mi primer artículo del blog&lt;/a&gt; tuve las sugerencias de varias R-Ladies. Gente que nunca hubiera esperado que me contactara me estaba dando su opinión, personas que eran como celebridades para mi! En el momento en que lo publiqué me sentí mucho más segura y relajada como para disfrutarlo 😃&lt;/p&gt;
+
+&lt;p&gt;Las cosas empezaron a funcionar para mi: Me aceptaron para unirme a la &lt;a href=&#34;https://open.nasa.gov/blog/welcome-datanauts-2017-spring-class/&#34;&gt;clase de Primavera de NASA Datanauts 2017&lt;/a&gt; (despúes supe que fue el tweet de una R-Lady por el que me enteré que existía el programa) e incluso respondí algunas preguntas de Stack Overflow! Ésta era la clase de estímulo que precisaba para recuperar la confianza! Ahora estoy en busca de un trabajo genial! 😉&lt;/p&gt;
+
+&lt;p&gt;Lo que estoy tratando de decir con todo esto es: sea que haya un capítulo en tu ciudad o no, sin importar tu grado de timidez, hay un grupo genial de mujeres listas para proporcionarte la contención que necesitás para alcanzar tu potencial. Algunas de ellas probablemente estén en una situación similar a la tuya, así que también es un lugar para compartir experiencias y no sentirte sola.&lt;/p&gt;
+
+&lt;p&gt;Todavía no te decidís? Podés:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://twitter.com/intent/tweet?user_id=114258616&#34;&gt;Mencionarme en Twitter&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Escribir a info@rladies.org (o sentite libre de escribirme dani@rladies.org)&lt;/li&gt;
+&lt;li&gt;Seguirnos en Twitter: &lt;a href=&#34;https://twitter.com/intent/user?screen_name=RLadiesGlobal&#34;&gt;@RLadiesGlobal&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Si solamente estás curios@ podés visitar: &lt;a href=&#34;https://rladies.org/&#34;&gt;rladies.org&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The R-Ladies way!</title>
+      <link>/2017/01/the-r-ladies-way/</link>
+      <pubDate>Fri, 27 Jan 2017 12:11:29 +0000</pubDate>
+      
+      <guid>/2017/01/the-r-ladies-way/</guid>
+      <description>&lt;p&gt;4 months ago I handed my notice in one of the boldest moves in my entire career. Not that I visualized myself as a get-a-job-for-the-rest-of-your-life kind of girl (at all), but I&amp;rsquo;ve always been very cautious, thinking a couple of moves ahead. About a year ago I was in a very nice and stable position at Equifax as an Analytics Consultant, mostly building bespoke Credit Score Models, and the feeling that I needed to make a change started growing on me: I was not challenged enough and I wasn&amp;rsquo;t finding any way to motivate myself. I had to move on. I started my quest for a job, but &lt;a href=&#34;https://en.wikipedia.org/wiki/Uruguay&#34;&gt;Uruguay (where I live)&lt;/a&gt; is a really small country where Data Science positions are not that common, so the few thing that came out didn&amp;rsquo;t lead anywhere. I decided I had to quit anyway to see if I could find my joy again and continue my journey to become a Data Scientist. And I did it.&lt;/p&gt;
+
+&lt;p&gt;The funny (and terrifying) thing was that I had no idea what to do next. Try to explain to your parents that you are trying to &lt;em&gt;find yourself&lt;/em&gt; at the age of 33&amp;hellip; not that easy! The only plan I had was to focus on sharpening my skills and embracing uncertainty (not that I had any alternative for the latter!).&lt;/p&gt;
+
+&lt;p&gt;I took a couple of weeks to cool off and then I started looking around to see what was going on in the R community. I&amp;rsquo;ve been using R since my University years, but I never got involved in the community. My strategy was to start following some interesting people on Twitter (I don&amp;rsquo;t even remember how I knew who to follow) and &lt;a href=&#34;https://www.r-bloggers.com/&#34;&gt;R-Bloggers&lt;/a&gt;, and &lt;em&gt;doing things&lt;/em&gt; that seemed somehow useful of fulfilling:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;helping &lt;a href=&#34;https://github.com/BetaAndBit/ComicBooks/blob/master/es_la/HeavyDog_es_la.pdf&#34;&gt;translate to Spanish&lt;/a&gt; &lt;a href=&#34;https://github.com/BetaAndBit/ComicBooks/blob/master/en/HeavyDog_en.pdf&#34;&gt;a comic introducing R for high school students&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;discovering and applying for the &lt;a href=&#34;https://open.nasa.gov/explore/datanauts/&#34;&gt;NASA Datanauts 2017 program&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;taking a Machine Learning class at the MS University program&lt;/li&gt;
+&lt;li&gt;learning how to solve a Rubik&amp;rsquo;s cube (wait, I just Googled it! and I have always wanted to learn how to do that, so don&amp;rsquo;t judge&amp;hellip;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If I worked hard and followed my gut something would come up, and even if it didn&amp;rsquo;t I would be trying things and having a great time.&lt;/p&gt;
+
+&lt;p&gt;Somehow I came across some R-Ladies&amp;rsquo; tweets, and started taking an interest on them. It turned out a lot of these inspiring people I was following on Twitter were related to this organization, so it was definitely &lt;em&gt;a big deal&lt;/em&gt;. That is exactly why I felt like I wouldn&amp;rsquo;t have a place there: they would probably had everything worked out by then (which they had) and I didn&amp;rsquo;t think I could have anything to contribute (&lt;em&gt;this was my first mistake&lt;/em&gt;). Looking for a Uruguayan chapter to attend their meetups, I couldn&amp;rsquo;t find any (told you, very little country). My second best shot was Argentina, a country 12 times bigger than mine and only a 3 hours ferry ride from home, but I couldn&amp;rsquo;t find any chapters there either. So I stayed put (&lt;em&gt;second bad judgement call&lt;/em&gt;). I&amp;rsquo;ve always been shy when it came to speaking my mind if I didn&amp;rsquo;t know anyone, so I didn&amp;rsquo;t have the courage to speak up and engage in that community.&lt;/p&gt;
+
+&lt;p&gt;On the first days of January they announced the R-Ladies Buenos Aires chapter (Argentina, yay!), a great way to start my I-have-no-idea-what-to-expect year! And this time I joined &lt;a href=&#34;https://www.meetup.com/rladies-buenos-aires/&#34;&gt;their Meetup account&lt;/a&gt; as one of the participants. I told them about my situation and in two days I was already co-organizing the Buenos Aires chapter with these two amazing ladies I had never met (&lt;em&gt;now I was starting to get things right!&lt;/em&gt;). I was already feeling included and I immediately found things I could contribute with, no matter how little those things seemed.&lt;/p&gt;
+
+&lt;p&gt;Trying to figure out how I could help the Buenos Aires chapter, I realized I didn&amp;rsquo;t know how things worked. And something new happened to me: &lt;em&gt;I was not afraid to ask&lt;/em&gt;. It was the first time I was not afraid to say something wrong, to ask something obvious or simply to be ridiculed. I don&amp;rsquo;t really know if this was a gender related effect, but these ladies were all so welcoming that I never felt out of place. More like the opposite!&lt;/p&gt;
+
+&lt;p&gt;I was already thinking about starting a blog, and the feeling that I was &lt;em&gt;one of them&lt;/em&gt; certainly gave me the extra push I needed. As I&amp;rsquo;m not a native English speaker I had this additional preocupation. Before I announced &lt;a href=&#34;/2017/01/rpart-who-voted-for-trump/&#34;&gt;my first blog post&lt;/a&gt; I had several R-Ladies&amp;rsquo; suggestions. People I had never expected to contact me were giving me feedback, and they were like celebrities to me! By the time it was public I felt a lot more secure and relaxed to enjoy it :)&lt;/p&gt;
+
+&lt;p&gt;Things started to work out for me: I got accepted to join the &lt;a href=&#34;https://open.nasa.gov/blog/welcome-datanauts-2017-spring-class/&#34;&gt;NASA Datanauts 2017 Spring Class&lt;/a&gt; (turned out it was an R-Lady&amp;rsquo;s tweet I saw that encouraged me to apply) and I even answered a few Stack Overflow questions! This was the exact kind of confidence boost I needed! I&amp;rsquo;m looking forward to getting an amazing job!&lt;/p&gt;
+
+&lt;p&gt;What I&amp;rsquo;m trying to say here is: whether there is a chapter in your city or not, no matter how shy you are, there is an amazing group of ladies ready to give you the support you need to reach your true potential. And some of them are probably in a situation similar to yours, so it is also a place for sharing experiences and not feeling lonely.&lt;/p&gt;
+
+&lt;p&gt;Are you still on the fence? You can:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://twitter.com/intent/tweet?user_id=114258616&#34;&gt;Mention me on Twitter&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;E-mail info@rladies.org (or feel free to email me directly at daniela.vazquez@gmail.com)&lt;/li&gt;
+&lt;li&gt;Follow us on Twitter: &lt;a href=&#34;https://twitter.com/intent/user?screen_name=RLadiesGlobal&#34;&gt;@RLadiesGlobal&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Or if you are just curious you can visit: &lt;a href=&#34;https://rladies.org/&#34;&gt;rladies.org&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

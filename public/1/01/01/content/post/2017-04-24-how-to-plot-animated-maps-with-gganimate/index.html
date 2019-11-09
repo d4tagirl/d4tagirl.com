@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="/your_site_url_addressimages/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="How to plot animated maps with gganimate"/>
+  <meta name="twitter:description" content="Here I show how to plot an animated map using the gganimate package, and produce a .gif file to share it!"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@site_author"/>
+  
+
+
+
+		
+		<meta name="author" content="site_author">
+		<meta name="description" content="Site Description">
+		<meta name="generator" content="Hugo 0.59.1" />
+		<title>How to plot animated maps with gganimate &middot; d4tagirl</title>
+		<link rel="shortcut icon" href="/your_site_url_addressimages/favicon.ico">
+		<link rel="stylesheet" href="/your_site_url_addresscss/style.css">
+		<link rel="stylesheet" href="/your_site_url_addresscss/highlight.css">
+
+		
+		<link rel="stylesheet" href="/your_site_url_addresscss/font-awesome.min.css">
+		
+
+		
+		<link href="/your_site_url_address/index.xml" rel="alternate" type="application/rss+xml" title="d4tagirl" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='/your_site_url_address'> <span class="arrow">←</span>Home</a>
+	
+	<a href='/your_site_url_addressposts'>Archive</a>
+	<a href='/your_site_url_addresstags'>Tags</a>
+	<a href='/your_site_url_addressabout'>About</a>
+
+	
+
+	
+	<a class="cta" href="/your_site_url_address/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        How to plot animated maps with gganimate
+                    </h1>
+                    <h2 class="headline">
+                    Jan 1, 0001 00:00
+                    · 1687 words
+                    · 8 minute read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="/your_site_url_addresstags/rstats">rstats</a>
+                          
+                              <a href="/your_site_url_addresstags/r">r</a>
+                          
+                              <a href="/your_site_url_addresstags/gganimate">gganimate</a>
+                          
+                              <a href="/your_site_url_addresstags/maps">maps</a>
+                          
+                              <a href="/your_site_url_addresstags/gif">gif</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#the-data">The data</a></li>
+<li><a href="#plotting-the-map-using-ggplot2">Plotting the map using ggplot2</a></li>
+<li><a href="#animating-the-map-using-gganimate">Animating the map using gganimate</a></li>
+<li><a href="#customizing-the-animation">Customizing the animation</a>
+<ul>
+<li><a href="#adding-additional-frames">Adding additional frames</a></li>
+<li><a href="#removing-some-frames-from-the-beginning">Removing some frames from the beginning</a></li>
+</ul></li>
+<li><a href="#creating-the-gif">Creating the .gif</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    <p>Here I show how to plot an animated map using the <code>gganimate</code> package, and produce a .gif file to share it!</p>
+
+<hr />
+
+<p>This map was built using <a href="https://github.com/thomasp85/gganimate/releases/tag/v0.1.1"><code>gganimate</code> v0.1.1</a>. It breaks with the latest version.</p>
+
+<hr />
+
+<p>This is the third one of the 3-posts-series, where I go from fetching Twitter users and preparing the data to visualizing it (If I wanted to show everything I&rsquo;ve done in a single post, it would be almost as long as my first one! And believe me: nobody wants that 😝 ):</p>
+
+<ol>
+<li><a href="{% post_url 2017-04-20-how-to-fetch-twitter-users-with-r %}">How to fetch Twitter users with R</a>: the title is kind of self explanatory&hellip;</li>
+<li><a href="{% post_url 2017-04-26-how-to-deal-with-ggplotly-huge-maps %}">How to deal with ggplotly huge maps</a>: where I go through the details of why I chose not to use <code>ggplotly</code> and use <code>plot_geo</code> instead to generate the HTML.</li>
+<li>How to plot animated maps with gganimate: this one. Again, pretty obvious subject.</li>
+</ol>
+
+<p>Finally <a href="{% post_url 2017-05-10-visualizing-r-ladies-growth %}">I present my favourite visualization here</a>.
+<br /></p>
+
+<h2 id="the-data">The data</h2>
+
+<p>Let&rsquo;s take a look at the R-Ladies&rsquo; chapters&rsquo; Twitter accounts dataframe, <code>rladies</code>, I produced in the first post of this series:</p>
+
+<pre><code class="language-r">library(readr)
+library(dplyr)
+
+url_csv &lt;- 'https://raw.githubusercontent.com/d4tagirl/R-Ladies-growth-maps/master/rladies.csv'
+rladies &lt;- read_csv(url(url_csv)) %&gt;% 
+  select(-1)
+
+library(DT)
+
+datatable(rladies, rownames = FALSE,
+          options = list(pageLength = 5))
+</code></pre>
+
+<p><!--html_preserve--><div id="htmlwidget-ff5b3f732e9876b1063a" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ff5b3f732e9876b1063a">{&ldquo;x&rdquo;:{&ldquo;filter&rdquo;:&ldquo;none&rdquo;,&ldquo;data&rdquo;:[[&ldquo;RLadiesSF&rdquo;,&ldquo;RLadiesNYC&rdquo;,&ldquo;RLadiesIstanbul&rdquo;,&ldquo;RLadiesBCN&rdquo;,&ldquo;RLadiesColumbus&rdquo;,&ldquo;RLadiesBoston&rdquo;,&ldquo;RLadiesLA&rdquo;,&ldquo;RLadiesLondon&rdquo;,&ldquo;RLadiesAU&rdquo;,&ldquo;RLadiesParis&rdquo;,&ldquo;RLadiesLx&rdquo;,&ldquo;RLadiesBerlin&rdquo;,&ldquo;RLadiesRTP&rdquo;,&ldquo;RLadiesCT&rdquo;,&ldquo;RLadiesValencia&rdquo;,&ldquo;RLadiesNash&rdquo;,&ldquo;RLadiesAustin&rdquo;,&ldquo;RLadiesAmes&rdquo;,&ldquo;RLadiesDC&rdquo;,&ldquo;RLadiesBA&rdquo;,&ldquo;RLadiesLdnOnt&rdquo;,&ldquo;RLadiesManchest&rdquo;,&ldquo;RLadiesDublin&rdquo;,&ldquo;RLadiesLima&rdquo;,&ldquo;RLadiesTbilisi&rdquo;,&ldquo;RLadiesAdelaide&rdquo;,&ldquo;RLadiesMunich&rdquo;,&ldquo;RLadiesSR&rdquo;,&ldquo;RLadiesMAD&rdquo;,&ldquo;RLadiesTC&rdquo;,&ldquo;RLadiesBudapest&rdquo;,&ldquo;RLadiesIzmir&rdquo;,&ldquo;RLadiesCapeTown&rdquo;,&ldquo;RLadiesRio&rdquo;,&ldquo;RLadiesMTL&rdquo;,&ldquo;RLadiesSeattle&rdquo;,&ldquo;RLadiesTaipei&rdquo;,&ldquo;RLadiesWarsaw&rdquo;],[&ldquo;San Francisco&rdquo;,&ldquo;New York&rdquo;,&ldquo;İstanbul, Türkiye&rdquo;,&ldquo;Barcelona, Spain&rdquo;,&ldquo;Columbus, OH&rdquo;,&ldquo;Boston, MA&rdquo;,&ldquo;Los Angeles, CA&rdquo;,&ldquo;London, England&rdquo;,&ldquo;Melbourne, Victoria&rdquo;,&ldquo;Paris, France&rdquo;,&ldquo;Lisbon&rdquo;,&ldquo;Berlin, Deutschland&rdquo;,&ldquo;Durham, NC&rdquo;,&ldquo;Connecticut, USA&rdquo;,&ldquo;Valencia, España&rdquo;,&ldquo;Nashville, TN&rdquo;,&ldquo;Austin, TX&rdquo;,&ldquo;Ames, IA&rdquo;,&ldquo;Washington, DC&rdquo;,&ldquo;Buenos Aires, Argentina&rdquo;,&ldquo;London, Ontario&rdquo;,&ldquo;Manchester, England&rdquo;,&ldquo;Dublin City, Ireland&rdquo;,&ldquo;Lima, Peru&rdquo;,&ldquo;Tbilisi&rdquo;,&ldquo;Adelaide, South Australia&rdquo;,&ldquo;Munich, Bavaria&rdquo;,&ldquo;Santa Rosa, Argentina&rdquo;,&ldquo;Madrid, Spain&rdquo;,&ldquo;Twin Cities&rdquo;,&ldquo;Budapest, Magyarország&rdquo;,&ldquo;Izmir, Turkey&rdquo;,&ldquo;Cape Town, South Africa&rdquo;,&ldquo;Rio de Janeiro, Brazil&rdquo;,&ldquo;Montreal&rdquo;,&ldquo;Seattle&rdquo;,&ldquo;Taipei&rdquo;,&ldquo;Warsaw&rdquo;],[&ldquo;2012-10-15&rdquo;,&ldquo;2016-09-01&rdquo;,&ldquo;2016-09-06&rdquo;,&ldquo;2016-10-11&rdquo;,&ldquo;2016-10-04&rdquo;,&ldquo;2016-09-06&rdquo;,&ldquo;2016-08-29&rdquo;,&ldquo;2016-04-20&rdquo;,&ldquo;2016-09-02&rdquo;,&ldquo;2016-09-19&rdquo;,&ldquo;2016-10-26&rdquo;,&ldquo;2016-10-03&rdquo;,&ldquo;2016-06-28&rdquo;,&ldquo;2016-11-24&rdquo;,&ldquo;2016-11-13&rdquo;,&ldquo;2016-09-28&rdquo;,&ldquo;2016-12-15&rdquo;,&ldquo;2016-11-30&rdquo;,&ldquo;2016-12-08&rdquo;,&ldquo;2017-01-05&rdquo;,&ldquo;2017-01-19&rdquo;,&ldquo;2016-10-08&rdquo;,&ldquo;2017-01-21&rdquo;,&ldquo;2016-10-08&rdquo;,&ldquo;2016-11-29&rdquo;,&ldquo;2017-02-20&rdquo;,&ldquo;2017-03-21&rdquo;,&ldquo;2017-04-06&rdquo;,&ldquo;2016-09-03&rdquo;,&ldquo;2015-04-04&rdquo;,&ldquo;2017-01-23&rdquo;,&ldquo;2016-10-19&rdquo;,&ldquo;2017-03-06&rdquo;,&ldquo;2017-01-15&rdquo;,&ldquo;2017-04-13&rdquo;,&ldquo;2017-05-06&rdquo;,&ldquo;2014-11-15&rdquo;,&ldquo;2016-11-15&rdquo;],[916,309,436,377,179,259,320,1154,415,253,199,202,220,141,151,182,113,130,128,217,92,137,84,54,100,58,58,33,473,86,73,88,54,32,1,0,347,80],[1672.91666666667,255.875,250.875,215.875,222.875,250.875,258.875,389.875,254.875,237.875,200.875,223.875,320.875,171.875,182.875,228.875,150.875,165.875,157.875,129.875,115.875,218.875,113.875,218.875,166.875,83.875,54.875,38.875,253.875,771.875,111.875,207.875,69.875,119.875,31.875,8.875,911.916666666667,180.875],[-122.4194155,-74.0059413,28.9783589,2.1734035,-82.9987942,-71.0588801,-118.2436849,-0.1277583,144.9630576,2.3522219,-9.1393366,13.404954,-78.898619,-73.087749,-0.3762881,-86.7816016,-97.7430608,-93.6319131,-77.0368707,-58.3815591,-81.2452768,-2.2426305,-6.2603097,-77.042754,44.827096,138.6007456,11.5819806,-64.2912369,-3.7037902,-93.2009998,19.040235,27.142826,18.4240553,-43.1728965,-73.567256,-122.3320708,121.5654177,21.0122287],[37.7749295,40.7127837,41.0082376,41.3850639,39.9611755,42.3600825,34.0522342,51.5073509,-37.8136276,48.856614,38.7222524,52.5200066,35.9940329,41.6032207,39.4699075,36.1626638,30.267153,42.0307812,38.9071923,-34.6036844,42.9849233,53.4807593,53.3498053,-12.0463731,41.7151377,-34.9284989,48.1351253,-36.620922,40.4167754,44.9374831,47.497912,38.423734,-33.9248685,-22.9068467,45.5016889,47.6062095,25.0329694,52.2296756]],&ldquo;container&rdquo;:&rdquo;<table class=\"display\">\n  <thead>\n    <tr>\n      <th>screen_name&lt;\/th&gt;\n      <th>location&lt;\/th&gt;\n      <th>created_at&lt;\/th&gt;\n      <th>followers&lt;\/th&gt;\n      <th>age_days&lt;\/th&gt;\n      <th>lon&lt;\/th&gt;\n      <th>lat&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;&ldquo;,&ldquo;options&rdquo;:{&ldquo;pageLength&rdquo;:5,&ldquo;columnDefs&rdquo;:[{&ldquo;className&rdquo;:&ldquo;dt-right&rdquo;,&ldquo;targets&rdquo;:[3,4,5,6]}],&ldquo;order&rdquo;:[],&ldquo;autoWidth&rdquo;:false,&ldquo;orderClasses&rdquo;:false,&ldquo;lengthMenu&rdquo;:[5,10,25,50,100]},&ldquo;selection&rdquo;:{&ldquo;mode&rdquo;:&ldquo;multiple&rdquo;,&ldquo;selected&rdquo;:null,&ldquo;target&rdquo;:&ldquo;row&rdquo;}},&ldquo;evals&rdquo;:[],&ldquo;jsHooks&rdquo;:[]}</script><!--/html_preserve--></p>
+
+<p><br /></p>
+
+<h2 id="plotting-the-map-using-ggplot2">Plotting the map using ggplot2</h2>
+
+<p>The goal is to produce a map where each chapter is plotted according to its location, with the point&rsquo;s size indicating the amount of Twitter followers.</p>
+
+<p>I use the <code>maps</code> package to get the world map, using the <code>ggplot2::ggplot</code> and <code>ggthemes::theme_map</code> functions for plotting it nicely. Then I plot the chapters choosing the purple color, obviously!</p>
+
+<pre><code class="language-r">library(ggplot2)
+library(maps)
+library(ggthemes)
+
+world &lt;- ggplot() +
+  borders(&quot;world&quot;, colour = &quot;gray85&quot;, fill = &quot;gray80&quot;) +
+  theme_map() 
+
+map &lt;- world +
+  geom_point(aes(x = lon, y = lat, size = followers),
+             data = rladies, 
+             colour = 'purple', alpha = .5) +
+  scale_size_continuous(range = c(1, 8), 
+                        breaks = c(250, 500, 750, 1000)) +
+  labs(size = 'Followers')
+</code></pre>
+
+<p><img src="/figure/source/how-to-plot-animated-maps-with-gganimate/2017-04-24-how-to-plot-animated-maps-with-gganimate/static_chapters_map-1.png" style="display: block; margin: auto;" /></p>
+
+<p>The <code>range</code> parameter is what controls the scale of the points&rsquo; size.</p>
+
+<p><br /></p>
+
+<h2 id="animating-the-map-using-gganimate">Animating the map using gganimate</h2>
+
+<p>Now let&rsquo;s animate the map! The core thing here is that I want every chapter appearing following the creation timeline, to somehow tell a story with the map. Lets start by animating <code>map</code>: the <code>ggplot</code> object I just created. I have to make a few changes for <code>gganimate</code> to work:</p>
+
+<ul>
+<li><p><code>gganimate</code> requires a <code>frame</code> aesthetic: I&rsquo;ll use the <code>created_at</code> variable. You set this as a new aesthetic in <code>ggplot</code> which is ignored by it (as shown in the warning messages), but <code>gganimate</code> recognizes and uses it;</p></li>
+
+<li><p>I also add the <code>cumulative = TRUE</code>, an additional aesthetic  (same comment about <code>ggplot</code> ignoring it), so once the chapter appears on the map, it keeps showing in all the following frames.</p></li>
+</ul>
+
+<p>Following <a href="https://www.linkedin.com/in/bruno-chiesa-gispert-b1a6b942/">my good friend Bruno</a>&rsquo;s suggestion, I add an empty frame at the beginning so that the first frame you see is just the empty map. I generate a dataframe with the same structure than the original one, with some random data, except for the <code>created_at</code> field that should be filled with a date prior to the first chapter creation for it to appear at the beginning.</p>
+
+<p>And I add some empty frames at the end as well, to be able to see the final composition of chapters for a bit longer.</p>
+
+<pre><code class="language-r">library(tibble)
+library(lubridate)
+
+ghost_points_ini &lt;- tibble(
+  created_at = as.Date('2011-09-01'),
+  followers = 0, lon = 0, lat = 0)
+
+ghost_points_fin &lt;- tibble(
+  created_at = seq(as.Date('2017-05-16'),
+                   as.Date('2017-05-30'),
+                   by = 'days'),
+  followers = 0, lon = 0, lat = 0)
+</code></pre>
+
+<p>Then I add 2 extra layers to the <code>ggplot</code>: the second and third <code>geom_point</code>s, with the <code>alpha</code> parameter set to <code>0</code> so the points will not show in the plot.</p>
+
+<pre><code class="language-r">map &lt;- world +
+  geom_point(aes(x = lon, y = lat, size = followers, 
+                 frame = created_at,
+                 cumulative = TRUE),
+             data = rladies, colour = 'purple', alpha = .5) +
+  geom_point(aes(x = lon, y = lat, size = followers, # this is the init transparent frame
+                 frame = created_at,
+                 cumulative = TRUE),
+             data = ghost_points_ini, alpha = 0) +
+  geom_point(aes(x = lon, y = lat, size = followers, # this is the final transparent frames
+                 frame = created_at,
+                 cumulative = TRUE),
+             data = ghost_points_fin, alpha = 0) +
+  scale_size_continuous(range = c(1, 8), breaks = c(250, 500, 750, 1000)) +
+  labs(size = 'Followers') 
+
+library(gganimate)
+ani.options(interval = 0.2)
+gganimate(map)
+</code></pre>
+
+<p><img src="/figure/source/how-to-plot-animated-maps-with-gganimate/2017-04-24-how-to-plot-animated-maps-with-gganimate/ani_map.gif" alt="ani_map" /></p>
+
+<p>This animation is so cool! It shows how R-Ladies is spreading all over the globe, giving also some idea of how it is growing: where in the world the chapters concentrates and how it accelerated its growing significantly in the last year or so!
+<br /></p>
+
+<h2 id="customizing-the-animation">Customizing the animation</h2>
+
+<p>Now it&rsquo;s when I start to get a little obsessed about some details&hellip; You can always improve things, right? 😉
+<br /></p>
+
+<h3 id="adding-additional-frames">Adding additional frames</h3>
+
+<p>This idea actually came from my husband, who suggested that each point could start small when the chapter is founded and reach its full size today. How cool would that be?!</p>
+
+<p>I only have each chapter once in the <code>rladies</code> dataframe, with the creation date and the amount of followers. To create new frames for the <code>gganimate</code>, I have to replicate each chapter with an intermediate number of followers (I assume linear growth) for each intermediate date. I do that by creating a dataframe of dates from the first R-Ladies&rsquo; chapter was created until today (to make this analysis reproducible I assume today is 2017-05-15), and keep only the dates 1, 10 and 20 of each month (I could keep all dates but It would not improve the animation&rsquo;s quality much and it would generate a heavier animation).</p>
+
+<pre><code class="language-r">dates &lt;- as_tibble(seq(floor_date(as.Date(min(rladies$created_at)), 
+                                  unit = &quot;month&quot;),
+                       as.Date('2017-05-15'),
+                       by = 'days')) %&gt;%
+  filter(day(value) %in% c(1, 10, 20))
+</code></pre>
+
+<p>Then I generate a new dataframe with every chapter appearing once for every intermediate date, from its creation date until today. I assume the number of followers increasing linearly. (If you are familiar with <code>tidiverse</code> maybe you <a href="#skipping">prefer to skip the next part</a> where I explain how I join these tables).</p>
+
+<pre><code class="language-r">library(tidyr)
+
+rladies_frames &lt;- rladies %&gt;%
+  select(screen_name) %&gt;%
+  expand(screen_name, date = dates$value) %&gt;%
+  right_join(rladies, by = 'screen_name') %&gt;%
+  filter(date &gt; created_at) %&gt;%
+  mutate(age_total = as.numeric(age_days, units = 'days'),
+         age_at_date = as.numeric(difftime(date, created_at, unit = 'days'), 
+                                  units = 'days'),
+         est_followers = ((followers - 1) / age_total) * age_at_date)
+</code></pre>
+
+<p>Step-by-step what I do is take the original <code>rladies</code> dataframe and select the <code>screen_name</code> column. With the <code>tidyr::expand</code> I create one row for every <code>screen_name</code>-<code>date</code> combination (Cartesian product). The <code>right_join</code> completes the rest of the information for every chapter, and then I keep only the dates for every chapter that are greater than its creation date (I don&rsquo;t want to have frames for a chapter previous to its foundation!). At last I add some variables useful to estimate the amount of followers (<code>est_followers</code>), assuming the amount of followers increases linearly.</p>
+
+<p><a id="skipping"> </a></p>
+
+<pre><code class="language-r">ghost_points_ini &lt;-  ghost_points_ini %&gt;%
+  mutate(date = created_at,
+         est_followers = 0)
+
+ghost_points_fin &lt;-  ghost_points_fin %&gt;%
+  expand(date = created_at, rladies) %&gt;%
+  select(date, est_followers = followers, lon, lat)
+
+map_frames &lt;- world +
+  geom_point(aes(x = lon, y = lat, size = est_followers, 
+                 frame = date),
+             data = rladies_frames, colour = 'purple', alpha = .5) +
+  geom_point(aes(x = lon, y = lat, size = est_followers,
+                 frame = date),
+             data = ghost_points_ini, alpha = 0) +
+  geom_point(aes(x = lon, y = lat, size = est_followers,
+                 frame = date),
+             data = ghost_points_fin, colour = 'purple', alpha = .5) +
+  scale_size_continuous(range = c(1, 8), breaks = c(250, 500, 750, 1000)) +
+  labs(size = 'Followers')
+
+ani.options(interval = .05)
+gganimate(map_frames)
+</code></pre>
+
+<p><img src="/figure/source/how-to-plot-animated-maps-with-gganimate/2017-04-24-how-to-plot-animated-maps-with-gganimate/ani_map_frames.gif" alt="ani_map_frames" /></p>
+
+<p>This is a very accurate map in terms of the timeline: it shows how long it took for every chapter to be founded and how R-Ladies proliferated in the past year or so.</p>
+
+<p>But&hellip; (I told you I got kind of obsessed 🤷🏻
+♀️ ) it takes too long from the creation of the first chapters until it started to get traction and the last part of the animation is really fast in comparison. So let&rsquo;s take care of that 😉
+<br /></p>
+
+<h3 id="removing-some-frames-from-the-beginning">Removing some frames from the beginning</h3>
+
+<p>The foundation of the London chapter was kind of a turning point: after that, R-Ladies started to spread much faster. So I decided to keep all frames after that date, but remove several frames from before, keeping only the first day of the month, every 6 months.</p>
+
+<pre><code class="language-r">rladies_less_frames &lt;- rladies_frames %&gt;%
+  filter((day(date) == 1 &amp; month(date) %% 6 == 0) |
+           date &gt;= rladies$created_at[rladies$screen_name == 'RLadiesLondon'])
+
+map_less_frames &lt;- world +
+  geom_point(aes(x = lon, y = lat, size = est_followers, 
+                 frame = date),
+             data = rladies_less_frames, colour = 'purple', alpha = .5) +
+  geom_point(aes(x = lon, y = lat, size = est_followers, 
+                 frame = date),
+             data = ghost_points_ini, alpha = 0) +
+  geom_point(aes(x = lon, y = lat, size = est_followers, 
+                 frame = date),
+             data = ghost_points_fin, colour = 'purple', alpha = .5) +
+  scale_size_continuous(range = c(1, 8), breaks = c(250, 500, 750, 1000)) +
+  labs(size = 'Followers')
+
+ani.options(interval = .15)
+gganimate(map_less_frames)
+</code></pre>
+
+<p><img src="/figure/source/how-to-plot-animated-maps-with-gganimate/2017-04-24-how-to-plot-animated-maps-with-gganimate/ani_map_less_frames.gif" alt="ani_map_less_frames" /></p>
+
+<p>This reduces a lot the amount of frames, at the cost of making the story less accurate in terms of time scale. But it is a nicer animation! My favorite actually 😊
+<br /></p>
+
+<h2 id="creating-the-gif">Creating the .gif</h2>
+
+<p>The only thing left is to save the animation to a file, in this case I choose a <code>.gif</code>, but you can also choose to save it as .mp4, .swf or .html (each of them requiring specific drivers, <a href="https://github.com/thomasp85/gganimate/releases/tag/v0.1.1">check the documentation here</a>)</p>
+
+<pre><code class="language-r">gganimate(map_less_frames, interval = .2, filename = 'rladies.gif')
+</code></pre>
+
+<p>I wanted a .gif file to share it on Twitter, Slack and other social media, so I could post something like this:</p>
+
+<p><blockquote class="twitter-tweet tw-align-center" data-lang="en"><p lang="en" dir="ltr">New <a href="https://twitter.com/hashtag/rstats?src=hash">#rstats</a> post! Visualizing <a href="https://twitter.com/hashtag/RLadies?src=hash">#RLadies</a> growth 💜 Step-by-step from Twitter users to <a href="https://twitter.com/hashtag/plotly?src=hash">#plotly</a> and <a href="https://twitter.com/hashtag/gganimate?src=hash">#gganimate</a> <a href="https://t.co/Jgi82Xb4X0">https://t.co/Jgi82Xb4X0</a> <a href="https://t.co/5qkxQwJKQF">pic.twitter.com/5qkxQwJKQF</a></p>&mdash; Daniela Vázquez (@d4tagirl) <a href="https://twitter.com/d4tagirl/status/864207469911957504">May 15, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
+<p><br />
+It was a pretty popular Tweet, so you should try!</p>
+
+<p>That&rsquo;s it! You can check out <a href="https://github.com/d4tagirl/R-Ladies-growth-maps">the code in my GitHub repo here</a>. Please leave your comments if you have any, or <a href="https://twitter.com/intent/tweet?user_id=114258616">mention me on Twitter</a>. Thanks for reading 😉</p>
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=%2fyour_site_url_address%2f1%2f01%2f01%2fcontent%2fpost%2f2017-04-24-how-to-plot-animated-maps-with-gganimate%2f - How%20to%20plot%20animated%20maps%20with%20gganimate by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'your_disqus_short_name'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://www.facebook.com/nodejh">
+        <i class="fa fa-facebook-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.github.com/nodejh">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.twitter.com/nodejh">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> site_author
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="/your_site_url_addressjs/jquery-3.3.1.min.js"></script>
+<script src="/your_site_url_addressjs/main.js"></script>
+<script src="/your_site_url_addressjs/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'your_google_analytics_id', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+
+
+    </body>
+</html>

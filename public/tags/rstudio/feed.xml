@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rstudio on d4tagirl</title>
+    <link>/tags/rstudio/</link>
+    <description>Recent content in rstudio on d4tagirl</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 16 Aug 2018 14:30:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/rstudio/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Rstudio::conf diversity scholarships for the win!</title>
+      <link>/2018/08/rstudio-conf-diversity-scholarships-for-the-win/</link>
+      <pubDate>Thu, 16 Aug 2018 14:30:00 +0000</pubDate>
+      
+      <guid>/2018/08/rstudio-conf-diversity-scholarships-for-the-win/</guid>
+      <description>Applications for the &lt;em&gt;rstudio::conf(2019)&lt;/em&gt; are now open! Last year I was lucky enough to be the receipient of an international diversity scholarships to attend rstudio::conf(2018). This is why I think you should apply to get one!</description>
+    </item>
+    
+  </channel>
+</rss>

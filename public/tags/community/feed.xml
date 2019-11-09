@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>community on d4tagirl</title>
+    <link>/tags/community/</link>
+    <description>Recent content in community on d4tagirl</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 16 Aug 2018 14:30:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/community/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Rstudio::conf diversity scholarships for the win!</title>
+      <link>/2018/08/rstudio-conf-diversity-scholarships-for-the-win/</link>
+      <pubDate>Thu, 16 Aug 2018 14:30:00 +0000</pubDate>
+      
+      <guid>/2018/08/rstudio-conf-diversity-scholarships-for-the-win/</guid>
+      <description>Applications for the &lt;em&gt;rstudio::conf(2019)&lt;/em&gt; are now open! Last year I was lucky enough to be the receipient of an international diversity scholarships to attend rstudio::conf(2018). This is why I think you should apply to get one!</description>
+    </item>
+    
+    <item>
+      <title>My interview for the R-Forwards &#39;Who we are!&#39; series</title>
+      <link>/2018/01/my-interview-for-the-r-forwards-who-we-are-series/</link>
+      <pubDate>Tue, 16 Jan 2018 20:10:00 +0000</pubDate>
+      
+      <guid>/2018/01/my-interview-for-the-r-forwards-who-we-are-series/</guid>
+      <description>Gina Merchant kindly interviewed me for the &amp;lsquo;Who we are!&amp;rsquo; series, in the &lt;a href=&#34;http://forwards.github.io/about/&#34;&gt;R-Forwards&lt;/a&gt;&amp;rsquo; Facebook group.</description>
+    </item>
+    
+    <item>
+      <title>The R-Ladies way!</title>
+      <link>/2017/01/the-r-ladies-way/</link>
+      <pubDate>Fri, 27 Jan 2017 12:11:29 +0000</pubDate>
+      
+      <guid>/2017/01/the-r-ladies-way/</guid>
+      <description>My experience with the R-Ladies community, an amazing group of ladies who built a truly supportive environment for women in the R community to reach their true potential across the world.</description>
+    </item>
+    
+  </channel>
+</rss>

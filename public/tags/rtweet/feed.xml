@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rtweet on d4tagirl</title>
+    <link>/tags/rtweet/</link>
+    <description>Recent content in rtweet on d4tagirl</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 28 Jan 2018 17:11:29 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/rtweet/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Does &#34;the twitter ratio&#34; apply to the #rstats community?</title>
+      <link>/2018/01/does-the-twitter-ratio-apply-to-the-rstats-community/</link>
+      <pubDate>Sun, 28 Jan 2018 17:11:29 +0000</pubDate>
+      
+      <guid>/2018/01/does-the-twitter-ratio-apply-to-the-rstats-community/</guid>
+      <description>I analize the #rstats on Twitter to check if &amp;ldquo;The Ratio&amp;rdquo; actually makes sense for this community. What is &amp;ldquo;The Ratio&amp;rdquo; you ask? There is this theory that if a tweet has more replies than likes and retweets, that implies that people are not happy about it.</description>
+    </item>
+    
+    <item>
+      <title>How to fetch Twitter users with R</title>
+      <link>/2017/05/how-to-fetch-twitter-users-with-r/</link>
+      <pubDate>Mon, 15 May 2017 06:11:29 +0000</pubDate>
+      
+      <guid>/2017/05/how-to-fetch-twitter-users-with-r/</guid>
+      <description>Here I show how to fetch Twitter users using the &lt;code&gt;rtweet&lt;/code&gt; package, and clean the data using the &lt;code&gt;tidyverse&lt;/code&gt; set of packages, for later usage in plotting animated maps.</description>
+    </item>
+    
+  </channel>
+</rss>

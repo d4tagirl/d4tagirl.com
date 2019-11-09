@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/tags/community/</loc>
+    <lastmod>2018-08-16T14:30:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2018-08-16T14:30:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/diversity/</loc>
+    <lastmod>2018-08-16T14:30:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/inclusion/</loc>
+    <lastmod>2018-08-16T14:30:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2018-08-16T14:30:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/rladies/</loc>
+    <lastmod>2018-08-16T14:30:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/rstats/</loc>
+    <lastmod>2018-08-16T14:30:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/rstudio/</loc>
+    <lastmod>2018-08-16T14:30:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2018/08/rstudio-conf-diversity-scholarships-for-the-win/</loc>
+    <lastmod>2018-08-16T14:30:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2018-08-16T14:30:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/diputados/</loc>
+    <lastmod>2018-04-08T17:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/es/</loc>
+    <lastmod>2018-04-08T17:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/open-data/</loc>
+    <lastmod>2018-04-08T17:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/parlamento/</loc>
+    <lastmod>2018-04-08T17:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/r/</loc>
+    <lastmod>2018-04-08T17:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/senadores/</loc>
+    <lastmod>2018-04-08T17:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/text-mining/</loc>
+    <lastmod>2018-04-08T17:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/tf-idf/</loc>
+    <lastmod>2018-04-08T17:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/tidytext/</loc>
+    <lastmod>2018-04-08T17:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/uruguay/</loc>
+    <lastmod>2018-04-08T17:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2018/04/de-qu%C3%A9-se-habl%C3%B3-en-el-parlamento-uruguayo-desde-2017/</loc>
+    <lastmod>2018-04-08T17:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/pdftools/</loc>
+    <lastmod>2018-04-03T17:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/rvest/</loc>
+    <lastmod>2018-04-03T17:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2018/04/scrapeando-las-sesiones-parlamentarias-de-uruguay/</loc>
+    <lastmod>2018-04-03T17:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/scraping/</loc>
+    <lastmod>2018-04-03T17:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2018/01/does-the-twitter-ratio-apply-to-the-rstats-community/</loc>
+    <lastmod>2018-01-28T17:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/ggtern/</loc>
+    <lastmod>2018-01-28T17:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/purrr/</loc>
+    <lastmod>2018-01-28T17:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/rtweet/</loc>
+    <lastmod>2018-01-28T17:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/the-ratio/</loc>
+    <lastmod>2018-01-28T17:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2018/01/my-interview-for-the-r-forwards-who-we-are-series/</loc>
+    <lastmod>2018-01-16T20:10:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/r-forwards/</loc>
+    <lastmod>2018-01-16T20:10:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/r-ladies/</loc>
+    <lastmod>2018-01-16T20:10:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/skip_rstats_feed/</loc>
+    <lastmod>2018-01-16T20:10:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/nombres/</loc>
+    <lastmod>2017-08-13T22:20:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/shiny/</loc>
+    <lastmod>2017-08-13T22:20:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/shinyapp/</loc>
+    <lastmod>2017-08-13T22:20:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2017/08/uruguay-el-pais-de-los-nombres-raros/</loc>
+    <lastmod>2017-08-13T22:20:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2017/06/al-estilo-r-ladies/</loc>
+    <lastmod>2017-06-21T15:19:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/comunidad/</loc>
+    <lastmod>2017-06-21T15:19:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/espa%C3%B1ol/</loc>
+    <lastmod>2017-06-21T15:19:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/genero/</loc>
+    <lastmod>2017-06-21T15:19:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/grupo-de-usuarios/</loc>
+    <lastmod>2017-06-21T15:19:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2017/05/code-to-compare-facebook-and-youtube-s-comments/</loc>
+    <lastmod>2017-05-30T02:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/facebook/</loc>
+    <lastmod>2017-05-30T02:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2017/05/how-do-you-feel-about-last-week-tonight/</loc>
+    <lastmod>2017-05-30T02:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/john-oliver/</loc>
+    <lastmod>2017-05-30T02:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/last-week-tonight/</loc>
+    <lastmod>2017-05-30T02:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/sentiment-analysis/</loc>
+    <lastmod>2017-05-30T02:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/skip_index/</loc>
+    <lastmod>2017-05-30T02:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2017/05/tf-idf-de-todas-las-sesiones-parlamentarias-analizadas/</loc>
+    <lastmod>2017-05-30T02:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/youtube/</loc>
+    <lastmod>2017-05-30T02:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/visualization/</loc>
+    <lastmod>2017-05-15T09:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2017/05/visualizing-r-ladies-growth/</loc>
+    <lastmod>2017-05-15T09:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/gganimate/</loc>
+    <lastmod>2017-05-15T08:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/gif/</loc>
+    <lastmod>2017-05-15T08:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2017/05/how-to-plot-animated-maps-with-gganimate/</loc>
+    <lastmod>2017-05-15T08:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/maps/</loc>
+    <lastmod>2017-05-15T08:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2017/05/huge-ggplotly-map/</loc>
+    <lastmod>2017-05-15T07:11:30+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/ggplotly/</loc>
+    <lastmod>2017-05-15T07:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2017/05/how-to-deal-with-ggplotly-huge-maps/</loc>
+    <lastmod>2017-05-15T07:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/plot_geo/</loc>
+    <lastmod>2017-05-15T07:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/plotly/</loc>
+    <lastmod>2017-05-15T07:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/ggmap/</loc>
+    <lastmod>2017-05-15T06:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2017/05/how-to-fetch-twitter-users-with-r/</loc>
+    <lastmod>2017-05-15T06:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/map/</loc>
+    <lastmod>2017-05-15T06:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/twitter/</loc>
+    <lastmod>2017-05-15T06:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2017/02/nested-dataframes-to-explain-trumps-winning-by-race-across-regions/</loc>
+    <lastmod>2017-02-13T11:20:16+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/gender/</loc>
+    <lastmod>2017-01-27T12:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2017/01/the-r-ladies-way/</loc>
+    <lastmod>2017-01-27T12:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/user-groups/</loc>
+    <lastmod>2017-01-27T12:11:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/cart/</loc>
+    <lastmod>2017-01-23T22:00:53+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/machine-learning/</loc>
+    <lastmod>2017-01-23T22:00:53+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/rpart/</loc>
+    <lastmod>2017-01-23T22:00:53+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/tidyverse/</loc>
+    <lastmod>2017-01-23T22:00:53+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/unbalanced-classes/</loc>
+    <lastmod>2017-01-23T22:00:53+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2017/01/rpart-who-voted-for-trump/</loc>
+    <lastmod>2017-01-23T22:00:53+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2016/12/hello-world/</loc>
+    <lastmod>2016-12-30T19:13:23+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/about/</loc>
+    <lastmod>2016-12-30T19:13:22+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>/community/</loc>
+  </url>
+  
+  <url>
+    <loc>/talks/</loc>
+  </url>
+  
+</urlset>

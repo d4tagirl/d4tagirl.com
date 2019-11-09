@@ -1,0 +1,289 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>logistic regression on d4tagirl</title>
+    <link>/tags/logistic-regression/</link>
+    <description>Recent content in logistic regression on d4tagirl</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 13 Feb 2017 11:20:16 +0000</lastBuildDate>
+    
+        <atom:link href="/tags/logistic-regression/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Nested dataframes to explain Trump&#39;s winning by race, across regions</title>
+      <link>/2017/02/nested-dataframes-to-explain-trumps-winning-by-race-across-regions/</link>
+      <pubDate>Mon, 13 Feb 2017 11:20:16 +0000</pubDate>
+      
+      <guid>/2017/02/nested-dataframes-to-explain-trumps-winning-by-race-across-regions/</guid>
+      <description>
+
+&lt;p&gt;It&amp;rsquo;s been a while since I learned about nested dataframes to estimate different models across different groups of observations. Actually it was when I took David Robinson&amp;rsquo;s Datacamp course: &lt;a href=&#34;https://www.datacamp.com/courses/exploratory-data-analysis-in-r-case-study&#34;&gt;Exploratory Data Analysis in R: Case Study&lt;/a&gt; and I found it really useful! The other day I was listening to the &lt;a href=&#34;https://soundcloud.com/nssd-podcast/episode-31-the-word-youre-looking-for-is-magical&#34;&gt;31st episode of the Not So Standard Deviations&lt;/a&gt; when Hilary started talking about nested dataframes and how it could be not completely straightforward for everyone to appreciate how useful this could be. That&amp;rsquo;s when it hit me: I had to write about this!&lt;/p&gt;
+
+&lt;h1 id=&#34;the-data&#34;&gt;The data&lt;/h1&gt;
+
+&lt;p&gt;Continuing with the same dataframe from &lt;a href=&#34;/2017/01/rpart-who-voted-for-trump/&#34;&gt;my post about the analysis of counties characteristics that made Trump the winner of the US 2017 Election&lt;/a&gt;  now I examine it by region.&lt;/p&gt;
+
+&lt;p&gt;For that I load the data first.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;## Error in readChar(con, 5L, useBytes = TRUE): cannot open the connection
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;load(&amp;quot;trump-rpart.Rdata&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;quantile-analysis&#34;&gt;Quantile Analysis&lt;/h1&gt;
+
+&lt;p&gt;To analyze how the results were different across some characteristics&amp;rsquo; quintiles, I define a function using &lt;code&gt;partial&lt;/code&gt; from &lt;code&gt;purrr&lt;/code&gt; package. Why? &lt;em&gt;Because I just learnt it!&lt;/em&gt; To calculate quintiles I use the same parameter one and again for the &lt;code&gt;ntile&lt;/code&gt; function (&lt;code&gt;n = 5&lt;/code&gt;) to find the quintiles. (This idea came from &lt;a href=&#34;https://twitter.com/vsbuffalo/status/829756941501034496&#34;&gt;this very popular Tweet&lt;/a&gt; that has been around this past few days).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(dplyr)
+library(ggplot2)
+library(purrr)
+
+nt &amp;lt;- partial(ntile, n = 5)
+
+votes &amp;lt;- votes %&amp;gt;%
+  mutate(white_alone_q    = nt(white_alone),
+         white_q          = nt(white),
+         black_q          = nt(black),
+         hisp_latin_q     = nt(hisp_latin),
+         edu_batch_q      = nt(edu_batchelors),
+         urban_q          = nt(housing_units_multistruct),
+         income_q         = nt(income))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Error in eval(lhs, parent, parent): object &#39;votes&#39; not found
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;knitr::kable(head(votes))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Error in head(votes): object &#39;votes&#39; not found
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Once I have that, I define a function &lt;code&gt;group_quintiles&lt;/code&gt; whose input is a dataframe that has already has a column name &lt;code&gt;q&lt;/code&gt; (the column with the quintiles) and groups by it and calculates a the portion of counties that voted for Trump for each quintile. I use it for every characteristic I&amp;rsquo;m interested in.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;group_quitiles &amp;lt;- function(x){
+  x %&amp;gt;% 
+  group_by(q) %&amp;gt;% 
+  summarize(mean_Trump = mean(pref_cand_T == 1))
+}
+
+black_quintiles &amp;lt;- votes %&amp;gt;% 
+  mutate(q = black_q) %&amp;gt;%
+  group_quitiles()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Error in eval(lhs, parent, parent): object &#39;votes&#39; not found
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;white_alone_quintiles &amp;lt;- votes %&amp;gt;% 
+  mutate(q = white_alone_q) %&amp;gt;% 
+  group_quitiles()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Error in eval(lhs, parent, parent): object &#39;votes&#39; not found
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;white_quintiles &amp;lt;- votes %&amp;gt;% 
+  mutate(q = white_q) %&amp;gt;% 
+  group_quitiles()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Error in eval(lhs, parent, parent): object &#39;votes&#39; not found
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;hisp_latin_quintiles &amp;lt;- votes %&amp;gt;% 
+  mutate(q = hisp_latin_q) %&amp;gt;% 
+  group_quitiles()  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Error in eval(lhs, parent, parent): object &#39;votes&#39; not found
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;edu_batch_quintiles &amp;lt;- votes %&amp;gt;% 
+  mutate(q = edu_batch_q) %&amp;gt;% 
+  group_quitiles()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Error in eval(lhs, parent, parent): object &#39;votes&#39; not found
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;urban_quintiles &amp;lt;- votes %&amp;gt;% 
+  mutate(q = urban_q) %&amp;gt;% 
+  group_quitiles()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Error in eval(lhs, parent, parent): object &#39;votes&#39; not found
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;income_quintiles &amp;lt;- votes %&amp;gt;% 
+  mutate(q = income_q) %&amp;gt;%
+  group_quitiles() 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Error in eval(lhs, parent, parent): object &#39;votes&#39; not found
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(knitr)
+knitr::kable(black_quintiles, align = &#39;l&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Error in knitr::kable(black_quintiles, align = &amp;quot;l&amp;quot;): object &#39;black_quintiles&#39; not found
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I thought it would be more visual to see these results in a plot, so I define this other function that takes a dataframe as an input, and returns a plot. I did that so I didn&amp;rsquo;t have to write for every characteristic the same (long!) code again and again. So lets plot!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;plot_quintiles &amp;lt;- function(x){
+  x %&amp;gt;% 
+  ggplot(aes(x = q, y = mean_Trump)) + 
+  geom_point() + 
+  ylim(0, 1) +
+  labs(title = deparse(substitute(x))) +
+  theme_bw() +
+  theme(axis.title.x = element_blank(), axis.title.y = element_blank(),
+        plot.title = element_text(size = 12),
+        axis.line = element_line(colour = &amp;quot;grey&amp;quot;), legend.position = &amp;quot;bottom&amp;quot;, 
+        panel.border = element_blank()) +
+  geom_segment(aes(x = q, y = -Inf, 
+                   xend = q, yend = mean_Trump),
+               size = 0.2)
+}
+
+library(gridExtra)
+library(grid)
+
+grid.arrange(plot_quintiles(white_alone_quintiles), plot_quintiles(white_quintiles), 
+             plot_quintiles(black_quintiles),       plot_quintiles(hisp_latin_quintiles), 
+             plot_quintiles(edu_batch_quintiles),   plot_quintiles(urban_quintiles),
+             plot_quintiles(income_quintiles), 
+             nrow = 4,
+             top = textGrob(&amp;quot;% of counties that voted for Trump, among characteristics&#39; quintiles&amp;quot;, 
+                            gp = gpar(fontsize = 15)))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Error in eval(lhs, parent, parent): object &#39;white_alone_quintiles&#39; not found
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Results imply that the lower the &lt;code&gt;white&lt;/code&gt; and &lt;code&gt;white_alone&lt;/code&gt; quintile, the less those counties voted for Trump (especially the lowest quintile!). The opposite happens with &lt;code&gt;black&lt;/code&gt; and &lt;code&gt;hisp_latin&lt;/code&gt;, and also with what I called &lt;code&gt;urban&lt;/code&gt;, which is the amount of housing units in multi-unit structures (you can &lt;a href=&#34;/2017/01/rpart-who-voted-for-trump/&#34;&gt;check the meaning of this variables in my previous post&lt;/a&gt; ). With &lt;code&gt;edu_batch&lt;/code&gt; and &lt;code&gt;income&lt;/code&gt; we can se a inverted &amp;ldquo;U&amp;rdquo;: the lowest and highest quintiles are the counties that had less proportion of votes for Trump. For the &lt;code&gt;income&lt;/code&gt;, this is where you see this &lt;em&gt;middle class&lt;/em&gt; support that Trump had.&lt;/p&gt;
+
+&lt;h1 id=&#34;nested-dataframes&#34;&gt;Nested dataframes&lt;/h1&gt;
+
+&lt;p&gt;Now let&amp;rsquo;s have some fun with Nested Dataframes! As I want to analyze the difference by region, I load the &lt;code&gt;datasets&lt;/code&gt; package that has all states and regions, and joined it to the &lt;code&gt;votes&lt;/code&gt;dataframe I&amp;rsquo;m working with.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(datasets)
+regions &amp;lt;- tibble(state.region, state.abb)
+
+votes &amp;lt;- votes %&amp;gt;% 
+  inner_join(regions, 
+             by = c(&amp;quot;state_abbr&amp;quot; = &amp;quot;state.abb&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Error in eval(lhs, parent, parent): object &#39;votes&#39; not found
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# study race and % votes for each candidates by_region
+by_region &amp;lt;- votes %&amp;gt;% 
+  group_by(state.region) %&amp;gt;% 
+  summarise(mean_white       = mean(white),
+            mean_white_alone = mean(white_alone),
+            mean_black       = mean(black),
+            mean_hisp_latin  = mean(hisp_latin),
+            mean_edu_batch   = mean(edu_batchelors),
+            mean_hisp_latin  = mean(hisp_latin),
+            mean_urban       = mean(housing_units_multistruct),
+            mean_income      = mean(income),
+            mean_trump       = mean(Trump),
+            mean_clinton     = mean(Clinton))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Error in eval(lhs, parent, parent): object &#39;votes&#39; not found
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;knitr::kable(by_region)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Error in knitr::kable(by_region): object &#39;by_region&#39; not found
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can see some differences in characteristics across the regions, but lets check what happens if we fit a logistic regression (because my response variable is binary) to each region and see if we discover some differences between them!&lt;/p&gt;
+
+&lt;h3 id=&#34;trump-white-alone-model-by-region&#34;&gt;&lt;code&gt;Trump ~ white_alone&lt;/code&gt; model by region&lt;/h3&gt;
+
+&lt;p&gt;First I do it using &lt;code&gt;white_alone&lt;/code&gt; as an explanatory variable. I use the &lt;code&gt;nest&lt;/code&gt; function of the &lt;code&gt;tidyr&lt;/code&gt; package, to make a dataframe that contains a list column m ade of dataframes! As I used &lt;code&gt;nest(-state_region)&lt;/code&gt; it has one column with the &lt;code&gt;state_region&lt;/code&gt; and the other is the list column with a dataframe for every &lt;code&gt;state_region&lt;/code&gt;. Then I use the &lt;code&gt;purr::map&lt;/code&gt; function to fit a model to each dataframe in the list column mentioned before. Finaly I use the &lt;code&gt;broom::tidy&lt;/code&gt; function to retrieve the tidy results of my models and filtered only the slopes. As I prefer the Odds Ratio rather then the coefficients for interpretation, I calculate them also.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(tidyr)
+library(purrr)
+library(broom)
+
+by_region_white_alone &amp;lt;- votes %&amp;gt;% 
+  nest(-state.region) %&amp;gt;% 
+  mutate(models = map(data, ~ glm(pref_cand_T ~ white_alone, ., 
+                                  family = &amp;quot;binomial&amp;quot;))) %&amp;gt;% 
+  unnest(map(models, tidy)) %&amp;gt;% 
+  filter(term == &amp;quot;white_alone&amp;quot;) %&amp;gt;%
+  mutate(OR = exp(estimate))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Error in eval(lhs, parent, parent): object &#39;votes&#39; not found
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;knitr::kable(by_region_white_alone)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Error in knitr::kable(by_region_white_alone): object &#39;by_region_white_alone&#39; not found
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This means that for a one-unit increase in &lt;code&gt;white_alone&lt;/code&gt; population in the South region, we would expect to see about 13% increase in the odds of voting for Trump. For the West region, the expected increase would be 5%.&lt;/p&gt;
+
+&lt;p&gt;This is the kind of analysis you can perform using nested dataframes, pretty amazing, ha?&lt;/p&gt;
+
+&lt;h3 id=&#34;trump-black-model-by-region&#34;&gt;&lt;code&gt;Trump ~ black&lt;/code&gt; model by region&lt;/h3&gt;
+
+&lt;p&gt;I do the same using &lt;code&gt;black&lt;/code&gt; to explain Trump percentage of votes in counties.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;by_region_black &amp;lt;- votes %&amp;gt;% 
+  nest(-state.region) %&amp;gt;% 
+  mutate(models = map(data, ~ glm(pref_cand_T ~ black, ., 
+                                  family = &amp;quot;binomial&amp;quot;))) %&amp;gt;% 
+  unnest(map(models, tidy)) %&amp;gt;% 
+  filter(term == &amp;quot;black&amp;quot;) %&amp;gt;%
+  mutate(OR = exp(estimate))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Error in eval(lhs, parent, parent): object &#39;votes&#39; not found
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;knitr::kable(by_region_black)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Error in knitr::kable(by_region_black): object &#39;by_region_black&#39; not found
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this case for a one-unit increase in &lt;code&gt;black&lt;/code&gt; population in the South region, we would expect to see about 8% reduction in the odds of voting for Trump. For the West region, the expected decrease would be 29%.&lt;/p&gt;
+
+&lt;p&gt;We can see this in a plot also (I loooove plots!), where the blue dots represent &lt;code&gt;black&lt;/code&gt; population and the red ones represent &lt;code&gt;white_alone&lt;/code&gt; population.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ggplot() +
+  geom_point(data = by_region_black, aes(x = reorder(state.region, OR), y = OR), color = &amp;quot;blue&amp;quot;) +
+  geom_point(data = by_region_white_alone, aes(x = reorder(state.region, OR), y = OR), color = &amp;quot;red&amp;quot;) +
+  geom_hline(yintercept = 1) +
+  theme_bw() +
+  theme(axis.title.x = element_blank(),
+        axis.line = element_line(colour = &amp;quot;grey&amp;quot;), legend.position = &amp;quot;bottom&amp;quot;, 
+        panel.grid.major = element_blank(), panel.border = element_blank())
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Error in fortify(data): object &#39;by_region_black&#39; not found
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And that is it! This is my humble contribution to show how useful nested dataframes can be when you want to estimate different models for different groups!&lt;/p&gt;
+
+&lt;p&gt;The R Markdown I used to generate this post is &lt;a href=&#34;https://github.com/d4tagirl/d4tagirl.com/blob/master/_source/using-nested-dataframes-to-explain-trump-s-winning-by-race-across-income-quintiles/2017-02-13-using-nested-dataframes-to-explain-trump-s-winning-by-race-across-income-quintiles.Rmd&#34;&gt;available here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Thank you for making it until here! Please comment if you have suggestions or you find that I could do something  better ;) You can also &lt;a href=&#34;https://twitter.com/intent/tweet?user_id=114258616&#34;&gt;mention me on Twitter if you prefer!&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

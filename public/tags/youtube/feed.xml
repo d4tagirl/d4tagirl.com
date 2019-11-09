@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>youtube on d4tagirl</title>
+    <link>/tags/youtube/</link>
+    <description>Recent content in youtube on d4tagirl</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 30 May 2017 02:11:29 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/youtube/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How do you feel about Last Week Tonight?</title>
+      <link>/2017/05/how-do-you-feel-about-last-week-tonight/</link>
+      <pubDate>Tue, 30 May 2017 02:11:29 +0000</pubDate>
+      
+      <guid>/2017/05/how-do-you-feel-about-last-week-tonight/</guid>
+      <description>I analyze the text and sentiment behind the comments on the &lt;em&gt;Last week Tonight with John Oliver&lt;/em&gt; TV show&amp;rsquo;s Youtube videos, and compare them with the Facebook ones.</description>
+    </item>
+    
+  </channel>
+</rss>
