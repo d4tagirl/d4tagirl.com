@@ -4,6 +4,7 @@
 		<a href='{{ .Site.BaseURL }}'> {{ with .Site.Params.home }}{{ . }}{{ else }}Home{{ end }}</a>
 	{{ end }}
 	<a href='{{ .Site.BaseURL }}about'>{{ with .Site.Params.about }}{{ . }}{{ else }}About{{ end }}</a>
+	<a href='{{ .Site.BaseURL }}resume'>{{ with .Site.Params.resume }}{{ . }}{{ else }}Resume{{ end }}</a>
 	<a href='{{ .Site.BaseURL }}talks'>{{ with .Site.Params.talks }}{{ . }}{{ else }}Talks{{ end }}</a>
 	<a href='{{ .Site.BaseURL }}community'>{{ with .Site.Params.community }}{{ . }}{{ else }}Community{{ end }}</a>
 

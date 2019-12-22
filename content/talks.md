@@ -5,11 +5,9 @@ permalink: /talks
 hide_from_sidebar: true
 ---
 
-## Coming up...
-
-  * Nov 28, Montevideo, Uruguay: Seminario interno Banco Central del Uruguay - [_Abriendo y analizando los Diarios de Sesiones del Parlamento uruguayo con R_](https://docs.google.com/presentation/d/1YqCmlheJkcVw3AG1vaS1rfYAjinu0FCNiDNemeqtvB0/edit?usp=sharing).
-
 ## 2019
+
+  * Dec 19, Montevideo, Uruguay: Seminario interno Banco Central del Uruguay - [_Abriendo y analizando los Diarios de Sesiones del Parlamento uruguayo con R_](https://docs.google.com/presentation/d/1YqCmlheJkcVw3AG1vaS1rfYAjinu0FCNiDNemeqtvB0/edit?usp=sharing).
 
   * Oct 12, Montevideo, Uruguay: [Smart Talent Day 2019](https://www.smarttalent.uy/day2019) - [Despegando! De la economía a la ciencia de datos.](https://docs.google.com/presentation/d/1w7YAEMlM4LZq94KpsPA_XQz-SMVs3JkxaX7SSddun14/edit?usp=sharing)
 

@@ -71,8 +71,6 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   # The social icons can be styled differently if you use mono as font - circle, rounded, or empty
   socialIconStyle = ""
 
-	skip_from_rss = ["es", "skip_index", "skip_rstats_feed"]
-
 
 
 # Add additional social link entries underneath
