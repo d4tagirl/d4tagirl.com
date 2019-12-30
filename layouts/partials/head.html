@@ -34,4 +34,6 @@
 		{{ if (fileExists $partialPath) -}}
 			{{ partial $partialName . }}
 		{{- end }}
+
+		{{ $partialName }}
 	</head>
