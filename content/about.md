@@ -8,7 +8,7 @@ hidden: true
 
 My name is Daniela and I'm a Data Scientist. I am from [Uruguay, a little country in South America](https://en.wikipedia.org/wiki/Uruguay) where I also live. 
 
-![Uruguayan map](/mapContinentUru.jpeg)
+<img src="/mapContinentUru.jpeg" alt="Uruguayan map" style="float: center; width: 50%; margin-left: 25%; margin-right: 25%;">
 
 Originally I studied Economics, but only worked in that field briefly in the Academia. Right when I finished my studies I started working at Equifax where I discovered (*and fell in love with!*) Data Science. After that I worked at [Idatha](http://www.idatha.com/), a company that specializes in Natural Language Processing and Social Media data, and now I work on my own. I've been working in Data Science for the last 8 years. 
 
