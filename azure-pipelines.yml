@@ -1,0 +1,45 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- hugo
+pr: none
+
+resources:
+  repositories:
+    - repository: templates
+      endpoint: g3rv4
+      type: github
+      name: g3rv4/AzurePipelinesTemplates
+
+stages:
+- template: agent-provision.yml@templates
+- stage: Build
+  pool: default
+  jobs:
+  - job: Build
+    workspace:
+      clean: all
+    steps:
+    - powershell: |
+        $hash = '$(Build.SourceVersion)'
+        $buildId = '$(Build.BuildId)'
+        $version = "$($hash.Substring(0, 7)).$buildId"
+
+        Write-Host "##vso[build.updatebuildnumber]$($version)"
+    - powershell: |
+        Set-PSDebug -Trace 1
+
+        $pwd = pwd
+        $uid = sh -c 'id -u'
+        $gid = sh -c 'id -g'
+
+        docker run --rm -v "$($pwd):/site" g3rv4/hugo ash -c "hugo && chown -R $($uid):$($gid) /site"
+        if($LASTEXITCODE){
+            Exit $LASTEXITCODE
+        }
+      failOnStderr: false
+    - publish: 'public'
+      artifact: 'site'
