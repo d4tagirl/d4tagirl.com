@@ -89,6 +89,9 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 home = [ "RSS", "HTML"]
 section  = ["HTML"]
 
+[markup.goldmark.renderer]
+unsafe= true
+
 [outputFormats]
 [outputFormats.RSS]
 mediatype = "application/rss"
