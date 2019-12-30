@@ -28,4 +28,10 @@
 		{{ range .Site.Params.customCSS }}
 		<link rel="stylesheet" href="{{ $.Site.BaseURL }}{{ . }}">
 		{{ end }}
+
+		{{ $partialName := (print "htmlwidgets/" .File.TranslationBaseName ".html") }}
+		{{ $partialPath := (print "/layouts/partials/" $partialName) }}
+		{{ if (fileExists $partialPath) -}}
+			{{ partial $partialName . }}
+		{{- end }}
 	</head>
