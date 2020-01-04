@@ -1,0 +1,48 @@
+{{ partial "head.html" . }}
+    <body>
+       {{ partial "nav.html" . }}
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        {{ .Title }}
+                    </h1>
+                    <h2 class="headline">
+                        {{ if ne .File.LogicalName "talks.md"}}{{ if ne .File.LogicalName "community.md"}}{{ .Date.Format "Jan 2, 2006" }} {{end}} {{end}}
+                    {{ if ne .File.LogicalName "about.md"}}{{ if ne .File.LogicalName "resume.md"}}{{ if ne .File.LogicalName "talks.md"}}{{ if ne .File.LogicalName "community.md"}}· {{ if lt 1 .WordCount }}{{ .WordCount }} words{{ else }}{{ .WordCount }} word{{ end }}{{ end }}{{ end }}{{ end }}{{ end }}
+                    {{ if ne .File.LogicalName "talks.md"}}{{ if ne .File.LogicalName "resume.md"}}{{ if ne .File.LogicalName "community.md"}}· {{ .ReadingTime }} minute read {{end}}{{end}}{{ end }}
+                    </h2>
+                </header>
+                {{ if .Site.Params.enableToc }}
+                  {{ if .TableOfContents }}
+                    <div id="toc">
+                      {{ .TableOfContents }}
+                    </div>
+                  {{ end }}
+                {{ end }}
+                <br>
+                <br>
+                <section id="post-body">
+                    {{ .Content }}
+                </section>
+            </article>
+
+            {{ if .Site.Params.enableShare }}
+                {{ partial "share.html" . }}
+            {{ end }}
+
+            {{ if .Site.Params.enableDisqus }}{{ if ne .File.LogicalName "about.md"}}{{ if ne .File.LogicalName "resume.md"}}{{ if ne .File.LogicalName "talks.md"}}{{ if ne .File.LogicalName "community.md"}}
+                {{ partial "disqus.html" . }}
+            {{ end }}{{ end }}{{ end }}{{ end }}{{ end }}
+
+            {{ if .Site.Params.showLatestPosts }}
+                {{ partial "latest-posts.html" . }}
+            {{ end }}
+
+            {{ partial "footer.html" . }}
+        </section>
+
+        {{ partial "js.html" . }}
+    </body>
+</html>
