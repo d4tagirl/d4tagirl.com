@@ -14,7 +14,7 @@ rstats_feed: false
 
 A few months ago I was contacted by [Gina Merchant](http://gmerchant.ucsd.edu/) about being interviewed for the [R-Forwards' Facebook group](https://www.facebook.com/groups/163371137549666) as part of the 'Who we are!' series. The series asks R users about how they started coding, and how they got to where they are today. I wasn't sure I would have much to say until I realized my interview could help encourage people, as [my older post about how the R-Ladies community welcomed me]({{< ref "post/2017-01-27-the-r-ladies-way" >}}) did (I know of at least one R-Lady who reached out to us thanks to this post and I'm so proud of that 💁 ). Also, [Emily Robinson's latest two-part blog post](https://hookedondata.org/building-your-data-science-network-reaching-out/) (which I highly recommend) led me to [this Rachel Thomas' blog post about _personal branding_](https://www.fast.ai/2017/12/18/personal-brand/) where she stated: _"[...] remember that your target audience is you-6-months-ago [...]. You are best positioned to help people one step behind you."_. And I decided to go for it! I'm even making this public post here to reach even more people!
 
-<div align="center"><img src="/post/r-forwards-who-we-are-series/2018-01-13-r-forwards-who-we-are-series/forwards.png" width="120" /></div>
+<div align="center"><img src="/post/r-forwards-who-we-are-series/2018-01-13-r-forwards-who-we-are-series/forwards.png" alt="R Forward's logo" style="float: center; width: 40%; margin-left: 25%; margin-right: 25%;" /></div>
 
 [R-Forward](http://forwards.github.io/about/) advocates for and encourages women and other under-represented groups to engage in the R community. Quoting them from their about page, _"The R Forwards Taskforce addresses the underrepresentation of women and other groups such as LGBT, minority ethnic groups, and people with disabilities in the R community. Task force members are diverse not only in their identities but also in their R proficiency, work contexts, and career stages."_
 
@@ -22,7 +22,7 @@ This Facebook group is a very inclusive one that can be great if you are looking
 
 Gina was really nice and I totally enjoyed the process. The questions were well thought out and I had the opportunity to read everything and comment before it was published. Also, there is a great vibe in the way she expressed what we covered in our talk that I love. I'm deeply thankful to her. If you want to share your experience, [please reach out to her](https://twitter.com/drgmerchant?lang=en). The only requirement is that you take a selfie with R , so here it is mine (not really a selfie, but still...) 💁
 
-<div align="center"><img src="/post/r-forwards-who-we-are-series/2018-01-13-r-forwards-who-we-are-series/fb_pic.jpg" width="500" /></div>
+<div align="center"><img src="/post/r-forwards-who-we-are-series/2018-01-13-r-forwards-who-we-are-series/fb_pic.jpg" style="float: center; width: 55%; margin-left: 25%; margin-right: 25%;" /></div>
 
 Without further ado, here it is. I hope you enjoy it! 
 

@@ -203,7 +203,7 @@ No nos dice mucho esta información: son palabras que protocolarmente se utiliza
 
 # Análisis de Sentimiento
 
-Me costó un poquito más encontrar un diccionario en español que tuviera sentimiento, pero [encontré este que es el que voy a usar](http://web.eecs.umich.edu/~mihalcea/downloads/SpanishSentimentLexicons.tar.gz).
+Me costó un poquito más encontrar un diccionario en español que tuviera sentimiento, pero [encontré éste que es el que voy a usar](http://web.eecs.umich.edu/~mihalcea/downloads/SpanishSentimentLexicons.tar.gz).
 
 Levanto el diccionario, que llamo `lexicon` (lo levanto de mi repositorio de GitHub para asegurarme de que siempre esté disponible).
 
