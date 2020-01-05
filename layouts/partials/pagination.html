@@ -2,14 +2,14 @@
     {{ if or (.Paginator.HasPrev) (.Paginator.HasNext) }}
         {{ if .Paginator.HasPrev }}
         <span class="prev">
-            <a href="{{.Paginator.Prev.URL}}">
+            <a href="{{ substr .Paginator.Prev.URL 0 -1 }}">
                 <span class="arrow">←</span> {{ with .Site.Params.newerPosts }}{{ . }}{{ else }}Newer Posts{{ end }}
             </a>
         </span>
         {{ end }}
         {{ if .Paginator.HasNext }}
         <span class="next">
-            <a href="{{.Paginator.Next.URL}}">
+            <a href="{{ substr .Paginator.Next.URL 0 -1 }}">
                 {{ with .Site.Params.olderPosts }}{{ . }}{{ else }}Older Posts{{ end }} <span class="arrow">→</span>
             </a>
         </span>

@@ -81,7 +81,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 	linkedin-square = "https://www.linkedin.com/in/d4tagirl"
 
 [permalinks]
-    post = "/:year/:month/:title/"
+    post = "/:year/:month/:title"
 
 [outputs]
 home = [ "RSS", "HTML"]

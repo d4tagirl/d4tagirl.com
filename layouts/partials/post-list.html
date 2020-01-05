@@ -4,7 +4,7 @@
         {{ if ne $url "about/" }}
             <li>
                 <aside class="dates">{{ .Date.Format "Jan 2" }}</aside>
-                <a href='{{ .Permalink }}'>
+                <a href='{{ substr .Permalink 0 -1 }}'>
                     {{ .Title }}
                     {{ if .Site.Params.enableSummary }}
                         {{ if .Site.Params.useDescriptionReplaceSummary }}
