@@ -32,6 +32,10 @@ stages:
     - powershell: |
         Set-PSDebug -Trace 1
 
+        $tomlContent = Get-Content -Path "config.toml" -Raw
+        $tomlContent = $tomlContent.Replace('baseURL = "/"', 'baseURL = "https://d4tagirl.com/"')
+        Set-Content -Path "config.toml" -Value $tomlContent
+
         $pwd = pwd
         $uid = sh -c 'id -u'
         $gid = sh -c 'id -g'

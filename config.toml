@@ -1,5 +1,5 @@
 # Site settings
-baseurl = "/"
+baseURL = "/"
 languageCode = "en"
 title = "d4tagirl"
 theme = "hugo-theme-cactus-plus"
