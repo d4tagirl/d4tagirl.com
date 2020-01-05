@@ -32,18 +32,28 @@ stages:
     - powershell: |
         Set-PSDebug -Trace 1
 
-        $tomlContent = Get-Content -Path "config.toml" -Raw
-        $tomlContent = $tomlContent.Replace('baseURL = "/"', 'baseURL = "https://d4tagirl.com/"')
-        Set-Content -Path "config.toml" -Value $tomlContent
-
         $pwd = pwd
         $uid = sh -c 'id -u'
         $gid = sh -c 'id -g'
 
-        docker run --rm -v "$($pwd):/site" g3rv4/hugo ash -c "hugo && chown -R $($uid):$($gid) /site"
+        docker run --rm -v "$($pwd):/site" g3rv4/hugo ash -c "hugo --cleanDestinationDir -b https://d4tagirl.com/ && chown -R $($uid):$($gid) /site"
         if($LASTEXITCODE){
             Exit $LASTEXITCODE
         }
       failOnStderr: false
     - publish: 'public'
       artifact: 'site'
+    - powershell: |
+        Set-PSDebug -Trace 1
+
+        $pwd = pwd
+        $uid = sh -c 'id -u'
+        $gid = sh -c 'id -g'
+
+        docker run --rm -v "$($pwd):/site" g3rv4/hugo ash -c "hugo --cleanDestinationDir -b https://staging.d4tagirl.com/ && chown -R $($uid):$($gid) /site"
+        if($LASTEXITCODE){
+            Exit $LASTEXITCODE
+        }
+      failOnStderr: false
+    - publish: 'public'
+      artifact: 'site.staging'
