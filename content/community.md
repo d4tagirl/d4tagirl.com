@@ -7,7 +7,9 @@ hide_from_sidebar: true
 
 ## Present
 
-  * Nov 21, 2017 - present: [RUG::Montevideo, GURU](https://www.meetup.com/GURU-mvd/) co-founder and co-organizer.
+  * Jan 29, 2020: [RStudio::Conf(2020) Montevideo Watch Party](https://www.meetup.com/rladies-montevideo/events/267966791/) organizer.
+
+  * Nov 21, 2018 - present: [RUG::Montevideo, GURU](https://www.meetup.com/GURU-mvd/) co-founder and co-organizer.
 
   * Aug 30, 2017 - present: [R-Ladies Montevideo](https://www.meetup.com/rladies-montevideo/) co-founder and co-organizer.
   
