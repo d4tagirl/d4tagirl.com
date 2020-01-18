@@ -3,7 +3,7 @@ baseURL = "/"
 languageCode = "en"
 title = "d4tagirl"
 theme = "hugo-theme-cactus-plus"
-googleAnalytics = "90827501"
+googleAnalytics = "UA-90827501-1"
 # Set the value to true if your site include CJK (Chinese, Japanese, and Korean languages) characters
 hasCJKLanguage = false
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
