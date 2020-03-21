@@ -1,8 +1,9 @@
 <nav id="post-nav">
     {{ if or (.Paginator.HasPrev) (.Paginator.HasNext) }}
         {{ if .Paginator.HasPrev }}
+        {{ $link := substr .Paginator.Prev.URL  0 -1 }}
         <span class="prev">
-            <a href="{{ substr .Paginator.Prev.URL 0 -1 }}">
+            <a href="{{ if eq $link "" }}/{{else}}{{$link}}{{ end }}">
                 <span class="arrow">←</span> {{ with .Site.Params.newerPosts }}{{ . }}{{ else }}Newer Posts{{ end }}
             </a>
         </span>
