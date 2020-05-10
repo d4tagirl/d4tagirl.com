@@ -5,6 +5,13 @@ permalink: /talks
 hide_from_sidebar: true
 ---
 
+## 2020
+
+  * May 7, Montevideo, Uruguay [remote]: [Women in Data Science Montevideo (WiDS)](https://colab.edu.uy/wids-2020) - [Abriendo y analizando los diarios de sesiones parlamentarias uruguayas](https://docs.google.com/presentation/d/1d026mBWBlwx9vOfI7DynSrIkg-6E0_RzWslSrhtya8U/edit?usp=sharing).
+
+  * Apr 29, Montevideo, Uruguay [remote]: [Smart Talent Webinar](https://www.smarttalent.uy/innovaportal/v/48156/15/innova.front/primeros-pasos-en-el-analisis-de-datos-usando-r.html) - Primeros pasos en el análisis de datos usando R. 
+  [\[video\]](https://www.youtube.com/watch?v=PfVbTp2YItg&feature=emb_logo) -        [\[slides\]](https://docs.google.com/presentation/d/1BLMyJBGIPqsfIvPSz0aPqGS3D7lPTwLob1KoyLUybaI/edit?usp=sharing) - [\[script rstudio.cloud\]](https://rstudio.cloud/project/1195639)
+
 ## 2019
 
   * Dec 19, Montevideo, Uruguay: Seminario interno Banco Central del Uruguay - [_Abriendo y analizando los Diarios de Sesiones del Parlamento uruguayo con R_](https://docs.google.com/presentation/d/1YqCmlheJkcVw3AG1vaS1rfYAjinu0FCNiDNemeqtvB0/edit?usp=sharing).
