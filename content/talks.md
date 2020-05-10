@@ -3,6 +3,7 @@ layout: page
 title: Talks
 permalink: /talks
 hide_from_sidebar: true
+hidden: true
 ---
 
 ## 2020

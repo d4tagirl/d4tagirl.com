@@ -3,6 +3,7 @@ layout: page
 title: Community Activity
 permalink: /community
 hide_from_sidebar: true
+hidden: true
 ---
 
 ## Present

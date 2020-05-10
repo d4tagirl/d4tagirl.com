@@ -1,7 +1,6 @@
 <ul id="post-list">
     {{ range where .Paginator.Pages "Params.hidden" "ne" "true" }}
     {{ $url := replace .Permalink .Site.BaseURL "" }}
-        {{ if ne $url "about/" }}{{ if ne $url "resume"}}{{ if ne $url "talks"}}{{ if ne $url "community"}}
             <li>
                 <aside class="dates">{{ .Date.Format "Jan 2" }}</aside>
                 <a href='{{ substr .Permalink 0 -1 }}'>
@@ -15,6 +14,5 @@
                     {{ end }}
                 </a>
             </li>
-        {{ end }}{{ end }}{{ end }}{{ end }}
     {{ end }}
 </ul>
