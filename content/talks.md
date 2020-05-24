@@ -6,6 +6,10 @@ hide_from_sidebar: true
 hidden: true
 ---
 
+## Coming up...
+
+  * Jun 28, Montevideo, Uruguay [remote]: [R-Ladies Montevideo](https://www.meetup.com/rladies-montevideo/events/270755498/) - Primeros pasos en el análisis de datos usando R. 
+  
 ## 2020
 
   * May 7, Montevideo, Uruguay [remote]: [Women in Data Science Montevideo (WiDS)](https://colab.edu.uy/wids-2020) - [Abriendo y analizando los diarios de sesiones parlamentarias uruguayas](https://docs.google.com/presentation/d/1d026mBWBlwx9vOfI7DynSrIkg-6E0_RzWslSrhtya8U/edit?usp=sharing).
