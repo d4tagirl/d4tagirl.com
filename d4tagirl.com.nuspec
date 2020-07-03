@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>d4tagirl.com</id>
+        <version>1.0.0</version>
+        <description>My blog</description>
+        <authors>Daniela Vazquez</authors>
+        <repository type="git" url="https://github.com/d4tagirl/d4tagirl.com.git" />
+    </metadata>
+</package>
