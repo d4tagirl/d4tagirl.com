@@ -6,9 +6,9 @@ hide_from_sidebar: true
 hidden: true
 ---
 
-## Present
+## Present  
 
-  * Jan 29, 2020: [RStudio::Conf(2020) Montevideo Watch Party](https://www.meetup.com/rladies-montevideo/events/267966791/) organizer.
+  * May 1st, 2023 - present: [R-Ladies Global](https://rladies.org/about-us/global-team/) Head of Social Media.
 
   * Nov 21, 2018 - present: [RUG::Montevideo, GURU](https://www.meetup.com/GURU-mvd/) co-founder and co-organizer.
 
@@ -16,7 +16,11 @@ hidden: true
   
 ## Past
 
-  * Sep 25-27, 2019: [LatinR](https://latin-r.com/) volunteer (First Latin American R conference).
+  * Oct 18-20, 2023: [LatinR](https://latin-r.com/) volunteer.
+
+  * Jan 29, 2020: [RStudio::Conf(2020) Montevideo Watch Party](https://www.meetup.com/rladies-montevideo/events/267966791/) organizer.
+   
+  * Sep 25-27, 2019: [LatinR](https://latin-r.com/) volunteer.
   
   * Jul 2018 - Sep 2019: [_R for Data Science_ translation to Spanish](https://github.com/cienciadedatos/documentacion-traduccion-r4ds) community project.
   
