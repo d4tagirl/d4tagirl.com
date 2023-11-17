@@ -6,11 +6,17 @@ hide_from_sidebar: true
 hidden: true
 ---
 
-## Coming up...
+## 2021
 
-  * Jun 28, Montevideo, Uruguay [remote]: [R-Ladies Montevideo](https://www.meetup.com/rladies-montevideo/events/270755498/) - Primeros pasos en el análisis de datos usando R. 
+  * Aug 9, Bolivia [remote]: [MentorHer](https://www.facebook.com/mentorHerBo) - Cómo me metí en tecnología por la ventana
+    [\[video\]](https://www.facebook.com/mentorHerBo/videos/charla-con-daniela-d4tagirl/2427105234101132/) -        [\[slides\]](https://docs.google.com/presentation/d/1fw69JsY4VtM4jih2OfSLxyaeIdfChMgTkLlANFQeIyA/edit?usp=sharing)
+
+  * Apr 22, Montevideo, Uruguay [remote]: Techy por el día [Fundación Telefónica Movistar](https://www.fundaciontelefonica.uy/) - [Cómo me metí en tecnología por la ventana](https://docs.google.com/presentation/d/1NOrbkRXTEqP_rff_AW6WgoqU99O5AA4fI2lR10TKH08/edit?usp=sharing)
   
 ## 2020
+
+  * Jun 28, Montevideo, Uruguay [remote]: [R-Ladies Montevideo](https://www.meetup.com/rladies-montevideo/events/270755498/) - Primeros pasos en el análisis de datos usando R.
+    [\[video\]] (https://www.youtube.com/watch?v=BqNuFWCx4cg) -        [\[slides\]](https://docs.google.com/presentation/d/1ZqtyazQoJ_9kEk7f8hZUrqDCox2Px24i200e7PAM6CQ/edit?usp=sharing) - [\[script rstudio.cloud\]](https://posit.cloud/content/1327203)
 
   * May 7, Montevideo, Uruguay [remote]: [Women in Data Science Montevideo (WiDS)](https://colab.edu.uy/wids-2020) - [Abriendo y analizando los diarios de sesiones parlamentarias uruguayas](https://docs.google.com/presentation/d/1d026mBWBlwx9vOfI7DynSrIkg-6E0_RzWslSrhtya8U/edit?usp=sharing).
 
