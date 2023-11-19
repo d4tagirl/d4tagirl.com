@@ -5,34 +5,14 @@ on:
 
 jobs:
   build:
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+      deployments: write
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: Azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - uses: Azure/get-keyvault-secrets@v1.0
-      with:
-        keyvault: "ActionsBuild"
-        secrets: 'OctopusServerUrl, OctopusApiKey'
-      id: azureSecrets
-
-    - name: Set variables
-      shell: pwsh
-      run: |
-        $basePath = Pwd
-        $sitePath = Join-Path $basePath pkg
-        $nuspecPath = Join-Path $basePath d4tagirl.com.nuspec
-
-        [xml]$xmlDoc = Get-Content $nuspecPath
-        $versionElement = $xmlDoc['package']['metadata']['version']
-        $version = [version]$versionElement.InnerText
-        $newVersion = [version]"$($version.Major).$($version.Minor).$($env:GITHUB_RUN_NUMBER)"
-        $newVersionStr = "$($newVersion)+$($env:GITHUB_SHA.SubString(0, 7))"
-
-        Write-Host "::set-env name=BASE_PATH::$basePath"
-        Write-Host "::set-env name=SITE_PATH::$sitePath"
-        Write-Host "::set-env name=VERSION::$newVersionStr"
+    - uses: actions/checkout@v4
     - name: Build site
       shell: pwsh
       run: |
@@ -44,28 +24,21 @@ jobs:
         mkdir pkg/prod
         mkdir pkg/dev
         docker run --rm -v "$($pwd):/site" g3rv4/hugo ash -c "hugo --cleanDestinationDir -b https://d4tagirl.com/ -d /site/pkg/prod && chown -R $($uid):$($gid) /site"
-        docker run --rm -v "$($pwd):/site" g3rv4/hugo ash -c "hugo --cleanDestinationDir -b https://staging.d4tagirl.com/  -d /site/pkg/staging && chown -R $($uid):$($gid) /site"
-    - name: Package it
-      shell: pwsh
+    - name: Archive artifact
+      shell: sh
       run: |
-        $basePath = $env:BASE_PATH
-        $sitePath = $env:SITE_PATH
-        $version = $env:VERSION
-
-        cp "$($basePath)/d4tagirl.com.nuspec" "$($sitePath)/d4tagirl.com.nuspec"
-
-        $nuspecPath = Join-Path $sitePath d4tagirl.com.nuspec
-
-        [xml]$xmlDoc = Get-Content $nuspecPath
-        $metadataElement = $xmlDoc['package']['metadata']
-        $metadataElement['repository'].SetAttribute("commit", $env:GITHUB_SHA)
-        $metadataElement['version'].InnerText = $version
-        $xmlDoc.Save($nuspecPath)
-
-        Compress-Archive -Path "$($sitePath)/*" -DestinationPath "$($basePath)/d4tagirl.com.$($version).nupkg"
-    - name: Push it to GitHub
-      run: curl -X PUT -u "$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}" -F package=@$BASE_PATH/d4tagirl.com.$VERSION.nupkg https://nuget.pkg.github.com/d4tagirl/
-    - name: Create and deploy an Octopus release
-      run: |
-        dotnet tool install --global Octopus.DotNet.Cli
-        dotnet-octo create-release --project d4tagirl.com --releaseNumber $VERSION --deployto Dev --server "${{ steps.azureSecrets.outputs.OctopusServerUrl }}" --apiKey "${{ steps.azureSecrets.outputs.OctopusApiKey }}" --progress
+        tar \
+          --dereference --hard-dereference \
+          --directory "pkg/prod/" \
+          -cvf "$RUNNER_TEMP/artifact.tar" \
+          --exclude=.git \
+          --exclude=.github \
+          .
+    - name: Publish artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: github-pages
+        path: ${{ runner.temp }}/artifact.tar
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v1
