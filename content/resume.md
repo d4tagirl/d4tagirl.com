@@ -22,25 +22,31 @@ Today, I stand at an exciting crossroads, eager to embark on my next professiona
 
 ## Experience
 
-### Self employed – Senior Data Scientist at Asesoría Económica y Actuarial area del [Banco de Previsión Social](https://bps.gub.uy/) 
+### Self employed – Senior Data Scientist at Asesoría Económica y Actuarial area del [Banco de Previsión Social](https://bps.gub.uy/) - Remote
 
 June 2022 - present
 
 In my current role at the Economic and Actuarial Advisory area of BPS-Banco de Prevision Social, I leverage my expertise in data science to contribute to critical projects impacting the Uruguayan Social Security System.
 
-Key Contributions:
+<details>
 
- Social Security System Reform:
+<summary>Leer más...</summary>
+
+**Key Contributions**:
+
+ **Social Security System Reform**:
  - Actively involved in the technical team for the Uruguayan Social Security System reform.
  - Implemented various scenarios in R to assess short, medium, and long-term implications of potential changes.
  - Provided analytical input crucial for the executive branch's decision-making process.
 
- Process Automation and Problem Solving:
+ **Process Automation and Problem Solving**:
  - Engaged in numerous small-scale projects to automate and optimize processes using R, Shiny, RMarkdown, and Bookdown.
  - Recognized as the go-to expert for R-related tasks within the team.
  - Conducted an R workshop to enhance the team's data handling capabilities.
 
-### Self employed – Senior Data Scientist at [IBM](https://www.ibm.com/uy-es) - Asesoría Económica y Actuarial del [Banco de Previsión Social](https://bps.gub.uy/) 
+</details>
+
+### Self employed – Senior Data Scientist at [IBM](https://www.ibm.com/uy-es) - Asesoría Económica y Actuarial del [Banco de Previsión Social](https://bps.gub.uy/) - Remote
 
 October 2019 - February 2022
 
@@ -48,25 +54,31 @@ Banco de Previsión Social (Economic and Actuarial Advisory Area)
 
 I led significant projects, focusing on enhancing the efficiency and accuracy of economic and actuarial models within the Uruguayan social security system.
 
-Key Achievements:
+<details>
 
- Economic and Actuarial Model Migration:
+<summary>Leer más...</summary>
+
+**Key Achievements**:
+
+ **Economic and Actuarial Model Migration**:
  - Pioneered the transition of models from Excel to R, significantly reducing execution times by over 60%.
  - Enhanced data processing involving contributors, retirees, and pensioners from the Uruguayan Social Security Administration.
  - Developed Shiny apps for dynamic result visualization, aiding decision-making processes for Bank Directors.
  - Automated detailed periodic reporting using RMarkdown and Bookdown.
 
- Innovative Data Solutions:
+ **Innovative Data Solutions**:
  - Created a Shiny application to identify and rectify data discrepancies within departmental series.
  - Streamlined data consolidation processes and automated report generation.
 
- Technical Leadership:
+ **Technical Leadership**:
  - Played a key role in the RStudio implementation on the BPS server, focusing on departmental needs and future scalability.
  - Continuously advocated for and implemented improvements in data communication and visualization.
 
- Technical Proficiencies:
+ **Technical Proficiencies**:
  - Extensive use of R, RStudio, Shiny, RMarkdown, Bookdown, and Excel.
  - Version control using Git in conjunction with BPS's Corporate Gitlab.
+
+</details>
 
 Initiated the tenure with on-site work at BPS headquarters, transitioning to a remote setup since March 2020.
 
