@@ -1,14 +1,14 @@
 ---
 layout: page
 title: About
-date: '2019-12-30T19:13:22'
+date: '2023-11-24T09:13:22'
 summary: Who I am :)
 hidden: true
 ---
 
 Hi! 👋🏽
 
-My name is Daniela and I'm a Data Scientist. I am from [Uruguay, a little country in South America](https://en.wikipedia.org/wiki/Uruguay) where I also live. 
+I'm Daniela, a Data Scientist from [Uruguay](https://www.guruguay.com/) – a charming little country in South America, which I also call home.
 
 <p style="text-align: center">
 <img src="/mapContinentUru.jpeg" alt="Uruguayan map" style="float: center; width: 50%; margin-left: 25%; margin-right: 25%;" />
@@ -16,15 +16,13 @@ My name is Daniela and I'm a Data Scientist. I am from [Uruguay, a little countr
   <span style="font-size: 0.8em"> <a target='_blank' href="https://github.com/d4tagirl/uRuguayanMap">Acá está el código para generar el mapa!</a></span>
 </p>
 
-I _used to be_ an Economist, but I only worked in that field briefly in the Academia. After completing my studies, I joined Equifax, where I discovered and fell in love with Data Science. Following that, I transitioned to a startup specializing in Natural Language Processing and Social Media data. Subsequently, I played a key role in implementing the Uruguayan social security models using R and Shiny and I collaborated closely with the technical team responsible for designing the Uruguayan Social Security System recent reform. Over the past 11 years, I've been deeply involved in the field of Data Science.
+Originally an Economist with a brief stint in academia, my journey took a pivotal turn at Equifax, where I discovered my passion for Data Science. This led to a venture into a startup focused on Natural Language Processing and Social Media data, eventually bringing me to a significant role in revamping the Uruguayan Social Security System using R and Shiny. Over the last 11 years, I've immersed myself deeply in Data Science.
 
-Finding out about R-Ladies was a game changer for me: it made me realize that *I* needed to change to live in a more inclusive world, and that has been my goal ever since. I first joined the [R-Ladies Global community](https://rladies.org/) as one of the [Buenos Aires chapter](https://www.meetup.com/rladies-buenos-aires/)'s founders, and then I co-founded the [Montevideo chapter](https://www.meetup.com/rladies-montevideo/). We had such a great time building this community in Montevideo, that the next thing was to start the R User Group, [GURU::MVD](https://www.meetup.com/GURU-mvd/). I recently joined the [Global team](https://rladies.org/about-us/global-team/) as the head of Social Media. I'm also involved in the organization of [LatinR](https://latin-r.com/en): we are building a beautiful Latin American community that I'm happy to be part of <3. 
+Discovering [R-Ladies](https://rladies.org/) was a watershed moment for me. It spurred a personal commitment to foster a more inclusive world – a mission I've been dedicated to ever since. Starting as a co-founder of the R-Ladies Buenos Aires chapter, I then co-founded the Montevideo chapter. The joy of building this community led to the birth of GURU::MVD, the R User Group in Montevideo. More recently, I've joined the Global team as the head of Social Media and am  involved in organizing [LatinR](https://latin-r.com/en), nurturing a vibrant Latin American community.
 
-A few years ago I got accepted to join the [NASA Datanauts program](https://open.nasa.gov/explore/datanauts/), another very inclusive community where in a collaborative environment you use NASA's data and tools and improve your data science skills. I found out about this program through some R-Ladies :)
+Welcome to my blog! This is my little corner for diving into data science, where I share my discoveries and experiences. Admittedly, since becoming a mom, my blog posts have become a bit like a rare comet sighting – not as frequent as they used to be! But I'm excited to pick up where I left off and start sharing more with you all again soon.
 
-This is my blog where I share whatever it is that I'm playing with at the moment. I recently became a mom, so it's been a while since I published my last article, but I'm hoping that can change soon!
-
-I hope you enjoy my posts as much as I enjoy writing them, and please feel welcome to leave your comments and [mention me on Mastodon](https://hachyderm.io/@d4tagirl) :) 
+I hope you enjoy reading my posts as much as I enjoy writing them. Feel free to leave comments and [connect with me on Mastodon](https://hachyderm.io/@d4tagirl). 🙂
 
 My blog posts are released under a [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
 
