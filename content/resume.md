@@ -6,6 +6,20 @@ summary: Resume
 hidden: true
 ---
 
+## About me
+
+As a passionate Data Scientist with over 11 years of experience, I specialize in R, Shiny, Machine Learning, and Data Visualization. My journey began with a degree in Economics, leading to an initial academic role. However, my true calling unfolded at Equifax Uruguay, where I discovered my love for Data Science. This marked the beginning of an exciting career path that has included roles in various software companies and a successful 4-year stint as a Self-employed professional.
+
+# Professional Contributions & Leadership:
+
+My active involvement with R-Ladies, a global organization dedicated to promoting gender diversity in the R community, underscores my commitment to fostering inclusivity in the tech world. In this role, I serve as the head of Social Media for the Global Organization and am a proud co-founder of the Buenos Aires and Montevideo chapters. Additionally, as a co-organizer of the Montevideo chapter, I have played a significant role in positively influencing and shaping our local community.
+
+Building on this foundation, I co-founded the Montevideo R User Group, an initiative that grew out of R-Ladies and serves as a testament to our expanding impact.
+
+# Looking Ahead:
+
+Today, I stand at an exciting crossroads, eager to embark on my next professional adventure. I am looking for opportunities that will leverage my deep expertise in Data Science and my passion for community building and diversity in tech. I am particularly interested in roles that challenge me and allow me to contribute meaningfully to an organization's data-driven decision-making process.
+
 ## Experience
 
 ### Self employed – Senior Data Scientist at Asesoría Económica y Actuarial area del [Banco de Previsión Social](https://bps.gub.uy/) 
