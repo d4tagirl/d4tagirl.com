@@ -26,51 +26,124 @@ Today, I stand at an exciting crossroads, eager to embark on my next professiona
 
 June 2022 - present
 
-Building on the economic and actuarial models I had previously migrated from Excel to R, I collaborated closely with the technical team responsible for designing the Uruguayan Social Security System reform. I implemented the different scenarios and potential changes to evaluate its short, middle and long term implications. The executive branch utilized this input to inform their final decision-making process.
+In my current role at the Economic and Actuarial Advisory area of BPS-Banco de Prevision Social, I leverage my expertise in data science to contribute to critical projects impacting the Uruguayan Social Security System.
 
-I frequently engaged in various small projects and discussions aimed at problem-solving, utilizing my expertise in R, Shiny, RMarkdown, and Bookdown to automate processes. The team consistently regarded me as the go-to person for R-related tasks. Furthermore, I conducted a workshop to impart fundamental R tools to the team.
+Key Contributions:
+
+ Social Security System Reform:
+ - Actively involved in the technical team for the Uruguayan Social Security System reform.
+ - Implemented various scenarios in R to assess short, medium, and long-term implications of potential changes.
+ - Provided analytical input crucial for the executive branch's decision-making process.
+
+ Process Automation and Problem Solving:
+ - Engaged in numerous small-scale projects to automate and optimize processes using R, Shiny, RMarkdown, and Bookdown.
+ - Recognized as the go-to expert for R-related tasks within the team.
+ - Conducted an R workshop to enhance the team's data handling capabilities.
 
 ### Self employed – Senior Data Scientist at [IBM](https://www.ibm.com/uy-es) - Asesoría Económica y Actuarial del [Banco de Previsión Social](https://bps.gub.uy/) 
 
 October 2019 - February 2022
 
-My primary project involved migrating economic and actuarial models responsible for generating projections for the Uruguayan social security system and other public retirement funds from Excel to R. I collaborated closely with the technicians to comprehend the models underpinning those projections and successfully implementing them in R. I designed, implemented, and collaborated in validating the results, successfully achieving a reduction in execution times of over 60%. The projections entailed processing records of contributors, retirees, and pensioners from BPS (Uruguayan Social Security Administration). I proposed and implemented the use of Shiny apps to visualize the results, which are now utilized by the Bank Directors. I also automated periodic reports that present projection results using RMarkdown and Bookdown.
+Banco de Previsión Social (Economic and Actuarial Advisory Area)
 
-I participated in other smaller projects, including the design and implementation of a Shiny application to detect discrepancies in the department's catalog series. Additionally, I automated the consolidation of data received from other departments, integrated it into historical series, and generated RMarkdown reports based on the processed information. During the RStudio implementation process on the BPS server, I participated in validating that the proposed solution met the department's short and medium-term requirements. 
+I led significant projects, focusing on enhancing the efficiency and accuracy of economic and actuarial models within the Uruguayan social security system.
 
-To execute these tasks, I primarily utilized R, RStudio, Shiny, RMarkdown, Bookdown, and Excel, along with Git for version control (utilizing BPS's Corporate Gitlab).
+Key Achievements:
 
-In all instances, I provided suggestions to improve the communication of findings, particularly emphasizing visualization tools and best practices.
+ Economic and Actuarial Model Migration:
+ - Pioneered the transition of models from Excel to R, significantly reducing execution times by over 60%.
+ - Enhanced data processing involving contributors, retirees, and pensioners from the Uruguayan Social Security Administration.
+ - Developed Shiny apps for dynamic result visualization, aiding decision-making processes for Bank Directors.
+ - Automated detailed periodic reporting using RMarkdown and Bookdown.
 
-For the initial four months, I worked at the BPS headquarters. Since March 2020, I worked remotely by connecting to the BPS corporate network.
+ Innovative Data Solutions:
+ - Created a Shiny application to identify and rectify data discrepancies within departmental series.
+ - Streamlined data consolidation processes and automated report generation.
+
+ Technical Leadership:
+ - Played a key role in the RStudio implementation on the BPS server, focusing on departmental needs and future scalability.
+ - Continuously advocated for and implemented improvements in data communication and visualization.
+
+ Technical Proficiencies:
+ - Extensive use of R, RStudio, Shiny, RMarkdown, Bookdown, and Excel.
+ - Version control using Git in conjunction with BPS's Corporate Gitlab.
+
+Initiated the tenure with on-site work at BPS headquarters, transitioning to a remote setup since March 2020.
 
 ### Self employed – Data Scientist consultant at [Pyxis](https://pyxis.com.uy/) - [Presidencia de la República](https://www.presidencia.gub.uy/)
 
 July 2018 - December 2018
 
-We worked on integrating its internal data with social media data, and visualizing it. I worked mostly using R, Python, MongoDB and Neo4j.
+In this role, I focused on integrating and visualizing complex datasets to enhance our understanding of social media dynamics.
+
+Key Responsibilities and Achievements:
+
+ Data Integration and Visualization:
+ - Successfully merged internal data with extensive social media datasets.
+ - Utilized R and Python for data analysis and processing.
+
+ Advanced Social Media Analytics:
+ - Employed MongoDB for efficient data management.
+ - Leveraged Neo4j for graph visualization, enabling the identification of key Twitter users and their interconnections.
 
 ### [Idatha](www.idatha.com) – Data Scientist
 
 August 2017 - July 2018
 
-Idatha is a startup in Uruguay and I was its first and only Data Scientist, which means I could be very creative and I loved that! I brought a unique perspective on problem solving to the team, which meant that I was involved in almost every project of the company, and from a very early stage. 
+At IDATHA, a burgeoning startup in Uruguay, I had the exciting opportunity to be the first and only Data Scientist. This position allowed me to exercise creative freedom and play a pivotal role in the company's early-stage projects.
 
-I worked in several projects as a consultant for clients, mostly analyzing Twitter data. These projects include social media analysis, visualization, lead detection, predictive modeling among others. I used mostly R, Python and MongoDB.
+Key Contributions:
+
+ Strategic Involvement in Company Projects:
+ - Brought a unique problem-solving perspective, contributing to nearly all company projects.
+ - Played a key role from the initial stages, adding value to the development and execution of strategies.
+
+ Consultancy and Data Analysis:
+ - Specialized in analyzing Twitter data for various client projects.
+ - Projects spanned social media analysis, visualization, lead detection, and predictive modeling.
+
+ Technical Proficiencies:
+ - Expertise in R, Python, and MongoDB, applying these tools to deliver insightful data-driven solutions.
 
 ### [Equifax Uruguay](https://www.equifax.uy/) – Head of Analytics Uruguay & Paraguay
 
 November 2012 - September 2016 
 
-I was Head of Analytics in the Data & Analytics Area of Equifax Uruguay. Uruguay was part of a Business Unit formed between Argentina, Paraguay and Uruguay. Prior to this Business Unit, Equifax Uruguay acquired the biggest Credit Bureau in Paraguay –Informconf- and in that process I was the Analytics leader of both countries, recruiting the local Analytics team, training it and building relationships with local clients. For a brief time in 2013 I was also Acting Decision Solutions Manager for Equifax Central America, being accountable for the Analytical and Technological Support’s teams. I oversaw three operations: El Salvador, Costa Rica and Honduras, that lead me to win an award.
+As the Head of Analytics in the Data & Analytics Area of Equifax Uruguay, part of a Business Unit encompassing Argentina, Paraguay, and Uruguay, I played a pivotal role in expanding and enhancing analytics capabilities across multiple countries.
 
-Part of my role was developing predictive models for credit risk assessment, marketing services –propensity, churn, segmentation, geomarketing-, income prediction, collection solutions and forecasting. These models were usually custom made, so other part of my position consisted on presales: to meet the client’s problems so I could design the best solution for each situation. I also built generic solutions such as the Paraguay Bureau Risk Score deployed in 2016 as part of the rebranding strategy of Equifax, that led me to won the 2016 ONE Equifax Award for developing the first Equifax Credit Risk Score in Paraguay.
+Key Responsibilities and Achievements:
+
+ Leadership and Team Building:
+ - Led the analytics operations for Uruguay and Paraguay, including the integration of Informconf, Paraguay’s largest Credit Bureau, into Equifax.
+ - Recruited and trained the local analytics team, fostering strong relationships with clients in both countries.
+ - Temporarily served as the Acting Decision Solutions Manager for Equifax Central America in 2013, overseeing operations in El Salvador, Costa Rica, and Honduras, which culminated in receiving an excellence award.
+
+ Model Development and Client Solutions:
+ - Developed custom predictive models for credit risk assessment, marketing (including propensity, churn, segmentation, and geomarketing), income prediction, collection solutions, and forecasting.
+ - Engaged in presales activities, understanding client needs to design tailored solutions for diverse challenges.
+
+ Innovative Product Development:
+ - Created the Paraguay Bureau Risk Score, a key component of Equifax’s 2016 rebranding strategy in Paraguay.
+ - Honored with the 2016 ONE Equifax Award for developing the first Equifax Credit Risk Score in Paraguay.
 
 ### Universidad de la República – Academic Research and Teaching
 
 2009 - 2013 
 
-I was linked to several activities inside the University of the Republic. I was a teacher in the School of Economics in the Computational Department and later I had a role as an Economic Historian in the Institute of Economics. In the latter I started when I won a Scholarship based on merit to be an Assistant Professor, and it ended up in a more stable position. In this Institute I was part of the Economic History Investigation Group and the Economic Development one. That position lead me to publish some Work Documents and Papers, as well as to participate in various congresses nationally and internationally.
+During my tenure at the University of the Republic, I was engaged in a diverse range of educational and research activities, significantly contributing to both the School of Economics and the Institute of Economics.
+
+Key Contributions:
+
+ Teaching and Academia:
+ - Served as a lecturer in the Computational Department of the School of Economics.
+ - Transitioned to the role of an Economic Historian in the Institute of Economics, initially joining as an Assistant Professor through a merit-based scholarship.
+
+ Research and Publications:
+ - Active member of the Economic History Investigation Group and the Economic Development Group.
+ - Contributed to several Work Documents and Papers, enhancing the academic repository of the institute.
+ - Participated in numerous national and international congresses, presenting research findings and collaborating with fellow academics.
+
+Progressed to a more stable position within the Institute, reflecting my commitment and contributions to the field of Economic History.
 
 ## Concluded formal education 
 
@@ -78,23 +151,33 @@ I was linked to several activities inside the University of the Republic. I was 
 
 2011 
 
-I oriented my profile towards the quantitative methods, taking courses in the multivariate analysis field, time series analysis and econometrics and statistics in general.
-
+In my bachelor's program, I strategically oriented my studies towards quantitative methods, delving deeply into the realms of multivariate analysis, time series analysis, econometrics, and statistics. This focused approach allowed me to develop a robust understanding and proficiency in these key areas. My coursework was characterized by rigorous analytical training, equipping me with a strong foundation in data analysis and statistical techniques. This education was not only academically enriching but also instrumental in shaping my analytical skills, which have been crucial in my professional journey.
 
 ### [NASA Datanauts](dv.uy/NASA)
 
 2017
 
-I am a NASA Datanauts since I was selected for the Spring Class 2017. It is a community experimenting with NASA's data and tools, and improving their coding and data science skills in a collaborative environment.
+Selected for the prestigious Spring Class of 2017, my journey as a NASA Datanaut opened doors to a unique community where I enhanced my understanding of NASA's data and tools.
 
-## In course education 
+Key Highlights of the Experience:
+
+ Engagement with NASA’s Data:
+ - Gained insights into NASA's diverse datasets and their applications.
+ - Explored innovative ways to utilize these datasets in various projects.
+
+ Community and Learning:
+ - Joined a community of enthusiasts and professionals experimenting with space and aeronautics data.
+ - Participated in discussions and activities that enriched my coding and data science knowledge.
+
+ Knowledge Expansion:
+ - Benefited from a collaborative environment that emphasized shared learning and knowledge exchange.
+ - Acquired a deeper appreciation of the complexities and potential of space-related data.
+
+## Not concluded education 
 
 ### M.S. in International Economics – School of Social Sciences, Universidad de la República
 
-2013
-
-It is a very flexible scheme that allows me to adapt it to my preferences, taking only those courses that I’m interested in. I orient the program towards the quantitative methods: machine learning, computational statistics, time series spectral analysis data science and econometrics in general, taking some courses from the Mathematical Engineering Master’s Program.
-
+In this master's program, I tailored my studies towards quantitative methods, taking full advantage of the program's flexible structure to align with my interests. I selectively engaged in courses that deepened my expertise in areas such as machine learning, computational statistics, time series spectral analysis, and various aspects of econometrics. This targeted approach allowed me to develop a strong, specialized skill set in these advanced analytical areas.
 
 ## Software 
 
@@ -112,37 +195,86 @@ English: Professional Proficiency
 
 ## Volunteering
 
+### 2023:
+
+* **[R-Ladies Global Social Media](https://rladies.org/)**
+  
+As the leader of the social media team at R-Ladies Global, I play a crucial role in strategizing and implementing our communication channels to effectively engage with our community.
+
+Key Responsibilities and Achievements:
+
+ Communication Strategy Leadership:
+ - Spearheaded discussions on selecting the most effective communication platforms for community engagement.
+ - Focused on ensuring our messaging aligns with the organization's goals and resonates with our audience.
+
+ Platform Migration Initiative:
+ - Successfully led the transition from Twitter to Mastodon, navigating the challenges of platform migration while maintaining active community engagement.
+
+* **[LatinR2023](https://latin-r.com/en)**, Montevideo, Uruguay - Volunteer
+  
+Focused on rallying the local R community for the conference, contributing to its vibrancy and reach in the latest iteration of the event.
+
 ### 2019:
 
 * **[LatinR2019](https://latin-r.com/en)**, Santiago de Chile, Chile - Volunteer
+  
+Played a role in enhancing the participant experience and fostering a collaborative environment for R enthusiasts.
 
 * **[ConectaR](https://www.conectar2019.org/)**, Costa Rica - Scientific Committee 
 
-A Conference for R users in Latin America
+Serving as a Scientific Editor, I contributed to ConectaR 2019, an R Users Conference held from January 24th to 26th at Facultad de Ciencias, Universidad de Costa Rica. The conference brings together professionals from industry, academia, civil society, and teaching, with a focus on developments in Latin America.
 
 ### 2018
 
 * **["R for Data Science" translation](https://es.r4ds.hadley.nz/index.html)** to Spanish - Collaborator
 
-Collaborative translation of Garrett Grolemund and Hadley Wickham's book.
+Contributed to the collaborative translation of Garrett Grolemund and Hadley Wickham's "R for Data Science" into Spanish, utilizing GitHub for project coordination. This involved collaborating with a team of translators to adapt the book for Spanish-speaking audiences, enhancing its accessibility and impact within the data science community.
 
 * **[Montevideo RUG](https://www.meetup.com/GURU-mvd/)** - Co-Founder and Co-Organizer
 
-First RUG of Montevideo, besides R-Ladies.
+As a co-founder and co-organizer of GURU::mvd, I played a pivotal role in establishing a dynamic R user community in Montevideo. This group serves as a platform for R enthusiasts of all levels to share experiences and foster a strong local R community.
+
+Key Contributions:
+
+ - Facilitated regular meetups and events, promoting knowledge exchange among R users.
+ - Created an inclusive environment, encouraging participation from diverse backgrounds.
+ - Enhanced the local presence and use of R through workshops, talks, and collaborative projects.
 
 * **[LatinR2018](https://latin-r.com/en)**, Buenos Aires, Argentina - Organizer
 
-LatinR2018 was the first Latin American Conference About the Use of R in R&D.
+LatinR is the premier Latin American conference dedicated to the use of R in research and development. As a volunteer, I contributed to the successful organization and execution of this landmark event. I assisted in organizing the inaugural LatinR conference, setting a strong foundation for this annual event.
 
 ### 2017
 
 * **[R-Ladies Montevideo](https://www.meetup.com/rladies-montevideo/)** - Co-Founder and Organizer & **[R-Ladies Buenos Aires](https://www.meetup.com/rladies-buenos-aires/)** - Co-Founder
 
-[R-Ladies](https://rladies.org/)’ mission is to promote gender diversity in the R community encouraging, inspiring, and empowering the minorities currently underrepresented in the R community, by building a collaborative global network of R leaders, mentors, learners, and developers to facilitate individual and collective progress worldwide. 
+As a co-founder and co-organizer of R-Ladies' Buenos Aires and Montevideo chapters, I have been instrumental in driving the mission to promote gender diversity in the R community. This role involves a range of strategic, organizational, and leadership activities.
+
+Key Responsibilities and Achievements:
+
+ Chapter Establishment and Leadership:
+ - Pioneered the establishment of the Buenos Aires and Montevideo chapters, creating a platform for underrepresented minorities in the R community.
+ - Led the strategic planning and operational setup of the chapters, ensuring alignment with R-Ladies' global objectives.
+
+ Community Building and Engagement:
+ - Fostered a strong, inclusive community by organizing events, workshops, and networking opportunities.
+ - Actively engaged with members to provide mentorship, support, and resources, facilitating their professional growth and skill development in R.
+
+ Event Organization and Management:
+ - Spearheaded various initiatives including meetups, training sessions, and collaborative projects, contributing to the chapters' vibrancy and educational outreach.
+
+ Outreach and Collaboration:
+ - Collaborated with other tech groups and organizations to expand the reach and impact of the chapters.
+ - Worked on increasing visibility and awareness of the chapters within the local and broader R community.
 
 ### 2015
 
 * **[Proyecto Nahual](https://nahual.uy/)**, Montevideo – Collaborator
 
-Proyecto Nahual is a community whose main objective is to promote teenager social inclusion for those who have dropped out of the formal education system, by developing software testing skills and others that help them preparing for their access to employment in the software industry. 
+During my time as a Collaborator with Proyecto Nahual, I was part of a community initiative aimed at fostering social inclusion among teenagers who have left the formal education system. Our primary goal was to equip these individuals with software testing skills and other competencies essential for entering the software industry.
+
+Key Involvements:
+
+ - Contributed to the development and delivery of training programs in software testing.
+ - Supported efforts to create an inclusive learning environment, aiding teenagers in acquiring valuable job-related skills.
 
