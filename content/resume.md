@@ -31,7 +31,7 @@ In my current role at the Economic and Actuarial Advisory area of BPS-Banco de P
 <details>
 
 <summary>Leer más...</summary>
-``
+
 **Key Contributions**:
 
  **Social Security System Reform**:
